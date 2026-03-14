@@ -39,9 +39,24 @@ from ..constants  import DEFAULT_PORT, CABLE_AUTO, CABLE_ROSS_TECH, CABLE_FTDI, 
 from ..protocol   import KWP1281, KWPError
 from ..lbl_parser import LBLRegistry, decode_with_lbl
 from ..ecu_defs   import find_ecu_def
+from ..server     import KWPServer
 from .. import __version__
 
 log = logging.getLogger(__name__)
+
+
+def _vcds_label_paths() -> list[Path]:
+    """Auto-discover VCDS Labels folder on common install paths."""
+    candidates = []
+    if sys.platform == "win32":
+        for base in [
+            Path("C:/Ross-Tech/VCDS/Labels"),
+            Path("C:/VCDS/Labels"),
+            Path(Path.home() / "Ross-Tech" / "VCDS" / "Labels"),
+        ]:
+            if base.exists():
+                candidates.append(base)
+    return candidates
 
 # ── Colours ──────────────────────────────────────────────────────────────────
 C_BG        = "#0e0e0e"
@@ -202,11 +217,17 @@ class KWPBridgeWindow(QMainWindow):
         self._groups  = groups or [0]   # 7A uses group 0
         self._worker: ConnectionWorker | None = None
         self._signals = WorkerSignals()
-        self._lbl_registry = LBLRegistry(
-            [labels_path] if labels_path else [])
+        self._lbl_registry = LBLRegistry()   # always includes bundled labels/
+        if labels_path:
+            self._lbl_registry.add_path(labels_path)
+        # Auto-discover VCDS labels folder on Windows
+        for candidate in _vcds_label_paths():
+            self._lbl_registry.add_path(candidate)
         self._lbl: object = None    # loaded LBLFile for current ECU
         self._gauges_visible = False
         self._last_data: dict = {}
+        self._current_ecu_id: dict = {}
+        self._tcp_server = None
 
         self._setup_ui()
         self._connect_signals()
@@ -410,6 +431,7 @@ class KWPBridgeWindow(QMainWindow):
     def _on_ecu_connected(self, ecu_id_dict: dict):
         pn   = ecu_id_dict.get('part_number', 'Unknown')
         comp = ecu_id_dict.get('component', '')
+        self._current_ecu_id = ecu_id_dict   # stored for TCP broadcast
 
         # Load label file
         self._lbl = self._lbl_registry.get(pn)
@@ -426,6 +448,9 @@ class KWPBridgeWindow(QMainWindow):
 
         self._set_connected_state(True, f"Connected — {pn}")
         self.btn_gauges.setEnabled(True)
+        # Start TCP bridge server so HachiROM/other tools can connect
+        if not hasattr(self, '_tcp_server') or not self._tcp_server:
+            self._start_tcp_bridge()
 
     def _on_ecu_disconnected(self, reason: str):
         self._set_connected_state(False, f"Disconnected: {reason}")
@@ -435,6 +460,95 @@ class KWPBridgeWindow(QMainWindow):
     def _on_data(self, data: dict):
         self._last_data = data
         self._update_gauges(data)
+        # Broadcast to TCP clients if server is running
+        if hasattr(self, '_tcp_server') and self._tcp_server:
+            try:
+                import json, time
+                payload = {}
+                for group, block in data.items():
+                    payload[str(group)] = block.as_dict()
+                msg = json.dumps({
+                    "type": "state",
+                    "data": {
+                        "connected":   True,
+                        "ecu_id":      self._current_ecu_id,
+                        "groups":      payload,
+                        "faults":      [],
+                        "fault_count": 0,
+                        "timestamp":   time.time(),
+                    }
+                }) + "\n"
+                self._tcp_server._broadcast_raw(msg.encode())
+            except Exception as e:
+                log.debug(f"TCP broadcast error: {e}")
+
+    def _start_tcp_bridge(self):
+        """Start a minimal TCP bridge server for IPC with other tools."""
+        try:
+            from ..server import KWPServer
+            import threading, socket, json
+
+            class _MiniBridge:
+                """Minimal TCP server — accepts clients and broadcasts state."""
+                def __init__(self, port: int = DEFAULT_PORT):
+                    self.port    = port
+                    self._clients: list[socket.socket] = []
+                    self._lock   = threading.Lock()
+                    self._sock:  socket.socket | None = None
+                    self._thread: threading.Thread | None = None
+                    self._running = False
+
+                def start(self):
+                    self._running = True
+                    self._thread = threading.Thread(
+                        target=self._accept, daemon=True, name="kwp-mini-tcp")
+                    self._thread.start()
+
+                def stop(self):
+                    self._running = False
+                    if self._sock:
+                        try: self._sock.close()
+                        except Exception: pass
+
+                def _accept(self):
+                    try:
+                        self._sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                        self._sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                        self._sock.bind(("127.0.0.1", self.port))
+                        self._sock.listen(8)
+                        self._sock.settimeout(1.0)
+                        log.info(f"KWPBridge TCP bridge on port {self.port}")
+                        while self._running:
+                            try:
+                                conn, _ = self._sock.accept()
+                                with self._lock:
+                                    self._clients.append(conn)
+                                # Send welcome
+                                welcome = json.dumps({
+                                    "type": "connected",
+                                    "version": __version__}) + "\n"
+                                conn.sendall(welcome.encode())
+                            except socket.timeout:
+                                continue
+                            except Exception:
+                                break
+                    except OSError as e:
+                        log.warning(f"TCP bridge could not bind port {self.port}: {e}")
+
+                def _broadcast_raw(self, data: bytes):
+                    with self._lock:
+                        dead = []
+                        for c in self._clients:
+                            try: c.sendall(data)
+                            except Exception: dead.append(c)
+                        for c in dead:
+                            self._clients.remove(c)
+
+            self._tcp_server = _MiniBridge(DEFAULT_PORT)
+            self._tcp_server.start()
+        except Exception as e:
+            log.warning(f"Could not start TCP bridge: {e}")
+            self._tcp_server = None
 
     def _on_error(self, msg: str):
         self._set_status(msg, C_AMBER)
@@ -450,29 +564,26 @@ class KWPBridgeWindow(QMainWindow):
     def _update_gauges(self, data: dict):
         """
         Map measuring block data to gauge widgets.
-
-        For the 7A (group 0):
-          cell 1 = Coolant temp    (raw - 50 = °C, so raw 135 = 85°C)
-          cell 2 = Engine load     (raw 1-255, 255 = full load → as %)
-          cell 3 = RPM             (raw × 25 = RPM)
-          cell 8 = Lambda control  (128 = neutral)
-          cell 10 = Ignition angle (raw × 1.33 = °BTDC)
+        Uses LBL formula when available (overrides KWP formula byte),
+        otherwise uses the decoded cell value from formula.py.
         """
         for group, block in data.items():
             for cell in block.cells:
-                raw = cell.raw_a  # for 1-byte cells, value is in raw_a
+                # Raw word value from protocol (A*256 + B)
+                raw_word = cell.raw_a * 256 + cell.raw_b
 
-                # Use LBL formula if available
                 if self._lbl:
+                    # LBL formula takes priority — parsed from hint text
+                    # (e.g. "Anzeige mal 25 = U/min" → ×25)
                     decoded, unit, _ = decode_with_lbl(
-                        self._lbl, group, cell.index, float(raw))
+                        self._lbl, group, cell.index, float(raw_word))
+                    label = self._lbl.get_label(group, cell.index).lower()
                 else:
                     decoded = cell.value
                     unit    = cell.unit
+                    label   = cell.label.lower()
 
-                # Map to gauge by label keyword
-                label = cell.label.lower()
-                self._route_to_gauge(label, decoded, raw)
+                self._route_to_gauge(label, decoded, raw_word)
 
     def _route_to_gauge(self, label: str, decoded: float, raw: float):
         """Route a decoded value to the appropriate gauge by label keyword."""
@@ -540,6 +651,8 @@ class KWPBridgeWindow(QMainWindow):
     def closeEvent(self, event):
         if self._worker:
             self._worker.stop()
+        if hasattr(self, '_tcp_server') and self._tcp_server:
+            self._tcp_server.stop()
         event.accept()
 
 
@@ -574,7 +687,11 @@ def main():
     parser.add_argument("--port",   "-p", default="",      help="Serial port")
     parser.add_argument("--cable",  "-c", default=CABLE_AUTO)
     parser.add_argument("--labels", "-l", default="",
-                        help="Path to VCDS Labels directory")
+                        help="Path to additional label files directory")
+    parser.add_argument("--vcds-labels", default="",
+                        help="Path to VCDS Labels folder "
+                             "(e.g. C:/Ross-Tech/VCDS/Labels). "
+                             "Auto-detected on Windows if not specified.")
     parser.add_argument("--groups", "-g", nargs="+", type=int, default=[0],
                         help="Measuring block groups to poll")
     parser.add_argument("--verbose", "-v", action="store_true")
@@ -586,7 +703,8 @@ def main():
         datefmt="%H:%M:%S")
 
     run_gui(port=args.port, cable=args.cable,
-            labels_path=args.labels, groups=args.groups)
+            labels_path=args.labels or args.vcds_labels,
+            groups=args.groups)
 
 
 if __name__ == "__main__":
