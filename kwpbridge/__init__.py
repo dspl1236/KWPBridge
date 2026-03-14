@@ -35,4 +35,5 @@ from .server     import KWPServer
 from .models     import MeasuringBlock, FaultCode
 from .ecu_defs   import ECU_7A_LATE, ECU_7A_EARLY, ECU_AAH
 from .formula    import FORMULA
+from .lbl_parser import LBLRegistry, LBLFile, parse_lbl, decode_with_lbl
 from .constants  import DEFAULT_PORT

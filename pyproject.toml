@@ -18,6 +18,7 @@ dev = ["pytest", "pytest-cov"]
 
 [project.scripts]
 kwpbridge = "kwpbridge.__main__:main"
+kwpbridge-gui = "kwpbridge.gui.main:main"
 
 [tool.setuptools.packages.find]
 where = ["."]

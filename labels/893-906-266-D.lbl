@@ -1,0 +1,40 @@
+;
+; Vag-Com Messwertblock für das 
+;
+; Motorsteuergerät 
+; 
+; Steuergerätenummer 893-906-266-D
+;
+; Motor (2,3l 20V) 
+;
+; Motorkennbuchstabe 7A
+;
+; Geschrieben von schorsch9999
+;
+; ***Messwertblock***
+;
+0,0,
+0,1,Kühlmitteltemperatur,Anzeige minus 50 = °C,135 bis 160 entspricht 85 bis 110 °C
+0,2,Motorlast,Anzeigebereich: 1 bis 255,255 entspricht theoretischer Vollast
+0,3,Motordrehzahl,Anzeige mal 25 = U/min.,30 bis 34 entspricht 750 bis 850 U/min.
+0,4,Lernwert der LL-Stabilisierung,0-7 oder 249-255,
+0,5,Lernwert der LL-Stabilisierung bei Automatikgetriebe,0-7 oder 249-255,bei Schaltfahrzeugen = 0
+0,6,Stellung,der LL-Stabilisierung,Anzeigebereich: 126 bis 130,Mittelwert = 128
+0,7,Schaltereingänge,Sollwert bei Schaltgetriebe = 24
+0,8,Lambdaregelung,Sollwert: 118 bis 138 Mittelwert = 128,kleiner 128 = Fett / größer 128 = mager
+0,9,Zündverteilerstellung,Sollwert: 254/255/0/1/2,Mittelposition = 0
+0,10,Zündwinkel,Anzeigewert mal 1.33 = °v.OT
+;
+; ***Codieren***
+;
+C1,00 = für Motor mit Automatikgetriebe ohne Abgasrückführung
+C2,01 = für Motor mit Automatikgetriebe mit Abgasrückführung
+C3,10 = für Motor mit Schaltgetriebe mit Abgasrückführung
+C4,11 = für Motor mit Schaltgetriebe ohne Abgasrückführung
+;
+; ***Anpassen***
+
+;
+; ***Dateiende***
+
+
