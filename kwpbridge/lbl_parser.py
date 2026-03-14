@@ -425,21 +425,26 @@ class LBLRegistry:
         # ── Step 1 & 2: exact + root file ────────────────────────────────────
         candidates = self._make_candidates(pn)
         for search_path in self._search_paths:
-            for name in candidates:
-                full = search_path / name
-                if full.exists():
-                    try:
-                        lbl = parse_lbl(full)
-                        # Check for REDIRECT table inside root file
-                        redirected = self._follow_redirect(
-                            lbl, pn, search_path)
-                        result = redirected or lbl
-                        self._cache[pn] = result
-                        log.info(f"Loaded: {full.name}"
-                                 + (f" → redirect" if redirected else ""))
-                        return result
-                    except Exception as e:
-                        log.warning(f"Failed to parse {full}: {e}")
+            # Search root AND one level of subdirectories (engine/, modules/ etc.)
+            search_dirs = [search_path] + [
+                d for d in search_path.iterdir() if d.is_dir()
+            ] if search_path.exists() else [search_path]
+            for sdir in search_dirs:
+                for name in candidates:
+                    full = sdir / name
+                    if full.exists():
+                        try:
+                            lbl = parse_lbl(full)
+                            # Check for REDIRECT table inside root file
+                            redirected = self._follow_redirect(
+                                lbl, pn, search_path)
+                            result = redirected or lbl
+                            self._cache[pn] = result
+                            log.info(f"Loaded: {full.name}"
+                                     + (f" → redirect" if redirected else ""))
+                            return result
+                        except Exception as e:
+                            log.warning(f"Failed to parse {full}: {e}")
 
         # ── Step 3: XX-AA.lbl fallback ────────────────────────────────────────
         if len(pn) >= 2:
@@ -538,11 +543,7 @@ class LBLRegistry:
         """Return list of part numbers with label files available."""
         found = []
         for search_path in self._search_paths:
-            for f in search_path.glob("*.lbl"):
-                pn = f.stem.replace('-', '').upper()
-                if pn not in found:
-                    found.append(pn)
-            for f in search_path.glob("*.LBL"):
+            for f in list(search_path.rglob("*.lbl")) + list(search_path.rglob("*.LBL")):
                 pn = f.stem.replace('-', '').upper()
                 if pn not in found:
                     found.append(pn)

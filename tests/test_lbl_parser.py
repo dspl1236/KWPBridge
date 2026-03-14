@@ -11,7 +11,7 @@ from kwpbridge.lbl_parser import (
 
 # Path to bundled label file
 LABELS_DIR  = Path(__file__).parent.parent / "labels"
-LBL_266D    = LABELS_DIR / "893-906-266-D.lbl"
+LBL_266D    = LABELS_DIR / "engine" / "893-906-266-D.lbl"
 
 
 @pytest.fixture
@@ -213,8 +213,8 @@ def test_scaling_a01_presets_present():
         f"Expected ≥10 .a01 scaling presets, found {len(a01_files)}"
 
 def test_labels_directory_populated():
-    lbl_files = list((REPO_ROOT / "labels").glob("*.lbl")) + \
-                list((REPO_ROOT / "labels").glob("*.LBL"))
+    lbl_files = list((REPO_ROOT / "labels").rglob("*.lbl")) + \
+                list((REPO_ROOT / "labels").rglob("*.LBL"))
     assert len(lbl_files) >= 100, \
         f"Expected ≥100 label files, found {len(lbl_files)}"
 
@@ -223,8 +223,8 @@ def test_labels_credits_present():
         "labels/CREDITS.md missing"
 
 def test_labels_266d_present():
-    assert (REPO_ROOT / "labels" / "893-906-266-D.lbl").exists(), \
-        "labels/893-906-266-D.lbl missing — core 7A label file"
+    assert (REPO_ROOT / "labels" / "engine" / "893-906-266-D.lbl").exists(), \
+        "labels/engine/893-906-266-D.lbl missing — core 7A label file"
 
 def test_docs_integration_present():
     assert (REPO_ROOT / "docs" / "INTEGRATION.md").exists(), \

@@ -4,7 +4,7 @@ build-backend = "setuptools.backends.legacy:build"
 
 [project]
 name = "kwpbridge"
-version = "0.1.0"
+version = "0.3.0"
 description = "KWP1281 / K-Line diagnostic bridge for VAG vehicles"
 readme = "README.md"
 license = { file = "LICENSE" }
@@ -14,12 +14,20 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest", "pytest-cov"]
+gui   = ["PyQt5>=5.15"]
+build = ["PyQt5>=5.15", "pyinstaller>=6.0"]
+dev   = ["pytest", "pytest-cov", "pytest-timeout", "PyQt5>=5.15"]
 
 [project.scripts]
-kwpbridge = "kwpbridge.__main__:main"
+kwpbridge     = "kwpbridge.__main__:main"
 kwpbridge-gui = "kwpbridge.gui.main:main"
 
 [tool.setuptools.packages.find]
-where = ["."]
+where   = ["."]
 include = ["kwpbridge*"]
+
+[tool.setuptools.package-data]
+kwpbridge = ["py.typed"]
+
+[tool.pytest.ini_options]
+timeout = 10
