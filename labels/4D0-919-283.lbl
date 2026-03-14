@@ -1,0 +1,132 @@
+;
+; VCDS Label File
+;
+; Copyright © 2004+ Ross-Tech, LLC
+;
+; Audi A8 (4D)
+;
+; Component: J446 - Parking Aid (#76)
+;
+; P/N: 4D0-919-283-???
+;
+; includes measuring blocks, adaptation and coding
+;
+; created on 02/Feb/2004 by Dave Eaton (Dave.Eaton@clear.net.nz)
+; updated on 22/Jul/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 08/Sep/2014
+;
+; requires VCDS 12.12.2 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+;
+001,0,Distance (Front)
+001,1,Front Left,Sensor,Specification: 0...200 cm (255 cm = no obstacle recognized)
+001,2,Front Left,Center Sensor,Specification: 0...200 cm (255 cm = no obstacle recognized)
+001,3,Front Right,Center Sensor,Specification: 0...200 cm (255 cm = no obstacle recognized)
+001,4,Front Right,Sensor,Specification: 0...200 cm (255 cm = no obstacle recognized)
+;
+002,0,Distance (Rear)
+002,1,Rear Left,Sensor,Specification: 0...200 cm (255 cm = no obstacle recognized)
+002,2,Rear Left,Center Sensor,Specification: 0...200 cm (255 cm = no obstacle recognized)
+002,3,Rear Right,Center Sensor,Specification: 0...200 cm (255 cm = no obstacle recognized)
+002,4,Rear Right,Sensor,Specification: 0...200 cm (255 cm = no obstacle recognized)
+;
+003,0,Resulting Distance / Vehicle Speed && Voltage
+003,1,Resulting,Distance Front,Specification: 0...200 cm (255 cm = no obstacle recognized)
+003,2,Resulting,Distance Rear,Specification: 0...200 cm (255 cm = no obstacle recognized)
+003,3,Vehicle Speed,,Display Range: 0.0...255.0 km/h
+003,4,Sensor,Voltage Supply
+;
+004,1,Confirmation,Tone,Range: Tone ON/Tone OFF
+004,2,Reverese Gear,engaged,Range: Reverse YES/Reverse NO
+004,3,Trailer hitched,,Range: Trailer YES/Trailer NO
+004,4,Trunk/Boot,Status,Range: Lid open/Lid closed
+;
+005,0,Function Button (E266)
+005,1,Function Button,(E266) operated,Range: Button YES/Button NO
+005,2,Function LED,(E266) Status,Range: LED ON/LED OFF
+;
+006,0,Oscillation Time (Front)
+006,1,Front Left,Sensor,Specification: max. 4.0 ms
+006,2,Front Left,Center Sensor,Specification: max. 4.0 ms
+006,3,Front Right,Center Sensor,Specification: max. 4.0 ms
+006,4,Front Right,Sensor,Specification: max. 4.0 ms
+;
+007,0,Oscillation Time (Rear)
+007,1,Rear Left,Sensor,Specification: max. 4.0 ms
+007,2,Rear Left,Center Sensor,Specification: max. 4.0 ms
+007,3,Rear Right,Center Sensor,Specification: max. 4.0 ms
+007,4,Rear Right,Sensor,Specification: max. 4.0 ms
+;
+080,0,Advanced Control Module Identification I
+080,1,Identification
+080,2,Revision
+080,3,Production,Date
+080,4,Manufacturer &,Test Stand Number
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Parking Aid (J446) Coding
+C01,?xxxx: Options
+C02,0 = Trailer Hitch NOT installed
+C03,1 = Trailer Hitch installed
+C04,x?xxx: Transmission
+C05,0 = Manual Transmission
+C06,1 = Automatic Transmission
+C07,xx?xx: Confirmation Sound
+C08,0 = Reverse Gear Confirmation Sound inactive
+C09,1 = Reverse Gear Confirmation Sound active
+C10,xxx?x: Chassis
+C11,0 = Limousine (Rest of World)
+C12,2 = Limousine (North America)
+C13,4 = S/RS-Variante Limousine (Rest of World)
+C14,6 = S/RS-Variante Limousine (North America)
+C15,xxxx?: Model
+C16,8 = Audi A8 (4D)
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+A001,0,Rear Buzzer Volume
+A001,5,Rear Buzzer Volume
+A001,6,Adaptation of the rear warning buzzer volume.
+A001,7, 
+A001,8,Range: 2...7 (quiet...loud)
+;
+A002,0,Rear Buzzer Frequency
+A002,5,Rear Buzzer Frequency
+A002,6,Adaptation of the rear warning buzzer frequency.
+A002,7, 
+A002,8,Range: 0...4 (0.5...2 kHz)
+;
+A003,0,Front Buzzer Volume
+A003,5,Front Buzzer Volume
+A003,6,Adaptation of the front warning buzzer volume.
+A003,7, 
+A003,8,Range: 2...7 (quiet...loud)
+;
+A004,0,Front Buzzer Frequency
+A004,5,Front Buzzer Frequency
+A004,6,Adaptation of the front warning buzzer frequency.
+A004,7, 
+A004,8,Range: 0...4 (0.5...2 kHz)
+;

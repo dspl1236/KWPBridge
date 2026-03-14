@@ -1,0 +1,25 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2010 Ross-Tech, LLC
+;
+; Component: R44 - Sound System (#47)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1K-47.LBL
+; 1Q-47.LBL
+; 1T-47.LBL
+; 7E-47.LBL
+; 3C0-035-456.LBL
+;
+; created on 22/Apr/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 22/Apr/2010
+;
+; requires VCDS 803.0 or newer
+;
+;
+REDIRECT,3C0-035-456.LBL,7E0-035-466-???
+;

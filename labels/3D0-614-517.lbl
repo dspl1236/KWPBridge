@@ -1,0 +1,165 @@
+;
+; VCDS Label File
+;
+; Copyright © 2004+ Ross-Tech, LLC
+;
+; VW Phaeton (3D)
+;
+; Component: J104 - Brake Electronics (#03)
+;
+; P/N: 3D0-614-517-???
+;
+; includes measuring blocks, basic settings, coding and coding-2
+;
+; created on 26/Sep/2004 by Sebastian Stange (Sebastian@Ross-Tech.com)
+; updated on 27/Mar/2005 by Michael Moore (Moore@Ross-Tech.com) 'PanEuropean' on the VW Vortex forum.
+; updated on 23/Sep/2005 by Michael Moore (Moore@Ross-Tech.com)
+;   - added German coding info, Bentley info above.
+;   - checked against CSV and PLB October 11 2005, all blocks documented.
+; updated on 30/Nov/2005 by Michael Moore (Moore@Ross-Tech.com)
+;   - some minor enhancements to MVB information.
+; updated on 22/Feb/2006 by Michael Moore (Moore@Ross-Tech.com)
+;   - minor editorial corrections to improve MVB presentation
+; updated on 06/Oct/2006 by Michael Moore (Moore@Ross-Tech.com)
+;   - Note added to MVB 008
+; updated on 12/Jul/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;   - MVB standardized, Basic Settings added, Coding/Coding-2 added
+;
+; last modification on 11/Jul/2012
+;
+; requires VCDS 805.0 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks & basic setting
+;
+;---------------------------------------------------
+;
+;
+001,0,Current Wheel Speed
+001,1,Speed Sensor,Front Left (G47),Range: 0.0...255.0 km/h (1.0 km/h while Standing)
+001,2,Speed Sensor,Front Right (G45),Range: 0.0...255.0 km/h (1.0 km/h while Standing)
+001,3,Speed Sensor,Rear Left (G46),Range: 0.0...255.0 km/h (1.0 km/h while Standing)
+001,4,Speed Sensor,Rear Right (G44),Range: 0.0...255.0 km/h (1.0 km/h while Standing)
+;
+B001,0,Steering Angel Sensor (G85) Alignment
+B001,1,Steering Angel,Sensor (G85), 
+B001,2,Alignment, , 
+B001,3,Alignment,Status,Specification: OK
+B001,4, , , 
+;
+002,0,Switches && Buttons
+002,1,Brake Test Switch,(F47),Range: 0/operated
+002,2,Brake Light Switch,(F),Range: 0/operated
+002,3,Parking Brake,Switch (F9),Range: 0/operated
+002,4,ASR/ESP Button,(E256),Range0/operated
+;
+003,0,Engine Data
+003,1,Engine Speed
+003,2,Engine Torque
+003,3,Engine Torque,(loss)
+003,4,Throttle Valve Angle
+;
+004,1,Standing Time
+004,2,EDL-T Flag,,Range: ON/OFF\nSpecification: OFF
+;
+005,1,Steering Angle,Sensor (G85),Display Range: -720.0...+720.0 °\nTolerance (when straight): ±5.0 °
+005,2,Rotation Rate,,Display Range: -69.0...+69.0 °/s
+005,3,Brake Pressure,,Display Range: -41.0...+292.0 bar\n40.0 bar = Short to Ground\n290.0 bar = Short to Plus
+005,4,Transverse,Acceleration,Display Range: -25.0...+25.0 m/s²
+;
+006,1,Supply Voltage,(Terminal 30),Specification: 9.8...17.4 V
+006,2,Valve Relay,(J106),Display Range: ON = OK / OFF = not OK
+006,3,Return Flow Pump,(V39),Display Range: ON/OFF
+006,4,Work Shop Code
+;
+007,0,Installation Position
+; not OK => check brake temperature (test applies only to room temperature)
+;        => Check installation of sensor (fully inserted, firmly screwed in)
+;        => Check wheel bearing
+;        => Check tolerance of axle
+007,1,Speed Sensor,Front Left (G47),Range: invalid/OK/not OK
+007,2,Speed Sensor,Front Right (G45),Range: invalid/OK/not OK
+007,3,Speed Sensor,Rear Left (G46),Range: invalid/OK/not OK
+007,4,Speed Sensor,Rear Right (G44),Range: invalid/OK/not OK
+;
+008,0,Direction of Rotation
+008,1,Speed Sensor,Front Left (G47),Range: invalid/forward/reverse (invalid when not moving)
+008,2,Speed Sensor,Front Right (G45),Range: invalid/forward/reverse (invalid when not moving)
+008,3,Speed Sensor,Rear Left (G46),Range: invalid/forward/reverse (invalid when not moving)
+008,4,Speed Sensor,Rear Right (G44),Range: invalid/forward/reverse (invalid when not moving)
+;
+009,1,Brake Test Switch,(F47),'Activated' shows when brake pedal is pressed
+009,2,Brake Light Switch,(F),'Activated' shows when brake pedal is pressed
+009,3,Brake Pressure,,Display Range: -41.0...+292.0 bar\n40.0 bar = Short to Ground\n290.0 bar = Short to Plus
+;
+080,0,Advanced Control Module Identification I
+;
+125,0,CAN-Databus Communication (Powertrain)
+125,1,Steering Angle,Sensor (G85),Specification: Steer. ang. 1\nDisplay Range: Steer. ang. 0/Steer. ang. 1
+125,2,Transmission,,Display Range: Transm. 1/Transm. 0
+125,3,Engine,,Specification: Engine 1\nRange: Engine 0/Engine 1
+125,4,Instrument Cluster,(J285),Specification: Instruments 1\nRange: Instruments 0/Instruments 1
+;
+;
+;---------------------------------------------------
+;
+; login/coding-ii
+;
+;---------------------------------------------------
+;
+;
+L00,Brake Electronics (J104/Bosch 5.7) Login
+L01,0?xxx: Chassis
+L02,5 = VW Phaeton (3D)
+L03,0x?xx: Brakes
+L04,1 = Brembo 18" (PR-1LC)
+L05,2 = HP2 16" (PR-1LX)
+L06,4 = 2FNR 42 AL 17" (PR-1ZL/1ZK)
+L07,0xx?x: Engine
+L08,4 = 10 Cyl. Diesel Engine (PR-T2M)
+L09,5 = 6 Cyl. Diesel Engine (PR-T41)
+L10,6 = 6 Cyl. Gasoline Engine (PR-T31) with All-Wheel-Drive (AWD)
+L11,7 = 8 Cyl. Gasoline Engine (PR-T81)
+L12,9 = 6 Cyl. Gasoline Engine (PR-T31) with Front-Wheel-Drive (FWD)
+L13,9 = 12 Cyl. Gasoline Engine (PR-T08/T1H)
+L14,0xxx?: Transmission
+L15,5 = Manual Transmission (01E - PR-G0K)
+L16,7 = Automatic Transmission (01L/01V - PR-G0F/G0Q)
+L17,6 = Automatic Transmission (09L - PR-G0R)
+L18, 
+L19,Note: After Login/Coding-II has been carried out you need to recode the Control Module.
+L20, 
+L21,40168 = Basic Settings Enabling (i.e. mandatory prior to Steering Angle Sensor Alignment)
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Brake Electronics (J104/Bosch 5.7) Coding
+C01,000?xxx: Chassis
+C02,8 = VW Phaeton (3D)
+C03,000x?xx: Brakes
+C04,3 = 2FNR 42 AL 17" (PR-1ZL/1ZK)
+C05,5 = HP2 16" (PR-1LX)
+C06,6 = Brembo 18" (PR-1LC)
+C07,000xx?x: Engine
+C08,4 = 10 Cyl. Diesel Engine (PR-T2M)
+C09,5 = 6 Cyl. Diesel Engine (PR-T41)
+C10,6 = 6 Cyl. Gasoline Engine (PR-T31) with All-Wheel-Drive (AWD)
+C11,7 = 8 Cyl. Gasoline Engine (PR-T81)
+C12,9 = 6 Cyl. Gasoline Engine (PR-T31) with Front-Wheel-Drive (FWD)
+C13,9 = 12 Cyl. Gasoline Engine (PR-T08/T1H)
+C14,000xxx?: Transmission
+C15,5 = Manual Transmission (01E - PR-G0K)
+C16,7 = Automatic Transmission (01L/01V - PR-G0F/G0Q)
+C17,6 = Automatic Transmission (09L - PR-G0R)
+C18, 
+C19,Note #1: Coding is accepted after a specific Login has been carried out.
+C20,Note #2: After successful Coding the Steering Angle Sensor Alignment needs to be carried out.
+;

@@ -1,0 +1,58 @@
+;
+; VCDS Label File
+;
+; Copyright © 2006+ Ross-Tech, LLC
+;
+; Audi A3 (8L) / Audi TT (8N) / Seat Alhambra (7M) / Seat Leon/Toledo (1M)
+; Skoda Octavia (1U) / VW Bora/Golf (1J) / VW Sharan (7M)
+;
+; Component: J492 - All-Wheel-Drive - Haldex (#22)
+;
+; P/N: 02D-900-554-??? / 02D-900-999-X
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 02-22.LBL
+; 02D-900-554.LBL
+;
+; includes measuring blocks
+;
+; created on 28/Sep/2004 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 07/Aug/2013
+;
+; requires VCDS 11.11.5 or newer
+;
+;
+;---------------------------------------------------
+;
+; Measuring Blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,Brake Signals
+001,1,Brake Light,Switch (F),Range: operated/not operated
+001,2,Parking Brake,Switch (F9),Range: operated/not operated
+;
+002,0,Boltage Supply and Temperature
+002,1,Voltage,Supply,Range: 0.0...20.0 V\nSpecification: 11.0...15.0 V
+002,2,Haldex Oil,Temperature,Range: -50.0...+150.0 °C\nSpecification (Oil Change): 20.0...40.0 °C
+;
+050,0,Temperature
+050,1,Haldex Oil,Temperature,Range: -50.0...+150.0 °C\nSpecification (Oil Change): 20.0...40.0 °C
+;
+051,0,Haldex Clutch Pump
+051,1,Haldex Clutch,Pump,Range: HI=ON / LO=OFF
+;
+080,0,Advanced Control Module Identification I
+080,1,Identification
+080,2,Revision
+080,3,Production,Date
+080,4,Manufacturer &,Test Stand Number
+;
+125,0,CAN-Databus Communication (Powertrain)
+125,1,Engine
+125,2,Brake Electronics,(J104)
+;

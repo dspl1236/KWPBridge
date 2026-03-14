@@ -1,0 +1,27 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2009-2011 Ross-Tech, LLC
+;
+; Bentley Continental (3W)
+;
+; Component: J285 - Instrument Cluster (#17)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3W-17.LBL
+; 3Wx-920-xxx-17.LBL
+;
+; created on 13/May/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 21/Jun/2011
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,3Wx-920-xxx-17.LBL,3W0-920-???-???
+REDIRECT,3Wx-920-xxx-17.LBL,3W5-920-???-???
+REDIRECT,3Wx-920-xxx-17.LBL,3W7-920-???-???
+REDIRECT,3Wx-920-xxx-17.LBL,3W8-920-???-???
+;

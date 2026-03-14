@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2010-2011 Ross-Tech, LLC
+;
+; Component: J608 - Special Functions (#15)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3C-3D.LBL
+; 1T0-907-427.CLB
+;
+; created on 23/May/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 14/Mar/2011
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,1T0-907-427.CLB,3C0-907-427-???
+;

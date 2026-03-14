@@ -1,0 +1,290 @@
+;
+; VCDS Label File (per LabelSpec v1.0)
+;
+; Copyright © 2016+ planGarage.de for Ross-Tech, LLC 
+;
+; Audi A6 (4F)
+;
+; Component: J428 - Auto Dist. Reg (#13)
+;
+; P/N:  4F0 910 561     
+;
+; includes measuring blocks, coding and adaption
+; created on 14/September/2018 by Magnus Jaaska (jaaska@gmail.com)
+; Edited by Dana Smetanick on 06/June/2019
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,Raw Radar Values
+001,1,Radar beam 2,,Range: 0 ... 65535\nIf the engine is on (engine running) a substitute value is displayed (65535)
+001,2,Radar beam 2+3,,Range: 0 ... 65535\nIf the engine is on (engine running) a substitute value is displayed (65535)
+001,3,Radar beam 3,,Range: 0 ... 65535\nIf the engine is on (engine running) a substitute value is displayed (65535)
+;
+002,0,Adjustment angle
+002,1,Misalignment angle,,Specification: -0.8 to 0.8\nValue outside this range indicates a calibration of ACC-Radar is needed.
+;
+003,0,Radar object 1 - Vehicle standing
+003,1,Distance,,Range: -326.40 ... 323.85 m\nIf the engine is on (engine running) a substitute value is displayed (323.85 m).
+003,2,Relative velocity,,If the engine is on (engine running) a substitute value is displayed (0.0 km/h).
+003,3,Lateral position,Side Offset,Range: -326.40 ... 323.85 m\nIf the engine is on (engine running) a substitute value is displayed (323.85 m).
+;
+004,0,Radar object 2 - Vehicle standing
+004,1,Distance,,Range: -326.40 ... 323.85 m\nIf the engine is on (engine running) a substitute value is displayed (323.85 m).
+004,2,Relative velocity,,If the engine is on (engine running) a substitute value is displayed (0.0 km/h).
+004,3,Lateral position,Side Offset,Range: -326.40 ... 323.85 m\nIf the engine is on (engine running) a substitute value is displayed (323.85 m).
+;
+005,0,Target object 1 - During driving
+005,1,Distance,,Distance or actual interval to preceding vehicle.\nRange: -326.40 ... 323.85 m\nIf the engine is off (engine stopped) a substitute value is displayed (323.85 m).
+005,2,Relative velocity,,Speed difference to preceding vehicle.\nIf the engine is on (engine running) a substitute value is displayed (0.0 km/h).
+005,3,Lateral position,Side Offset,Lateral offset to preceding vehicle.\nRange: -326.40 ... 323.85 m.\nIf the engine is on (engine running) a substitute value is displayed (0.00 m).
+005,4,Acceleration,,Range: -321.4 ... 321.4 m/s2\nIf the engine is on (engine running) a substitute value is displayed (0.00 m/s2).
+;
+006,0,Target object 1 - During driving
+006,1,Distance,,Distance or actual interval to preceding vehicle.\nRange: -326.40 ... 323.85 m\nIf the engine is off (engine stopped) a substitute value is displayed (323.85 m).
+006,2,Relative velocity,,Speed difference to preceding vehicle.\nIf the engine is on (engine running) a substitute value is displayed (0.0 km/h).
+006,3,Lateral position,Side Offset,Lateral offset to preceding vehicle.\nRange: -326.40 ... 323.85 m.\nIf the engine is on (engine running) a substitute value is displayed (0.00 m).
+006,4,Acceleration,,Range: -321.4 ... 321.4 m/s2\nIf the engine is on (engine running) a substitute value is displayed (0.00 m/s2).
+;
+007,0,Internal measured values
+007,1,Supply voltage,terminal 15,Range: 0 ... 18 Volt
+007,2,Status of radar,beam generation,Range: On/Off
+007,3,Status of Heater,(Z47),Range: 0 ... 200%
+007,4,Temperature,(J428)
+;
+008,0,Personalisation
+008,1,Vehicle Key,number,Range: 1-8
+008,2,Gong volume,,0 - Gong volume off\n1 - Gong volume low\n2 - Gong volume medium\n3 - Gong volume high
+008,3,Distance setting,,Default Value: 3\n\nRange:\n0: Distance 1\n1: Distance 2\n2: Distance 3\n3: Distance 4
+008,4,Drive program,,Setting on MMI - comfort:\n\n3: Distance 1\n4: Distance 2\n4: Distance 3\n5: Distance 4\n\nSetting on MMI - dynamic:\n\n1: Distance 1\n2: Distance 2\n2: Distance 3\n3: Distance 4\n\nSetting on MMI - standard:\n\n2: Distance 1\n3: Distance 2\n3: Distance 3\n4: Distance 4\n
+;
+009,0,Status block
+009,1,ACC Status,,Range:  0 ... 65535
+009,2,ACC mode,Internal status),Range:  0 ... 65535
+009,3,CCS status,,Range:  0 ... 65535
+;
+010,0,Conditions preventing the ACC from operating
+010,1,,,Specification: 00000000 - ACC ready\n\nxxxxxxx1 - Bit 0 Main switch off\nxxxxxx1x - Bit 1 Minimum speed limit infringed\nxxxxx1xx - Bit 2 Brake pedal pressed\nxxxx1xxx - Bit 3 No valid gear engaged (selector lever position)\nxxx1xxxx - Bit 4 Error\nxx1xxxxx - Bit 5 External forced deactivation (e.g. electric parking brake operated. ESP status deceleration regulator. initialization or low voltage wheel speed sensors. initialization or low voltage yaw rate sender)\nx1xxxxxx - Bit 6 Vacant\n1xxxxxxx - Bit 7 Adaptive cruise control internal hardware monitoring activated
+010,2,,,Specification: 00000000 - ACC ready\n\nxxxxxxx1 - Bit 0 Parking brake active\nxxxxxx1x - Bit 1 ESP cut-in (ABS ASR MSR ESP)\nxxxxx1xx - Bit 2 Minimum speed limit infringed\nxxxx1xxx - Bit 3 Brake-Only fault condition detected\nxxx1xxxx - Bit 4 External forced activation not fulfilled (e.g. increased brake temperature open circuit or short to earth in ACC sensor heater -Z47)\nxx1xxxxx - Bit 5 ACC sensor view\nx1xxxxxx - Bit 6 Invalid gearshift (manual gearbox only)\n1xxxxxxx - Bit 7 No acceleration (manual gearbox only)
+010,3,,,Specification: 00000000 - ACC ready\n\nxxxxxxx1 - Bit0 Minimum engine speed infringed\nxxxxxx1x - Bit1 Minimum speed limit infringed\nxxxxx1xx - Bit 2 Forced activations not fulfilled\nxxxx1xxx - Bit 3 Forced deactivations not fulfilled\nxxx1xxxx - Bit 4 External forced activation not fulfilled (ACC deactivated via adaption channel)\nxx1xxxxx - Bit 5 Clutch open (manual gearbox only)\nx1xxxxxx - Bit 6 Hardware test not successful\n1xxxxxxx - Bit 7 Vacant
+010,4,,,Specification: 00000000 - ACC ready\n\nxxxxxxx1 - Bit0 Engine speed too low (manual gearbox only)\nxxxxxx1x - Bit1 Vacant\nxxxxx1xx - Bit 2 Vacant\nxxxx1xxx - Bit 3 Vacant\nxxx1xxxx - Bit 4 Vacant\nxx1xxxxx - Bit 5 Vacant\nx1xxxxxx - Bit 6 Vacant\n1xxxxxxx - Bit 7 Vacant
+;
+011,0,Basic Setting
+011,1,Steering Angle,Offset,
+011,2,Yaw rate,Offset,
+011,3,Screen for,Gong OFF,xxxxxxx0 - Bit 0 Selector lever position invalid\nxxxxxx0x - Bit 1 ACC error\nxxxxx0xx - Bit 2 Electric parking brake braking\nxxxx0xxx - Bit 3 ESP cut-in (ABS ASR MSR ESP)\nxxx0xxxx - Bit 4 Speed limit\nxx0xxxxx - Bit 5 ACC sensor view\nx0xxxxxx - Bit 6 ACC not available\n0xxxxxxx - Bit 7 Driver override prompt
+011,4,Make on,GONG,xxxxxxx0 - Bit 0 Selector lever position invalid\nxxxxxx0x - Bit 1 ACC error\nxxxxx0xx - Bit 2 Electric parking brake braking\nxxxx0xxx - Bit 3 ESP cut-in (ABS ASR MSR ESP)\nxxx0xxxx - Bit 4 Speed limit\nxx0xxxxx - Bit 5 ACC sensor view\nx0xxxxxx - Bit 6 ACC not available\n0xxxxxxx - Bit 7 Driver override prompt
+;
+012,0,Signals from operating levers
+012,1,Signals from,operating lever 1,xxxxxxx0 - Bit 0 Main switch\nxxxxxx0x - Bit 1 Abort\nxxxxx0xx - Bit 2 Reduce speed lever briefly operated\nxxxx0xxx - Bit 3 Increase speed lever tapped\nxxx0xxxx - Bit 4 Reduce speed lever pressed and held\nxx0xxxxx - Bit 5 Increase speed lever pressed and held\nx0xxxxxx - Bit 6 Fault in operating lever\n0xxxxxxx - Bit 7 Information on coding 0 = CCS 1 = ACC
+012,2,Signals from,operating lever 2,xxxxxxx0 - Bit 0 Set speed\nxxxxxx0x - Bit 1 Resume speed\nxxxx00xx - Bit 2 and 3 00 = Electronic central electrics 01 = Steering wheel electronics 10 = Engine control unit (from which control unit the information is sent)\nxxx0xxxx - Bit 4 Vacant\nxx0xxxxx - Bit 5 Vacant\nx0xxxxxx - Bit 6 Distance 0 = Vacant 1 = Reduce distance slider switch pressed\n0xxxxxxx - Bit 7 Distance 0 = Vacant 1 = Increase distance slider switch pressed
+;
+;013,1,
+;38,Fehlercode
+;013,2,
+;213,Fehlercode
+;013,3,
+;131,Fehlercode
+;
+014,0,Radar Raw values
+014,1,Radar beam 1,,Range: 0 ... 65535\nIf the engine is on (engine running) a substitute value is displayed (65535).
+014,2,Radar beam 2,,Range: 0 ... 65535\nIf the engine is on (engine running) a substitute value is displayed (65535).
+014,3,Radar beam 3,,Range: 0 ... 65535\nIf the engine is on (engine running) a substitute value is displayed (65535).
+014,4,Radar beam 4,,Range: 0 ... 65535\nIf the engine is on (engine running) a substitute value is displayed (65535).
+;
+125,0,CAN-Databus Communication 1
+125,1,Engine Electronics,,Range: Engine 1 / Engine 0\nSpecification: Engine 1
+125,2,Brake Electronics,,Range: ABS 1 / ABS 0\nSpecification: ABS 1
+125,3,Gearbox Electronics,,Range: Transm. 1 / Transm. 0\nSpecification: Transm. 1
+125,4,Dash Panel Insert,,Range: Instruments 1 / Instruments 0\nSpecification: Instruments 1
+;
+126,0,CAN-Databus Communication 2
+126,1,Steering Angle,Sender,Range: Steer. ang. 1 / Steer. ang. 0\nSpecification: Steer. ang. 1
+126,2,Steering Wheel,Electronics,Range: St. Wheel 1 / St. Wheel 0\nSpecification: St. Wheel 1
+126,3,Electric Parking,Brake,Range: Park Brake 1 / Park Brake 0\nSpecification: Park Brake 1
+126,4,Can-Gateway,,Range: Gateway 1 / Gateway 0\nSpecification: Gateway 1
+;
+127,0,CAN-Databus Communication 3
+127,1,Entry and Start,Authorisation,Range: El.Ign.Lock 1 / El.Ign.Lock 1\nSpecification: 
+;El.Ign.Lock 1, ,
+127,2,CAN link,Navigation,Range: Navigat 0 / Navigat 1\nSpecification: Navigat 1
+127,3,CAN link,Driver Identification,Range: D-Ident. 1 / D-Ident. 0\nSpecification: D-Ident. 1
+;
+198,0,Transmission ratios 1st to 4th gear
+198,1,1st gear,Trans. Ratio,0.00 - Gear not adapter OR AUTOMATIC\nAbove 0.00 - Gear adapted
+198,2,2nd gear,Trans. Ratio,0.00 - Gear not adapter OR AUTOMATIC\nAbove 0.00 - Gear adapted
+198,3,3rd gear,Trans. Ratio,0.00 - Gear not adapter OR AUTOMATIC\nAbove 0.00 - Gear adapted
+198,4,4th gear,Trans. Ratio,0.00 - Gear not adapter OR AUTOMATIC\nAbove 0.00 - Gear adapted
+;
+199,0,Transmission ratios 5th to 6th gear
+199,1,1st gear,Trans. Ratio,0.00 - Gear not adapter OR AUTOMATIC\nAbove 0.00 - Gear adapted
+199,2,2nd gear,Trans. Ratio,0.00 - Gear not adapter OR AUTOMATIC\nAbove 0.00 - Gear adapted
+;
+200,0,Learning,
+200,1,Learning condition,,Not OK - The preconditions  for adaption of the gears are not met\nOR THE VEHICLE IS FITTED WITH AN AUTOMATIC GEARBOX/MULTITRONIC.
+200,2,Learned gears,,000000: The gears have not been adapted the channel 10 basic setting has been performed OR THE VEHICLE IS FITTED WITH AN AUTOMATIC GEARBOX/MULTITRONIC\n000001: 1st gear is adapted\n000011: 1st and 2nd gear have been adapted\n000111: 1st 2nd and 3rd gear have been adapted\n001111: 1st 2nd 3rd and 4th gear have been adapted\n011111: 1st 2nd 3rd. 4th and 5th gear have been adapted\n111111: All gears have been adapted
+200,3,Clutch status,,Pressed: Clutch pressed (manual gearbox only)\nUnpressed: Clutch not pressed OR VEHICLE IS FITTED WITH AN AUTOMATIC GEARBOX/MULTITRONIC
+;
+;225,0,CAN-Datenbus Timeout (Antrieb)
+;225,1,Motorelektronik
+;225,2,Bremsenelektronik,(J285)
+;225,3,Getriebelektronik,(J217)
+;225,4,Schalttafeleinsatz,(J285)
+;
+;226,0,CAN-Datenbus Timeout (Antrieb)
+;226,1,Lenkwinkelsensor,(G85)
+;226,2,Lenksäulen-,elektronik (J527)
+;226,3,Feststellbremse,(J540)
+;226,4,Diagnoseinterface,(J533)
+;
+;227,0,CAN-Datenbus Timeout (Antrieb)
+;227,1,Elektronisches,Zündschloss
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Auto Dist. Reg (J428) Coding
+C01,?0000: Engine type
+C02,1 = 4.2l MPI with automatic gearbox 09L
+C03,1 = 4.2l FSI with automatic gearbox 09L (PR - D0G/D5P/MN5)
+C04,3 = 3.0l TDI with automatic gearbox 09L/manual gearbox (PR - D1D/D1T/D1V)
+C05,4 = 5.2l FSI with automatic gearbox 09E/5.0l TFSI with automatic gearbox 09E (PR- xxx/xxx)
+C06,5 = 2.0l TFSI with multitronic 01J/manual (PR-D2G/D5C/D1N/D2L/D6G NOT for hardware P/N 4F0-907-561)
+C07,5 = 2.8l FSI with automatic gearbox 09L/multitronic 01J/manual
+C08,5 = 3.0l TFSI with 09E/manual
+C09,5 = 3.2l FSI with automatic gearbox 09L/multitronic 01J/manual
+C10,5 = 2.7l TDI with automatic gearbox 09L/multitronic 01J/manual
+C11,6 = 2.4l MPI with multitronic 01J/manual/2.0l TDI with multitronic 01J/manual (PR - D5D/MS9/D3X)
+C12,x?000: Country Setting - Always 1
+C13,xx?00: Body Coding
+C14,1 = Standard body (Saloon/Avant)
+C15,2 = Long wheelbase(for China only)
+C16,3 = Light-armoured vehicle
+C17,xxx?0: Country Setting 2
+C18,1 = USA (mph)
+C19,2 = Canada (km/h)
+C20,4 = Japan (km/h)
+C21,5 = Rest of the World (mph)
+C22,6 = Rest of the World (km/h)
+C23,xxxx?: Optional extras
+C24,1 = Vehicle With Trailer Hitch
+C25,8 = Vehicle Without Trailer Hitch
+;
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+;A001,0,MMI Einstellung Gong AUS
+;A001,1,Aktueller,Status,xxxxxxx0 = Wählhebelposition ungültig\nxxxxxx0x = ACC Fehler aufgetreten\nxxxxx0xx = Elektrische Parkbremse/Bremsung\nxxxx0xxx = ABS/ESP-Eingriff\nxxx0xxxx = ;Geschwindigkeitsgrenze\nxx0xxxxx = ACC Sensor Sicht\nx0xxxxxx = ACC nicht verfügbar\n0xxxxxxx = Fahrerübernahmeaufforderung
+; xxxxxxx0 = Wählhebelposition ungültig
+; xxxxxx0x = ACC Fehler aufgetreten
+; xxxxx0xx = Elektrische Parkbremse/Bremsung
+; xxxx0xxx = ABS/ESP-Eingriff
+; xxx0xxxx = Geschwindigkeitsgrenze
+; xx0xxxxx = ACC Sensor Sicht
+; x0xxxxxx = ACC nicht verfügbar
+; 0xxxxxxx = Fahrerübernahmeaufforderung
+;A001,6,Über diesen Anpassungskanal wird definiert welche
+;A001,7,Warntöne auch im Profil "aus/deaktiviert" aktiv sind.
+;A001,8, 
+;A001,9,Standard: 66
+;A001,10, 
+;A001,11,+001 = Wählhebelposition ungültig
+;A001,12,+002 = ACC Fehler
+;A001,13,+004 = Bremsung
+;A001,14,+008 = ABS/ESP-Eingriff
+;A001,15,+016 = Geschwindigkeitsgrenze
+;A001,16,+032 = ACC Sensor Sicht
+;A001,17,+064 = ACC nicht verfügbar
+;A001,18,+128 = Fahrerübernahmeaufforderung
+;
+;A002,0,MMI Einstellung Gong EIN
+;A002,1,Aktueller,Status,xxxxxxx0 = Wählhebelposition ungültig\nxxxxxx0x = ACC Fehler aufgetreten\nxxxxx0xx = Elektrische Parkbremse/Bremsung\nxxxx0xxx = ABS/ESP-Eingriff\nxxx0xxxx = ;Geschwindigkeitsgrenze\nxx0xxxxx = ACC Sensor Sicht\nx0xxxxxx = ACC nicht verfügbar\n0xxxxxxx = Fahrerübernahmeaufforderung
+; xxxxxxx0 = Wählhebelposition ungültig
+; xxxxxx0x = ACC Fehler aufgetreten
+; xxxxx0xx = Elektrische Parkbremse/Bremsung
+; xxxx0xxx = ABS/ESP-Eingriff
+; xxx0xxxx = Geschwindigkeitsgrenze
+; xx0xxxxx = ACC Sensor Sicht
+; x0xxxxxx = ACC nicht verfügbar
+; 0xxxxxxx = Fahrerübernahmeaufforderung
+;A002,5,MMI Einstellung Gong EIN
+;A002,6,Über diesen Anpassungskanal wird definiert welche
+;A002,7,Warntöne im Profil "leise/mittel/laut" aktiv sind.
+;A002,8, 
+;A002,9,Standard: 255
+;A002,10, 
+;A002,11,+001 = Wählhebelposition ungültig
+;A002,12,+002 = ACC Fehler
+;A002,13,+004 = Bremsung
+;A002,14,+008 = ABS/ESP-Eingriff
+;A002,15,+016 = Geschwindigkeitsgrenze
+;A002,16,+032 = ACC Sensor Sicht
+;A002,17,+064 = ACC nicht verfügbar
+;A002,18,+128 = Fahrerübernahmeaufforderung
+;
+A003,0,Sensor Heating
+A003,1,Status
+A003,5,Status of Heater
+A003,6,0 = Heater not active
+A003,7,1 = Heater active
+;
+;A003,0,Sensor-/Radomheizung
+;A003,1,Aktueller,Status
+;A003,5,Sensor-/Radomheizung
+;A003,6,0 = Sensor-/Radomheizung inaktiv
+;A003,7,1 = Sensor-/Radomheizung aktiv (Standard)
+;A003,8, 
+;A003,9,Hinweis: Eine Deaktivierung der Sensor-/Radomheizung ist nicht zu empfehlen
+;A003,10,da die Funktion der Abstandsregelung bei bestimmten Wetterverhältnissen
+;A003,11,nicht mehr gewährleistet ist (z.B. Vereisung des Sensors durch Schneefall).
+;
+;A004,0,
+;1
+;A004,1,Aktueller,Status
+; ein
+;
+;A005,0,
+;FEHLER: Zugriffsberechtigung benötigt
+;
+;A007,0,Distanzeinstellung (über MMI)
+;A007,1,Aktueller,Status
+;A007,5,Distanzeinstellung (über MMI)
+;A007,6,0 = Konfiguration über MMI inaktiv (Standard)
+;A007,7,1 = Konfiguration über MMI aktiv
+;A007,8, 
+;A007,9,Ist die Konfiguration über MMI aktiv so wied automatisch beim Start des Systems
+;A007,10,die zuletzt gespeicherte Distanzeinstellung gewählt. Die jeweilige Einstellung
+;A007,11,wird zusätzlich im/zum verwendeten Fahrzeugschlüssel abgelegt!
+;
+;A099,0,
+;FEHLER: Zugriffsberechtigung benötigt
+;
+;
+;
+;---------------------------------------------------
+;
+; Zugriffsberechtigung
+;
+;---------------------------------------------------
+;
+;
+;S00,Distanzregelung (J428) Zugriffsberechtigung
+;S01,89531 = Freischaltung Grundeinstellung
+;
+;

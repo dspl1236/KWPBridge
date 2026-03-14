@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2004+ Ross-Tech, LLC
+;
+; Component: Immobilizer (#25)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 6Q-25.LBL
+; 5J0-920-xxx-25.LBL
+;
+; created on 09/Jul/2008 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 15/Nov/2014
+;
+; requires VCDS 14.10.0 or newer
+;
+;
+REDIRECT,5J0-920-xxx-25.LBL,6Q0-920-???-???       ; 9N
+;
+REDIRECT,5J0-920-xxx-25.LBL,6QS-920-???-???       ; 6S
+;

@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2013 Ross-Tech, LLC
+;
+; Component: J367 - Battery Regulation (#61)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 7H-61.LBL
+; 1K0-907-534.CLB
+;
+; created on 08/Apr/2013 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 08/Apr/2013
+;
+; requires VCDS 11.11.5 or newer
+;
+;
+REDIRECT,1K0-907-534.CLB,7H0-907-534-???
+;

@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; VW Scirocco (13)
+;
+; Component: Additional Instruments (#B9)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1K-B9.LBL
+; 5C5-919-527.CLB
+;
+; created on 02/Sep/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 02/Sep/2014
+;
+; requires VCDS 12.12.2 or newer
+;
+;
+REDIRECT,5C5-919-527.CLB,1K8-919-527-???
+;

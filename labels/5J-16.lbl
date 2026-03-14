@@ -1,0 +1,29 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2015+ Ross-Tech, LLC
+;
+; Component: E221 - Multi-Function-Module (#16)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 5J-16.LBL
+; 6J0-959-441.CLB
+;
+; created on 14/Oct/2015 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 14/Oct/2015
+;
+; requires VCDS 11.11.5 / LCode 1.0.6.0 or newer
+;
+;
+;-----------------------------------------------------------
+;
+; Multi-Function Steering Wheel
+;
+;-----------------------------------------------------------
+;
+;
+REDIRECT,6J0-959-441.CLB,5J0-959-441-???
+;

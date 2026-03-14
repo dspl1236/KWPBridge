@@ -1,0 +1,25 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2009+ Ross-Tech, LLC
+;
+; Audi TT (8J)
+;
+; Component: J492 - All Wheel Electronics (#22)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 0B-22.LBL
+; 2K-22.LBL
+; 0AY-907-554-V1.CLB
+;
+; created on 19/Oct/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 11/Mar/2015
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,0AY-907-554-V1.CLB,2K0-907-554-???
+;

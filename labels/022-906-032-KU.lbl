@@ -1,0 +1,55 @@
+;
+; VCDS Label File
+;
+; Copyright © 2010+ Ross-Tech, LLC
+;
+; United Motorsport
+;
+; Component: J623 - Engine (#01)
+;
+; P/N: 022-906-032-KU
+;
+; includes readiness, coding and coding-II
+;
+; created on 30/Apr/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modificationon on 30/Apr/2014
+;
+; requires VCDS 12.12.2 or newer
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Engine Control Unit (J220) Coding
+C01,This ECU has been modified with aftermarket software that may  
+C02,alter your ability to recode this control module. 
+C03, 
+C04,Please Contact your tuner for further information.
+;
+;
+;---------------------------------------------------
+;
+; login/coding-ii
+;
+;---------------------------------------------------
+;
+;
+L00,Engine (J220) Coding-2
+L01,11463 = Cruise Control System (CCS) Activation
+L02,16167 = Cruise Control System (CCS) Deactivation
+;
+;
+;---------------------------------------------------
+;
+; readiness
+;
+;---------------------------------------------------
+;
+;
+O,06A-UNI-032-BT
+;

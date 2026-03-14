@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; Component: Engine (#01)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 6R-01.LBL
+; 06F-907-115-CDL.CLB  (2.0l TFSI  @ 256-272 HP - CDL/CDM/CRZ)
+;
+; created on 20/Aug/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 20/Aug/2014
+;
+; requires VCDS 12.12.2 or newer
+;
+;
+REDIRECT,06F-907-115-CDL.CLB,6R0-907-115      ; CDLJ (6R)
+;

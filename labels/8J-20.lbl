@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011 Ross-Tech, LLC
+;
+; Audi A3 (8P) / Audi TT (8J)
+;
+; Component: J844 - High Beam Assist (#20)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8J-20.LBL
+; 8K0-857-511.CLB
+;
+; created on 05/Mar/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 05/Mar/2011
+;
+; requires VCDS 10.6.3 or newer
+;
+;
+REDIRECT,8K0-857-511.CLB,8J0-857-511-???
+;

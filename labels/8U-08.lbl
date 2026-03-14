@@ -1,0 +1,25 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2012+ Ross-Tech, LLC
+;
+; Audi Q3 (8U)
+;
+; Component: J255 - Heating/Air Conditioning (#08)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8U-08.LBL
+; 8P0-820-043.LBL
+;
+; created on 01/Aug/2012 by Niels Ezerman (nez@netech.dk)
+; updated on 06/Aug/2012 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 08/Aug/2012
+;
+; requires VCDS 11.11.4 or newer
+;
+;
+REDIRECT,8P0-820-043.LBL,8U0-820-043-???
+;

@@ -1,0 +1,28 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2010 Ross-Tech, LLC
+;
+; Audi A3 (8P) / Seat Altea/Toledo (5P) / Seat Leon (1P) / Skoda Octavia II (1Z)
+; Skoda Superb (3T) / VW Caddy (2K) / VW Golf/Jetta V (1K) / VW Golf/Jetta VI (5K)
+; VW Touran (1T)
+;
+; Component: J527 - Steering Column Electronics (#16)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 5K-16.LBL
+; 5K0-953-569.CLB
+;
+; created on 30/Jun/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 28/Jul/2010
+;
+; requires VCDS 10.5 or newer
+;
+;
+REDIRECT,5K0-953-569.CLB,5K0-953-549-???,HW
+;
+REDIRECT,5K0-953-569.CLB,5K0-953-569-???,HW
+;

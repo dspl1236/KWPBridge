@@ -1,0 +1,74 @@
+;
+; VCDS Label File
+;
+; Copyright © 2012 Ross-Tech, LLC
+;
+; VW Caddy (2K) / VW Golf/Jetta (1K5M) / VW Touran (1T)
+;
+; Component: J412 - Telephone (#77) - Fixed Installation
+;
+; P/N: 1K0-035-729-???
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1K-77.LBL
+; 1K0-035-729-FIX.LBL (PR-9W9)
+; 1K0-035-729-UNI.LBL (PR-9W2/9W8)
+;
+; includes measuring blocks
+;
+; created on 28/Mar/2012 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 08/May/2012
+;
+; requires VCDS 11.11.2 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,General
+001,1,Voltage,(Terminal 30),Specification: 9.0...15.0 V
+001,3,Signal Strength
+001,4,Signal Strength,,Range: 0.0...100.0 % / Not Recogn.
+;
+002,0,Telephone
+002,1,Telephone
+002,3,Connection,Status,Range: Connected / Not Connected
+002,4,Network,Status,Range: Acquired / Not Acquired
+;
+003,0,Microphone
+003,1,Microphone
+003,2,Microphone,Status,Specification: OK/Not OK
+003,3,Microphone
+003,4,Microphone,Current,Specification: 3.0...9.0 mA
+;
+004,0,Audio Outputs
+004,1,Audio Output,Plus (+)
+004,2,Status,Audio Output (+),Specification: OK/Not OK
+004,3,Audio Output,Minus (-)
+004,4,Status,Audio Output (-),Specification: OK/Not OK
+;
+005,0,Button for Roadside Assistance && Information Service
+005,1,Roadside,Assistance Button
+005,2,Roadside,Assistance Button,Range: Operated/Not Oper./Not Recogn.
+005,3,Information,Service Button
+005,4,Information,Service Button,Range: Operated/Not Oper./Not Recogn.
+;
+080,0,Advanced Control Module Identification I
+080,1,Identification
+080,2,Revision
+080,3,Production,Date
+080,4,Manufacturer &,Test Stand Number
+;
+081,0,Advanced Control Module Identification II
+081,1,Advanced,Ident. II
+;
+082,0,Advanced Control Module Identification III
+082,1,Advanced,Ident. III
+;

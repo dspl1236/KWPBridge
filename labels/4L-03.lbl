@@ -1,0 +1,32 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; Audi Q7 (4L)
+;
+; Component: J104 - Brake Electronics (#03)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 4L-03.LBL
+; 4L0-910-517-V1.CLB (SW 0130>0140)
+; 4L0-910-517-V2.CLB
+;
+; created on 10/Oct/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 05/April/2020
+;
+; requires VCDS 12.12.3 or newer
+;
+;
+REDIRECT,4L0-910-517-V1.CLB,4L0-910-517-A   ; SW 0130
+REDIRECT,4L0-910-517-V2.CLB,4L0-910-517-B   ; SW 0010
+REDIRECT,4L0-910-517-V1.CLB,4L0-910-517-E   ; SW 0140
+REDIRECT,4L0-910-517-V2.CLB,4L0-910-517-F   ; SW 0010
+REDIRECT,4L0-910-517-V2.CLB,4L0-910-517-G   ; SW 0020
+REDIRECT,4L0-910-517-V2.CLB,4L0-910-517-K   ; SW 0020
+;REDIRECT,4L0-910-517-V2.CLB,4L0-910-517-L   ; SW 0010
+REDIRECT,4L0-910-517-V2.CLB,4L0-910-517-M   ; SW 0020
+;

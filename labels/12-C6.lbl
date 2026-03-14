@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2015+ Ross-Tech, LLC
+;
+; Component: J1050 - Battery Charger (#C6)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 12-C6.LBL
+; 5QE-915-681.CLB
+;
+; created on 12/Mar/2015 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 12/Mar/2015
+;
+; requires VCDS 14.10.0 or newer
+;
+;
+REDIRECT,5QE-915-681.CLB,12E-915-682-???
+;

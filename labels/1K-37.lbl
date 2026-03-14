@@ -1,0 +1,38 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2007+ Ross-Tech, LLC
+;
+; Component: R - Radio (#56)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1K-37.LBL
+; 3C-37.LBL
+; 1K0-035-27x-37.CLB   (Radio Navigation System 315)
+; 1K0-919-887-MFD2.LBL (Radio Navigation System MFD2 DVD)
+; 1T0-035-680.LBL      (Radio Navigation System 510)
+;
+; created on 25/Mar/2007 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 10/Nov/2015
+;
+; requires VCDS 10.6.1 or newer
+;
+;
+REDIRECT,1K0-035-27x-37.CLB,1K0-035-274-???   ; RNS315 (NAR)
+;
+REDIRECT,1T0-035-680.LBL,1K8-035-680-???      ; RNS510 RoW
+REDIRECT,1T0-035-680.LBL,1K8-035-684-???      ; RNS510 NAR
+REDIRECT,1T0-035-680.LBL,1K8-035-685-???      ; RNS510 ROK
+REDIRECT,1T0-035-680.LBL,1K8-035-686-???      ; RNS510 DAB+ RoW
+;
+REDIRECT,1K0-919-887-MFD2.LBL,1K0-919-887-B   ; MFD2 DVD
+REDIRECT,1K0-919-887-MFD2.LBL,1K0-919-887-F   ; MFD2 DVD
+REDIRECT,1K0-919-887-MFD2.LBL,1K0-919-887-FX  ; MFD2 DVD
+REDIRECT,1K0-919-887-MFD2.LBL,1K0-919-887-G   ; MFD2 DVD
+REDIRECT,1K0-919-887-MFD2.LBL,1K0-919-887-GX  ; MFD2 DVD
+REDIRECT,1K0-035-191.LBL,1K0-919-887-H        ; RNS300
+REDIRECT,1K0-035-191.LBL,1K0-919-887-K        ; RNS300
+;

@@ -1,0 +1,46 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2008-2010 Ross-Tech, LLC
+;
+; Component: Subsystem (#09-02)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1K-09-02.LBL
+; 1K0-955-559-AF.LBL (through Index AF)
+; 1K0-955-559-AG.LBL (from Index AG)
+; 1P0-955-559.LBL    (Seat only)
+;
+; created on 07/Nov/2006 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 22/Apr/2010
+;
+; requires VCDS 10.3 / LCode 1000.4 or newer
+;
+;
+;---------------------------------------------------
+;
+; Rain/Light Sensor (Optional Equipment on PQ35)
+;
+;---------------------------------------------------
+;
+;
+REDIRECT,1K0-955-559-AF.CLB,1K0-955-559-K,SL
+REDIRECT,1K0-955-559-AF.CLB,1K0-955-559-L,SL
+REDIRECT,1K0-955-559-AF.CLB,1K0-955-559-M,SL
+REDIRECT,1K0-955-559-AF.CLB,1K0-955-559-N,SL
+REDIRECT,1K0-955-559-AF.CLB,1K0-955-559-P,SL
+REDIRECT,1K0-955-559-AF.CLB,1K0-955-559-Q,SL
+REDIRECT,1K0-955-559-AF.CLB,1K0-955-559-R,SL
+REDIRECT,1K0-955-559-AF.CLB,1K0-955-559-S,SL
+REDIRECT,1K0-955-559-AF.CLB,1K0-955-559-T,SL
+REDIRECT,1K0-955-559-AF.CLB,1K0-955-559-AB,SL
+REDIRECT,1K0-955-559-AF.CLB,1K0-955-559-AC,SL
+REDIRECT,1K0-955-559-AF.CLB,1K0-955-559-AD,SL
+REDIRECT,1K0-955-559-AF.CLB,1K0-955-559-AE,SL
+REDIRECT,1K0-955-559-AF.CLB,1K0-955-559-AF,SL
+REDIRECT,1K0-955-559-AG.CLB,1K0-955-559-AG,SL
+REDIRECT,1K0-955-559-AG.CLB,1K0-955-559-AH,SL
+;

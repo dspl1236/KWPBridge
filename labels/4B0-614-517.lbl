@@ -1,0 +1,223 @@
+;
+; VCDS Label File
+;
+; Copyright © 2005+ Ross-Tech, LLC
+;
+; Audi A6 (4B)
+;
+; Component: J104 - Brake Electronics (#03) - Bosch 5.7
+;
+; P/N: 4B0-614-517-???
+;
+; includes measuring blocks and basic settings
+;
+; created on 10/Dec/2005 by Sebastian Stange (sebastian@ross-tech.com)
+;
+; last modificationon on 27/May/2016
+;
+; requires VCDS 11.2.1 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring block & basic setting
+;
+;---------------------------------------------------
+;
+;
+001,0,Wheel Speed
+001,1,Wheel Speed,Front Left (G47),Display Range: 0.0...255.0 km/h
+001,2,Wheel Speed,Front Right (G45),Display Range: 0.0...255.0 km/h
+001,3,Wheel Speed,Rear Left (G46),Display Range: 0.0...255.0 km/h
+001,4,Wheel Speed,Rear Right (G44),Display Range: 0.0...255.0 km/h
+;
+B001,0,Steering Angel Sensor (G85) Alignment
+B001,1,Steering Angel,Sensor (G85), 
+B001,2,Alignment, , 
+B001,3,Alignment,Status,Specification: OK
+B001,4, , , 
+;
+002,0,Switches && Buttons
+002,1,Brake Test Switch,(F),Display Range: 0/operated
+002,2,Brake Light Switch,(F47),Display Range: 0/operated
+002,3,Parking Brake,Switch (F9),Display Range: 0/operated
+002,4,ASR/ESP-Button,(E256),Display Range: 0/operated
+;
+B002,0,Brake System Bleeding
+B002,1,Status, , 
+B002,2, , , 
+B002,3, , , 
+B002,4, , , 
+;
+003,0,Engine Data
+003,1,Engine Speed
+003,2,Engine Torque
+003,3,Engine Torque,(loss)
+003,4,Throttle Valve Angle
+;
+B003,0,Activate ESP System/Function Test
+B003,1,Status, , 
+B003,2, , , 
+B003,3, , , 
+B003,4, , , 
+;
+004,1,Standing Time
+004,2,EDL-T Flag,,Display Range: ON/OFF\nSpecification: OFF
+;
+005,1,Steering Angle,Sensor (G85),Display Range: -720.0...+720.0 °\nTolerance (when straight): ±5.0 °
+005,2,Rotation Rate,,Display Range: -69.0...+69.0 °/s
+005,3,Brake Pressure,,Display Range: -41.0...+292.0 bar\n40.0 bar = Short to Ground\n290.0 bar = Short to Plus
+005,4,Transverse,Acceleration,Display Range: -25.0...+25.0 m/s²
+;
+006,1,Supply Voltage,(Terminal 30),Specification: 9.8...17.4 V
+006,2,Valve Relay,,Display Range: ON = OK / OFF = not OK
+006,3,Return Flow Pump,,Display Range: ON/OFF
+006,4,Work Shop Code
+;
+125,0,CAN-Databus Communication (Powertrain)
+125,1,Steering Angle,Sensor (G85),Specification: Steer. ang. 1\nDisplay Range: Steer. ang. 0/Steer. ang. 1
+125,2,Engine,,Specification: Engine 1\nDisplay Range: Engine 0/Engine 1
+125,3,Transmission,,Display Range: Transm. 1
+125,4,Instrument Cluster,,Specification: Instruments 1\nDisplay Range: Instruments 0/Instruments 1
+;
+;
+;---------------------------------------------------
+;
+; login/coding-ii
+;
+;---------------------------------------------------
+;
+;
+L00,Brake Electronics (J104/Bosch 5.7) Login
+L01,See http://WIKI.Ross-Tech.COM for Details.
+L02, 
+L03,40168 = Basic Settings Enabling (i.e. mandatory prior to Steering Angle Sensor Alignment)
+;
+;
+;---------------------------------------------------
+;
+; login/coding-ii (Audi A6 (4B))
+;
+;---------------------------------------------------
+;
+;
+; 0?xxx: Chassis
+; 6 = Audi A6 Light Armored
+; 7 = Audi A6
+; 0x?xx: Brakes
+; 1 = 2FNR 42 AL 18" (PR-1LJ/1LP)
+; 2 = 2FNR 42 AL 17" (PR-1LL)
+; 3 = FN3 16" (PR-1LF/1LT)
+; 4 = HP2 16" (PR-1LX)
+; 4 = FNR 16" (PR-1LA/1LG)
+; 5 = FN3 15" (PR-1LB/1LE)
+; 6 = C54 (PR-1LZ)
+; 0xx?x: Engine
+; 5 = 4/6 Cyl. Diesel
+; 7 = 4/5 Cyl. Gasoline
+; 9 = 6/8 Cyl. Gasoline
+; 0xxx?: Transmission
+; 5 = Manual Transmission
+; 7 = Automatic Transmission (01L/01N/01V)
+; 9 = Continuously Variable Transmission (CVT) / Multitronic (01J)
+;
+;
+;---------------------------------------------------
+;
+; login/coding-ii (VW Passat (3B))
+;
+;---------------------------------------------------
+;
+;
+; 0?xxx: Chassis
+; 8 = VW Passat W8
+; 9 = VW Passat
+; 0x?xx: Brakes
+; 3 = (PR-1LT/1LF)
+; 4 = (PR-1LC/1LX/1ZF/1LZ/1ZG)
+; 5 = (PR-1LB/1LE/1ZC)
+; 6 = (PR-1LZ/1ZJ)
+; 0xx?x: Engine
+; 5 = (PR-T5X/T4N/T9J*/T6T/T1K/T1E/T7F*) (* with Brakes: PR-1LB/1LE/1ZC)
+; 7 = (PR-T0B/T10/T6V/T0D/T0F)
+; 9 = (PR-T7F/T9H/T9J)
+; 0xxx?: Transmission
+; 5 = Manual (PR-G0C/G0K/G0G/G0L)
+; 7 = Automatic (PR-G0E/G0F/G0Q)
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Brake Electronics (J104/Bosch 5.7) Coding
+C01,See http://WIKI.Ross-Tech.COM for Details.
+C02, 
+C03,Note #1: Coding is accepted after a specific Login has been carried out.
+C04,Note #2: After successful Coding the Steering Angle Sensor Basic Setting needs to be carried out.
+;
+;
+;---------------------------------------------------
+;
+; coding (Audi A6 (4B))
+;
+;---------------------------------------------------
+;
+;
+; 0?xxx: Chassis
+; 6 = Audi A6
+; 7 = Audi A6 Light Armored
+; 0x?xx: Brakes
+; 1 = C54 (PR-1LZ)
+; 2 = FN3 15" (PR-1LB/1LE)
+; 3 = HP2 16" (PR-1LX)
+; 3 = FNR 16" (PR-1LA/1LG)
+; 4 = FN3 16" (PR-1LF/1LT)
+; 5 = 2FNR 42 AL 17" (PR-1LL)
+; 6 = 2FNR 42 AL 18" (PR-1LJ/1LP)
+; 0xx?x: Engine
+; 5 = 4/6 Cyl. Diesel
+; 7 = 4/5 Cyl. Gasoline
+; 9 = 6/8 Cyl. Gasoline
+; 0xxx?: Transmission
+; 5 = Manual Transmission
+; 7 = Automatic Transmission (01L/01N/01V)
+; 9 = Continuously Variable Transmission (CVT) / Multitronic (01J)
+;
+;
+;---------------------------------------------------
+;
+; coding (VW Passat (3B))
+;
+;---------------------------------------------------
+;
+;
+; 0?xxx: Chassis
+; 4 = VW Passat
+; 5 = VW Passat W8
+; 0x?xx: Brakes
+; 1 = (PR-1LZ/1ZJ)
+; 2 = (PR-1LB/1LE/1ZC)
+; 3 = (PR-1LC/1LX/1ZF/1LZ/1ZG)
+; 4 = (PR-1LT/1LF)
+; 0xx?x: Engine
+; 5 = (PR-T5X/T4N/T9J*/T6T/T1K/T1E/T7F*) (* with Brakes: PR-1LB/1LE/1ZC)
+; 7 = (PR-T0B/T10/T6V/T0D/T0F)
+; 9 = (PR-T7F/T9H/T9J)
+; 0xxx?: Transmission
+; 5 = Manual (PR-G0C/G0K/G0G/G0L)
+; 7 = Automatic (PR-G0E/G0F/G0Q)
+;
+;
+;---------------------------------------------------
+;
+; misc
+;
+;---------------------------------------------------
+;
+;
+SN,Bosch ESP 5.7
+;

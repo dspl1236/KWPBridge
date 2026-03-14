@@ -1,0 +1,31 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2010+ Ross-Tech, LLC
+;
+; VW Passat (35) / VW Golf/Bora/Jetta (5K) / VW Tiguan (5N)
+;
+; Component: R - Radio (#56)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 5N-56.LBL
+; 5M0-035-1xx-56.CLB (Modular Radio X10)
+;
+; created on 13/Jul/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 02/Oct/2015
+;
+; requires VCDS 11.11.0 or newer
+;
+;
+REDIRECT,5M0-035-1xx-56.CLB,5N0-035-164-A   ; RCD310 (MX)
+REDIRECT,5M0-035-1xx-56.CLB,5N0-035-164-D   ; RCD310 (MX)
+;
+REDIRECT,5M0-035-1xx-56.CLB,5ND-035-186-??? ; RCD310 (CHN)
+;
+REDIRECT,5M0-035-1xx-56.CLB,5ND-035-190-??? ; RCD510 (CHN)
+;
+REDIRECT,5M0-035-1xx-56.CLB,5ND-035-195-??? ; RCD510 (CHN)
+;

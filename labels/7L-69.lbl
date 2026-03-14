@@ -1,0 +1,37 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2009-2011 Ross-Tech, LLC
+;
+; VW Touareg (7L)
+;
+; Component: J345 - Trailer Recognition (#69)
+;
+; P/N: 7L0-907-383-???
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 7L-69.LBL
+; 7L0-907-383-1D2.LBL (PR-1D2/1D6)
+; 7L0-907-383-1D9.LBL (PR-1D9)
+;
+; created on 07/Feb/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 20/Jan/2011
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,7L0-907-383-1D9.LBL,7L0-907-383
+REDIRECT,7L0-907-383-1D9.LBL,7L0-907-383-B
+REDIRECT,7L0-907-383-1D2.LBL,7L0-907-383-C
+REDIRECT,7L0-907-383-1D9.LBL,7L0-907-383-D
+REDIRECT,7L0-907-383-1D2.LBL,7L0-907-383-E
+REDIRECT,7L0-907-383-1D9.LBL,7L0-907-383-F
+REDIRECT,7L0-907-383-1D2.LBL,7L0-907-383-G
+REDIRECT,7L0-907-383-1D9.LBL,7L0-907-383-K
+REDIRECT,7L0-907-383-1D2.LBL,7L0-907-383-L
+REDIRECT,7L0-907-383-1D9.LBL,7L0-907-383-M
+REDIRECT,7L0-907-383-1D2.LBL,7L0-907-383-N
+;

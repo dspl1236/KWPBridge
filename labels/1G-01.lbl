@@ -1,0 +1,25 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2013+ Ross-Tech, LLC
+;
+; Component: Engine (#01)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1G-01.LBL
+;
+; created on 11/Mar/2013 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 11/Mar/2013
+;
+; requires VCDS 11.11.5 or newer
+;
+;
+;1GD-906-018-SA  ; ACR/ANL (1G)
+;1GD-906-018-SB  ; ACR/ANL (1G)
+;
+;1GD-906-033     ; ATK (1G)
+;1GD-906-033-A   ; ATK (1G)
+;

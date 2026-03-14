@@ -1,0 +1,25 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2010+ Ross-Tech, LLC
+;
+; Component: Navigation System (#37)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 7E-37.LBL
+; 7E-56.LBL
+; 1T0-035-680.LBL     (Radio Navigation System 510)
+; 3C0-035-270.CLB     (Radio Navigation System 310)
+;
+; created on 27/Apr/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 23/Jan/2014
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,1T0-035-680.LBL,7E0-035-680-???    ; Radio/Navigation System RNS510
+REDIRECT,1T0-035-680.LBL,7E0-035-686-???    ; Radio/Navigation System RNS510 DAB+
+;

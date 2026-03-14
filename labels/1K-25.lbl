@@ -1,0 +1,32 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2004+ Ross-Tech, LLC
+;
+; Component: Immobilizer (#25)
+;
+; This file is part of a redirection package,
+; make sure you have all of the following files.
+;
+; 1K-25.LBL
+; 1T-25.LBL
+; 1Z-25.LBL
+; 2K-25.LBL
+; 5P-25.LBL
+; 1K0-920-xxx-25.LBL
+; 5K0-920-xxx-25.CLB
+;
+; created on 30/Jul/2004 by Sebastian Stange (sebastian@ross-tech.com)
+;
+; last modification on 27/Nov/2013
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,1K0-920-xxx-25.LBL,1K0-920-???-???  ; Normal
+REDIRECT,1K0-920-xxx-25.LBL,1K6-920-???-???  ; GTI
+REDIRECT,1K0-920-xxx-25.LBL,1K8-920-??0-???  ; Scirocco (< MY 2009)
+REDIRECT,5K0-920-xxx-25.CLB,1K8-920-??1-???  ; Scirocco (MY 2010 >)
+;
+REDIRECT,1K0-920-xxx-25.LBL,1KD-920-???-???  ; Normal CHN
+;

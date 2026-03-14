@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; Component: J234 - Airbag (#15)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 34-15.LBL
+; 5G0-959-605.CLB
+;
+; created on 14/Mar/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 14/Mar/2014
+;
+; requires VCDS 12.12.2 or newer
+;
+;
+REDIRECT,5Q0-959-655.CLB,34D-959-655-???
+;

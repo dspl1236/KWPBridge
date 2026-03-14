@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011 Ross-Tech, LLC
+;
+; Component: Engine (#01)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; HG-01.LBL
+; 06A-UNI-032-BT.LBL
+;
+; created on 14/Jul/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 19/Jul/2011
+;
+; requires VCDS 11.3.0 or newer
+;
+;
+REDIRECT,HGP-TUR-ONA.LBL,HGP-TUR-ONA-???        ; HGP Turbonachruestung GmbH
+;

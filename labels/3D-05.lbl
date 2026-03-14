@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2006-2010 Ross-Tech, LLC
+;
+; Bentley Continental GT (3W) / VW Phaeton (3D) / VW Touareg (7L)
+;
+; Component: J518 - Access/Start Authorization (#05)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3D-05.LBL
+; 3D0-909-13x-05.LBL
+;
+; created on 10/Mar/2006 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 23/May/2010
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,3D0-909-13x-05.LBL,3D0-909-13?-???
+;

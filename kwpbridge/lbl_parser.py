@@ -86,6 +86,8 @@ class LBLFile:
     cells:        dict[int, dict[int, CellDef]]     = field(default_factory=dict)
     coding:       list[CodingValue]                 = field(default_factory=list)
     adapt:        dict[int, AdaptChannel]           = field(default_factory=dict)
+    redirects:    list[tuple]                       = field(default_factory=list)
+    # redirects: [(target_filename, [pattern, ...]), ...]
 
     def get_label(self, group: int, cell: int) -> str:
         """Get label for a group/cell, or a generic fallback."""
@@ -290,6 +292,26 @@ def _parse_comment_meta(line: str, meta: dict):
             meta[key] = m.group(1).strip()
 
 
+def _parse_redirect_line(lbl: 'LBLFile', line: str):
+    """
+    Parse a REDIRECT directive.
+
+    Format:
+      REDIRECT,target.lbl,suffix1,suffix2,...;   (original method)
+      REDIRECT,target.lbl,pattern-with-???;      (wildcard method)
+    """
+    # Strip trailing comment after ;
+    if ';' in line:
+        line = line[:line.index(';')]
+    parts = [p.strip() for p in line.split(',')]
+    if len(parts) < 2:
+        return
+    target   = parts[1].strip()          # e.g. "038-906-019-100.LBL"
+    patterns = [p.strip() for p in parts[2:] if p.strip()]
+    if target and patterns:
+        lbl.redirects.append((target, patterns))
+
+
 def _parse_coding_line(lbl: LBLFile, parts: list[str], raw_line: str):
     """Parse a coding value line: C1,00 = für Motor mit..."""
     try:
@@ -384,47 +406,133 @@ class LBLRegistry:
             self._cache.clear()
             log.info(f"Added label search path: {p}")
 
-    def get(self, part_number: str) -> LBLFile | None:
+    def get(self, part_number: str,
+            ecu_address: int = 0x01) -> 'LBLFile | None':
         """
         Load and return the LBL file for a given ECU part number.
 
-        Tries several filename formats:
-          893-906-266-D.lbl   (dashes)
-          893906266D.lbl      (no dashes)
-          893-906-266-d.lbl   (lowercase)
+        Follows the full VCDS label file resolution order:
+          1. Exact match:          893-906-266-D.lbl
+          2. Root match:           893-906-266.lbl
+          3. REDIRECT in root:     check REDIRECT table in root file
+          4. XX-AA fallback:       89-01.lbl  (first 2 chars + address)
+          5. REDIRECT wildcards:   pattern matching with ? wildcards
         """
         pn = part_number.upper().replace('-', '')
         if pn in self._cache:
             return self._cache[pn]
 
-        # Generate candidate filenames
+        # ── Step 1 & 2: exact + root file ────────────────────────────────────
         candidates = self._make_candidates(pn)
-
         for search_path in self._search_paths:
             for name in candidates:
                 full = search_path / name
                 if full.exists():
                     try:
                         lbl = parse_lbl(full)
-                        self._cache[pn] = lbl
-                        log.info(f"Loaded label file: {full.name} → {lbl.summary()}")
-                        return lbl
+                        # Check for REDIRECT table inside root file
+                        redirected = self._follow_redirect(
+                            lbl, pn, search_path)
+                        result = redirected or lbl
+                        self._cache[pn] = result
+                        log.info(f"Loaded: {full.name}"
+                                 + (f" → redirect" if redirected else ""))
+                        return result
+                    except Exception as e:
+                        log.warning(f"Failed to parse {full}: {e}")
+
+        # ── Step 3: XX-AA.lbl fallback ────────────────────────────────────────
+        if len(pn) >= 2:
+            xx   = pn[:2].upper()
+            aa   = f"{ecu_address:02X}"
+            fb_name = f"{xx}-{aa}.lbl"
+            for search_path in self._search_paths:
+                full = search_path / fb_name
+                if not full.exists():
+                    full = search_path / fb_name.upper()
+                if full.exists():
+                    try:
+                        lbl = parse_lbl(full)
+                        redirected = self._follow_redirect(
+                            lbl, pn, search_path)
+                        result = redirected or lbl
+                        self._cache[pn] = result
+                        log.info(f"Loaded via XX-AA fallback: {fb_name}")
+                        return result
                     except Exception as e:
                         log.warning(f"Failed to parse {full}: {e}")
 
         log.debug(f"No label file found for {part_number}")
         return None
 
+    def _follow_redirect(self, lbl: 'LBLFile',
+                         pn: str, search_path: Path) -> 'LBLFile | None':
+        """
+        Check a loaded LBLFile for REDIRECT directives and follow them.
+
+        REDIRECT format:
+          REDIRECT,target-file.lbl,suffix1,suffix2,...;  (original method)
+          REDIRECT,target-file.lbl,pattern-with-???;     (wildcard method)
+        """
+        if not lbl.redirects:
+            return None
+
+        # Extract suffix from part number (trailing letter(s))
+        # e.g. "893906266D" → suffix "D", root "893906266"
+        suffix = ""
+        root   = pn
+        if pn and pn[-1].isalpha():
+            suffix = pn[-1]
+            root   = pn[:-1]
+
+        for target_file, patterns in lbl.redirects:
+            for pat in patterns:
+                pat = pat.upper().replace('-', '')
+                # Wildcard match: ? = any single char
+                if '?' in pat or 'X' in pat.lower():
+                    if _wildcard_match(pn, pat):
+                        return self._load_redirect_target(
+                            target_file, search_path)
+                # Suffix match (original method)
+                elif pat == suffix:
+                    return self._load_redirect_target(
+                        target_file, search_path)
+                # Full part number match
+                elif pat == pn or pat == root:
+                    return self._load_redirect_target(
+                        target_file, search_path)
+
+        return None
+
+    def _load_redirect_target(self, filename: str,
+                               search_path: Path) -> 'LBLFile | None':
+        """Load the target file from a REDIRECT directive."""
+        full = search_path / filename
+        if not full.exists():
+            full = search_path / filename.upper()
+        if not full.exists():
+            full = search_path / filename.lower()
+        if full.exists():
+            try:
+                return parse_lbl(full)
+            except Exception as e:
+                log.warning(f"Failed to parse redirect target {full}: {e}")
+        return None
+
     def _make_candidates(self, pn: str) -> list[str]:
         """Generate candidate filenames for a part number."""
-        # Insert dashes: 893906266D → 893-906-266-D
         dashed = _insert_dashes(pn)
-        candidates = []
-        for name in [dashed, pn]:
+        # Also try root (no suffix letter) for REDIRECT lookup
+        root_pn     = pn[:-1] if pn and pn[-1].isalpha() else pn
+        root_dashed = _insert_dashes(root_pn)
+        candidates  = []
+        for name in [dashed, pn, root_dashed, root_pn]:
+            if not name:
+                continue
             candidates.append(f"{name}.lbl")
             candidates.append(f"{name.lower()}.lbl")
             candidates.append(f"{name}.LBL")
-        return candidates
+        return list(dict.fromkeys(candidates))   # deduplicate preserving order
 
     def available(self) -> list[str]:
         """Return list of part numbers with label files available."""
@@ -448,30 +556,48 @@ class LBLRegistry:
         }
 
 
+def _wildcard_match(pn: str, pattern: str) -> bool:
+    """
+    Match a part number against a pattern with ? wildcards.
+    Also treats lowercase x as wildcard (Ross-Tech convention).
+    e.g. pattern "1J0-919-???-???" matches "1J0919123ABC"
+    """
+    pn  = pn.upper().replace('-', '')
+    pat = pattern.upper().replace('-', '')
+    # Replace x with ? for case insensitivity
+    pat = pat.replace('X', '?')
+    if len(pn) != len(pat):
+        return False
+    return all(pp == '?' or pp == cp for pp, cp in zip(pat, pn))
+
+
 def _insert_dashes(pn: str) -> str:
     """
     Convert a plain part number to dashed filename format.
-    893906266D → 893-906-266-D
-    4A0906266  → 4A0-906-266
-    078906266  → 078-906-266
+    893906266D   → 893-906-266-D
+    4A0906266    → 4A0-906-266
+    06A906018AGU → 06A-906-018-AGU
+    038906019ARL → 038-906-019-ARL
     Handles variable-length VAG part numbers.
     """
-    # VAG format is typically NNN-NNN-NNN-X or NNA-NNN-NNN
-    # Try to split at known boundaries
     pn = pn.upper()
 
-    # Most common: 3-3-3-1 (e.g. 893-906-266-D)
-    m = re.match(r'^(\w{3})(\d{3})(\d{3})([A-Z]?)$', pn)
+    # 3-3-3-1 (e.g. 893-906-266-D)
+    m = re.match(r'^(\w{3})(\d{3})(\d{3})([A-Z])$', pn)
     if m:
-        parts = [g for g in m.groups() if g]
-        return '-'.join(parts)
+        return '-'.join(m.groups())
 
-    # 3-3-3 (e.g. 078-906-266)
+    # 3-3-3-2 or 3-3-3-3 (e.g. 06A-906-018-AGU, 038-906-019-ARL)
+    m = re.match(r'^(\w{3})(\d{3})(\d{3})([A-Z]{2,4})$', pn)
+    if m:
+        return '-'.join(m.groups())
+
+    # 3-3-3 no suffix (e.g. 078-906-266)
     m = re.match(r'^(\w{3})(\d{3})(\d{3})$', pn)
     if m:
         return '-'.join(m.groups())
 
-    # Fallback: just return as-is
+    # Fallback: return as-is
     return pn
 
 

@@ -1,0 +1,25 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2010-2011 Ross-Tech, LLC
+;
+; Component: J519 - Central Electronics I (#09)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 5C-09.LBL
+; 6R0-937-08x-09.CLB
+;
+; created on 05/Oct/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 24/May/2011
+;
+; requires VCDS 10.6.1 / LCode 1.0.2 or newer
+;
+;
+REDIRECT,6R0-937-08x-09.CLB,5C0-937-086-???   ; Medium
+REDIRECT,6R0-937-08x-09.CLB,5C0-937-087-???   ; High
+;
+REDIRECT,6R0-937-08x-09.CLB,5C5-937-087-???   ; High
+;

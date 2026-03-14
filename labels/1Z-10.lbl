@@ -1,0 +1,30 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2012 Ross-Tech, LLC
+;
+; Component: J466 - Parking Aid 2 (#10)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1Z-10.LBL
+; 1Z0-919-475-V1.CLB
+; 1Z0-919-475-V2.CLB
+;
+; created on 26/Jan/2012 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 09/Mar/2015
+;
+; requires VCDS 11.11.2 or newer
+;
+;
+REDIRECT,1Z0-919-475-V1.CLB,1Z0-919-475
+REDIRECT,1Z0-919-475-V1.CLB,1Z0-919-475-A
+REDIRECT,1Z0-919-475-V1.CLB,1Z0-919-475-B
+REDIRECT,1Z0-919-475-V1.CLB,1Z0-919-475-C
+;1Z0-919-475-D
+REDIRECT,1Z0-919-475-V2.CLB,1Z0-919-475-E
+REDIRECT,1Z0-919-475-V2.CLB,1Z0-919-475-F
+REDIRECT,1Z0-919-475-V2.CLB,1Z0-919-475-G
+;

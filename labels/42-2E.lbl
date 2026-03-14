@@ -1,0 +1,25 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; Audi R8 (42)
+;
+; Component: R199 - Media Player (#0E/#1E/#2E)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8P-2E.LBL
+; 4E0-035-785.LBL - Audi Music Interface (AMI) MOST
+; 8T0-035-785.CLB - Audi Music Interface (AMI) CAN
+;
+; created on 15/Apr/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 15/Apr/2014
+;
+; requires VCDS 12.12.2 or newer
+;
+;
+REDIRECT,8T0-035-785.CLB,420-035-785-???
+;

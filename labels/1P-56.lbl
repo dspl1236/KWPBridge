@@ -1,0 +1,31 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2005-2009 Ross-Tech, LLC
+;
+; Seat Leon (1P)
+;
+; Component: R - Radio (#56)
+;
+; This is a redirect file.
+;
+; This file is part of a redirection package,
+; make sure you have all of the following files.
+;
+; 1P-56.LBL
+; 1K0-035-1xx-56.LBL (Radio X00)
+; 5M0-035-1xx-56.CLB (Modular Radio X10)
+;
+; created on 15/Aug/2005 by Sebastian Stange (sebastian@ross-tech.com)
+;
+; last modification on 23/Apr/2009
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,1K0-035-1xx-56.LBL,1P?-035-152-??? ; Radio CD
+;
+REDIRECT,5M0-035-1xx-56.CLB,1P0-035-153-??? ; Radio CD
+;
+REDIRECT,1K0-035-1xx-56.LBL,1P?-035-186-??? ; Radio CD & MP3
+;

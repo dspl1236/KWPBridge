@@ -1,0 +1,120 @@
+;
+; VCDS Label File
+;
+; Copyright © 2013+ Ross-Tech, LLC
+;
+; VW Transporter (7H/7J)
+;
+; Component: J347 - Interior Monitoring (#45)
+;
+; P/N: 7H?-951-171-???
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 7H-45.LBL
+; 7Hx-951-171.LBL
+;
+; includes measuring blocks, security access, coding and adaptation
+;
+; created on 21/Feb/2013 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 01/April/2020
+;
+; requires VCDS 11.11.5 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,1,Interior Monitoring,Status,Range: active/inactive
+001,3,Interior Monitoring,Button (E183),Range: operated/not oper.
+;
+002,2,Interior Monitoring,Sensor (G305),Range: OK/Not OK
+002,3,Termin 15,Status,Range: Term. 15 ON/Term. 15 OFF
+;
+004,1,Alarm Source
+; 0 = No Alarm detected
+; 2 = Receiver module 1 for interior monitoring (G303)
+; 4 = Receiver module 2 for interior monitoring (G305)
+; 5 = Vehicle tilt/inclination sensor (G384)
+; 6 = Vehicle tilt/inclination sensor (G384)
+;
+005,1,Inclination Sensor,Staus (G384),Range: active/inactive
+005,3,Inclination Sensor,Button (E360),Range: operated/not oper.
+;
+080,0,Advanced Control Module Identification I
+080,1,Identification
+080,2,Revision
+080,3,Production,Date
+080,4,Manufacturer &,Test Stand Number
+;
+;
+;---------------------------------------------------
+;
+; security access
+;
+;---------------------------------------------------
+;
+S00,Interior Monitoring (J345) Security Access
+S01,01034 = Coding Enabling
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Interior Monitoring (J345) Coding
+C01,00000?x: Options I
+C02,0 = Control Module installed longitudinal / Inclination Sensor NOT installed
+C03,1 = Control Module installed longitudinal / Inclination Sensor installed
+C04,2 = Control Module installed transverse / Inclination Sensor installed
+C05,00000x?: Options II
+C06,1 = Interior Monitoring Front / Normal Equipment
+C07,2 = Interior Monitoring Front & Rear / Normal Equipment
+C08,3 = Interior Monitoring Front / Camper Equipment
+C09,4 = Interior Monitoring Front & Rear / Camper Equipment
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+A001,0,Interior Monitoring Sensitivity Front
+A001,5,Interior Monitoring Sensitivity Front
+A001,6,Adjustment of the Front Interior Monitoring Sensitivity.
+A001,7, 
+A001,8,Range: 50...100 %
+A001,9,Factory/Standard Setting: 100 %
+;
+A002,0,Interior Monitoring Sensitivity Rear
+A002,5,Interior Monitoring Sensitivity Rear
+A002,6,Adjustment of the Rear Interior Monitoring Sensitivity.
+A002,7, 
+A002,8,Range: 50...100 %
+A002,9,Factory/Standard Setting: 100 %
+;
+A003,0,Inclination Sensor Sensitivity Longitudinal
+A003,5,Inclination Sensor Sensitivity Longitudinal
+A003,6,Adjustment of the Longitudinal Inclination Sensor Sensitivity.
+A003,7, 
+A003,8,Range: 50...100 %
+A003,9,Factory/Standard Setting: 100 %
+;
+A004,0,Inclination Sensor Sensitivity Transverse
+A004,5,Inclination Sensor Sensitivity Transverse
+A004,6,Adjustment of the Transverse Inclination Sensor Sensitivity.
+A004,7, 
+A004,8,Range: 50...100 %
+A004,9,Factory/Standard Setting: 100 %
+;

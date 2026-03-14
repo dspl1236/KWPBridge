@@ -1,0 +1,67 @@
+;
+; VCDS Label File
+;
+; Copyright © 2009 Ross-Tech, LLC
+;
+; VW Phaeton (3C) / VW Touareg (7L)
+;
+; Component: J567 - Automatic Headlight Aim Control Left (#29)
+;
+; P/N: 3D0-909-157
+;
+; includes measuring blocks, basic setting and coding
+;
+; created on 10/Oct/2009 by Sebastian Stange (sebastian@ross-tech.com)
+;
+; last modificationon on 10/Oct/2009
+;
+; requires VCDS 805.0 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks & basic setting
+;
+;---------------------------------------------------
+;
+;
+001,0,General (Power Supply)
+001,1,Voltage,Terminal 15
+001,2,Voltage,Terminal 56b
+;
+B001,0,Headlight Adjustment Position
+B001,1,Adjustment,Status, 
+B001,2, , , 
+B001,3, , , 
+B001,4, , , 
+;
+002,0,General
+002,3,Basic Setting,Status
+002,4,Supply Voltage,Actuation Motor
+;
+B002,0,Headlight Position Learning
+B002,1,Learning,Status, 
+B002,2, , , 
+B002,3, , , 
+B002,4, , , 
+;
+003,0,General
+;003,4,,,
+;47.1%,Load
+;
+080,0,Advanced Control Module Identification I
+080,1,Advanced,Identification
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Automatic Headlight Aim Control (J567) Coding
+C01,0000001 = VW Phaeton (3D)
+C02,0000002 = VW Touareg (7L) with Steel Suspension
+C03,0000003 = VW Touareg (7L) with Air Suspension
+;

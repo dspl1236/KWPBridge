@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2013+ Ross-Tech, LLC
+;
+; Audi A4 (8E) / Audi A6 (4B) / Audi A8 (4D)
+;
+; Component: J446 - Parking Aid (#15)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8D-76.LBL
+; 4B0-919-283.LBL
+;
+; created on 20/Feb/2013 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 20/Feb/2013
+;
+; requires VCDS 11.11.5 or newer
+;
+;
+REDIRECT,4B0-919-283.LBL,8D0-919-283-???
+;

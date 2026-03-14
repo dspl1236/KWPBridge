@@ -1,0 +1,41 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2005+ Ross-Tech, LLC
+;
+; Component: Radio/Navigation System (#56)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 7L-56.LBL
+; 7L6-035-180-56.LBL
+; 7L6-035-186-CD.LBL
+; 7L6-035-186-DVD.LBL
+;
+; created on 02/Dec/2005 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 25/Feb/2013
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,7L6-035-180-56.LBL,7L6-035-180-???  ; Premium 6 (NAR)
+;
+REDIRECT,7L6-035-186-CD.LBL,7L6-035-186-A?   ; RN-S2 CD
+;REDIRECT,7L6-035-186-DVD.LBL,7L6-035-186-A?  ; RN-S2 DVD
+;
+REDIRECT,7L6-035-186-DVD.LBL,7L6-035-186-C?  ; RN-S2 DVD
+REDIRECT,7L6-035-186-DVD.LBL,7L6-035-186-D?  ; RN-S2 DVD
+REDIRECT,7L6-035-186-DVD.LBL,7L6-035-186-E?  ; RN-S2 DVD
+REDIRECT,7L6-035-186-DVD.LBL,7L6-035-186-F?  ; RN-S2 DVD
+REDIRECT,7L6-035-186-DVD.LBL,7L6-035-186-G?  ; RN-S2 DVD
+REDIRECT,7L6-035-186-DVD.LBL,7L6-035-186-P?  ; RN-S2 DVD
+;
+REDIRECT,3B7-035-1xx-56.LBL,7L6-035-195-??? ; Delta 6 (RoW)
+;
+REDIRECT,1T0-035-680.LBL,7L6-035-680-???     ; RNS510
+REDIRECT,1T0-035-680.LBL,7L6-035-681-???     ; RNS510 JP
+REDIRECT,1T0-035-680.LBL,7L6-035-682-???     ; RNS510 CHN
+REDIRECT,1T0-035-680.LBL,7L6-035-684-???     ; RNS510 NAR
+;

@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2010 Ross-Tech, LLC
+;
+; Component: J603 - Position Sensing (#1C)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 5N-1C.LBL
+; 1Kx-919-xxx-1C.LBL
+;
+; created on 22/Apr/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 22/Apr/2010
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,1Kx-919-xxx-1C.LBL,5N0-919-879-???
+;

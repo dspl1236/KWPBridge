@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; Audi TT (8S/FV)
+;
+; Component: J527 - Steering Column Electronics (#16)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8V-16.LBL
+; 5Q0-953-549.CLB
+;
+; created on 11/Nov/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 11/Nov/2014
+;
+; requires VCDS 14.10.0 or newer
+;
+;
+REDIRECT,5Q0-953-549.CLB,8S0-907-129-???
+;

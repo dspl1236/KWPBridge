@@ -1,0 +1,33 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011+ Ross-Tech, LLC
+;
+; Component: J519 - Central Electronics I (#09)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3D-09.LBL
+; 3D0-937-049-V1.CLB (< MY 2006)
+; 3D0-937-049-V2.CLB (MY 2007 >)
+;
+; created on 11/Jul/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 14/Nov/2013
+;
+; requires VCDS 12.12.0 or newer
+;
+;
+REDIRECT,3D0-937-049-V1.LBL,3D0-937-049-D     ; < MY 2006
+REDIRECT,3D0-937-049-V1.LBL,3D0-937-049-E     ; < MY 2006
+REDIRECT,3D0-937-049-V1.LBL,3D0-937-049-G     ; < MY 2006
+REDIRECT,3D0-937-049-V1.LBL,3D0-937-049-H     ; < MY 2006
+REDIRECT,3D0-937-049-V2.LBL,3D0-937-049-J     ; MY 2007-2008
+REDIRECT,3D0-937-049-V2.LBL,3D0-937-049-K     ; MY 2007-2008
+REDIRECT,3D0-937-049-V2.LBL,3D0-937-049-L     ; MY 2007-2008
+REDIRECT,3D0-937-049-V2.LBL,3D0-937-049-M     ; MY 2007-2008
+REDIRECT,3D0-937-049-V2.LBL,3D0-937-049-N     ; MY 2009-2010
+REDIRECT,3D0-937-049-V2.LBL,3D0-937-049-P     ; MY 2011-2012
+REDIRECT,3D0-937-049-V2.LBL,3D0-937-049-Q     ; MY 2012 >
+;

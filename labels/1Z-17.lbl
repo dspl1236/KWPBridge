@@ -1,0 +1,33 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2004-2011 Ross-Tech, LLC
+;
+; Skoda Octavia (1Z)
+;
+; Component: J285 - Instrument Cluster (#17)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1Z-17.LBL
+; 1K0-920-xxx-17.LBL
+; 5K0-920-xxx-17.CLB
+;
+; created on 30/Jul/2004 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 16/Aug/2011
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,1K0-920-xxx-17.LBL,1Z0-920-??0-???  ; MY 2005-2008
+REDIRECT,1K0-920-xxx-17.LBL,1Z0-920-??1-???  ; MY 2005-2008
+REDIRECT,1K0-920-xxx-17.LBL,1Z0-920-??2-???  ; MY 2005-2008
+;
+REDIRECT,5K0-920-xxx-17.CLB,1Z0-920-??3-???  ; MY 2009+
+;
+REDIRECT,1K0-920-xxx-17.LBL,1ZD-920-??2-???  ; MY 2007-2010
+;
+REDIRECT,5K0-920-xxx-17.CLB,1ZD-920-??3-???  ; MY 2011+
+;

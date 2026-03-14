@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; Component: J104 - Brake Electronics (#03)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 12-03.LBL
+; 1S0-614-517.CLB (TRW 460)
+;
+; created on 04/Mar/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 04/Mar/2014
+;
+; requires VCDS 12.12.2 or newer
+;
+;
+REDIRECT,1S0-614-517.CLB,12E-614-517-??? ; TRW 460
+;

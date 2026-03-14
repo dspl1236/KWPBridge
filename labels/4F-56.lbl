@@ -1,0 +1,33 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2005-2011 Ross-Tech, LLC
+;
+; Audi A4 (8K) / Audi A5 (8T) / Audi A6 (4F) / Audi A8 (4E)
+; Audi Q5 (8R) / Audi Q7 (4L)
+;
+; Component: R - Radio (#56)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 4F-56.LBL
+; 4F0-035-0xx-56.CLB
+; 4F0-910-7xx-56.LBL
+;
+; created on 31/Dec/2005 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 29/Sep/2011
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,4F0-910-7xx-56.LBL,4F0-910-7??-???  ; R integrated in J523
+;
+REDIRECT,4F0-035-0xx-56.CLB,4F0-035-053-???  ; PR-QV0/QV9 & PR-8RX/9VK
+REDIRECT,4F0-035-0xx-56.CLB,4F0-035-056-???  ; PR-QV0/QV9 & PR-9VD
+REDIRECT,4F0-035-0xx-56.CLB,4F0-035-061-???  ; PR-QU1/QV3/QV5 & PR-8RX/9VK
+REDIRECT,4F0-035-0xx-56.CLB,4F0-035-080-???  ; PR-QV8 & PR-8DS/8DY
+REDIRECT,4F0-035-0xx-56.CLB,4F0-035-082-???  ; PR-QV8 & PR-8DS/8DY
+REDIRECT,4F0-035-0xx-56.CLB,4F0-035-083-???  ; PR-8DZ
+;

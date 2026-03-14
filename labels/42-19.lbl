@@ -1,0 +1,23 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2008+ Ross-Tech, LLC
+;
+; Component: J533 - Diagnostic Interface for Databus (#19)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1K-19.LBL
+; 42-19.LBL
+; 1K0-907-530-V3.CLB
+;
+; created on 11/Sep/2008 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 29/May/2012
+;
+; requires VCDS 11.11.3 or newer
+;
+;
+REDIRECT,1K0-907-530-V3.CLB,420-907-530     ; (7 Byte)
+;

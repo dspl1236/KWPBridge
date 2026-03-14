@@ -1,0 +1,39 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2009+ Ross-Tech, LLC
+;
+; Component: J743 - Transmission Electronic (#02) - 7-Speed Direct Shift Gearbox (DSG) 0AM
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 0A-02.LBL
+; 0AM-927-769.LBL
+;
+; created on 30/Apr/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 18/Aug/2014
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,0AM-927-769.LBL,0AM-300-043-???
+REDIRECT,0AM-927-769.LBL,0AM-300-045-???
+REDIRECT,0AM-927-769.LBL,0AM-300-046-???
+REDIRECT,0AM-927-769.LBL,0AM-300-047-???
+REDIRECT,0AM-927-769.LBL,0AM-300-048-???
+REDIRECT,0AM-927-769.LBL,0AM-300-049-???
+REDIRECT,0AM-927-769.LBL,0AM-300-050-???
+REDIRECT,0AM-927-769.LBL,0AM-300-051-???
+REDIRECT,0AM-927-769.LBL,0AM-300-052-???
+REDIRECT,0AM-927-769.LBL,0AM-300-053-???
+REDIRECT,0AM-927-769.LBL,0AM-300-054-???
+REDIRECT,0AM-927-769.LBL,0AM-300-057-???
+REDIRECT,0AM-927-769.LBL,0AM-300-058-???
+REDIRECT,0AM-927-769.LBL,0AM-300-060-???
+REDIRECT,0AM-927-769.LBL,0AM-300-061-???
+REDIRECT,0AM-927-769.LBL,0AM-300-064-???
+;
+REDIRECT,0AM-927-769.LBL,0AM-927-769-???,HW
+;

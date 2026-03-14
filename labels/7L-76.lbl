@@ -1,0 +1,30 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2005+ Ross-Tech, LLC
+;
+; Porsche Cayenne (92) / VW Touareg (7L)
+;
+; Component: J466 - Parking Aid (#76)
+;
+; This file is part of a label file package,
+; make sure you have both of the following files.
+;
+; 3D-76.LBL
+; 7L-76.LBL
+; 3D0-919-283-V1.CLB
+; 3D0-919-283-V2.CLB
+; 3D0-919-283-V3.CLB
+;
+; created on 27/Mar/2005 by Michael Moore (Moore@Ross-Tech.com)
+; updated on 28/Apr/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+; updated on 17/Aug/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; requires VCDS 12.12.2 or newer
+;
+;REDIRECT,3D0-919-283-V3.CLB,7L0-919-283-D
+;REDIRECT,3D0-919-283-V3.CLB,7L0-919-283-E
+REDIRECT,3D0-919-283-V3.CLB,7L0-919-283-F
+;
+REDIRECT,3D0-919-283-V3.CLB,7L5-919-283-B
+;

@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2012+ Ross-Tech, LLC
+;
+; Audi A8 (4H)
+;
+; Component: J197 - Level Control (#34)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 4H-34.LBL
+; 4G0-907-553.CLB
+;
+; created on 29/Jun/2012 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 29/Jun/2012
+;
+; requires VCDS 11.11.3 or newer
+;
+;
+REDIRECT,4G0-907-553.CLB,4H0-907-553-???
+;

@@ -1,0 +1,111 @@
+;
+; VCDS Label File
+;
+; Copyright © 2005-2011 Ross-Tech, LLC
+;
+; Seat Altea/Toledo (5P) / Skoda Octavia II (1Z)
+; VW Caddy (2K) / VW Golf/Jetta (1K) / VW Touran (1T)
+;
+; Component: J255 - A/C Heating Electronics (#08) - Climatic
+;
+; P/N: 1K0-820-047-???
+;
+; includes measuring blocks and basic setting
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1Z-08.LBL
+; 5P-08.LBL
+; 1K0-820-047.LBL
+;
+; created on 13/Jul/2005 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 27/Jun/2016
+;
+; requires VCDS 11.9.0 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks & basic setting
+;
+;---------------------------------------------------
+;
+;
+001,1,Compressor,Shut-Off Code,Specification: 0/6/7\n\n0 = Compressor ON\n1 = Compressor OFF: Refrigerant Pressure too high (> 32 bar)\n3 = Compressor OFF: Refrigerant Pressure too low (< 2.0 bar)\n5 = Compressor OFF: Engine Start Detection\n6 = Compressor OFF: ECON Mode active\n7 = Compressor OFF: A/C System / FAN OFF\n8 = Compressor OFF: Outside Temperature too low (< 3.0 °C)\n10 = Compressor OFF: Vehicle System Voltage too low (< 10.1 V)\n11 = Compressor OFF: Engine Temperature too high (> 118 °C)\n12 = Compressor OFF: Shut-Off requested by Engine Control\n13 = Compressor OFF: Vehicle System Voltage too high (> 17 V)\n14 = Compressor OFF: Evaporator Temperature too low\n16 = Compressor OFF: Compressor Activation faulty\n17 = Compressor OFF: No or implausible Signal Pressure Sensor\n18 = Compressor OFF: Vehicle Speed Shut-Off\n19 = Compressor OFF: Shut-Off requested by Central Electronics Control (Load Management)
+;  0 = Compressor ON
+;  1 = Compressor OFF: Refrigerant Pressure too high (> 32 bar)
+;  3 = Compressor OFF: Refrigerant Pressure too low (< 2.0 bar)
+;  5 = Compressor OFF: Engine Start Detection
+;  6 = Compressor OFF: ECON Mode active
+;  7 = Compressor OFF: A/C System / FAN OFF
+;  8 = Compressor OFF: Outside Temperature too low (< 3.0 °C)
+; 10 = Compressor OFF: Vehicle System Voltage too low (< 10.1 V)
+; 11 = Compressor OFF: Engine Temperature too high (> 118 °C)
+; 12 = Compressor OFF: Shut-Off requested by Engine Control
+; 13 = Compressor OFF: Vehicle System Voltage too high (> 17 V)
+; 14 = Compressor OFF: Evaporator Temperature too low
+; 16 = Compressor OFF: Compressor Activation faulty
+; 17 = Compressor OFF: No or implausible Signal Pressure Sensor
+; 18 = Compressor OFF: Vehicle Speed Shut-Off
+; 19 = Compressor OFF: Shut-Off requested by Central Electronics Control (Load Management)
+001,2,Engine Speed,,Range: 0...10000 RPM
+001,3,Vehicle Speed,,Range: 0...255 km/h
+001,4,Standing Time
+;
+B001,0,Potentiometer && Flap Alignment
+B001,1,Status, , 
+B001,2, , , 
+B001,3, , , 
+B001,4, , , 
+B001,11,The Basic Setting (Duration max. 30 Seconds) must be performed when:
+B001,12,- Climatronic Control Module (J255) or Display/Operating Unit Rear (E265) replaced
+B001,13,- Flap Motor or Fan Control replaced
+;
+002,1,Compressor,Current (actual)
+002,2,Compressor,Current (specified)
+002,3,Compressor,Speed,Range: 0...10000 RPM
+002,4,Compressor Load,,Range: 0.0...18.0 Nm
+;
+003,1,Refrigerant,Pressure,Range: 0.0...51.0 bar
+003,2,Radiator Fan,Activation (actual),Range: 0.0...100.0 %
+003,3,Radiator Fan,Activation (spec.),Range: 0.0...100.0 %
+003,4,Engine Speed,Increase,Range: ON/OFF
+;
+004,1,Outside Temp.,(unfiltered),Range: -50.0...+63.0 °C
+004,2,Outside Temp.,(filtered),Range: -50.0...+77.0 °C
+004,4,Coolant,Temperature,Range: -48.0...+126.0 °C
+;
+005,0,Outlet/Footwell Blower Temperature
+005,1,Outlet Blower,Temperature,Range: 0.0...84.0 °C
+005,3,Footwell Blower,Temperature,Range: 0.0...84.0 °C
+;
+006,1,Evaporator,Temperature,Specification: -40.0...+40.0 °C
+006,2,Interior,Temperature,Range: -100.0...+100.0 °C
+;
+007,1,Fan/Blower,Status,Range: ON/OFF
+007,4,System Voltage,(Terminal 30),Range: 0.0...20.0 V\nSpecification: 11.5...15.0 V
+;
+008,1,Status,Terminal 15,Range: ON/OFF
+008,3,Signal,Damping,Range: 0.0...100.0 %
+;
+009,0,Electrical Heaters
+009,1,Rear Window,Heater (actual),Range: ON/OFF
+009,2,Rear Window,Heater (specified),Range: ON/OFF
+009,3,PTC Heater,(actual),Range: ON/OFF
+009,4,PTC Heater,(specified),Range: ON/OFF
+;
+010,1,PTC-Heater,Driver Intention
+010,2,Heater OFF
+010,3,Parking Heater,Condition
+;
+011,0,Fresh Air Recirculating Air Flap 
+011,2,Specified Value,,Specification: 0...255
+;
+012,0,Left Temperature Flap
+012,1,Current Value,,Specification: 0...255
+012,2,Specified Value,,Specification: 0...255
+012,3,Cold-Stop,,Specification: 0...255
+012,4,Warm-Stop,,Specification: 0...255
+;

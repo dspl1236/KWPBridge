@@ -1,0 +1,26 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2008-2010 Ross-Tech, LLC
+;
+; Component: J217 - Transmission (#02)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 4E-02.LBL
+; 01J-927-156.LBL (01J - VL30)
+; 09E-927-156.LBL (09E - 6HP26)
+; 09L-927-760.LBL (09L - 6HP19)
+;
+; created on 28/Jan/2008 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 30/Nov/2010
+;
+; requires VCDS 10.6.2 or newer
+;
+;
+REDIRECT,01J-927-156.LBL,01J-927-156-???,HW  ; 01J/0AN
+REDIRECT,09E-927-156.LBL,09E-927-156-???,HW  ; 09E
+REDIRECT,09L-927-760.LBL,09L-927-156-???,HW  ; 09L
+;

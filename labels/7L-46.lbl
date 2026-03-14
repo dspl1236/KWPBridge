@@ -1,0 +1,23 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011-2012 Ross-Tech, LLC
+;
+; Component: J393 - Comfort System (#46)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 7L-46.LBL
+; 7L0-959-933.LBL
+;
+; created on 03/Sep/2011 by Niels Ezerman (nez@netech.dk)
+; updated on 06/Feb/2012 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 06/Feb/2012
+;
+; requires VCDS 10.6.4 or newer
+;
+;
+REDIRECT,7L0-959-933.LBL,7L6-959-933-???
+;

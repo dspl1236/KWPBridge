@@ -1,0 +1,29 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011 Ross-Tech, LLC
+;
+; Component: Subsystem (#09-02)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 7P-09-02.LBL
+; 8K0-955-559.CLB
+;
+; created on 14/Jul/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 18/Aug/2011
+;
+; requires VCDS 11.3.0 / LCode 1.0.3.3 or newer
+;
+;
+;---------------------------------------------------
+;
+; Rain/Light Sensor (Optional Equipment)
+;
+;---------------------------------------------------
+;
+;
+REDIRECT,8K0-955-559.CLB,7P0-955-559-???,SL
+;

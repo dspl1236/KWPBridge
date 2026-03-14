@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2015+ Ross-Tech, LLC
+;
+; Audi A3 (8V)
+;
+; Component: J844 - High Beam Assist (#20)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8V-20.LBL
+; 8X0-857-511.CLB
+;
+; created on 31/Mar/2015 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 12/Jun/2015
+;
+; requires VCDS 14.10.2 or newer
+;
+;
+REDIRECT,8X0-857-511.CLB,8V0-857-511-???
+;

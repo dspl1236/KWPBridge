@@ -1,0 +1,34 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2007+ Ross-Tech, LLC
+;
+; Component: R - Radio (#56)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 5J-56.LBL
+; 1K0-035-1xx-56.LBL (Radio X00)
+; 5M0-035-1xx-56.CLB (Modular Radio X10)
+;
+; created on 21/Jun/2007 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 14/Mar/2014
+;
+; requires VCDS 12.12.2 or newer
+;
+;
+;5J0-035-152      ; BEAT (YD5)
+REDIRECT,5M0-035-1xx-56.CLB,5J0-035-152-A    ; BLUES (YD5)
+REDIRECT,5M0-035-1xx-56.CLB,5J0-035-152-D    ; BLUES (YD5)
+;
+REDIRECT,1K0-035-1xx-56.LBL,5J0-035-161      ; DANCE (FO3)
+REDIRECT,5M0-035-1xx-56.CLB,5J0-035-161-A    ; DANCE (YD5)
+REDIRECT,5M0-035-1xx-56.CLB,5J0-035-161-C    ; SWING
+REDIRECT,5M0-035-1xx-56.CLB,5J9-935-161-C    ; SWING // SGO-FIX
+REDIRECT,5M0-035-1xx-56.CLB,5J0-035-161-D    ; SWING
+REDIRECT,5M0-035-1xx-56.CLB,5J0-035-161-E    ; SWING
+REDIRECT,5M0-035-1xx-56.CLB,5J0-035-161-F    ; SWING
+REDIRECT,5M0-035-1xx-56.CLB,5J0-035-161-G    ; SWING
+;

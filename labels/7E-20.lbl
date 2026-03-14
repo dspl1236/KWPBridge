@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2015+ Ross-Tech, LLC
+;
+; Component: J844 - High Beam Assist (#20)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 7E-20.LBL
+; 8S0-857-511.CLB
+;
+; created on 01/Jul/2015 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 01/Jul/2015
+;
+; requires VCDS 14.10.2 or newer
+;
+;
+REDIRECT,8S0-857-511.CLB,7E0-857-511-???
+;

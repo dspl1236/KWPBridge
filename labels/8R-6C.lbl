@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2009 Ross-Tech, LLC
+;
+; Component: J772 - Back-Up Camera (#6C)
+;
+; This file is part of a redirection package,
+; make sure you have all of the following files.
+;
+; 8R-6C.LBL
+; 8T0-910-441.LBL
+;
+; created on 15/Jul/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 09/Jul/2015
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,8T0-907-441.CLB,8R0-907-441-???
+;

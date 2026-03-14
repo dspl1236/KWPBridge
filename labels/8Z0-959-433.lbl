@@ -1,0 +1,188 @@
+;
+; VCDS Label File
+;
+; Copyright © 2015+ Ross-Tech, LLC
+;
+; Audi A2 (8Z)
+;
+; Component: J393 - Comfort System (#46)
+;
+; P/N: 8Z0-959-433-???
+;
+; includes measuring blocks, (converted) coding and adaptation
+;
+; created on 02/May/2015 by Sebastian Stange (Sebastian@Ross-Tech.com)
+; updated on 29/May/2015 by Sebastian Stange (Sebastian@Ross-Tech.com) // Converted Coding added
+;
+; last modification on 29/May/2015
+;
+; requires VCDS 14.10.2 / LCode 1.0.5.6 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,Driver's Side
+001,1,Driver's Side,Key Switch,Display Range: Open/Closed/Not Oper.
+001,2,Central Locking,Button,Display Range: Locking/Unlocking/Not Oper.
+001,3,Driver's Side,Lock Status,Display Range: Locked/Unlocked
+001,4,Driver's Side,Safe Status,Display Range: Safe/Not Safe
+;
+002,0,Driver Side/Passenger Side
+002,1,Driver's Side,Key Switch,Display Range: Open/Closed/Not Oper.
+002,2,Passenger Side,Key Switch,Display Range: Open/Closed/Not Oper.
+002,3,Passenger Side,Lock Status,Display Range: Locked/Unlocked
+002,4,Passenger Side,Safe Status,Display Range: Safe/Not Safe
+;
+003,0,Rear Right/Left (Return Messages)
+003,1,Rear Right,Lock Status,Display Range: Locked/Unlocked
+003,2,Rear Right,Safe Status,Display Range: Safe/Not Safe
+003,3,Rear Left,Lock Status,Display Range: Locked/Unlocked
+003,4,Rear Left,Safe Status,Display Range: Safe/Not Safe
+;
+004,0,Door Contacts (Rotary Traps)
+004,1,Door Contact,Driver's Side,Display Range: Door Open/Door Closed
+004,2,Door Contact,Passenger Side,Display Range: Door Open/Door Closed
+004,3,Door Contact,Rear Right,Display Range: Door Open/Door Closed
+004,4,Door Contact,Rear Left,Display Range: Door Open/Door Closed
+;
+005,1,Fuel Tank,Lid Switch,Display Range: Operated/Not Oper.
+005,2,Trunk Lid,Contact Switch,Display Range: Lid Open/Lid Closed
+005,3,Soft-Touch,Trunk Lid Release,Display Range: Operated/Not Oper.
+005,4,Engine Hood,Contact Switch,Display Range: Lid Open/Lid Closed
+;
+006,1,Interior Light,,Display Range: ON/OFF
+006,2,Window Regulator,Relief Relay,Display Range: Relay ON/Relay OFF
+006,3,Comfort Oper.,(open/code),Display Range: Open/Closed/Not Oper.
+006,4,Luggage,Compartment Light,Display Range: ON/OFF
+;
+007,1,Key Number,(Memory Position),0 = Not Operated\n1-4 = Key Number
+007,2,Remote Control,Command,0 = Not Operated\n1 = Open\n2 = Close\n3 = Open Rear Lid\n4 = Panic Button
+007,3,Adapted Key,Memory Positions,Display Range: 0 = Not Occupied / 1 = Occupied\n\n?xxx = Key 1\nx?xx = Key 2\nxx?x = Key 3\nxxx? = Key 4
+;
+008,1,Vehicle Speed
+008,2,Immobilizer,(Key recognized),Display Range: Yes/No
+008,4,Rear Windshield,broken,Display Range: Recognized/No/Not Installed
+;
+009,0,Control Module,Coding
+;
+010,1,Driver's Door,(Door Contact),Display Range: Door Open/Door Closed
+010,2,Interior Monitoring,Deactivation Button,Display range: operated/Not Oper./Not Installed
+010,3,Parking Brake,,Display Range: Operated/Not Oper.
+010,4,Back-Up Light,,Display Range: ON/OFF
+;
+011,0,Fahrertür (Window Regulator)
+011,1,eFH-Schalter,Beifahrertür,Wertebereich: autom. auf/autom. zu/man. auf/man. zu/unbetätigt/n. verbaut
+011,2,eFH-Thermoschutz,Beifahrertür,Wertebereich: Ja/Nein/n. verbaut
+011,3,Window Reg. Lock,Rear Doors,Range: ON/OFF
+;
+012,0,Fahrertür (eFH-Schalter)
+012,1,eFH-Schalter,vorne rechts,Wertebereich: autom. auf/autom. zu/man. auf/man. zu/unbetätigt/n. verbaut
+012,2,eFH-Schalter,hinten links,Wertebereich: autom. auf/autom. zu/man. auf/man. zu/unbetätigt/n. verbaut
+012,3,eFH-Schalter,hinten rechts,Wertebereich: autom. auf/autom. zu/man. auf/man. zu/unbetätigt/n. verbaut
+;
+013,0,Mirror System
+013,1,Mirror Adjustment,Switch,Display Range: Pos. X+/Pos. X-/Pos. Y+/Pos. Y-/Not Oper.
+013,2,Mirror Selection,Switch,Display Range; Left/Right/Fold-Out/Not Oper.
+013,3,Mirror Disengage,Switch,Display Range: Disengaged/Engaged/Not Installed
+013,4,Mirror Heating,,Display Range: ON/OFF
+;
+014,0,Passenger Door (Window Regulators)
+014,1,Window Regulator,Button Pass. Side,Display Range: auto. open/auto. close/man. open/man. close/Not Oper.
+014,2,Window Reg. Therm.,Prot. Pass. Side,Display Range: Yes/No/Not Oper.
+;
+015,0,Rear Doors (Window Regulators)
+015,1,Window Regulator,Button Rear Right,Display Range: auto. open/auto. close/man. open/man. close/Not Oper./Not Installed
+015,2,Window Reg. Therm.,Prot. Rear Right,Display Range: Yes/No/Not Oper.
+015,3,Window Regulator,Button Rear Left,Display Range: auto. open/auto. close/man. open/man. close/Not Oper./Not Installed
+015,4,Window Reg. Therm.,Prot. Rear Left,Display Range: Yes/No/Not Oper.
+;
+016,1,Supply Voltage,(Terminal 30)
+016,2,Status,Terminal 15,Display Range: Term. 15 On/Term. 15 Off
+016,3,Status,S-Contact,Display Range: Activated/Not Oper.
+016,4,Comfort-BUS,Condition,Display Range: 1-Wire/2-Wire
+;
+017,0,CAN-Databus Communication (Comfort)
+017,1,Door Control Mod.,Driver's Side,Specification: Dr. Door 1
+017,2,Door Control Mod.,Passenger Side,Specification: Pas. Door 1
+017,3,Door Control Mod.,Rear Left
+017,4,Door Control Mod.,Rear Right
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Comfort System (J393) Coding
+C01,+00001 = Anti-Theft Warning System via Remote Control
+C02,+00002 = Confirmation Anti-Theft Warning System (Blink)
+C03,+00004 = Selective Central Locking (SCL)
+C04,+00008 = Anti-Theft Warning System installed
+C05,+00016 = Rear Lid Release Locking at 5 km/h
+C06,+00032 = Central Locking at 15 km/h (or 10 mph)
+C07,+00064 = Comfort Function via Remote Control
+C08,+00128 = Right Hand Drive (RHD)
+C09,+00512 = Confirmation for Locking via Remote Control (Blink)
+C10,+01024 = Confirmation Anti-Theft Warning System (Horn)
+C11,+02048 = Door/Window Regulator Logic (North America)
+C12,+04096 = Confirmation for Unlocking via Remote Control (Blink)
+C13,+16384 = Selective Central Locking (SCL) via Key Switch only
+C14, 
+C15,Note #1: Coding Value is the Sum of the individual Options!
+C16,Note #2: You can also use the Coding Assist/Helper!
+;
+;
+;---------------------------------------------------
+;
+; converted coding
+; (short coding displayed as long coding for easier modifications)
+;
+;---------------------------------------------------
+;
+;
+LC,02,0,Anti-Theft Warning System via Remote Control
+LC,02,1,Confirmation Anti-Theft Warning System (Blink)
+LC,02,2,Selective Central Locking (SCL)
+LC,02,3,Anti-Theft Warning System installed
+LC,02,4,Rear Lid Release Locking at 5 km/h
+LC,02,5,Central Locking at 15 km/h (or 10 mph)
+LC,02,6,Comfort Function via Remote Control
+LC,02,7,Right Hand Drive (RHD)
+LC,01,1,Confirmation for Locking via Remote Control (Blink)
+LC,01,2,Confirmation Anti-Theft Warning System (Horn)
+LC,01,3,Door/Window Regulator Logic (North America)
+LC,01,4,Confirmation for Unlocking via Remote Control (Blink)
+LC,01,6,Selective Central Locking (SCL) via Key Switch only
+LC,01,7=,Additional Coding Options can be found in Byte 02!
+LC,00,3=,Coding Details can be found in Byte 01 && Byte 02!
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+A021,0,Remote Control matching
+;
+A060,0,Heater/Air Conditioning
+A060,5,Heater/Air Conditioning
+A060,6,Altering the Mirror Heating and Rear Window Heating
+A060,7,Operation via Heater/Air Conditioning Panel.
+A060,8, 
+A060,9,0 = Air Conditioning NOT installed
+A060,10,1 = Air Conditioning installed
+;
+A061,0,Variant Reduction
+A061,5,Variant Reduction
+A061,6,+1 = Rear Mechanical Window Regulators (PR-4R5) installed 
+A061,7,+2 = Remote Control installed
+;

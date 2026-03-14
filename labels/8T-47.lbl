@@ -1,0 +1,60 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2007+ Ross-Tech, LLC
+;
+; Audi A4 (8K) / Audi A5 (8T) / Audi Q5 (8R)
+;
+; Component: Sound System (#47)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8T-47.LBL
+; 8T0-035-223-ASC.LBL (Audi Sound System/Active Speakers CAN)
+; 8T0-035-223-ASM.LBL (Audi Sound System/Active Speakers MOST - PR-9VD)
+; 8T0-035-223-BAM.LBL (Basis Sound System/4 Speakers MOST - PR-8RX)
+; 8T0-035-223-BOC.LBL (Bang & Olufsen Sound System/High End CAN)
+; 8T0-035-223-BOM.LBL (Bang & Olufsen Sound System/High End MOST - PR-9VK)
+;
+; created on 10/Jul/2007 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 09/Jan/2014
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,8T0-035-223-ASC.LBL,8T0-035-223      ; Audi Sound (CAN @ 0200)
+REDIRECT,8T0-035-223-ASM.LBL,8T0-035-223-A    ; Audi Sound (MOST @ 0210)
+REDIRECT,8T0-035-223-BOC.LBL,8T0-035-223-B    ; Bang & Olufsen (CAN)
+REDIRECT,8T0-035-223-BOM.LBL,8T0-035-223-C    ; Bang & Olufsen (MOST @ 0210)
+REDIRECT,8T0-035-223-BAM.LBL,8T0-035-223-E    ; Basis (MOST)
+REDIRECT,8T0-035-223-BOM.LBL,8T0-035-223-F    ; Bang & Olufsen (MOST @ 0390)
+REDIRECT,8T0-035-223-ASM.LBL,8T0-035-223-G    ; Audi Sound (MOST @ 0290)
+REDIRECT,8T0-035-223-BOM.LBL,8T0-035-223-H    ; Bang & Olufsen (MOST @ 0120)
+REDIRECT,8T0-035-223-ASC.LBL,8T0-035-223-J    ; Audi Sound (CAN @ 0210)
+REDIRECT,8T0-035-223-ASM.LBL,8T0-035-223-K    ; Audi Sound (MOST @ 0240)
+REDIRECT,8T0-035-223-BOC.LBL,8T0-035-223-L    ; Bang & Olufsen (CAN @ 0170)
+REDIRECT,8T0-035-223-BOM.LBL,8T0-035-223-M    ; Bang & Olufsen (MOST @ 0280)
+REDIRECT,8T0-035-223-BAM.LBL,8T0-035-223-N    ; Basis (MOST)
+REDIRECT,8T0-035-223-ASM.LBL,8T0-035-223-P    ; Audi Sound (MOST @ 0250)
+REDIRECT,8T0-035-223-BAM.LBL,8T0-035-223-Q    ; Basis (MOST @ 0250)
+REDIRECT,8T0-035-223-BAM.LBL,8T0-035-223-R    ; Basis (MOST @ 0290)
+REDIRECT,8T0-035-223-BOC.LBL,8T0-035-223-S    ; Bang & Olufsen (CAN @ 0210)
+REDIRECT,8T0-035-223-BOM.LBL,8T0-035-223-T    ; Bang & Olufsen (MOST @ 0400)
+REDIRECT,8T0-035-223-ASC.LBL,8T0-035-223-AB   ; Audi Sound (CAN @ 0220)
+REDIRECT,8T0-035-223-ASM.LBL,8T0-035-223-AD   ; Audi Sound (MOST @ 0300)
+REDIRECT,8T0-035-223-BAM.LBL,8T0-035-223-AE   ; Basis (MOST @ 0300)
+REDIRECT,8T0-035-223-ASM.LBL,8T0-035-223-AG   ; Audi Sound (MOST)
+REDIRECT,8T0-035-223-ASC.LBL,8T0-035-223-AH   ; Audi Sound (CAN @ 0220/0230)
+REDIRECT,8T0-035-223-BOC.LBL,8T0-035-223-AJ   ; Bang & Olufsen (CAN @ 0260/0270)
+REDIRECT,8T0-035-223-BOM.LBL,8T0-035-223-AK   ; Bang & Olufsen (MOST @ 0170)
+REDIRECT,8T0-035-223-BOM.LBL,8T0-035-223-AL   ; Bang & Olufsen (MOST @ 0200)
+REDIRECT,8T0-035-223-BOC.LBL,8T0-035-223-AM   ; Bang & Olufsen (CAN)
+REDIRECT,8T0-035-223-BOM.LBL,8T0-035-223-AN   ; Bang & Olufsen (MOST @ 0190)
+REDIRECT,8T0-035-223-BOC.LBL,8T0-035-223-AP   ; Bang & Olufsen (CAN @ 0290)
+REDIRECT,8T0-035-223-BOC.LBL,8T0-035-223-AR   ; Bang & Olufsen (CAN @ 0320)
+;
+REDIRECT,8T0-035-223-BOC.LBL,8T1-035-223      ; Bang & Olufsen (CAN @ 0040)
+REDIRECT,8T0-035-223-BOM.LBL,8T1-035-223-A    ; Bang & Olufsen (MOST @ 0030)
+;

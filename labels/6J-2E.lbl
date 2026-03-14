@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011 Ross-Tech, LLC
+;
+; Seat Ibiza (6J)
+;
+; Component: J650 - Media Player (#2E)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 6J-2E.LBL
+; 5N0-035-342.LBL
+;
+; created on 04/May/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 04/May/2011
+;
+; requires VCDS 10.6.4 or newer
+;
+;
+REDIRECT,5N0-035-342.LBL,6J0-035-342-???
+;

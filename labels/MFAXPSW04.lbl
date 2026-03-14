@@ -1,0 +1,2945 @@
+;
+; MFA XP MQB Label file. Valid for software V1.06 and above
+;
+; (C) MFA XP Automotive Systems 2019
+;
+;
+;---------------------------------------------------
+;
+; Long Coding
+;
+;---------------------------------------------------
+;
+;
+; {Basic Setup}
+LC,00,0~1,00,Language: German
+LC,00,0~1,01,Language: English
+LC,00,2,Show raw boost pressure instead of height corrected
+LC,00,3,External exhaust temperature sensor installed
+LC,00,4,External oil pressure sensor installed
+; {Externer boost pressure sensor}
+LC,00,5~6,00,External boost pressure sensor: Not installed
+LC,00,5~6,20,External boost pressure sensor: VW 250kPA
+LC,00,5~6,40,External boost pressure sensor: VW 300kPA
+LC,00,5~6,60,External boost pressure sensor: VW 400kPA
+; {Workshop mode}
+LC,00,7,Workshop mode (MFA XP not visible)
+; {Units Setup}
+LC,01,0,Temperature Unit: °F instead of °C
+LC,01,1,Speed Unit: MPH instead of KM/H
+LC,01,2,Power Unit: KW instead of HP
+LC,01,3,Torque Unit: LBF instead of NM
+LC,01,4,Pressure Unit: PSI instead of BAR
+LC,01,5,Signal source of Car Speed is ABS/ESP instead of instrument cluster
+LC,01,6,Adapt signal Car Speed with fast reading
+; {Exhaust Flap}
+LC,02,0~1,00,Control both flaps
+LC,02,0~1,01,Control only flap 1
+LC,02,0~1,02,Control only flap 2
+LC,02,2~4,00,Exhaust flap control deactivated
+LC,02,2~4,04,Toggle between open / stock
+LC,02,2~4,08,Toggle between closed / stock
+LC,02,2~4,0C,Toggle between open / closed
+LC,02,2~4,10,Toggle between open / closed / stock
+LC,02,5~6,00,Initial flap state (ignition on): Stock
+LC,02,5~6,20,Initial flap state (ignition on): Open
+LC,02,5~6,40,Initial flap state (ignition on): Closed
+LC,02,5~6,60,Initial flap state (ignition on): Last state
+LC,02,7,Invert signal logic (for after market flap controls)
+; {Display behaviour}
+LC,03,0~2,00,No hysteresis, show raw data
+LC,03,0~2,01,Apply hysteresis to all values
+LC,03,0~2,02,Apply hysteresis to all values except boost pressure
+LC,03,4~7,00,Hysteris: Stage 1 (small impact)
+LC,03,4~7,10,Hysteris: Stage 2
+LC,03,4~7,20,Hysteris: Stage 3
+LC,03,4~7,40,Hysteris: Stage 4 (biggest impact)
+; {car type}
+LC,04,0~2,00,Vehicle type: VW MQB
+LC,04,0~2,01,Vehicle type: Audi MQB
+LC,04,0~2,02,Vehicle type: Seat MQB
+LC,04,0~2,03,Vehicle type: Skoda MQB
+LC,04,0~2,04,Vehicle type: Audi TT MQB
+; {Screen 1/Line 1}
+; {Screen 1/Line 1}
+LC,05,0~7,00,Screen 1/Line 1: Off
+LC,05,0~7,01,Screen 1/Line 1: Engine Oil Temperature
+LC,05,0~7,02,Screen 1/Line 1: Engine Intake Temperature
+LC,05,0~7,03,Screen 1/Line 1: Engine Cooling Temperature
+LC,05,0~7,04,Screen 1/Line 1: Outside Temperature
+LC,05,0~7,05,Screen 1/Line 1: Engine RPM
+LC,05,0~7,06,Screen 1/Line 1: Oil Pressure
+LC,05,0~7,07,Screen 1/Line 1: Boost
+LC,05,0~7,08,Screen 1/Line 1: Engine Power
+LC,05,0~7,09,Screen 1/Line 1: Engine Power Loss
+LC,05,0~7,0A,Screen 1/Line 1: Engine Power Wheel
+LC,05,0~7,0B,Screen 1/Line 1: Engine Torque
+LC,05,0~7,0C,Screen 1/Line 1: Engine Torque Loss
+LC,05,0~7,0D,Screen 1/Line 1: Engine Torque Wheel
+LC,05,0~7,0E,Screen 1/Line 1: Engine Pedal Position
+LC,05,0~7,0F,Screen 1/Line 1: Wheel speed Front Left
+LC,05,0~7,10,Screen 1/Line 1: Wheel speed Front Right
+LC,05,0~7,11,Screen 1/Line 1: Wheel speed Back Left
+LC,05,0~7,12,Screen 1/Line 1: Wheel speed Back Right
+LC,05,0~7,13,Screen 1/Line 1: Brake Pressure
+LC,05,0~7,14,Screen 1/Line 1: G across
+LC,05,0~7,15,Screen 1/Line 1: Gierrate
+LC,05,0~7,16,Screen 1/Line 1: Steering Angle
+LC,05,0~7,17,Screen 1/Line 1: Haldex Clutch Open
+LC,05,0~7,18,Screen 1/Line 1: Haldex Transmitted Torque
+LC,05,0~7,19,Screen 1/Line 1: Car Speed
+LC,05,0~7,1A,Screen 1/Line 1: Fuel Content
+LC,05,0~7,1B,Screen 1/Line 1: DSG Oil Temperature
+LC,05,0~7,1C,Screen 1/Line 1: Voltage
+LC,05,0~7,1D,Screen 1/Line 1: Exhaust temperature
+LC,05,0~7,1E,Screen 1/Line 1: Writing MFAXP
+LC,05,0~7,1F,Screen 1/Line 1: Writing HGP
+LC,05,0~7,20,Screen 1/Line 1: Writing BTS
+LC,05,0~7,21,Screen 1/Line 1: Custom Text 1
+LC,05,0~7,22,Screen 1/Line 1: Custom Text 2
+LC,05,0~7,23,Screen 1/Line 1: Custom Text 3
+LC,05,0~7,24,Screen 1/Line 1: Custom Text 4
+LC,05,0~7,25,Screen 1/Line 1: Oillevel
+LC,05,0~7,26,Screen 1/Line 1: Battery state of charge
+LC,05,0~7,27,Screen 1/Line 1: DPF Regeneration
+LC,05,0~7,28,Screen 1/Line 1: Exhaust Flap State
+LC,05,0~7,29,Screen 1/Line 1: Statistic module: VMAX
+LC,05,0~7,2A,Screen 1/Line 1: Statistic module: Max. Power
+LC,05,0~7,2B,Screen 1/Line 1: Statistic module: Max. Torque
+LC,05,0~7,2C,Screen 1/Line 1: Statistic module: Max. Boost
+LC,05,0~7,2D,Screen 1/Line 1: Statistic module: Max. Exhaust temperature
+LC,05,0~7,2E,Screen 1/Line 1: Statistic module: Max. Oil temperature
+LC,05,0~7,2F,Screen 1/Line 1: Statistic module: Max. cooling liquid temperature
+LC,05,0~7,30,Screen 1/Line 1: Statistic module: Max. Intake temperature
+LC,05,0~7,31,Screen 1/Line 1: Statistic module: Time 0-100
+LC,05,0~7,32,Screen 1/Line 1: Statistic module: Time 100-200
+LC,05,0~7,33,Screen 1/Line 1: Statistic module: Time 0-200
+LC,05,0~7,34,Screen 1/Line 1: Boardcomputer: Current consumption
+LC,05,0~7,35,Screen 1/Line 1: Boardcomputer: Distance to fuel stop
+LC,05,0~7,36,Screen 1/Line 1: Boardcomputer: Average consumption
+LC,05,0~7,37,Screen 1/Line 1: Boardcomputer: Range since engine start
+LC,05,0~7,38,Screen 1/Line 1: Boardcomputer: Time since engine start
+LC,05,0~7,39,Screen 1/Line 1: Boardcomputer: Average speed
+LC,05,0~7,3A,Screen 1/Line 1: Boardcomputer: Consumption since refuel
+LC,05,0~7,3B,Screen 1/Line 1: Boardcomputer: Average speed since refuel
+LC,05,0~7,3C,Screen 1/Line 1: Car Speed raw value from ABS/ESP
+LC,05,0~7,3D,Screen 1/Line 1: Date
+LC,05,0~7,3E,Screen 1/Line 1: Time
+LC,05,0~7,3F,Screen 1/Line 1: Car Speed raw value from instrument cluster
+LC,05,0~7,40,Screen 1/Line 1: Difflock
+LC,05,0~7,41,Screen 1/Line 1: Ethanol content in fuel
+LC,05,0~7,42,Screen 1/Line 1: Writing MTM
+LC,05,0~7,43,Screen 1/Line 1: Audio Info 1
+LC,05,0~7,44,Screen 1/Line 1: Audio Info 2
+LC,05,0~7,45,Screen 1/Line 1: Audio Info 3
+LC,05,0~7,46,Screen 1/Line 1: Audio Info 4
+; {Screen 1/Line 2}
+LC,06,0~7,00,Screen 1/Line 2: Off
+LC,06,0~7,01,Screen 1/Line 2: Engine Oil Temperature
+LC,06,0~7,02,Screen 1/Line 2: Engine Intake Temperature
+LC,06,0~7,03,Screen 1/Line 2: Engine Cooling Temperature
+LC,06,0~7,04,Screen 1/Line 2: Outside Temperature
+LC,06,0~7,05,Screen 1/Line 2: Engine RPM
+LC,06,0~7,06,Screen 1/Line 2: Oil Pressure
+LC,06,0~7,07,Screen 1/Line 2: Boost
+LC,06,0~7,08,Screen 1/Line 2: Engine Power
+LC,06,0~7,09,Screen 1/Line 2: Engine Power Loss
+LC,06,0~7,0A,Screen 1/Line 2: Engine Power Wheel
+LC,06,0~7,0B,Screen 1/Line 2: Engine Torque
+LC,06,0~7,0C,Screen 1/Line 2: Engine Torque Loss
+LC,06,0~7,0D,Screen 1/Line 2: Engine Torque Wheel
+LC,06,0~7,0E,Screen 1/Line 2: Engine Pedal Position
+LC,06,0~7,0F,Screen 1/Line 2: Wheel speed Front Left
+LC,06,0~7,10,Screen 1/Line 2: Wheel speed Front Right
+LC,06,0~7,11,Screen 1/Line 2: Wheel speed Back Left
+LC,06,0~7,12,Screen 1/Line 2: Wheel speed Back Right
+LC,06,0~7,13,Screen 1/Line 2: Brake Pressure
+LC,06,0~7,14,Screen 1/Line 2: G across
+LC,06,0~7,15,Screen 1/Line 2: Gierrate
+LC,06,0~7,16,Screen 1/Line 2: Steering Angle
+LC,06,0~7,17,Screen 1/Line 2: Haldex Clutch Open
+LC,06,0~7,18,Screen 1/Line 2: Haldex Transmitted Torque
+LC,06,0~7,19,Screen 1/Line 2: Car Speed
+LC,06,0~7,1A,Screen 1/Line 2: Fuel Content
+LC,06,0~7,1B,Screen 1/Line 2: DSG Oil Temperature
+LC,06,0~7,1C,Screen 1/Line 2: Voltage
+LC,06,0~7,1D,Screen 1/Line 2: Exhaust temperature
+LC,06,0~7,1E,Screen 1/Line 2: Writing MFAXP
+LC,06,0~7,1F,Screen 1/Line 2: Writing HGP
+LC,06,0~7,20,Screen 1/Line 2: Writing BTS
+LC,06,0~7,21,Screen 1/Line 2: Custom Text 1
+LC,06,0~7,22,Screen 1/Line 2: Custom Text 2
+LC,06,0~7,23,Screen 1/Line 2: Custom Text 3
+LC,06,0~7,24,Screen 1/Line 2: Custom Text 4
+LC,06,0~7,25,Screen 1/Line 2: Oillevel
+LC,06,0~7,26,Screen 1/Line 2: Battery state of charge
+LC,06,0~7,27,Screen 1/Line 2: DPF Regeneration
+LC,06,0~7,28,Screen 1/Line 2: Exhaust Flap State
+LC,06,0~7,29,Screen 1/Line 2: Statistic module: VMAX
+LC,06,0~7,2A,Screen 1/Line 2: Statistic module: Max. Power
+LC,06,0~7,2B,Screen 1/Line 2: Statistic module: Max. Torque
+LC,06,0~7,2C,Screen 1/Line 2: Statistic module: Max. Boost
+LC,06,0~7,2D,Screen 1/Line 2: Statistic module: Max. Exhaust temperature
+LC,06,0~7,2E,Screen 1/Line 2: Statistic module: Max. Oil temperature
+LC,06,0~7,2F,Screen 1/Line 2: Statistic module: Max. cooling liquid temperature
+LC,06,0~7,30,Screen 1/Line 2: Statistic module: Max. Intake temperature
+LC,06,0~7,31,Screen 1/Line 2: Statistic module: Time 0-100
+LC,06,0~7,32,Screen 1/Line 2: Statistic module: Time 100-200
+LC,06,0~7,33,Screen 1/Line 2: Statistic module: Time 0-200
+LC,06,0~7,34,Screen 1/Line 2: Boardcomputer: Current consumption
+LC,06,0~7,35,Screen 1/Line 2: Boardcomputer: Distance to fuel stop
+LC,06,0~7,36,Screen 1/Line 2: Boardcomputer: Average consumption
+LC,06,0~7,37,Screen 1/Line 2: Boardcomputer: Range since engine start
+LC,06,0~7,38,Screen 1/Line 2: Boardcomputer: Time since engine start
+LC,06,0~7,39,Screen 1/Line 2: Boardcomputer: Average speed
+LC,06,0~7,3A,Screen 1/Line 2: Boardcomputer: Consumption since refuel
+LC,06,0~7,3B,Screen 1/Line 2: Boardcomputer: Average speed since refuel
+LC,06,0~7,3C,Screen 1/Line 2: Car Speed raw value from ABS/ESP
+LC,06,0~7,3D,Screen 1/Line 2: Date
+LC,06,0~7,3E,Screen 1/Line 2: Time
+LC,06,0~7,3F,Screen 1/Line 2: Car Speed raw value from instrument cluster
+LC,06,0~7,40,Screen 1/Line 2: Difflock
+LC,06,0~7,41,Screen 1/Line 2: Ethanol content in fuel
+LC,06,0~7,42,Screen 1/Line 2: Writing MTM
+LC,06,0~7,43,Screen 1/Line 2: Audio Info 1
+LC,06,0~7,44,Screen 1/Line 2: Audio Info 2
+LC,06,0~7,45,Screen 1/Line 2: Audio Info 3
+LC,06,0~7,46,Screen 1/Line 2: Audio Info 4
+; {Screen 1/Line 3}
+LC,07,0~7,00,Screen 1/Line 3: Off
+LC,07,0~7,01,Screen 1/Line 3: Engine Oil Temperature
+LC,07,0~7,02,Screen 1/Line 3: Engine Intake Temperature
+LC,07,0~7,03,Screen 1/Line 3: Engine Cooling Temperature
+LC,07,0~7,04,Screen 1/Line 3: Outside Temperature
+LC,07,0~7,05,Screen 1/Line 3: Engine RPM
+LC,07,0~7,06,Screen 1/Line 3: Oil Pressure
+LC,07,0~7,07,Screen 1/Line 3: Boost
+LC,07,0~7,08,Screen 1/Line 3: Engine Power
+LC,07,0~7,09,Screen 1/Line 3: Engine Power Loss
+LC,07,0~7,0A,Screen 1/Line 3: Engine Power Wheel
+LC,07,0~7,0B,Screen 1/Line 3: Engine Torque
+LC,07,0~7,0C,Screen 1/Line 3: Engine Torque Loss
+LC,07,0~7,0D,Screen 1/Line 3: Engine Torque Wheel
+LC,07,0~7,0E,Screen 1/Line 3: Engine Pedal Position
+LC,07,0~7,0F,Screen 1/Line 3: Wheel speed Front Left
+LC,07,0~7,10,Screen 1/Line 3: Wheel speed Front Right
+LC,07,0~7,11,Screen 1/Line 3: Wheel speed Back Left
+LC,07,0~7,12,Screen 1/Line 3: Wheel speed Back Right
+LC,07,0~7,13,Screen 1/Line 3: Brake Pressure
+LC,07,0~7,14,Screen 1/Line 3: G across
+LC,07,0~7,15,Screen 1/Line 3: Gierrate
+LC,07,0~7,16,Screen 1/Line 3: Steering Angle
+LC,07,0~7,17,Screen 1/Line 3: Haldex Clutch Open
+LC,07,0~7,18,Screen 1/Line 3: Haldex Transmitted Torque
+LC,07,0~7,19,Screen 1/Line 3: Car Speed
+LC,07,0~7,1A,Screen 1/Line 3: Fuel Content
+LC,07,0~7,1B,Screen 1/Line 3: DSG Oil Temperature
+LC,07,0~7,1C,Screen 1/Line 3: Voltage
+LC,07,0~7,1D,Screen 1/Line 3: Exhaust temperature
+LC,07,0~7,1E,Screen 1/Line 3: Writing MFAXP
+LC,07,0~7,1F,Screen 1/Line 3: Writing HGP
+LC,07,0~7,20,Screen 1/Line 3: Writing BTS
+LC,07,0~7,21,Screen 1/Line 3: Custom Text 1
+LC,07,0~7,22,Screen 1/Line 3: Custom Text 2
+LC,07,0~7,23,Screen 1/Line 3: Custom Text 3
+LC,07,0~7,24,Screen 1/Line 3: Custom Text 4
+LC,07,0~7,25,Screen 1/Line 3: Oillevel
+LC,07,0~7,26,Screen 1/Line 3: Battery state of charge
+LC,07,0~7,27,Screen 1/Line 3: DPF Regeneration
+LC,07,0~7,28,Screen 1/Line 3: Exhaust Flap State
+LC,07,0~7,29,Screen 1/Line 3: Statistic module: VMAX
+LC,07,0~7,2A,Screen 1/Line 3: Statistic module: Max. Power
+LC,07,0~7,2B,Screen 1/Line 3: Statistic module: Max. Torque
+LC,07,0~7,2C,Screen 1/Line 3: Statistic module: Max. Boost
+LC,07,0~7,2D,Screen 1/Line 3: Statistic module: Max. Exhaust temperature
+LC,07,0~7,2E,Screen 1/Line 3: Statistic module: Max. Oil temperature
+LC,07,0~7,2F,Screen 1/Line 3: Statistic module: Max. cooling liquid temperature
+LC,07,0~7,30,Screen 1/Line 3: Statistic module: Max. Intake temperature
+LC,07,0~7,31,Screen 1/Line 3: Statistic module: Time 0-100
+LC,07,0~7,32,Screen 1/Line 3: Statistic module: Time 100-200
+LC,07,0~7,33,Screen 1/Line 3: Statistic module: Time 0-200
+LC,07,0~7,34,Screen 1/Line 3: Boardcomputer: Current consumption
+LC,07,0~7,35,Screen 1/Line 3: Boardcomputer: Distance to fuel stop
+LC,07,0~7,36,Screen 1/Line 3: Boardcomputer: Average consumption
+LC,07,0~7,37,Screen 1/Line 3: Boardcomputer: Range since engine start
+LC,07,0~7,38,Screen 1/Line 3: Boardcomputer: Time since engine start
+LC,07,0~7,39,Screen 1/Line 3: Boardcomputer: Average speed
+LC,07,0~7,3A,Screen 1/Line 3: Boardcomputer: Consumption since refuel
+LC,07,0~7,3B,Screen 1/Line 3: Boardcomputer: Average speed since refuel
+LC,07,0~7,3C,Screen 1/Line 3: Car Speed raw value from ABS/ESP
+LC,07,0~7,3D,Screen 1/Line 3: Date
+LC,07,0~7,3E,Screen 1/Line 3: Time
+LC,07,0~7,3F,Screen 1/Line 3: Car Speed raw value from instrument cluster
+LC,07,0~7,40,Screen 1/Line 3: Difflock
+LC,07,0~7,41,Screen 1/Line 3: Ethanol content in fuel
+LC,07,0~7,42,Screen 1/Line 3: Writing MTM
+LC,07,0~7,43,Screen 1/Line 3: Audio Info 1
+LC,07,0~7,44,Screen 1/Line 3: Audio Info 2
+LC,07,0~7,45,Screen 1/Line 3: Audio Info 3
+LC,07,0~7,46,Screen 1/Line 3: Audio Info 4
+; {Screen 1/Line 4}
+LC,08,0~7,00,Screen 1/Line 4: Off
+LC,08,0~7,01,Screen 1/Line 4: Engine Oil Temperature
+LC,08,0~7,02,Screen 1/Line 4: Engine Intake Temperature
+LC,08,0~7,03,Screen 1/Line 4: Engine Cooling Temperature
+LC,08,0~7,04,Screen 1/Line 4: Outside Temperature
+LC,08,0~7,05,Screen 1/Line 4: Engine RPM
+LC,08,0~7,06,Screen 1/Line 4: Oil Pressure
+LC,08,0~7,07,Screen 1/Line 4: Boost
+LC,08,0~7,08,Screen 1/Line 4: Engine Power
+LC,08,0~7,09,Screen 1/Line 4: Engine Power Loss
+LC,08,0~7,0A,Screen 1/Line 4: Engine Power Wheel
+LC,08,0~7,0B,Screen 1/Line 4: Engine Torque
+LC,08,0~7,0C,Screen 1/Line 4: Engine Torque Loss
+LC,08,0~7,0D,Screen 1/Line 4: Engine Torque Wheel
+LC,08,0~7,0E,Screen 1/Line 4: Engine Pedal Position
+LC,08,0~7,0F,Screen 1/Line 4: Wheel speed Front Left
+LC,08,0~7,10,Screen 1/Line 4: Wheel speed Front Right
+LC,08,0~7,11,Screen 1/Line 4: Wheel speed Back Left
+LC,08,0~7,12,Screen 1/Line 4: Wheel speed Back Right
+LC,08,0~7,13,Screen 1/Line 4: Brake Pressure
+LC,08,0~7,14,Screen 1/Line 4: G across
+LC,08,0~7,15,Screen 1/Line 4: Gierrate
+LC,08,0~7,16,Screen 1/Line 4: Steering Angle
+LC,08,0~7,17,Screen 1/Line 4: Haldex Clutch Open
+LC,08,0~7,18,Screen 1/Line 4: Haldex Transmitted Torque
+LC,08,0~7,19,Screen 1/Line 4: Car Speed
+LC,08,0~7,1A,Screen 1/Line 4: Fuel Content
+LC,08,0~7,1B,Screen 1/Line 4: DSG Oil Temperature
+LC,08,0~7,1C,Screen 1/Line 4: Voltage
+LC,08,0~7,1D,Screen 1/Line 4: Exhaust temperature
+LC,08,0~7,1E,Screen 1/Line 4: Writing MFAXP
+LC,08,0~7,1F,Screen 1/Line 4: Writing HGP
+LC,08,0~7,20,Screen 1/Line 4: Writing BTS
+LC,08,0~7,21,Screen 1/Line 4: Custom Text 1
+LC,08,0~7,22,Screen 1/Line 4: Custom Text 2
+LC,08,0~7,23,Screen 1/Line 4: Custom Text 3
+LC,08,0~7,24,Screen 1/Line 4: Custom Text 4
+LC,08,0~7,25,Screen 1/Line 4: Oillevel
+LC,08,0~7,26,Screen 1/Line 4: Battery state of charge
+LC,08,0~7,27,Screen 1/Line 4: DPF Regeneration
+LC,08,0~7,28,Screen 1/Line 4: Exhaust Flap State
+LC,08,0~7,29,Screen 1/Line 4: Statistic module: VMAX
+LC,08,0~7,2A,Screen 1/Line 4: Statistic module: Max. Power
+LC,08,0~7,2B,Screen 1/Line 4: Statistic module: Max. Torque
+LC,08,0~7,2C,Screen 1/Line 4: Statistic module: Max. Boost
+LC,08,0~7,2D,Screen 1/Line 4: Statistic module: Max. Exhaust temperature
+LC,08,0~7,2E,Screen 1/Line 4: Statistic module: Max. Oil temperature
+LC,08,0~7,2F,Screen 1/Line 4: Statistic module: Max. cooling liquid temperature
+LC,08,0~7,30,Screen 1/Line 4: Statistic module: Max. Intake temperature
+LC,08,0~7,31,Screen 1/Line 4: Statistic module: Time 0-100
+LC,08,0~7,32,Screen 1/Line 4: Statistic module: Time 100-200
+LC,08,0~7,33,Screen 1/Line 4: Statistic module: Time 0-200
+LC,08,0~7,34,Screen 1/Line 4: Boardcomputer: Current consumption
+LC,08,0~7,35,Screen 1/Line 4: Boardcomputer: Distance to fuel stop
+LC,08,0~7,36,Screen 1/Line 4: Boardcomputer: Average consumption
+LC,08,0~7,37,Screen 1/Line 4: Boardcomputer: Range since engine start
+LC,08,0~7,38,Screen 1/Line 4: Boardcomputer: Time since engine start
+LC,08,0~7,39,Screen 1/Line 4: Boardcomputer: Average speed
+LC,08,0~7,3A,Screen 1/Line 4: Boardcomputer: Consumption since refuel
+LC,08,0~7,3B,Screen 1/Line 4: Boardcomputer: Average speed since refuel
+LC,08,0~7,3C,Screen 1/Line 4: Car Speed raw value from ABS/ESP
+LC,08,0~7,3D,Screen 1/Line 4: Date
+LC,08,0~7,3E,Screen 1/Line 4: Time
+LC,08,0~7,3F,Screen 1/Line 4: Car Speed raw value from instrument cluster
+LC,08,0~7,40,Screen 1/Line 4: Difflock
+LC,08,0~7,41,Screen 1/Line 4: Ethanol content in fuel
+LC,08,0~7,42,Screen 1/Line 4: Writing MTM
+LC,08,0~7,43,Screen 1/Line 4: Audio Info 1
+LC,08,0~7,44,Screen 1/Line 4: Audio Info 2
+LC,08,0~7,45,Screen 1/Line 4: Audio Info 3
+LC,08,0~7,46,Screen 1/Line 4: Audio Info 4
+; {Screen 2/Line 1}
+LC,09,0~7,00,Screen 2/Line 1: Off
+LC,09,0~7,01,Screen 2/Line 1: Engine Oil Temperature
+LC,09,0~7,02,Screen 2/Line 1: Engine Intake Temperature
+LC,09,0~7,03,Screen 2/Line 1: Engine Cooling Temperature
+LC,09,0~7,04,Screen 2/Line 1: Outside Temperature
+LC,09,0~7,05,Screen 2/Line 1: Engine RPM
+LC,09,0~7,06,Screen 2/Line 1: Oil Pressure
+LC,09,0~7,07,Screen 2/Line 1: Boost
+LC,09,0~7,08,Screen 2/Line 1: Engine Power
+LC,09,0~7,09,Screen 2/Line 1: Engine Power Loss
+LC,09,0~7,0A,Screen 2/Line 1: Engine Power Wheel
+LC,09,0~7,0B,Screen 2/Line 1: Engine Torque
+LC,09,0~7,0C,Screen 2/Line 1: Engine Torque Loss
+LC,09,0~7,0D,Screen 2/Line 1: Engine Torque Wheel
+LC,09,0~7,0E,Screen 2/Line 1: Engine Pedal Position
+LC,09,0~7,0F,Screen 2/Line 1: Wheel speed Front Left
+LC,09,0~7,10,Screen 2/Line 1: Wheel speed Front Right
+LC,09,0~7,11,Screen 2/Line 1: Wheel speed Back Left
+LC,09,0~7,12,Screen 2/Line 1: Wheel speed Back Right
+LC,09,0~7,13,Screen 2/Line 1: Brake Pressure
+LC,09,0~7,14,Screen 2/Line 1: G across
+LC,09,0~7,15,Screen 2/Line 1: Gierrate
+LC,09,0~7,16,Screen 2/Line 1: Steering Angle
+LC,09,0~7,17,Screen 2/Line 1: Haldex Clutch Open
+LC,09,0~7,18,Screen 2/Line 1: Haldex Transmitted Torque
+LC,09,0~7,19,Screen 2/Line 1: Car Speed
+LC,09,0~7,1A,Screen 2/Line 1: Fuel Content
+LC,09,0~7,1B,Screen 2/Line 1: DSG Oil Temperature
+LC,09,0~7,1C,Screen 2/Line 1: Voltage
+LC,09,0~7,1D,Screen 2/Line 1: Exhaust temperature
+LC,09,0~7,1E,Screen 2/Line 1: Writing MFAXP
+LC,09,0~7,1F,Screen 2/Line 1: Writing HGP
+LC,09,0~7,20,Screen 2/Line 1: Writing BTS
+LC,09,0~7,21,Screen 2/Line 1: Custom Text 1
+LC,09,0~7,22,Screen 2/Line 1: Custom Text 2
+LC,09,0~7,23,Screen 2/Line 1: Custom Text 3
+LC,09,0~7,24,Screen 2/Line 1: Custom Text 4
+LC,09,0~7,25,Screen 2/Line 1: Oillevel
+LC,09,0~7,26,Screen 2/Line 1: Battery state of charge
+LC,09,0~7,27,Screen 2/Line 1: DPF Regeneration
+LC,09,0~7,28,Screen 2/Line 1: Exhaust Flap State
+LC,09,0~7,29,Screen 2/Line 1: Statistic module: VMAX
+LC,09,0~7,2A,Screen 2/Line 1: Statistic module: Max. Power
+LC,09,0~7,2B,Screen 2/Line 1: Statistic module: Max. Torque
+LC,09,0~7,2C,Screen 2/Line 1: Statistic module: Max. Boost
+LC,09,0~7,2D,Screen 2/Line 1: Statistic module: Max. Exhaust temperature
+LC,09,0~7,2E,Screen 2/Line 1: Statistic module: Max. Oil temperature
+LC,09,0~7,2F,Screen 2/Line 1: Statistic module: Max. cooling liquid temperature
+LC,09,0~7,30,Screen 2/Line 1: Statistic module: Max. Intake temperature
+LC,09,0~7,31,Screen 2/Line 1: Statistic module: Time 0-100
+LC,09,0~7,32,Screen 2/Line 1: Statistic module: Time 100-200
+LC,09,0~7,33,Screen 2/Line 1: Statistic module: Time 0-200
+LC,09,0~7,34,Screen 2/Line 1: Boardcomputer: Current consumption
+LC,09,0~7,35,Screen 2/Line 1: Boardcomputer: Distance to fuel stop
+LC,09,0~7,36,Screen 2/Line 1: Boardcomputer: Average consumption
+LC,09,0~7,37,Screen 2/Line 1: Boardcomputer: Range since engine start
+LC,09,0~7,38,Screen 2/Line 1: Boardcomputer: Time since engine start
+LC,09,0~7,39,Screen 2/Line 1: Boardcomputer: Average speed
+LC,09,0~7,3A,Screen 2/Line 1: Boardcomputer: Consumption since refuel
+LC,09,0~7,3B,Screen 2/Line 1: Boardcomputer: Average speed since refuel
+LC,09,0~7,3C,Screen 2/Line 1: Car Speed raw value from ABS/ESP
+LC,09,0~7,3D,Screen 2/Line 1: Date
+LC,09,0~7,3E,Screen 2/Line 1: Time
+LC,09,0~7,3F,Screen 2/Line 1: Car Speed raw value from instrument cluster
+LC,09,0~7,40,Screen 2/Line 1: Difflock
+LC,09,0~7,41,Screen 2/Line 1: Ethanol content in fuel
+LC,09,0~7,42,Screen 2/Line 1: Writing MTM
+LC,09,0~7,43,Screen 2/Line 1: Audio Info 1
+LC,09,0~7,44,Screen 2/Line 1: Audio Info 2
+LC,09,0~7,45,Screen 2/Line 1: Audio Info 3
+LC,09,0~7,46,Screen 2/Line 1: Audio Info 4
+; {Screen 2/Line 2}
+LC,10,0~7,00,Screen 2/Line 2: Off
+LC,10,0~7,01,Screen 2/Line 2: Engine Oil Temperature
+LC,10,0~7,02,Screen 2/Line 2: Engine Intake Temperature
+LC,10,0~7,03,Screen 2/Line 2: Engine Cooling Temperature
+LC,10,0~7,04,Screen 2/Line 2: Outside Temperature
+LC,10,0~7,05,Screen 2/Line 2: Engine RPM
+LC,10,0~7,06,Screen 2/Line 2: Oil Pressure
+LC,10,0~7,07,Screen 2/Line 2: Boost
+LC,10,0~7,08,Screen 2/Line 2: Engine Power
+LC,10,0~7,09,Screen 2/Line 2: Engine Power Loss
+LC,10,0~7,0A,Screen 2/Line 2: Engine Power Wheel
+LC,10,0~7,0B,Screen 2/Line 2: Engine Torque
+LC,10,0~7,0C,Screen 2/Line 2: Engine Torque Loss
+LC,10,0~7,0D,Screen 2/Line 2: Engine Torque Wheel
+LC,10,0~7,0E,Screen 2/Line 2: Engine Pedal Position
+LC,10,0~7,0F,Screen 2/Line 2: Wheel speed Front Left
+LC,10,0~7,10,Screen 2/Line 2: Wheel speed Front Right
+LC,10,0~7,11,Screen 2/Line 2: Wheel speed Back Left
+LC,10,0~7,12,Screen 2/Line 2: Wheel speed Back Right
+LC,10,0~7,13,Screen 2/Line 2: Brake Pressure
+LC,10,0~7,14,Screen 2/Line 2: G across
+LC,10,0~7,15,Screen 2/Line 2: Gierrate
+LC,10,0~7,16,Screen 2/Line 2: Steering Angle
+LC,10,0~7,17,Screen 2/Line 2: Haldex Clutch Open
+LC,10,0~7,18,Screen 2/Line 2: Haldex Transmitted Torque
+LC,10,0~7,19,Screen 2/Line 2: Car Speed
+LC,10,0~7,1A,Screen 2/Line 2: Fuel Content
+LC,10,0~7,1B,Screen 2/Line 2: DSG Oil Temperature
+LC,10,0~7,1C,Screen 2/Line 2: Voltage
+LC,10,0~7,1D,Screen 2/Line 2: Exhaust temperature
+LC,10,0~7,1E,Screen 2/Line 2: Writing MFAXP
+LC,10,0~7,1F,Screen 2/Line 2: Writing HGP
+LC,10,0~7,20,Screen 2/Line 2: Writing BTS
+LC,10,0~7,21,Screen 2/Line 2: Custom Text 1
+LC,10,0~7,22,Screen 2/Line 2: Custom Text 2
+LC,10,0~7,23,Screen 2/Line 2: Custom Text 3
+LC,10,0~7,24,Screen 2/Line 2: Custom Text 4
+LC,10,0~7,25,Screen 2/Line 2: Oillevel
+LC,10,0~7,26,Screen 2/Line 2: Battery state of charge
+LC,10,0~7,27,Screen 2/Line 2: DPF Regeneration
+LC,10,0~7,28,Screen 2/Line 2: Exhaust Flap State
+LC,10,0~7,29,Screen 2/Line 2: Statistic module: VMAX
+LC,10,0~7,2A,Screen 2/Line 2: Statistic module: Max. Power
+LC,10,0~7,2B,Screen 2/Line 2: Statistic module: Max. Torque
+LC,10,0~7,2C,Screen 2/Line 2: Statistic module: Max. Boost
+LC,10,0~7,2D,Screen 2/Line 2: Statistic module: Max. Exhaust temperature
+LC,10,0~7,2E,Screen 2/Line 2: Statistic module: Max. Oil temperature
+LC,10,0~7,2F,Screen 2/Line 2: Statistic module: Max. cooling liquid temperature
+LC,10,0~7,30,Screen 2/Line 2: Statistic module: Max. Intake temperature
+LC,10,0~7,31,Screen 2/Line 2: Statistic module: Time 0-100
+LC,10,0~7,32,Screen 2/Line 2: Statistic module: Time 100-200
+LC,10,0~7,33,Screen 2/Line 2: Statistic module: Time 0-200
+LC,10,0~7,34,Screen 2/Line 2: Boardcomputer: Current consumption
+LC,10,0~7,35,Screen 2/Line 2: Boardcomputer: Distance to fuel stop
+LC,10,0~7,36,Screen 2/Line 2: Boardcomputer: Average consumption
+LC,10,0~7,37,Screen 2/Line 2: Boardcomputer: Range since engine start
+LC,10,0~7,38,Screen 2/Line 2: Boardcomputer: Time since engine start
+LC,10,0~7,39,Screen 2/Line 2: Boardcomputer: Average speed
+LC,10,0~7,3A,Screen 2/Line 2: Boardcomputer: Consumption since refuel
+LC,10,0~7,3B,Screen 2/Line 2: Boardcomputer: Average speed since refuel
+LC,10,0~7,3C,Screen 2/Line 2: Car Speed raw value from ABS/ESP
+LC,10,0~7,3D,Screen 2/Line 2: Date
+LC,10,0~7,3E,Screen 2/Line 2: Time
+LC,10,0~7,3F,Screen 2/Line 2: Car Speed raw value from instrument cluster
+LC,10,0~7,40,Screen 2/Line 2: Difflock
+LC,10,0~7,41,Screen 2/Line 2: Ethanol content in fuel
+LC,10,0~7,42,Screen 2/Line 2: Writing MTM
+LC,10,0~7,43,Screen 2/Line 2: Audio Info 1
+LC,10,0~7,44,Screen 2/Line 2: Audio Info 2
+LC,10,0~7,45,Screen 2/Line 2: Audio Info 3
+LC,10,0~7,46,Screen 2/Line 2: Audio Info 4
+; {Screen 2/Line 3}
+LC,11,0~7,00,Screen 2/Line 3: Off
+LC,11,0~7,01,Screen 2/Line 3: Engine Oil Temperature
+LC,11,0~7,02,Screen 2/Line 3: Engine Intake Temperature
+LC,11,0~7,03,Screen 2/Line 3: Engine Cooling Temperature
+LC,11,0~7,04,Screen 2/Line 3: Outside Temperature
+LC,11,0~7,05,Screen 2/Line 3: Engine RPM
+LC,11,0~7,06,Screen 2/Line 3: Oil Pressure
+LC,11,0~7,07,Screen 2/Line 3: Boost
+LC,11,0~7,08,Screen 2/Line 3: Engine Power
+LC,11,0~7,09,Screen 2/Line 3: Engine Power Loss
+LC,11,0~7,0A,Screen 2/Line 3: Engine Power Wheel
+LC,11,0~7,0B,Screen 2/Line 3: Engine Torque
+LC,11,0~7,0C,Screen 2/Line 3: Engine Torque Loss
+LC,11,0~7,0D,Screen 2/Line 3: Engine Torque Wheel
+LC,11,0~7,0E,Screen 2/Line 3: Engine Pedal Position
+LC,11,0~7,0F,Screen 2/Line 3: Wheel speed Front Left
+LC,11,0~7,10,Screen 2/Line 3: Wheel speed Front Right
+LC,11,0~7,11,Screen 2/Line 3: Wheel speed Back Left
+LC,11,0~7,12,Screen 2/Line 3: Wheel speed Back Right
+LC,11,0~7,13,Screen 2/Line 3: Brake Pressure
+LC,11,0~7,14,Screen 2/Line 3: G across
+LC,11,0~7,15,Screen 2/Line 3: Gierrate
+LC,11,0~7,16,Screen 2/Line 3: Steering Angle
+LC,11,0~7,17,Screen 2/Line 3: Haldex Clutch Open
+LC,11,0~7,18,Screen 2/Line 3: Haldex Transmitted Torque
+LC,11,0~7,19,Screen 2/Line 3: Car Speed
+LC,11,0~7,1A,Screen 2/Line 3: Fuel Content
+LC,11,0~7,1B,Screen 2/Line 3: DSG Oil Temperature
+LC,11,0~7,1C,Screen 2/Line 3: Voltage
+LC,11,0~7,1D,Screen 2/Line 3: Exhaust temperature
+LC,11,0~7,1E,Screen 2/Line 3: Writing MFAXP
+LC,11,0~7,1F,Screen 2/Line 3: Writing HGP
+LC,11,0~7,20,Screen 2/Line 3: Writing BTS
+LC,11,0~7,21,Screen 2/Line 3: Custom Text 1
+LC,11,0~7,22,Screen 2/Line 3: Custom Text 2
+LC,11,0~7,23,Screen 2/Line 3: Custom Text 3
+LC,11,0~7,24,Screen 2/Line 3: Custom Text 4
+LC,11,0~7,25,Screen 2/Line 3: Oillevel
+LC,11,0~7,26,Screen 2/Line 3: Battery state of charge
+LC,11,0~7,27,Screen 2/Line 3: DPF Regeneration
+LC,11,0~7,28,Screen 2/Line 3: Exhaust Flap State
+LC,11,0~7,29,Screen 2/Line 3: Statistic module: VMAX
+LC,11,0~7,2A,Screen 2/Line 3: Statistic module: Max. Power
+LC,11,0~7,2B,Screen 2/Line 3: Statistic module: Max. Torque
+LC,11,0~7,2C,Screen 2/Line 3: Statistic module: Max. Boost
+LC,11,0~7,2D,Screen 2/Line 3: Statistic module: Max. Exhaust temperature
+LC,11,0~7,2E,Screen 2/Line 3: Statistic module: Max. Oil temperature
+LC,11,0~7,2F,Screen 2/Line 3: Statistic module: Max. cooling liquid temperature
+LC,11,0~7,30,Screen 2/Line 3: Statistic module: Max. Intake temperature
+LC,11,0~7,31,Screen 2/Line 3: Statistic module: Time 0-100
+LC,11,0~7,32,Screen 2/Line 3: Statistic module: Time 100-200
+LC,11,0~7,33,Screen 2/Line 3: Statistic module: Time 0-200
+LC,11,0~7,34,Screen 2/Line 3: Boardcomputer: Current consumption
+LC,11,0~7,35,Screen 2/Line 3: Boardcomputer: Distance to fuel stop
+LC,11,0~7,36,Screen 2/Line 3: Boardcomputer: Average consumption
+LC,11,0~7,37,Screen 2/Line 3: Boardcomputer: Range since engine start
+LC,11,0~7,38,Screen 2/Line 3: Boardcomputer: Time since engine start
+LC,11,0~7,39,Screen 2/Line 3: Boardcomputer: Average speed
+LC,11,0~7,3A,Screen 2/Line 3: Boardcomputer: Consumption since refuel
+LC,11,0~7,3B,Screen 2/Line 3: Boardcomputer: Average speed since refuel
+LC,11,0~7,3C,Screen 2/Line 3: Car Speed raw value from ABS/ESP
+LC,11,0~7,3D,Screen 2/Line 3: Date
+LC,11,0~7,3E,Screen 2/Line 3: Time
+LC,11,0~7,3F,Screen 2/Line 3: Car Speed raw value from instrument cluster
+LC,11,0~7,40,Screen 2/Line 3: Difflock
+LC,11,0~7,41,Screen 2/Line 3: Ethanol content in fuel
+LC,11,0~7,42,Screen 2/Line 3: Writing MTM
+LC,11,0~7,43,Screen 2/Line 3: Audio Info 1
+LC,11,0~7,44,Screen 2/Line 3: Audio Info 2
+LC,11,0~7,45,Screen 2/Line 3: Audio Info 3
+LC,11,0~7,46,Screen 2/Line 3: Audio Info 4
+; {Screen 2/Line 4}
+LC,12,0~7,00,Screen 2/Line 4: Off
+LC,12,0~7,01,Screen 2/Line 4: Engine Oil Temperature
+LC,12,0~7,02,Screen 2/Line 4: Engine Intake Temperature
+LC,12,0~7,03,Screen 2/Line 4: Engine Cooling Temperature
+LC,12,0~7,04,Screen 2/Line 4: Outside Temperature
+LC,12,0~7,05,Screen 2/Line 4: Engine RPM
+LC,12,0~7,06,Screen 2/Line 4: Oil Pressure
+LC,12,0~7,07,Screen 2/Line 4: Boost
+LC,12,0~7,08,Screen 2/Line 4: Engine Power
+LC,12,0~7,09,Screen 2/Line 4: Engine Power Loss
+LC,12,0~7,0A,Screen 2/Line 4: Engine Power Wheel
+LC,12,0~7,0B,Screen 2/Line 4: Engine Torque
+LC,12,0~7,0C,Screen 2/Line 4: Engine Torque Loss
+LC,12,0~7,0D,Screen 2/Line 4: Engine Torque Wheel
+LC,12,0~7,0E,Screen 2/Line 4: Engine Pedal Position
+LC,12,0~7,0F,Screen 2/Line 4: Wheel speed Front Left
+LC,12,0~7,10,Screen 2/Line 4: Wheel speed Front Right
+LC,12,0~7,11,Screen 2/Line 4: Wheel speed Back Left
+LC,12,0~7,12,Screen 2/Line 4: Wheel speed Back Right
+LC,12,0~7,13,Screen 2/Line 4: Brake Pressure
+LC,12,0~7,14,Screen 2/Line 4: G across
+LC,12,0~7,15,Screen 2/Line 4: Gierrate
+LC,12,0~7,16,Screen 2/Line 4: Steering Angle
+LC,12,0~7,17,Screen 2/Line 4: Haldex Clutch Open
+LC,12,0~7,18,Screen 2/Line 4: Haldex Transmitted Torque
+LC,12,0~7,19,Screen 2/Line 4: Car Speed
+LC,12,0~7,1A,Screen 2/Line 4: Fuel Content
+LC,12,0~7,1B,Screen 2/Line 4: DSG Oil Temperature
+LC,12,0~7,1C,Screen 2/Line 4: Voltage
+LC,12,0~7,1D,Screen 2/Line 4: Exhaust temperature
+LC,12,0~7,1E,Screen 2/Line 4: Writing MFAXP
+LC,12,0~7,1F,Screen 2/Line 4: Writing HGP
+LC,12,0~7,20,Screen 2/Line 4: Writing BTS
+LC,12,0~7,21,Screen 2/Line 4: Custom Text 1
+LC,12,0~7,22,Screen 2/Line 4: Custom Text 2
+LC,12,0~7,23,Screen 2/Line 4: Custom Text 3
+LC,12,0~7,24,Screen 2/Line 4: Custom Text 4
+LC,12,0~7,25,Screen 2/Line 4: Oillevel
+LC,12,0~7,26,Screen 2/Line 4: Battery state of charge
+LC,12,0~7,27,Screen 2/Line 4: DPF Regeneration
+LC,12,0~7,28,Screen 2/Line 4: Exhaust Flap State
+LC,12,0~7,29,Screen 2/Line 4: Statistic module: VMAX
+LC,12,0~7,2A,Screen 2/Line 4: Statistic module: Max. Power
+LC,12,0~7,2B,Screen 2/Line 4: Statistic module: Max. Torque
+LC,12,0~7,2C,Screen 2/Line 4: Statistic module: Max. Boost
+LC,12,0~7,2D,Screen 2/Line 4: Statistic module: Max. Exhaust temperature
+LC,12,0~7,2E,Screen 2/Line 4: Statistic module: Max. Oil temperature
+LC,12,0~7,2F,Screen 2/Line 4: Statistic module: Max. cooling liquid temperature
+LC,12,0~7,30,Screen 2/Line 4: Statistic module: Max. Intake temperature
+LC,12,0~7,31,Screen 2/Line 4: Statistic module: Time 0-100
+LC,12,0~7,32,Screen 2/Line 4: Statistic module: Time 100-200
+LC,12,0~7,33,Screen 2/Line 4: Statistic module: Time 0-200
+LC,12,0~7,34,Screen 2/Line 4: Boardcomputer: Current consumption
+LC,12,0~7,35,Screen 2/Line 4: Boardcomputer: Distance to fuel stop
+LC,12,0~7,36,Screen 2/Line 4: Boardcomputer: Average consumption
+LC,12,0~7,37,Screen 2/Line 4: Boardcomputer: Range since engine start
+LC,12,0~7,38,Screen 2/Line 4: Boardcomputer: Time since engine start
+LC,12,0~7,39,Screen 2/Line 4: Boardcomputer: Average speed
+LC,12,0~7,3A,Screen 2/Line 4: Boardcomputer: Consumption since refuel
+LC,12,0~7,3B,Screen 2/Line 4: Boardcomputer: Average speed since refuel
+LC,12,0~7,3C,Screen 2/Line 4: Car Speed raw value from ABS/ESP
+LC,12,0~7,3D,Screen 2/Line 4: Date
+LC,12,0~7,3E,Screen 2/Line 4: Time
+LC,12,0~7,3F,Screen 2/Line 4: Car Speed raw value from instrument cluster
+LC,12,0~7,40,Screen 2/Line 4: Difflock
+LC,12,0~7,41,Screen 2/Line 4: Ethanol content in fuel
+LC,12,0~7,42,Screen 2/Line 4: Writing MTM
+LC,12,0~7,43,Screen 2/Line 4: Audio Info 1
+LC,12,0~7,44,Screen 2/Line 4: Audio Info 2
+LC,12,0~7,45,Screen 2/Line 4: Audio Info 3
+LC,12,0~7,46,Screen 2/Line 4: Audio Info 4
+; {Screen 3/Line 1}
+LC,13,0~7,00,Screen 3/Line 1: Off
+LC,13,0~7,01,Screen 3/Line 1: Engine Oil Temperature
+LC,13,0~7,02,Screen 3/Line 1: Engine Intake Temperature
+LC,13,0~7,03,Screen 3/Line 1: Engine Cooling Temperature
+LC,13,0~7,04,Screen 3/Line 1: Outside Temperature
+LC,13,0~7,05,Screen 3/Line 1: Engine RPM
+LC,13,0~7,06,Screen 3/Line 1: Oil Pressure
+LC,13,0~7,07,Screen 3/Line 1: Boost
+LC,13,0~7,08,Screen 3/Line 1: Engine Power
+LC,13,0~7,09,Screen 3/Line 1: Engine Power Loss
+LC,13,0~7,0A,Screen 3/Line 1: Engine Power Wheel
+LC,13,0~7,0B,Screen 3/Line 1: Engine Torque
+LC,13,0~7,0C,Screen 3/Line 1: Engine Torque Loss
+LC,13,0~7,0D,Screen 3/Line 1: Engine Torque Wheel
+LC,13,0~7,0E,Screen 3/Line 1: Engine Pedal Position
+LC,13,0~7,0F,Screen 3/Line 1: Wheel speed Front Left
+LC,13,0~7,10,Screen 3/Line 1: Wheel speed Front Right
+LC,13,0~7,11,Screen 3/Line 1: Wheel speed Back Left
+LC,13,0~7,12,Screen 3/Line 1: Wheel speed Back Right
+LC,13,0~7,13,Screen 3/Line 1: Brake Pressure
+LC,13,0~7,14,Screen 3/Line 1: G across
+LC,13,0~7,15,Screen 3/Line 1: Gierrate
+LC,13,0~7,16,Screen 3/Line 1: Steering Angle
+LC,13,0~7,17,Screen 3/Line 1: Haldex Clutch Open
+LC,13,0~7,18,Screen 3/Line 1: Haldex Transmitted Torque
+LC,13,0~7,19,Screen 3/Line 1: Car Speed
+LC,13,0~7,1A,Screen 3/Line 1: Fuel Content
+LC,13,0~7,1B,Screen 3/Line 1: DSG Oil Temperature
+LC,13,0~7,1C,Screen 3/Line 1: Voltage
+LC,13,0~7,1D,Screen 3/Line 1: Exhaust temperature
+LC,13,0~7,1E,Screen 3/Line 1: Writing MFAXP
+LC,13,0~7,1F,Screen 3/Line 1: Writing HGP
+LC,13,0~7,20,Screen 3/Line 1: Writing BTS
+LC,13,0~7,21,Screen 3/Line 1: Custom Text 1
+LC,13,0~7,22,Screen 3/Line 1: Custom Text 2
+LC,13,0~7,23,Screen 3/Line 1: Custom Text 3
+LC,13,0~7,24,Screen 3/Line 1: Custom Text 4
+LC,13,0~7,25,Screen 3/Line 1: Oillevel
+LC,13,0~7,26,Screen 3/Line 1: Battery state of charge
+LC,13,0~7,27,Screen 3/Line 1: DPF Regeneration
+LC,13,0~7,28,Screen 3/Line 1: Exhaust Flap State
+LC,13,0~7,29,Screen 3/Line 1: Statistic module: VMAX
+LC,13,0~7,2A,Screen 3/Line 1: Statistic module: Max. Power
+LC,13,0~7,2B,Screen 3/Line 1: Statistic module: Max. Torque
+LC,13,0~7,2C,Screen 3/Line 1: Statistic module: Max. Boost
+LC,13,0~7,2D,Screen 3/Line 1: Statistic module: Max. Exhaust temperature
+LC,13,0~7,2E,Screen 3/Line 1: Statistic module: Max. Oil temperature
+LC,13,0~7,2F,Screen 3/Line 1: Statistic module: Max. cooling liquid temperature
+LC,13,0~7,30,Screen 3/Line 1: Statistic module: Max. Intake temperature
+LC,13,0~7,31,Screen 3/Line 1: Statistic module: Time 0-100
+LC,13,0~7,32,Screen 3/Line 1: Statistic module: Time 100-200
+LC,13,0~7,33,Screen 3/Line 1: Statistic module: Time 0-200
+LC,13,0~7,34,Screen 3/Line 1: Boardcomputer: Current consumption
+LC,13,0~7,35,Screen 3/Line 1: Boardcomputer: Distance to fuel stop
+LC,13,0~7,36,Screen 3/Line 1: Boardcomputer: Average consumption
+LC,13,0~7,37,Screen 3/Line 1: Boardcomputer: Range since engine start
+LC,13,0~7,38,Screen 3/Line 1: Boardcomputer: Time since engine start
+LC,13,0~7,39,Screen 3/Line 1: Boardcomputer: Average speed
+LC,13,0~7,3A,Screen 3/Line 1: Boardcomputer: Consumption since refuel
+LC,13,0~7,3B,Screen 3/Line 1: Boardcomputer: Average speed since refuel
+LC,13,0~7,3C,Screen 3/Line 1: Car Speed raw value from ABS/ESP
+LC,13,0~7,3D,Screen 3/Line 1: Date
+LC,13,0~7,3E,Screen 3/Line 1: Time
+LC,13,0~7,3F,Screen 3/Line 1: Car Speed raw value from instrument cluster
+LC,13,0~7,40,Screen 3/Line 1: Difflock
+LC,13,0~7,41,Screen 3/Line 1: Ethanol content in fuel
+LC,13,0~7,42,Screen 3/Line 1: Writing MTM
+LC,13,0~7,43,Screen 3/Line 1: Audio Info 1
+LC,13,0~7,44,Screen 3/Line 1: Audio Info 2
+LC,13,0~7,45,Screen 3/Line 1: Audio Info 3
+LC,13,0~7,46,Screen 3/Line 1: Audio Info 4
+; {Screen 3/Line 2}
+LC,14,0~7,00,Screen 3/Line 2: Off
+LC,14,0~7,01,Screen 3/Line 2: Engine Oil Temperature
+LC,14,0~7,02,Screen 3/Line 2: Engine Intake Temperature
+LC,14,0~7,03,Screen 3/Line 2: Engine Cooling Temperature
+LC,14,0~7,04,Screen 3/Line 2: Outside Temperature
+LC,14,0~7,05,Screen 3/Line 2: Engine RPM
+LC,14,0~7,06,Screen 3/Line 2: Oil Pressure
+LC,14,0~7,07,Screen 3/Line 2: Boost
+LC,14,0~7,08,Screen 3/Line 2: Engine Power
+LC,14,0~7,09,Screen 3/Line 2: Engine Power Loss
+LC,14,0~7,0A,Screen 3/Line 2: Engine Power Wheel
+LC,14,0~7,0B,Screen 3/Line 2: Engine Torque
+LC,14,0~7,0C,Screen 3/Line 2: Engine Torque Loss
+LC,14,0~7,0D,Screen 3/Line 2: Engine Torque Wheel
+LC,14,0~7,0E,Screen 3/Line 2: Engine Pedal Position
+LC,14,0~7,0F,Screen 3/Line 2: Wheel speed Front Left
+LC,14,0~7,10,Screen 3/Line 2: Wheel speed Front Right
+LC,14,0~7,11,Screen 3/Line 2: Wheel speed Back Left
+LC,14,0~7,12,Screen 3/Line 2: Wheel speed Back Right
+LC,14,0~7,13,Screen 3/Line 2: Brake Pressure
+LC,14,0~7,14,Screen 3/Line 2: G across
+LC,14,0~7,15,Screen 3/Line 2: Gierrate
+LC,14,0~7,16,Screen 3/Line 2: Steering Angle
+LC,14,0~7,17,Screen 3/Line 2: Haldex Clutch Open
+LC,14,0~7,18,Screen 3/Line 2: Haldex Transmitted Torque
+LC,14,0~7,19,Screen 3/Line 2: Car Speed
+LC,14,0~7,1A,Screen 3/Line 2: Fuel Content
+LC,14,0~7,1B,Screen 3/Line 2: DSG Oil Temperature
+LC,14,0~7,1C,Screen 3/Line 2: Voltage
+LC,14,0~7,1D,Screen 3/Line 2: Exhaust temperature
+LC,14,0~7,1E,Screen 3/Line 2: Writing MFAXP
+LC,14,0~7,1F,Screen 3/Line 2: Writing HGP
+LC,14,0~7,20,Screen 3/Line 2: Writing BTS
+LC,14,0~7,21,Screen 3/Line 2: Custom Text 1
+LC,14,0~7,22,Screen 3/Line 2: Custom Text 2
+LC,14,0~7,23,Screen 3/Line 2: Custom Text 3
+LC,14,0~7,24,Screen 3/Line 2: Custom Text 4
+LC,14,0~7,25,Screen 3/Line 2: Oillevel
+LC,14,0~7,26,Screen 3/Line 2: Battery state of charge
+LC,14,0~7,27,Screen 3/Line 2: DPF Regeneration
+LC,14,0~7,28,Screen 3/Line 2: Exhaust Flap State
+LC,14,0~7,29,Screen 3/Line 2: Statistic module: VMAX
+LC,14,0~7,2A,Screen 3/Line 2: Statistic module: Max. Power
+LC,14,0~7,2B,Screen 3/Line 2: Statistic module: Max. Torque
+LC,14,0~7,2C,Screen 3/Line 2: Statistic module: Max. Boost
+LC,14,0~7,2D,Screen 3/Line 2: Statistic module: Max. Exhaust temperature
+LC,14,0~7,2E,Screen 3/Line 2: Statistic module: Max. Oil temperature
+LC,14,0~7,2F,Screen 3/Line 2: Statistic module: Max. cooling liquid temperature
+LC,14,0~7,30,Screen 3/Line 2: Statistic module: Max. Intake temperature
+LC,14,0~7,31,Screen 3/Line 2: Statistic module: Time 0-100
+LC,14,0~7,32,Screen 3/Line 2: Statistic module: Time 100-200
+LC,14,0~7,33,Screen 3/Line 2: Statistic module: Time 0-200
+LC,14,0~7,34,Screen 3/Line 2: Boardcomputer: Current consumption
+LC,14,0~7,35,Screen 3/Line 2: Boardcomputer: Distance to fuel stop
+LC,14,0~7,36,Screen 3/Line 2: Boardcomputer: Average consumption
+LC,14,0~7,37,Screen 3/Line 2: Boardcomputer: Range since engine start
+LC,14,0~7,38,Screen 3/Line 2: Boardcomputer: Time since engine start
+LC,14,0~7,39,Screen 3/Line 2: Boardcomputer: Average speed
+LC,14,0~7,3A,Screen 3/Line 2: Boardcomputer: Consumption since refuel
+LC,14,0~7,3B,Screen 3/Line 2: Boardcomputer: Average speed since refuel
+LC,14,0~7,3C,Screen 3/Line 2: Car Speed raw value from ABS/ESP
+LC,14,0~7,3D,Screen 3/Line 2: Date
+LC,14,0~7,3E,Screen 3/Line 2: Time
+LC,14,0~7,3F,Screen 3/Line 2: Car Speed raw value from instrument cluster
+LC,14,0~7,40,Screen 3/Line 2: Difflock
+LC,14,0~7,41,Screen 3/Line 2: Ethanol content in fuel
+LC,14,0~7,42,Screen 3/Line 2: Writing MTM
+LC,14,0~7,43,Screen 3/Line 2: Audio Info 1
+LC,14,0~7,44,Screen 3/Line 2: Audio Info 2
+LC,14,0~7,45,Screen 3/Line 2: Audio Info 3
+LC,14,0~7,46,Screen 3/Line 2: Audio Info 4
+; {Screen 3/Line 3}
+LC,15,0~7,00,Screen 3/Line 3: Off
+LC,15,0~7,01,Screen 3/Line 3: Engine Oil Temperature
+LC,15,0~7,02,Screen 3/Line 3: Engine Intake Temperature
+LC,15,0~7,03,Screen 3/Line 3: Engine Cooling Temperature
+LC,15,0~7,04,Screen 3/Line 3: Outside Temperature
+LC,15,0~7,05,Screen 3/Line 3: Engine RPM
+LC,15,0~7,06,Screen 3/Line 3: Oil Pressure
+LC,15,0~7,07,Screen 3/Line 3: Boost
+LC,15,0~7,08,Screen 3/Line 3: Engine Power
+LC,15,0~7,09,Screen 3/Line 3: Engine Power Loss
+LC,15,0~7,0A,Screen 3/Line 3: Engine Power Wheel
+LC,15,0~7,0B,Screen 3/Line 3: Engine Torque
+LC,15,0~7,0C,Screen 3/Line 3: Engine Torque Loss
+LC,15,0~7,0D,Screen 3/Line 3: Engine Torque Wheel
+LC,15,0~7,0E,Screen 3/Line 3: Engine Pedal Position
+LC,15,0~7,0F,Screen 3/Line 3: Wheel speed Front Left
+LC,15,0~7,10,Screen 3/Line 3: Wheel speed Front Right
+LC,15,0~7,11,Screen 3/Line 3: Wheel speed Back Left
+LC,15,0~7,12,Screen 3/Line 3: Wheel speed Back Right
+LC,15,0~7,13,Screen 3/Line 3: Brake Pressure
+LC,15,0~7,14,Screen 3/Line 3: G across
+LC,15,0~7,15,Screen 3/Line 3: Gierrate
+LC,15,0~7,16,Screen 3/Line 3: Steering Angle
+LC,15,0~7,17,Screen 3/Line 3: Haldex Clutch Open
+LC,15,0~7,18,Screen 3/Line 3: Haldex Transmitted Torque
+LC,15,0~7,19,Screen 3/Line 3: Car Speed
+LC,15,0~7,1A,Screen 3/Line 3: Fuel Content
+LC,15,0~7,1B,Screen 3/Line 3: DSG Oil Temperature
+LC,15,0~7,1C,Screen 3/Line 3: Voltage
+LC,15,0~7,1D,Screen 3/Line 3: Exhaust temperature
+LC,15,0~7,1E,Screen 3/Line 3: Writing MFAXP
+LC,15,0~7,1F,Screen 3/Line 3: Writing HGP
+LC,15,0~7,20,Screen 3/Line 3: Writing BTS
+LC,15,0~7,21,Screen 3/Line 3: Custom Text 1
+LC,15,0~7,22,Screen 3/Line 3: Custom Text 2
+LC,15,0~7,23,Screen 3/Line 3: Custom Text 3
+LC,15,0~7,24,Screen 3/Line 3: Custom Text 4
+LC,15,0~7,25,Screen 3/Line 3: Oillevel
+LC,15,0~7,26,Screen 3/Line 3: Battery state of charge
+LC,15,0~7,27,Screen 3/Line 3: DPF Regeneration
+LC,15,0~7,28,Screen 3/Line 3: Exhaust Flap State
+LC,15,0~7,29,Screen 3/Line 3: Statistic module: VMAX
+LC,15,0~7,2A,Screen 3/Line 3: Statistic module: Max. Power
+LC,15,0~7,2B,Screen 3/Line 3: Statistic module: Max. Torque
+LC,15,0~7,2C,Screen 3/Line 3: Statistic module: Max. Boost
+LC,15,0~7,2D,Screen 3/Line 3: Statistic module: Max. Exhaust temperature
+LC,15,0~7,2E,Screen 3/Line 3: Statistic module: Max. Oil temperature
+LC,15,0~7,2F,Screen 3/Line 3: Statistic module: Max. cooling liquid temperature
+LC,15,0~7,30,Screen 3/Line 3: Statistic module: Max. Intake temperature
+LC,15,0~7,31,Screen 3/Line 3: Statistic module: Time 0-100
+LC,15,0~7,32,Screen 3/Line 3: Statistic module: Time 100-200
+LC,15,0~7,33,Screen 3/Line 3: Statistic module: Time 0-200
+LC,15,0~7,34,Screen 3/Line 3: Boardcomputer: Current consumption
+LC,15,0~7,35,Screen 3/Line 3: Boardcomputer: Distance to fuel stop
+LC,15,0~7,36,Screen 3/Line 3: Boardcomputer: Average consumption
+LC,15,0~7,37,Screen 3/Line 3: Boardcomputer: Range since engine start
+LC,15,0~7,38,Screen 3/Line 3: Boardcomputer: Time since engine start
+LC,15,0~7,39,Screen 3/Line 3: Boardcomputer: Average speed
+LC,15,0~7,3A,Screen 3/Line 3: Boardcomputer: Consumption since refuel
+LC,15,0~7,3B,Screen 3/Line 3: Boardcomputer: Average speed since refuel
+LC,15,0~7,3C,Screen 3/Line 3: Car Speed raw value from ABS/ESP
+LC,15,0~7,3D,Screen 3/Line 3: Date
+LC,15,0~7,3E,Screen 3/Line 3: Time
+LC,15,0~7,3F,Screen 3/Line 3: Car Speed raw value from instrument cluster
+LC,15,0~7,40,Screen 3/Line 3: Difflock
+LC,15,0~7,41,Screen 3/Line 3: Ethanol content in fuel
+LC,15,0~7,42,Screen 3/Line 3: Writing MTM
+LC,15,0~7,43,Screen 3/Line 3: Audio Info 1
+LC,15,0~7,44,Screen 3/Line 3: Audio Info 2
+LC,15,0~7,45,Screen 3/Line 3: Audio Info 3
+LC,15,0~7,46,Screen 3/Line 3: Audio Info 4
+; {Screen 3/Line 4}
+LC,16,0~7,00,Screen 3/Line 4: Off
+LC,16,0~7,01,Screen 3/Line 4: Engine Oil Temperature
+LC,16,0~7,02,Screen 3/Line 4: Engine Intake Temperature
+LC,16,0~7,03,Screen 3/Line 4: Engine Cooling Temperature
+LC,16,0~7,04,Screen 3/Line 4: Outside Temperature
+LC,16,0~7,05,Screen 3/Line 4: Engine RPM
+LC,16,0~7,06,Screen 3/Line 4: Oil Pressure
+LC,16,0~7,07,Screen 3/Line 4: Boost
+LC,16,0~7,08,Screen 3/Line 4: Engine Power
+LC,16,0~7,09,Screen 3/Line 4: Engine Power Loss
+LC,16,0~7,0A,Screen 3/Line 4: Engine Power Wheel
+LC,16,0~7,0B,Screen 3/Line 4: Engine Torque
+LC,16,0~7,0C,Screen 3/Line 4: Engine Torque Loss
+LC,16,0~7,0D,Screen 3/Line 4: Engine Torque Wheel
+LC,16,0~7,0E,Screen 3/Line 4: Engine Pedal Position
+LC,16,0~7,0F,Screen 3/Line 4: Wheel speed Front Left
+LC,16,0~7,10,Screen 3/Line 4: Wheel speed Front Right
+LC,16,0~7,11,Screen 3/Line 4: Wheel speed Back Left
+LC,16,0~7,12,Screen 3/Line 4: Wheel speed Back Right
+LC,16,0~7,13,Screen 3/Line 4: Brake Pressure
+LC,16,0~7,14,Screen 3/Line 4: G across
+LC,16,0~7,15,Screen 3/Line 4: Gierrate
+LC,16,0~7,16,Screen 3/Line 4: Steering Angle
+LC,16,0~7,17,Screen 3/Line 4: Haldex Clutch Open
+LC,16,0~7,18,Screen 3/Line 4: Haldex Transmitted Torque
+LC,16,0~7,19,Screen 3/Line 4: Car Speed
+LC,16,0~7,1A,Screen 3/Line 4: Fuel Content
+LC,16,0~7,1B,Screen 3/Line 4: DSG Oil Temperature
+LC,16,0~7,1C,Screen 3/Line 4: Voltage
+LC,16,0~7,1D,Screen 3/Line 4: Exhaust temperature
+LC,16,0~7,1E,Screen 3/Line 4: Writing MFAXP
+LC,16,0~7,1F,Screen 3/Line 4: Writing HGP
+LC,16,0~7,20,Screen 3/Line 4: Writing BTS
+LC,16,0~7,21,Screen 3/Line 4: Custom Text 1
+LC,16,0~7,22,Screen 3/Line 4: Custom Text 2
+LC,16,0~7,23,Screen 3/Line 4: Custom Text 3
+LC,16,0~7,24,Screen 3/Line 4: Custom Text 4
+LC,16,0~7,25,Screen 3/Line 4: Oillevel
+LC,16,0~7,26,Screen 3/Line 4: Battery state of charge
+LC,16,0~7,27,Screen 3/Line 4: DPF Regeneration
+LC,16,0~7,28,Screen 3/Line 4: Exhaust Flap State
+LC,16,0~7,29,Screen 3/Line 4: Statistic module: VMAX
+LC,16,0~7,2A,Screen 3/Line 4: Statistic module: Max. Power
+LC,16,0~7,2B,Screen 3/Line 4: Statistic module: Max. Torque
+LC,16,0~7,2C,Screen 3/Line 4: Statistic module: Max. Boost
+LC,16,0~7,2D,Screen 3/Line 4: Statistic module: Max. Exhaust temperature
+LC,16,0~7,2E,Screen 3/Line 4: Statistic module: Max. Oil temperature
+LC,16,0~7,2F,Screen 3/Line 4: Statistic module: Max. cooling liquid temperature
+LC,16,0~7,30,Screen 3/Line 4: Statistic module: Max. Intake temperature
+LC,16,0~7,31,Screen 3/Line 4: Statistic module: Time 0-100
+LC,16,0~7,32,Screen 3/Line 4: Statistic module: Time 100-200
+LC,16,0~7,33,Screen 3/Line 4: Statistic module: Time 0-200
+LC,16,0~7,34,Screen 3/Line 4: Boardcomputer: Current consumption
+LC,16,0~7,35,Screen 3/Line 4: Boardcomputer: Distance to fuel stop
+LC,16,0~7,36,Screen 3/Line 4: Boardcomputer: Average consumption
+LC,16,0~7,37,Screen 3/Line 4: Boardcomputer: Range since engine start
+LC,16,0~7,38,Screen 3/Line 4: Boardcomputer: Time since engine start
+LC,16,0~7,39,Screen 3/Line 4: Boardcomputer: Average speed
+LC,16,0~7,3A,Screen 3/Line 4: Boardcomputer: Consumption since refuel
+LC,16,0~7,3B,Screen 3/Line 4: Boardcomputer: Average speed since refuel
+LC,16,0~7,3C,Screen 3/Line 4: Car Speed raw value from ABS/ESP
+LC,16,0~7,3D,Screen 3/Line 4: Date
+LC,16,0~7,3E,Screen 3/Line 4: Time
+LC,16,0~7,3F,Screen 3/Line 4: Car Speed raw value from instrument cluster
+LC,16,0~7,40,Screen 3/Line 4: Difflock
+LC,16,0~7,41,Screen 3/Line 4: Ethanol content in fuel
+LC,16,0~7,42,Screen 3/Line 4: Writing MTM
+LC,16,0~7,43,Screen 3/Line 4: Audio Info 1
+LC,16,0~7,44,Screen 3/Line 4: Audio Info 2
+LC,16,0~7,45,Screen 3/Line 4: Audio Info 3
+LC,16,0~7,46,Screen 3/Line 4: Audio Info 4
+; {Screen 4/Line 1}
+LC,17,0~7,00,Screen 4/Line 1: Off
+LC,17,0~7,01,Screen 4/Line 1: Engine Oil Temperature
+LC,17,0~7,02,Screen 4/Line 1: Engine Intake Temperature
+LC,17,0~7,03,Screen 4/Line 1: Engine Cooling Temperature
+LC,17,0~7,04,Screen 4/Line 1: Outside Temperature
+LC,17,0~7,05,Screen 4/Line 1: Engine RPM
+LC,17,0~7,06,Screen 4/Line 1: Oil Pressure
+LC,17,0~7,07,Screen 4/Line 1: Boost
+LC,17,0~7,08,Screen 4/Line 1: Engine Power
+LC,17,0~7,09,Screen 4/Line 1: Engine Power Loss
+LC,17,0~7,0A,Screen 4/Line 1: Engine Power Wheel
+LC,17,0~7,0B,Screen 4/Line 1: Engine Torque
+LC,17,0~7,0C,Screen 4/Line 1: Engine Torque Loss
+LC,17,0~7,0D,Screen 4/Line 1: Engine Torque Wheel
+LC,17,0~7,0E,Screen 4/Line 1: Engine Pedal Position
+LC,17,0~7,0F,Screen 4/Line 1: Wheel speed Front Left
+LC,17,0~7,10,Screen 4/Line 1: Wheel speed Front Right
+LC,17,0~7,11,Screen 4/Line 1: Wheel speed Back Left
+LC,17,0~7,12,Screen 4/Line 1: Wheel speed Back Right
+LC,17,0~7,13,Screen 4/Line 1: Brake Pressure
+LC,17,0~7,14,Screen 4/Line 1: G across
+LC,17,0~7,15,Screen 4/Line 1: Gierrate
+LC,17,0~7,16,Screen 4/Line 1: Steering Angle
+LC,17,0~7,17,Screen 4/Line 1: Haldex Clutch Open
+LC,17,0~7,18,Screen 4/Line 1: Haldex Transmitted Torque
+LC,17,0~7,19,Screen 4/Line 1: Car Speed
+LC,17,0~7,1A,Screen 4/Line 1: Fuel Content
+LC,17,0~7,1B,Screen 4/Line 1: DSG Oil Temperature
+LC,17,0~7,1C,Screen 4/Line 1: Voltage
+LC,17,0~7,1D,Screen 4/Line 1: Exhaust temperature
+LC,17,0~7,1E,Screen 4/Line 1: Writing MFAXP
+LC,17,0~7,1F,Screen 4/Line 1: Writing HGP
+LC,17,0~7,20,Screen 4/Line 1: Writing BTS
+LC,17,0~7,21,Screen 4/Line 1: Custom Text 1
+LC,17,0~7,22,Screen 4/Line 1: Custom Text 2
+LC,17,0~7,23,Screen 4/Line 1: Custom Text 3
+LC,17,0~7,24,Screen 4/Line 1: Custom Text 4
+LC,17,0~7,25,Screen 4/Line 1: Oillevel
+LC,17,0~7,26,Screen 4/Line 1: Battery state of charge
+LC,17,0~7,27,Screen 4/Line 1: DPF Regeneration
+LC,17,0~7,28,Screen 4/Line 1: Exhaust Flap State
+LC,17,0~7,29,Screen 4/Line 1: Statistic module: VMAX
+LC,17,0~7,2A,Screen 4/Line 1: Statistic module: Max. Power
+LC,17,0~7,2B,Screen 4/Line 1: Statistic module: Max. Torque
+LC,17,0~7,2C,Screen 4/Line 1: Statistic module: Max. Boost
+LC,17,0~7,2D,Screen 4/Line 1: Statistic module: Max. Exhaust temperature
+LC,17,0~7,2E,Screen 4/Line 1: Statistic module: Max. Oil temperature
+LC,17,0~7,2F,Screen 4/Line 1: Statistic module: Max. cooling liquid temperature
+LC,17,0~7,30,Screen 4/Line 1: Statistic module: Max. Intake temperature
+LC,17,0~7,31,Screen 4/Line 1: Statistic module: Time 0-100
+LC,17,0~7,32,Screen 4/Line 1: Statistic module: Time 100-200
+LC,17,0~7,33,Screen 4/Line 1: Statistic module: Time 0-200
+LC,17,0~7,34,Screen 4/Line 1: Boardcomputer: Current consumption
+LC,17,0~7,35,Screen 4/Line 1: Boardcomputer: Distance to fuel stop
+LC,17,0~7,36,Screen 4/Line 1: Boardcomputer: Average consumption
+LC,17,0~7,37,Screen 4/Line 1: Boardcomputer: Range since engine start
+LC,17,0~7,38,Screen 4/Line 1: Boardcomputer: Time since engine start
+LC,17,0~7,39,Screen 4/Line 1: Boardcomputer: Average speed
+LC,17,0~7,3A,Screen 4/Line 1: Boardcomputer: Consumption since refuel
+LC,17,0~7,3B,Screen 4/Line 1: Boardcomputer: Average speed since refuel
+LC,17,0~7,3C,Screen 4/Line 1: Car Speed raw value from ABS/ESP
+LC,17,0~7,3D,Screen 4/Line 1: Date
+LC,17,0~7,3E,Screen 4/Line 1: Time
+LC,17,0~7,3F,Screen 4/Line 1: Car Speed raw value from instrument cluster
+LC,17,0~7,40,Screen 4/Line 1: Difflock
+LC,17,0~7,41,Screen 4/Line 1: Ethanol content in fuel
+LC,17,0~7,42,Screen 4/Line 1: Writing MTM
+LC,17,0~7,43,Screen 4/Line 1: Audio Info 1
+LC,17,0~7,44,Screen 4/Line 1: Audio Info 2
+LC,17,0~7,45,Screen 4/Line 1: Audio Info 3
+LC,17,0~7,46,Screen 4/Line 1: Audio Info 4
+; {Screen 4/Line 2}
+LC,18,0~7,00,Screen 4/Line 2: Off
+LC,18,0~7,01,Screen 4/Line 2: Engine Oil Temperature
+LC,18,0~7,02,Screen 4/Line 2: Engine Intake Temperature
+LC,18,0~7,03,Screen 4/Line 2: Engine Cooling Temperature
+LC,18,0~7,04,Screen 4/Line 2: Outside Temperature
+LC,18,0~7,05,Screen 4/Line 2: Engine RPM
+LC,18,0~7,06,Screen 4/Line 2: Oil Pressure
+LC,18,0~7,07,Screen 4/Line 2: Boost
+LC,18,0~7,08,Screen 4/Line 2: Engine Power
+LC,18,0~7,09,Screen 4/Line 2: Engine Power Loss
+LC,18,0~7,0A,Screen 4/Line 2: Engine Power Wheel
+LC,18,0~7,0B,Screen 4/Line 2: Engine Torque
+LC,18,0~7,0C,Screen 4/Line 2: Engine Torque Loss
+LC,18,0~7,0D,Screen 4/Line 2: Engine Torque Wheel
+LC,18,0~7,0E,Screen 4/Line 2: Engine Pedal Position
+LC,18,0~7,0F,Screen 4/Line 2: Wheel speed Front Left
+LC,18,0~7,10,Screen 4/Line 2: Wheel speed Front Right
+LC,18,0~7,11,Screen 4/Line 2: Wheel speed Back Left
+LC,18,0~7,12,Screen 4/Line 2: Wheel speed Back Right
+LC,18,0~7,13,Screen 4/Line 2: Brake Pressure
+LC,18,0~7,14,Screen 4/Line 2: G across
+LC,18,0~7,15,Screen 4/Line 2: Gierrate
+LC,18,0~7,16,Screen 4/Line 2: Steering Angle
+LC,18,0~7,17,Screen 4/Line 2: Haldex Clutch Open
+LC,18,0~7,18,Screen 4/Line 2: Haldex Transmitted Torque
+LC,18,0~7,19,Screen 4/Line 2: Car Speed
+LC,18,0~7,1A,Screen 4/Line 2: Fuel Content
+LC,18,0~7,1B,Screen 4/Line 2: DSG Oil Temperature
+LC,18,0~7,1C,Screen 4/Line 2: Voltage
+LC,18,0~7,1D,Screen 4/Line 2: Exhaust temperature
+LC,18,0~7,1E,Screen 4/Line 2: Writing MFAXP
+LC,18,0~7,1F,Screen 4/Line 2: Writing HGP
+LC,18,0~7,20,Screen 4/Line 2: Writing BTS
+LC,18,0~7,21,Screen 4/Line 2: Custom Text 1
+LC,18,0~7,22,Screen 4/Line 2: Custom Text 2
+LC,18,0~7,23,Screen 4/Line 2: Custom Text 3
+LC,18,0~7,24,Screen 4/Line 2: Custom Text 4
+LC,18,0~7,25,Screen 4/Line 2: Oillevel
+LC,18,0~7,26,Screen 4/Line 2: Battery state of charge
+LC,18,0~7,27,Screen 4/Line 2: DPF Regeneration
+LC,18,0~7,28,Screen 4/Line 2: Exhaust Flap State
+LC,18,0~7,29,Screen 4/Line 2: Statistic module: VMAX
+LC,18,0~7,2A,Screen 4/Line 2: Statistic module: Max. Power
+LC,18,0~7,2B,Screen 4/Line 2: Statistic module: Max. Torque
+LC,18,0~7,2C,Screen 4/Line 2: Statistic module: Max. Boost
+LC,18,0~7,2D,Screen 4/Line 2: Statistic module: Max. Exhaust temperature
+LC,18,0~7,2E,Screen 4/Line 2: Statistic module: Max. Oil temperature
+LC,18,0~7,2F,Screen 4/Line 2: Statistic module: Max. cooling liquid temperature
+LC,18,0~7,30,Screen 4/Line 2: Statistic module: Max. Intake temperature
+LC,18,0~7,31,Screen 4/Line 2: Statistic module: Time 0-100
+LC,18,0~7,32,Screen 4/Line 2: Statistic module: Time 100-200
+LC,18,0~7,33,Screen 4/Line 2: Statistic module: Time 0-200
+LC,18,0~7,34,Screen 4/Line 2: Boardcomputer: Current consumption
+LC,18,0~7,35,Screen 4/Line 2: Boardcomputer: Distance to fuel stop
+LC,18,0~7,36,Screen 4/Line 2: Boardcomputer: Average consumption
+LC,18,0~7,37,Screen 4/Line 2: Boardcomputer: Range since engine start
+LC,18,0~7,38,Screen 4/Line 2: Boardcomputer: Time since engine start
+LC,18,0~7,39,Screen 4/Line 2: Boardcomputer: Average speed
+LC,18,0~7,3A,Screen 4/Line 2: Boardcomputer: Consumption since refuel
+LC,18,0~7,3B,Screen 4/Line 2: Boardcomputer: Average speed since refuel
+LC,18,0~7,3C,Screen 4/Line 2: Car Speed raw value from ABS/ESP
+LC,18,0~7,3D,Screen 4/Line 2: Date
+LC,18,0~7,3E,Screen 4/Line 2: Time
+LC,18,0~7,3F,Screen 4/Line 2: Car Speed raw value from instrument cluster
+LC,18,0~7,40,Screen 4/Line 2: Difflock
+LC,18,0~7,41,Screen 4/Line 2: Ethanol content in fuel
+LC,18,0~7,42,Screen 4/Line 2: Writing MTM
+LC,18,0~7,43,Screen 4/Line 2: Audio Info 1
+LC,18,0~7,44,Screen 4/Line 2: Audio Info 2
+LC,18,0~7,45,Screen 4/Line 2: Audio Info 3
+LC,18,0~7,46,Screen 4/Line 2: Audio Info 4
+; {Screen 4/Line 3}
+LC,19,0~7,00,Screen 4/Line 3: Off
+LC,19,0~7,01,Screen 4/Line 3: Engine Oil Temperature
+LC,19,0~7,02,Screen 4/Line 3: Engine Intake Temperature
+LC,19,0~7,03,Screen 4/Line 3: Engine Cooling Temperature
+LC,19,0~7,04,Screen 4/Line 3: Outside Temperature
+LC,19,0~7,05,Screen 4/Line 3: Engine RPM
+LC,19,0~7,06,Screen 4/Line 3: Oil Pressure
+LC,19,0~7,07,Screen 4/Line 3: Boost
+LC,19,0~7,08,Screen 4/Line 3: Engine Power
+LC,19,0~7,09,Screen 4/Line 3: Engine Power Loss
+LC,19,0~7,0A,Screen 4/Line 3: Engine Power Wheel
+LC,19,0~7,0B,Screen 4/Line 3: Engine Torque
+LC,19,0~7,0C,Screen 4/Line 3: Engine Torque Loss
+LC,19,0~7,0D,Screen 4/Line 3: Engine Torque Wheel
+LC,19,0~7,0E,Screen 4/Line 3: Engine Pedal Position
+LC,19,0~7,0F,Screen 4/Line 3: Wheel speed Front Left
+LC,19,0~7,10,Screen 4/Line 3: Wheel speed Front Right
+LC,19,0~7,11,Screen 4/Line 3: Wheel speed Back Left
+LC,19,0~7,12,Screen 4/Line 3: Wheel speed Back Right
+LC,19,0~7,13,Screen 4/Line 3: Brake Pressure
+LC,19,0~7,14,Screen 4/Line 3: G across
+LC,19,0~7,15,Screen 4/Line 3: Gierrate
+LC,19,0~7,16,Screen 4/Line 3: Steering Angle
+LC,19,0~7,17,Screen 4/Line 3: Haldex Clutch Open
+LC,19,0~7,18,Screen 4/Line 3: Haldex Transmitted Torque
+LC,19,0~7,19,Screen 4/Line 3: Car Speed
+LC,19,0~7,1A,Screen 4/Line 3: Fuel Content
+LC,19,0~7,1B,Screen 4/Line 3: DSG Oil Temperature
+LC,19,0~7,1C,Screen 4/Line 3: Voltage
+LC,19,0~7,1D,Screen 4/Line 3: Exhaust temperature
+LC,19,0~7,1E,Screen 4/Line 3: Writing MFAXP
+LC,19,0~7,1F,Screen 4/Line 3: Writing HGP
+LC,19,0~7,20,Screen 4/Line 3: Writing BTS
+LC,19,0~7,21,Screen 4/Line 3: Custom Text 1
+LC,19,0~7,22,Screen 4/Line 3: Custom Text 2
+LC,19,0~7,23,Screen 4/Line 3: Custom Text 3
+LC,19,0~7,24,Screen 4/Line 3: Custom Text 4
+LC,19,0~7,25,Screen 4/Line 3: Oillevel
+LC,19,0~7,26,Screen 4/Line 3: Battery state of charge
+LC,19,0~7,27,Screen 4/Line 3: DPF Regeneration
+LC,19,0~7,28,Screen 4/Line 3: Exhaust Flap State
+LC,19,0~7,29,Screen 4/Line 3: Statistic module: VMAX
+LC,19,0~7,2A,Screen 4/Line 3: Statistic module: Max. Power
+LC,19,0~7,2B,Screen 4/Line 3: Statistic module: Max. Torque
+LC,19,0~7,2C,Screen 4/Line 3: Statistic module: Max. Boost
+LC,19,0~7,2D,Screen 4/Line 3: Statistic module: Max. Exhaust temperature
+LC,19,0~7,2E,Screen 4/Line 3: Statistic module: Max. Oil temperature
+LC,19,0~7,2F,Screen 4/Line 3: Statistic module: Max. cooling liquid temperature
+LC,19,0~7,30,Screen 4/Line 3: Statistic module: Max. Intake temperature
+LC,19,0~7,31,Screen 4/Line 3: Statistic module: Time 0-100
+LC,19,0~7,32,Screen 4/Line 3: Statistic module: Time 100-200
+LC,19,0~7,33,Screen 4/Line 3: Statistic module: Time 0-200
+LC,19,0~7,34,Screen 4/Line 3: Boardcomputer: Current consumption
+LC,19,0~7,35,Screen 4/Line 3: Boardcomputer: Distance to fuel stop
+LC,19,0~7,36,Screen 4/Line 3: Boardcomputer: Average consumption
+LC,19,0~7,37,Screen 4/Line 3: Boardcomputer: Range since engine start
+LC,19,0~7,38,Screen 4/Line 3: Boardcomputer: Time since engine start
+LC,19,0~7,39,Screen 4/Line 3: Boardcomputer: Average speed
+LC,19,0~7,3A,Screen 4/Line 3: Boardcomputer: Consumption since refuel
+LC,19,0~7,3B,Screen 4/Line 3: Boardcomputer: Average speed since refuel
+LC,19,0~7,3C,Screen 4/Line 3: Car Speed raw value from ABS/ESP
+LC,19,0~7,3D,Screen 4/Line 3: Date
+LC,19,0~7,3E,Screen 4/Line 3: Time
+LC,19,0~7,3F,Screen 4/Line 3: Car Speed raw value from instrument cluster
+LC,19,0~7,40,Screen 4/Line 3: Difflock
+LC,19,0~7,41,Screen 4/Line 3: Ethanol content in fuel
+LC,19,0~7,42,Screen 4/Line 3: Writing MTM
+LC,19,0~7,43,Screen 4/Line 3: Audio Info 1
+LC,19,0~7,44,Screen 4/Line 3: Audio Info 2
+LC,19,0~7,45,Screen 4/Line 3: Audio Info 3
+LC,19,0~7,46,Screen 4/Line 3: Audio Info 4
+; {Screen 4/Line 4}
+LC,20,0~7,00,Screen 4/Line 4: Off
+LC,20,0~7,01,Screen 4/Line 4: Engine Oil Temperature
+LC,20,0~7,02,Screen 4/Line 4: Engine Intake Temperature
+LC,20,0~7,03,Screen 4/Line 4: Engine Cooling Temperature
+LC,20,0~7,04,Screen 4/Line 4: Outside Temperature
+LC,20,0~7,05,Screen 4/Line 4: Engine RPM
+LC,20,0~7,06,Screen 4/Line 4: Oil Pressure
+LC,20,0~7,07,Screen 4/Line 4: Boost
+LC,20,0~7,08,Screen 4/Line 4: Engine Power
+LC,20,0~7,09,Screen 4/Line 4: Engine Power Loss
+LC,20,0~7,0A,Screen 4/Line 4: Engine Power Wheel
+LC,20,0~7,0B,Screen 4/Line 4: Engine Torque
+LC,20,0~7,0C,Screen 4/Line 4: Engine Torque Loss
+LC,20,0~7,0D,Screen 4/Line 4: Engine Torque Wheel
+LC,20,0~7,0E,Screen 4/Line 4: Engine Pedal Position
+LC,20,0~7,0F,Screen 4/Line 4: Wheel speed Front Left
+LC,20,0~7,10,Screen 4/Line 4: Wheel speed Front Right
+LC,20,0~7,11,Screen 4/Line 4: Wheel speed Back Left
+LC,20,0~7,12,Screen 4/Line 4: Wheel speed Back Right
+LC,20,0~7,13,Screen 4/Line 4: Brake Pressure
+LC,20,0~7,14,Screen 4/Line 4: G across
+LC,20,0~7,15,Screen 4/Line 4: Gierrate
+LC,20,0~7,16,Screen 4/Line 4: Steering Angle
+LC,20,0~7,17,Screen 4/Line 4: Haldex Clutch Open
+LC,20,0~7,18,Screen 4/Line 4: Haldex Transmitted Torque
+LC,20,0~7,19,Screen 4/Line 4: Car Speed
+LC,20,0~7,1A,Screen 4/Line 4: Fuel Content
+LC,20,0~7,1B,Screen 4/Line 4: DSG Oil Temperature
+LC,20,0~7,1C,Screen 4/Line 4: Voltage
+LC,20,0~7,1D,Screen 4/Line 4: Exhaust temperature
+LC,20,0~7,1E,Screen 4/Line 4: Writing MFAXP
+LC,20,0~7,1F,Screen 4/Line 4: Writing HGP
+LC,20,0~7,20,Screen 4/Line 4: Writing BTS
+LC,20,0~7,21,Screen 4/Line 4: Custom Text 1
+LC,20,0~7,22,Screen 4/Line 4: Custom Text 2
+LC,20,0~7,23,Screen 4/Line 4: Custom Text 3
+LC,20,0~7,24,Screen 4/Line 4: Custom Text 4
+LC,20,0~7,25,Screen 4/Line 4: Oillevel
+LC,20,0~7,26,Screen 4/Line 4: Battery state of charge
+LC,20,0~7,27,Screen 4/Line 4: DPF Regeneration
+LC,20,0~7,28,Screen 4/Line 4: Exhaust Flap State
+LC,20,0~7,29,Screen 4/Line 4: Statistic module: VMAX
+LC,20,0~7,2A,Screen 4/Line 4: Statistic module: Max. Power
+LC,20,0~7,2B,Screen 4/Line 4: Statistic module: Max. Torque
+LC,20,0~7,2C,Screen 4/Line 4: Statistic module: Max. Boost
+LC,20,0~7,2D,Screen 4/Line 4: Statistic module: Max. Exhaust temperature
+LC,20,0~7,2E,Screen 4/Line 4: Statistic module: Max. Oil temperature
+LC,20,0~7,2F,Screen 4/Line 4: Statistic module: Max. cooling liquid temperature
+LC,20,0~7,30,Screen 4/Line 4: Statistic module: Max. Intake temperature
+LC,20,0~7,31,Screen 4/Line 4: Statistic module: Time 0-100
+LC,20,0~7,32,Screen 4/Line 4: Statistic module: Time 100-200
+LC,20,0~7,33,Screen 4/Line 4: Statistic module: Time 0-200
+LC,20,0~7,34,Screen 4/Line 4: Boardcomputer: Current consumption
+LC,20,0~7,35,Screen 4/Line 4: Boardcomputer: Distance to fuel stop
+LC,20,0~7,36,Screen 4/Line 4: Boardcomputer: Average consumption
+LC,20,0~7,37,Screen 4/Line 4: Boardcomputer: Range since engine start
+LC,20,0~7,38,Screen 4/Line 4: Boardcomputer: Time since engine start
+LC,20,0~7,39,Screen 4/Line 4: Boardcomputer: Average speed
+LC,20,0~7,3A,Screen 4/Line 4: Boardcomputer: Consumption since refuel
+LC,20,0~7,3B,Screen 4/Line 4: Boardcomputer: Average speed since refuel
+LC,20,0~7,3C,Screen 4/Line 4: Car Speed raw value from ABS/ESP
+LC,20,0~7,3D,Screen 4/Line 4: Date
+LC,20,0~7,3E,Screen 4/Line 4: Time
+LC,20,0~7,3F,Screen 4/Line 4: Car Speed raw value from instrument cluster
+LC,20,0~7,40,Screen 4/Line 4: Difflock
+LC,20,0~7,41,Screen 4/Line 4: Ethanol content in fuel
+LC,20,0~7,42,Screen 4/Line 4: Writing MTM
+LC,20,0~7,43,Screen 4/Line 4: Audio Info 1
+LC,20,0~7,44,Screen 4/Line 4: Audio Info 2
+LC,20,0~7,45,Screen 4/Line 4: Audio Info 3
+LC,20,0~7,46,Screen 4/Line 4: Audio Info 4
+; {Screen 5/Line 1}
+LC,21,0~7,00,Screen 5/Line 1: Off
+LC,21,0~7,01,Screen 5/Line 1: Engine Oil Temperature
+LC,21,0~7,02,Screen 5/Line 1: Engine Intake Temperature
+LC,21,0~7,03,Screen 5/Line 1: Engine Cooling Temperature
+LC,21,0~7,04,Screen 5/Line 1: Outside Temperature
+LC,21,0~7,05,Screen 5/Line 1: Engine RPM
+LC,21,0~7,06,Screen 5/Line 1: Oil Pressure
+LC,21,0~7,07,Screen 5/Line 1: Boost
+LC,21,0~7,08,Screen 5/Line 1: Engine Power
+LC,21,0~7,09,Screen 5/Line 1: Engine Power Loss
+LC,21,0~7,0A,Screen 5/Line 1: Engine Power Wheel
+LC,21,0~7,0B,Screen 5/Line 1: Engine Torque
+LC,21,0~7,0C,Screen 5/Line 1: Engine Torque Loss
+LC,21,0~7,0D,Screen 5/Line 1: Engine Torque Wheel
+LC,21,0~7,0E,Screen 5/Line 1: Engine Pedal Position
+LC,21,0~7,0F,Screen 5/Line 1: Wheel speed Front Left
+LC,21,0~7,10,Screen 5/Line 1: Wheel speed Front Right
+LC,21,0~7,11,Screen 5/Line 1: Wheel speed Back Left
+LC,21,0~7,12,Screen 5/Line 1: Wheel speed Back Right
+LC,21,0~7,13,Screen 5/Line 1: Brake Pressure
+LC,21,0~7,14,Screen 5/Line 1: G across
+LC,21,0~7,15,Screen 5/Line 1: Gierrate
+LC,21,0~7,16,Screen 5/Line 1: Steering Angle
+LC,21,0~7,17,Screen 5/Line 1: Haldex Clutch Open
+LC,21,0~7,18,Screen 5/Line 1: Haldex Transmitted Torque
+LC,21,0~7,19,Screen 5/Line 1: Car Speed
+LC,21,0~7,1A,Screen 5/Line 1: Fuel Content
+LC,21,0~7,1B,Screen 5/Line 1: DSG Oil Temperature
+LC,21,0~7,1C,Screen 5/Line 1: Voltage
+LC,21,0~7,1D,Screen 5/Line 1: Exhaust temperature
+LC,21,0~7,1E,Screen 5/Line 1: Writing MFAXP
+LC,21,0~7,1F,Screen 5/Line 1: Writing HGP
+LC,21,0~7,20,Screen 5/Line 1: Writing BTS
+LC,21,0~7,21,Screen 5/Line 1: Custom Text 1
+LC,21,0~7,22,Screen 5/Line 1: Custom Text 2
+LC,21,0~7,23,Screen 5/Line 1: Custom Text 3
+LC,21,0~7,24,Screen 5/Line 1: Custom Text 4
+LC,21,0~7,25,Screen 5/Line 1: Oillevel
+LC,21,0~7,26,Screen 5/Line 1: Battery state of charge
+LC,21,0~7,27,Screen 5/Line 1: DPF Regeneration
+LC,21,0~7,28,Screen 5/Line 1: Exhaust Flap State
+LC,21,0~7,29,Screen 5/Line 1: Statistic module: VMAX
+LC,21,0~7,2A,Screen 5/Line 1: Statistic module: Max. Power
+LC,21,0~7,2B,Screen 5/Line 1: Statistic module: Max. Torque
+LC,21,0~7,2C,Screen 5/Line 1: Statistic module: Max. Boost
+LC,21,0~7,2D,Screen 5/Line 1: Statistic module: Max. Exhaust temperature
+LC,21,0~7,2E,Screen 5/Line 1: Statistic module: Max. Oil temperature
+LC,21,0~7,2F,Screen 5/Line 1: Statistic module: Max. cooling liquid temperature
+LC,21,0~7,30,Screen 5/Line 1: Statistic module: Max. Intake temperature
+LC,21,0~7,31,Screen 5/Line 1: Statistic module: Time 0-100
+LC,21,0~7,32,Screen 5/Line 1: Statistic module: Time 100-200
+LC,21,0~7,33,Screen 5/Line 1: Statistic module: Time 0-200
+LC,21,0~7,34,Screen 5/Line 1: Boardcomputer: Current consumption
+LC,21,0~7,35,Screen 5/Line 1: Boardcomputer: Distance to fuel stop
+LC,21,0~7,36,Screen 5/Line 1: Boardcomputer: Average consumption
+LC,21,0~7,37,Screen 5/Line 1: Boardcomputer: Range since engine start
+LC,21,0~7,38,Screen 5/Line 1: Boardcomputer: Time since engine start
+LC,21,0~7,39,Screen 5/Line 1: Boardcomputer: Average speed
+LC,21,0~7,3A,Screen 5/Line 1: Boardcomputer: Consumption since refuel
+LC,21,0~7,3B,Screen 5/Line 1: Boardcomputer: Average speed since refuel
+LC,21,0~7,3C,Screen 5/Line 1: Car Speed raw value from ABS/ESP
+LC,21,0~7,3D,Screen 5/Line 1: Date
+LC,21,0~7,3E,Screen 5/Line 1: Time
+LC,21,0~7,3F,Screen 5/Line 1: Car Speed raw value from instrument cluster
+LC,21,0~7,40,Screen 5/Line 1: Difflock
+LC,21,0~7,41,Screen 5/Line 1: Ethanol content in fuel
+LC,21,0~7,42,Screen 5/Line 1: Writing MTM
+LC,21,0~7,43,Screen 5/Line 1: Audio Info 1
+LC,21,0~7,44,Screen 5/Line 1: Audio Info 2
+LC,21,0~7,45,Screen 5/Line 1: Audio Info 3
+LC,21,0~7,46,Screen 5/Line 1: Audio Info 4
+; {Screen 5/Line 2}
+LC,22,0~7,00,Screen 5/Line 2: Off
+LC,22,0~7,01,Screen 5/Line 2: Engine Oil Temperature
+LC,22,0~7,02,Screen 5/Line 2: Engine Intake Temperature
+LC,22,0~7,03,Screen 5/Line 2: Engine Cooling Temperature
+LC,22,0~7,04,Screen 5/Line 2: Outside Temperature
+LC,22,0~7,05,Screen 5/Line 2: Engine RPM
+LC,22,0~7,06,Screen 5/Line 2: Oil Pressure
+LC,22,0~7,07,Screen 5/Line 2: Boost
+LC,22,0~7,08,Screen 5/Line 2: Engine Power
+LC,22,0~7,09,Screen 5/Line 2: Engine Power Loss
+LC,22,0~7,0A,Screen 5/Line 2: Engine Power Wheel
+LC,22,0~7,0B,Screen 5/Line 2: Engine Torque
+LC,22,0~7,0C,Screen 5/Line 2: Engine Torque Loss
+LC,22,0~7,0D,Screen 5/Line 2: Engine Torque Wheel
+LC,22,0~7,0E,Screen 5/Line 2: Engine Pedal Position
+LC,22,0~7,0F,Screen 5/Line 2: Wheel speed Front Left
+LC,22,0~7,10,Screen 5/Line 2: Wheel speed Front Right
+LC,22,0~7,11,Screen 5/Line 2: Wheel speed Back Left
+LC,22,0~7,12,Screen 5/Line 2: Wheel speed Back Right
+LC,22,0~7,13,Screen 5/Line 2: Brake Pressure
+LC,22,0~7,14,Screen 5/Line 2: G across
+LC,22,0~7,15,Screen 5/Line 2: Gierrate
+LC,22,0~7,16,Screen 5/Line 2: Steering Angle
+LC,22,0~7,17,Screen 5/Line 2: Haldex Clutch Open
+LC,22,0~7,18,Screen 5/Line 2: Haldex Transmitted Torque
+LC,22,0~7,19,Screen 5/Line 2: Car Speed
+LC,22,0~7,1A,Screen 5/Line 2: Fuel Content
+LC,22,0~7,1B,Screen 5/Line 2: DSG Oil Temperature
+LC,22,0~7,1C,Screen 5/Line 2: Voltage
+LC,22,0~7,1D,Screen 5/Line 2: Exhaust temperature
+LC,22,0~7,1E,Screen 5/Line 2: Writing MFAXP
+LC,22,0~7,1F,Screen 5/Line 2: Writing HGP
+LC,22,0~7,20,Screen 5/Line 2: Writing BTS
+LC,22,0~7,21,Screen 5/Line 2: Custom Text 1
+LC,22,0~7,22,Screen 5/Line 2: Custom Text 2
+LC,22,0~7,23,Screen 5/Line 2: Custom Text 3
+LC,22,0~7,24,Screen 5/Line 2: Custom Text 4
+LC,22,0~7,25,Screen 5/Line 2: Oillevel
+LC,22,0~7,26,Screen 5/Line 2: Battery state of charge
+LC,22,0~7,27,Screen 5/Line 2: DPF Regeneration
+LC,22,0~7,28,Screen 5/Line 2: Exhaust Flap State
+LC,22,0~7,29,Screen 5/Line 2: Statistic module: VMAX
+LC,22,0~7,2A,Screen 5/Line 2: Statistic module: Max. Power
+LC,22,0~7,2B,Screen 5/Line 2: Statistic module: Max. Torque
+LC,22,0~7,2C,Screen 5/Line 2: Statistic module: Max. Boost
+LC,22,0~7,2D,Screen 5/Line 2: Statistic module: Max. Exhaust temperature
+LC,22,0~7,2E,Screen 5/Line 2: Statistic module: Max. Oil temperature
+LC,22,0~7,2F,Screen 5/Line 2: Statistic module: Max. cooling liquid temperature
+LC,22,0~7,30,Screen 5/Line 2: Statistic module: Max. Intake temperature
+LC,22,0~7,31,Screen 5/Line 2: Statistic module: Time 0-100
+LC,22,0~7,32,Screen 5/Line 2: Statistic module: Time 100-200
+LC,22,0~7,33,Screen 5/Line 2: Statistic module: Time 0-200
+LC,22,0~7,34,Screen 5/Line 2: Boardcomputer: Current consumption
+LC,22,0~7,35,Screen 5/Line 2: Boardcomputer: Distance to fuel stop
+LC,22,0~7,36,Screen 5/Line 2: Boardcomputer: Average consumption
+LC,22,0~7,37,Screen 5/Line 2: Boardcomputer: Range since engine start
+LC,22,0~7,38,Screen 5/Line 2: Boardcomputer: Time since engine start
+LC,22,0~7,39,Screen 5/Line 2: Boardcomputer: Average speed
+LC,22,0~7,3A,Screen 5/Line 2: Boardcomputer: Consumption since refuel
+LC,22,0~7,3B,Screen 5/Line 2: Boardcomputer: Average speed since refuel
+LC,22,0~7,3C,Screen 5/Line 2: Car Speed raw value from ABS/ESP
+LC,22,0~7,3D,Screen 5/Line 2: Date
+LC,22,0~7,3E,Screen 5/Line 2: Time
+LC,22,0~7,3F,Screen 5/Line 2: Car Speed raw value from instrument cluster
+LC,22,0~7,40,Screen 5/Line 2: Difflock
+LC,22,0~7,41,Screen 5/Line 2: Ethanol content in fuel
+LC,22,0~7,42,Screen 5/Line 2: Writing MTM
+LC,22,0~7,43,Screen 5/Line 2: Audio Info 1
+LC,22,0~7,44,Screen 5/Line 2: Audio Info 2
+LC,22,0~7,45,Screen 5/Line 2: Audio Info 3
+LC,22,0~7,46,Screen 5/Line 2: Audio Info 4
+; {Screen 5/Line 3}
+LC,23,0~7,00,Screen 5/Line 3: Off
+LC,23,0~7,01,Screen 5/Line 3: Engine Oil Temperature
+LC,23,0~7,02,Screen 5/Line 3: Engine Intake Temperature
+LC,23,0~7,03,Screen 5/Line 3: Engine Cooling Temperature
+LC,23,0~7,04,Screen 5/Line 3: Outside Temperature
+LC,23,0~7,05,Screen 5/Line 3: Engine RPM
+LC,23,0~7,06,Screen 5/Line 3: Oil Pressure
+LC,23,0~7,07,Screen 5/Line 3: Boost
+LC,23,0~7,08,Screen 5/Line 3: Engine Power
+LC,23,0~7,09,Screen 5/Line 3: Engine Power Loss
+LC,23,0~7,0A,Screen 5/Line 3: Engine Power Wheel
+LC,23,0~7,0B,Screen 5/Line 3: Engine Torque
+LC,23,0~7,0C,Screen 5/Line 3: Engine Torque Loss
+LC,23,0~7,0D,Screen 5/Line 3: Engine Torque Wheel
+LC,23,0~7,0E,Screen 5/Line 3: Engine Pedal Position
+LC,23,0~7,0F,Screen 5/Line 3: Wheel speed Front Left
+LC,23,0~7,10,Screen 5/Line 3: Wheel speed Front Right
+LC,23,0~7,11,Screen 5/Line 3: Wheel speed Back Left
+LC,23,0~7,12,Screen 5/Line 3: Wheel speed Back Right
+LC,23,0~7,13,Screen 5/Line 3: Brake Pressure
+LC,23,0~7,14,Screen 5/Line 3: G across
+LC,23,0~7,15,Screen 5/Line 3: Gierrate
+LC,23,0~7,16,Screen 5/Line 3: Steering Angle
+LC,23,0~7,17,Screen 5/Line 3: Haldex Clutch Open
+LC,23,0~7,18,Screen 5/Line 3: Haldex Transmitted Torque
+LC,23,0~7,19,Screen 5/Line 3: Car Speed
+LC,23,0~7,1A,Screen 5/Line 3: Fuel Content
+LC,23,0~7,1B,Screen 5/Line 3: DSG Oil Temperature
+LC,23,0~7,1C,Screen 5/Line 3: Voltage
+LC,23,0~7,1D,Screen 5/Line 3: Exhaust temperature
+LC,23,0~7,1E,Screen 5/Line 3: Writing MFAXP
+LC,23,0~7,1F,Screen 5/Line 3: Writing HGP
+LC,23,0~7,20,Screen 5/Line 3: Writing BTS
+LC,23,0~7,21,Screen 5/Line 3: Custom Text 1
+LC,23,0~7,22,Screen 5/Line 3: Custom Text 2
+LC,23,0~7,23,Screen 5/Line 3: Custom Text 3
+LC,23,0~7,24,Screen 5/Line 3: Custom Text 4
+LC,23,0~7,25,Screen 5/Line 3: Oillevel
+LC,23,0~7,26,Screen 5/Line 3: Battery state of charge
+LC,23,0~7,27,Screen 5/Line 3: DPF Regeneration
+LC,23,0~7,28,Screen 5/Line 3: Exhaust Flap State
+LC,23,0~7,29,Screen 5/Line 3: Statistic module: VMAX
+LC,23,0~7,2A,Screen 5/Line 3: Statistic module: Max. Power
+LC,23,0~7,2B,Screen 5/Line 3: Statistic module: Max. Torque
+LC,23,0~7,2C,Screen 5/Line 3: Statistic module: Max. Boost
+LC,23,0~7,2D,Screen 5/Line 3: Statistic module: Max. Exhaust temperature
+LC,23,0~7,2E,Screen 5/Line 3: Statistic module: Max. Oil temperature
+LC,23,0~7,2F,Screen 5/Line 3: Statistic module: Max. cooling liquid temperature
+LC,23,0~7,30,Screen 5/Line 3: Statistic module: Max. Intake temperature
+LC,23,0~7,31,Screen 5/Line 3: Statistic module: Time 0-100
+LC,23,0~7,32,Screen 5/Line 3: Statistic module: Time 100-200
+LC,23,0~7,33,Screen 5/Line 3: Statistic module: Time 0-200
+LC,23,0~7,34,Screen 5/Line 3: Boardcomputer: Current consumption
+LC,23,0~7,35,Screen 5/Line 3: Boardcomputer: Distance to fuel stop
+LC,23,0~7,36,Screen 5/Line 3: Boardcomputer: Average consumption
+LC,23,0~7,37,Screen 5/Line 3: Boardcomputer: Range since engine start
+LC,23,0~7,38,Screen 5/Line 3: Boardcomputer: Time since engine start
+LC,23,0~7,39,Screen 5/Line 3: Boardcomputer: Average speed
+LC,23,0~7,3A,Screen 5/Line 3: Boardcomputer: Consumption since refuel
+LC,23,0~7,3B,Screen 5/Line 3: Boardcomputer: Average speed since refuel
+LC,23,0~7,3C,Screen 5/Line 3: Car Speed raw value from ABS/ESP
+LC,23,0~7,3D,Screen 5/Line 3: Date
+LC,23,0~7,3E,Screen 5/Line 3: Time
+LC,23,0~7,3F,Screen 5/Line 3: Car Speed raw value from instrument cluster
+LC,23,0~7,40,Screen 5/Line 3: Difflock
+LC,23,0~7,41,Screen 5/Line 3: Ethanol content in fuel
+LC,23,0~7,42,Screen 5/Line 3: Writing MTM
+LC,23,0~7,43,Screen 5/Line 3: Audio Info 1
+LC,23,0~7,44,Screen 5/Line 3: Audio Info 2
+LC,23,0~7,45,Screen 5/Line 3: Audio Info 3
+LC,23,0~7,46,Screen 5/Line 3: Audio Info 4
+; {Screen 5/Line 4}
+LC,24,0~7,00,Screen 5/Line 4: Off
+LC,24,0~7,01,Screen 5/Line 4: Engine Oil Temperature
+LC,24,0~7,02,Screen 5/Line 4: Engine Intake Temperature
+LC,24,0~7,03,Screen 5/Line 4: Engine Cooling Temperature
+LC,24,0~7,04,Screen 5/Line 4: Outside Temperature
+LC,24,0~7,05,Screen 5/Line 4: Engine RPM
+LC,24,0~7,06,Screen 5/Line 4: Oil Pressure
+LC,24,0~7,07,Screen 5/Line 4: Boost
+LC,24,0~7,08,Screen 5/Line 4: Engine Power
+LC,24,0~7,09,Screen 5/Line 4: Engine Power Loss
+LC,24,0~7,0A,Screen 5/Line 4: Engine Power Wheel
+LC,24,0~7,0B,Screen 5/Line 4: Engine Torque
+LC,24,0~7,0C,Screen 5/Line 4: Engine Torque Loss
+LC,24,0~7,0D,Screen 5/Line 4: Engine Torque Wheel
+LC,24,0~7,0E,Screen 5/Line 4: Engine Pedal Position
+LC,24,0~7,0F,Screen 5/Line 4: Wheel speed Front Left
+LC,24,0~7,10,Screen 5/Line 4: Wheel speed Front Right
+LC,24,0~7,11,Screen 5/Line 4: Wheel speed Back Left
+LC,24,0~7,12,Screen 5/Line 4: Wheel speed Back Right
+LC,24,0~7,13,Screen 5/Line 4: Brake Pressure
+LC,24,0~7,14,Screen 5/Line 4: G across
+LC,24,0~7,15,Screen 5/Line 4: Gierrate
+LC,24,0~7,16,Screen 5/Line 4: Steering Angle
+LC,24,0~7,17,Screen 5/Line 4: Haldex Clutch Open
+LC,24,0~7,18,Screen 5/Line 4: Haldex Transmitted Torque
+LC,24,0~7,19,Screen 5/Line 4: Car Speed
+LC,24,0~7,1A,Screen 5/Line 4: Fuel Content
+LC,24,0~7,1B,Screen 5/Line 4: DSG Oil Temperature
+LC,24,0~7,1C,Screen 5/Line 4: Voltage
+LC,24,0~7,1D,Screen 5/Line 4: Exhaust temperature
+LC,24,0~7,1E,Screen 5/Line 4: Writing MFAXP
+LC,24,0~7,1F,Screen 5/Line 4: Writing HGP
+LC,24,0~7,20,Screen 5/Line 4: Writing BTS
+LC,24,0~7,21,Screen 5/Line 4: Custom Text 1
+LC,24,0~7,22,Screen 5/Line 4: Custom Text 2
+LC,24,0~7,23,Screen 5/Line 4: Custom Text 3
+LC,24,0~7,24,Screen 5/Line 4: Custom Text 4
+LC,24,0~7,25,Screen 5/Line 4: Oillevel
+LC,24,0~7,26,Screen 5/Line 4: Battery state of charge
+LC,24,0~7,27,Screen 5/Line 4: DPF Regeneration
+LC,24,0~7,28,Screen 5/Line 4: Exhaust Flap State
+LC,24,0~7,29,Screen 5/Line 4: Statistic module: VMAX
+LC,24,0~7,2A,Screen 5/Line 4: Statistic module: Max. Power
+LC,24,0~7,2B,Screen 5/Line 4: Statistic module: Max. Torque
+LC,24,0~7,2C,Screen 5/Line 4: Statistic module: Max. Boost
+LC,24,0~7,2D,Screen 5/Line 4: Statistic module: Max. Exhaust temperature
+LC,24,0~7,2E,Screen 5/Line 4: Statistic module: Max. Oil temperature
+LC,24,0~7,2F,Screen 5/Line 4: Statistic module: Max. cooling liquid temperature
+LC,24,0~7,30,Screen 5/Line 4: Statistic module: Max. Intake temperature
+LC,24,0~7,31,Screen 5/Line 4: Statistic module: Time 0-100
+LC,24,0~7,32,Screen 5/Line 4: Statistic module: Time 100-200
+LC,24,0~7,33,Screen 5/Line 4: Statistic module: Time 0-200
+LC,24,0~7,34,Screen 5/Line 4: Boardcomputer: Current consumption
+LC,24,0~7,35,Screen 5/Line 4: Boardcomputer: Distance to fuel stop
+LC,24,0~7,36,Screen 5/Line 4: Boardcomputer: Average consumption
+LC,24,0~7,37,Screen 5/Line 4: Boardcomputer: Range since engine start
+LC,24,0~7,38,Screen 5/Line 4: Boardcomputer: Time since engine start
+LC,24,0~7,39,Screen 5/Line 4: Boardcomputer: Average speed
+LC,24,0~7,3A,Screen 5/Line 4: Boardcomputer: Consumption since refuel
+LC,24,0~7,3B,Screen 5/Line 4: Boardcomputer: Average speed since refuel
+LC,24,0~7,3C,Screen 5/Line 4: Car Speed raw value from ABS/ESP
+LC,24,0~7,3D,Screen 5/Line 4: Date
+LC,24,0~7,3E,Screen 5/Line 4: Time
+LC,24,0~7,3F,Screen 5/Line 4: Car Speed raw value from instrument cluster
+LC,24,0~7,40,Screen 5/Line 4: Difflock
+LC,24,0~7,41,Screen 5/Line 4: Ethanol content in fuel
+LC,24,0~7,42,Screen 5/Line 4: Writing MTM
+LC,24,0~7,43,Screen 5/Line 4: Audio Info 1
+LC,24,0~7,44,Screen 5/Line 4: Audio Info 2
+LC,24,0~7,45,Screen 5/Line 4: Audio Info 3
+LC,24,0~7,46,Screen 5/Line 4: Audio Info 4
+; {Screen 6/Line 1}
+LC,25,0~7,00,Screen 6/Line 1: Off
+LC,25,0~7,01,Screen 6/Line 1: Engine Oil Temperature
+LC,25,0~7,02,Screen 6/Line 1: Engine Intake Temperature
+LC,25,0~7,03,Screen 6/Line 1: Engine Cooling Temperature
+LC,25,0~7,04,Screen 6/Line 1: Outside Temperature
+LC,25,0~7,05,Screen 6/Line 1: Engine RPM
+LC,25,0~7,06,Screen 6/Line 1: Oil Pressure
+LC,25,0~7,07,Screen 6/Line 1: Boost
+LC,25,0~7,08,Screen 6/Line 1: Engine Power
+LC,25,0~7,09,Screen 6/Line 1: Engine Power Loss
+LC,25,0~7,0A,Screen 6/Line 1: Engine Power Wheel
+LC,25,0~7,0B,Screen 6/Line 1: Engine Torque
+LC,25,0~7,0C,Screen 6/Line 1: Engine Torque Loss
+LC,25,0~7,0D,Screen 6/Line 1: Engine Torque Wheel
+LC,25,0~7,0E,Screen 6/Line 1: Engine Pedal Position
+LC,25,0~7,0F,Screen 6/Line 1: Wheel speed Front Left
+LC,25,0~7,10,Screen 6/Line 1: Wheel speed Front Right
+LC,25,0~7,11,Screen 6/Line 1: Wheel speed Back Left
+LC,25,0~7,12,Screen 6/Line 1: Wheel speed Back Right
+LC,25,0~7,13,Screen 6/Line 1: Brake Pressure
+LC,25,0~7,14,Screen 6/Line 1: G across
+LC,25,0~7,15,Screen 6/Line 1: Gierrate
+LC,25,0~7,16,Screen 6/Line 1: Steering Angle
+LC,25,0~7,17,Screen 6/Line 1: Haldex Clutch Open
+LC,25,0~7,18,Screen 6/Line 1: Haldex Transmitted Torque
+LC,25,0~7,19,Screen 6/Line 1: Car Speed
+LC,25,0~7,1A,Screen 6/Line 1: Fuel Content
+LC,25,0~7,1B,Screen 6/Line 1: DSG Oil Temperature
+LC,25,0~7,1C,Screen 6/Line 1: Voltage
+LC,25,0~7,1D,Screen 6/Line 1: Exhaust temperature
+LC,25,0~7,1E,Screen 6/Line 1: Writing MFAXP
+LC,25,0~7,1F,Screen 6/Line 1: Writing HGP
+LC,25,0~7,20,Screen 6/Line 1: Writing BTS
+LC,25,0~7,21,Screen 6/Line 1: Custom Text 1
+LC,25,0~7,22,Screen 6/Line 1: Custom Text 2
+LC,25,0~7,23,Screen 6/Line 1: Custom Text 3
+LC,25,0~7,24,Screen 6/Line 1: Custom Text 4
+LC,25,0~7,25,Screen 6/Line 1: Oillevel
+LC,25,0~7,26,Screen 6/Line 1: Battery state of charge
+LC,25,0~7,27,Screen 6/Line 1: DPF Regeneration
+LC,25,0~7,28,Screen 6/Line 1: Exhaust Flap State
+LC,25,0~7,29,Screen 6/Line 1: Statistic module: VMAX
+LC,25,0~7,2A,Screen 6/Line 1: Statistic module: Max. Power
+LC,25,0~7,2B,Screen 6/Line 1: Statistic module: Max. Torque
+LC,25,0~7,2C,Screen 6/Line 1: Statistic module: Max. Boost
+LC,25,0~7,2D,Screen 6/Line 1: Statistic module: Max. Exhaust temperature
+LC,25,0~7,2E,Screen 6/Line 1: Statistic module: Max. Oil temperature
+LC,25,0~7,2F,Screen 6/Line 1: Statistic module: Max. cooling liquid temperature
+LC,25,0~7,30,Screen 6/Line 1: Statistic module: Max. Intake temperature
+LC,25,0~7,31,Screen 6/Line 1: Statistic module: Time 0-100
+LC,25,0~7,32,Screen 6/Line 1: Statistic module: Time 100-200
+LC,25,0~7,33,Screen 6/Line 1: Statistic module: Time 0-200
+LC,25,0~7,34,Screen 6/Line 1: Boardcomputer: Current consumption
+LC,25,0~7,35,Screen 6/Line 1: Boardcomputer: Distance to fuel stop
+LC,25,0~7,36,Screen 6/Line 1: Boardcomputer: Average consumption
+LC,25,0~7,37,Screen 6/Line 1: Boardcomputer: Range since engine start
+LC,25,0~7,38,Screen 6/Line 1: Boardcomputer: Time since engine start
+LC,25,0~7,39,Screen 6/Line 1: Boardcomputer: Average speed
+LC,25,0~7,3A,Screen 6/Line 1: Boardcomputer: Consumption since refuel
+LC,25,0~7,3B,Screen 6/Line 1: Boardcomputer: Average speed since refuel
+LC,25,0~7,3C,Screen 6/Line 1: Car Speed raw value from ABS/ESP
+LC,25,0~7,3D,Screen 6/Line 1: Date
+LC,25,0~7,3E,Screen 6/Line 1: Time
+LC,25,0~7,3F,Screen 6/Line 1: Car Speed raw value from instrument cluster
+LC,25,0~7,40,Screen 6/Line 1: Difflock
+LC,25,0~7,41,Screen 6/Line 1: Ethanol content in fuel
+LC,25,0~7,42,Screen 6/Line 1: Writing MTM
+LC,25,0~7,43,Screen 6/Line 1: Audio Info 1
+LC,25,0~7,44,Screen 6/Line 1: Audio Info 2
+LC,25,0~7,45,Screen 6/Line 1: Audio Info 3
+LC,25,0~7,46,Screen 6/Line 1: Audio Info 4
+; {Screen 6/Line 2}
+LC,26,0~7,00,Screen 6/Line 2: Off
+LC,26,0~7,01,Screen 6/Line 2: Engine Oil Temperature
+LC,26,0~7,02,Screen 6/Line 2: Engine Intake Temperature
+LC,26,0~7,03,Screen 6/Line 2: Engine Cooling Temperature
+LC,26,0~7,04,Screen 6/Line 2: Outside Temperature
+LC,26,0~7,05,Screen 6/Line 2: Engine RPM
+LC,26,0~7,06,Screen 6/Line 2: Oil Pressure
+LC,26,0~7,07,Screen 6/Line 2: Boost
+LC,26,0~7,08,Screen 6/Line 2: Engine Power
+LC,26,0~7,09,Screen 6/Line 2: Engine Power Loss
+LC,26,0~7,0A,Screen 6/Line 2: Engine Power Wheel
+LC,26,0~7,0B,Screen 6/Line 2: Engine Torque
+LC,26,0~7,0C,Screen 6/Line 2: Engine Torque Loss
+LC,26,0~7,0D,Screen 6/Line 2: Engine Torque Wheel
+LC,26,0~7,0E,Screen 6/Line 2: Engine Pedal Position
+LC,26,0~7,0F,Screen 6/Line 2: Wheel speed Front Left
+LC,26,0~7,10,Screen 6/Line 2: Wheel speed Front Right
+LC,26,0~7,11,Screen 6/Line 2: Wheel speed Back Left
+LC,26,0~7,12,Screen 6/Line 2: Wheel speed Back Right
+LC,26,0~7,13,Screen 6/Line 2: Brake Pressure
+LC,26,0~7,14,Screen 6/Line 2: G across
+LC,26,0~7,15,Screen 6/Line 2: Gierrate
+LC,26,0~7,16,Screen 6/Line 2: Steering Angle
+LC,26,0~7,17,Screen 6/Line 2: Haldex Clutch Open
+LC,26,0~7,18,Screen 6/Line 2: Haldex Transmitted Torque
+LC,26,0~7,19,Screen 6/Line 2: Car Speed
+LC,26,0~7,1A,Screen 6/Line 2: Fuel Content
+LC,26,0~7,1B,Screen 6/Line 2: DSG Oil Temperature
+LC,26,0~7,1C,Screen 6/Line 2: Voltage
+LC,26,0~7,1D,Screen 6/Line 2: Exhaust temperature
+LC,26,0~7,1E,Screen 6/Line 2: Writing MFAXP
+LC,26,0~7,1F,Screen 6/Line 2: Writing HGP
+LC,26,0~7,20,Screen 6/Line 2: Writing BTS
+LC,26,0~7,21,Screen 6/Line 2: Custom Text 1
+LC,26,0~7,22,Screen 6/Line 2: Custom Text 2
+LC,26,0~7,23,Screen 6/Line 2: Custom Text 3
+LC,26,0~7,24,Screen 6/Line 2: Custom Text 4
+LC,26,0~7,25,Screen 6/Line 2: Oillevel
+LC,26,0~7,26,Screen 6/Line 2: Battery state of charge
+LC,26,0~7,27,Screen 6/Line 2: DPF Regeneration
+LC,26,0~7,28,Screen 6/Line 2: Exhaust Flap State
+LC,26,0~7,29,Screen 6/Line 2: Statistic module: VMAX
+LC,26,0~7,2A,Screen 6/Line 2: Statistic module: Max. Power
+LC,26,0~7,2B,Screen 6/Line 2: Statistic module: Max. Torque
+LC,26,0~7,2C,Screen 6/Line 2: Statistic module: Max. Boost
+LC,26,0~7,2D,Screen 6/Line 2: Statistic module: Max. Exhaust temperature
+LC,26,0~7,2E,Screen 6/Line 2: Statistic module: Max. Oil temperature
+LC,26,0~7,2F,Screen 6/Line 2: Statistic module: Max. cooling liquid temperature
+LC,26,0~7,30,Screen 6/Line 2: Statistic module: Max. Intake temperature
+LC,26,0~7,31,Screen 6/Line 2: Statistic module: Time 0-100
+LC,26,0~7,32,Screen 6/Line 2: Statistic module: Time 100-200
+LC,26,0~7,33,Screen 6/Line 2: Statistic module: Time 0-200
+LC,26,0~7,34,Screen 6/Line 2: Boardcomputer: Current consumption
+LC,26,0~7,35,Screen 6/Line 2: Boardcomputer: Distance to fuel stop
+LC,26,0~7,36,Screen 6/Line 2: Boardcomputer: Average consumption
+LC,26,0~7,37,Screen 6/Line 2: Boardcomputer: Range since engine start
+LC,26,0~7,38,Screen 6/Line 2: Boardcomputer: Time since engine start
+LC,26,0~7,39,Screen 6/Line 2: Boardcomputer: Average speed
+LC,26,0~7,3A,Screen 6/Line 2: Boardcomputer: Consumption since refuel
+LC,26,0~7,3B,Screen 6/Line 2: Boardcomputer: Average speed since refuel
+LC,26,0~7,3C,Screen 6/Line 2: Car Speed raw value from ABS/ESP
+LC,26,0~7,3D,Screen 6/Line 2: Date
+LC,26,0~7,3E,Screen 6/Line 2: Time
+LC,26,0~7,3F,Screen 6/Line 2: Car Speed raw value from instrument cluster
+LC,26,0~7,40,Screen 6/Line 2: Difflock
+LC,26,0~7,41,Screen 6/Line 2: Ethanol content in fuel
+LC,26,0~7,42,Screen 6/Line 2: Writing MTM
+LC,26,0~7,43,Screen 6/Line 2: Audio Info 1
+LC,26,0~7,44,Screen 6/Line 2: Audio Info 2
+LC,26,0~7,45,Screen 6/Line 2: Audio Info 3
+LC,26,0~7,46,Screen 6/Line 2: Audio Info 4
+; {Screen 6/Line 3}
+LC,27,0~7,00,Screen 6/Line 3: Off
+LC,27,0~7,01,Screen 6/Line 3: Engine Oil Temperature
+LC,27,0~7,02,Screen 6/Line 3: Engine Intake Temperature
+LC,27,0~7,03,Screen 6/Line 3: Engine Cooling Temperature
+LC,27,0~7,04,Screen 6/Line 3: Outside Temperature
+LC,27,0~7,05,Screen 6/Line 3: Engine RPM
+LC,27,0~7,06,Screen 6/Line 3: Oil Pressure
+LC,27,0~7,07,Screen 6/Line 3: Boost
+LC,27,0~7,08,Screen 6/Line 3: Engine Power
+LC,27,0~7,09,Screen 6/Line 3: Engine Power Loss
+LC,27,0~7,0A,Screen 6/Line 3: Engine Power Wheel
+LC,27,0~7,0B,Screen 6/Line 3: Engine Torque
+LC,27,0~7,0C,Screen 6/Line 3: Engine Torque Loss
+LC,27,0~7,0D,Screen 6/Line 3: Engine Torque Wheel
+LC,27,0~7,0E,Screen 6/Line 3: Engine Pedal Position
+LC,27,0~7,0F,Screen 6/Line 3: Wheel speed Front Left
+LC,27,0~7,10,Screen 6/Line 3: Wheel speed Front Right
+LC,27,0~7,11,Screen 6/Line 3: Wheel speed Back Left
+LC,27,0~7,12,Screen 6/Line 3: Wheel speed Back Right
+LC,27,0~7,13,Screen 6/Line 3: Brake Pressure
+LC,27,0~7,14,Screen 6/Line 3: G across
+LC,27,0~7,15,Screen 6/Line 3: Gierrate
+LC,27,0~7,16,Screen 6/Line 3: Steering Angle
+LC,27,0~7,17,Screen 6/Line 3: Haldex Clutch Open
+LC,27,0~7,18,Screen 6/Line 3: Haldex Transmitted Torque
+LC,27,0~7,19,Screen 6/Line 3: Car Speed
+LC,27,0~7,1A,Screen 6/Line 3: Fuel Content
+LC,27,0~7,1B,Screen 6/Line 3: DSG Oil Temperature
+LC,27,0~7,1C,Screen 6/Line 3: Voltage
+LC,27,0~7,1D,Screen 6/Line 3: Exhaust temperature
+LC,27,0~7,1E,Screen 6/Line 3: Writing MFAXP
+LC,27,0~7,1F,Screen 6/Line 3: Writing HGP
+LC,27,0~7,20,Screen 6/Line 3: Writing BTS
+LC,27,0~7,21,Screen 6/Line 3: Custom Text 1
+LC,27,0~7,22,Screen 6/Line 3: Custom Text 2
+LC,27,0~7,23,Screen 6/Line 3: Custom Text 3
+LC,27,0~7,24,Screen 6/Line 3: Custom Text 4
+LC,27,0~7,25,Screen 6/Line 3: Oillevel
+LC,27,0~7,26,Screen 6/Line 3: Battery state of charge
+LC,27,0~7,27,Screen 6/Line 3: DPF Regeneration
+LC,27,0~7,28,Screen 6/Line 3: Exhaust Flap State
+LC,27,0~7,29,Screen 6/Line 3: Statistic module: VMAX
+LC,27,0~7,2A,Screen 6/Line 3: Statistic module: Max. Power
+LC,27,0~7,2B,Screen 6/Line 3: Statistic module: Max. Torque
+LC,27,0~7,2C,Screen 6/Line 3: Statistic module: Max. Boost
+LC,27,0~7,2D,Screen 6/Line 3: Statistic module: Max. Exhaust temperature
+LC,27,0~7,2E,Screen 6/Line 3: Statistic module: Max. Oil temperature
+LC,27,0~7,2F,Screen 6/Line 3: Statistic module: Max. cooling liquid temperature
+LC,27,0~7,30,Screen 6/Line 3: Statistic module: Max. Intake temperature
+LC,27,0~7,31,Screen 6/Line 3: Statistic module: Time 0-100
+LC,27,0~7,32,Screen 6/Line 3: Statistic module: Time 100-200
+LC,27,0~7,33,Screen 6/Line 3: Statistic module: Time 0-200
+LC,27,0~7,34,Screen 6/Line 3: Boardcomputer: Current consumption
+LC,27,0~7,35,Screen 6/Line 3: Boardcomputer: Distance to fuel stop
+LC,27,0~7,36,Screen 6/Line 3: Boardcomputer: Average consumption
+LC,27,0~7,37,Screen 6/Line 3: Boardcomputer: Range since engine start
+LC,27,0~7,38,Screen 6/Line 3: Boardcomputer: Time since engine start
+LC,27,0~7,39,Screen 6/Line 3: Boardcomputer: Average speed
+LC,27,0~7,3A,Screen 6/Line 3: Boardcomputer: Consumption since refuel
+LC,27,0~7,3B,Screen 6/Line 3: Boardcomputer: Average speed since refuel
+LC,27,0~7,3C,Screen 6/Line 3: Car Speed raw value from ABS/ESP
+LC,27,0~7,3D,Screen 6/Line 3: Date
+LC,27,0~7,3E,Screen 6/Line 3: Time
+LC,27,0~7,3F,Screen 6/Line 3: Car Speed raw value from instrument cluster
+LC,27,0~7,40,Screen 6/Line 3: Difflock
+LC,27,0~7,41,Screen 6/Line 3: Ethanol content in fuel
+LC,27,0~7,42,Screen 6/Line 3: Writing MTM
+LC,27,0~7,43,Screen 6/Line 3: Audio Info 1
+LC,27,0~7,44,Screen 6/Line 3: Audio Info 2
+LC,27,0~7,45,Screen 6/Line 3: Audio Info 3
+LC,27,0~7,46,Screen 6/Line 3: Audio Info 4
+; {Screen 6/Line 4}
+LC,28,0~7,00,Screen 6/Line 4: Off
+LC,28,0~7,01,Screen 6/Line 4: Engine Oil Temperature
+LC,28,0~7,02,Screen 6/Line 4: Engine Intake Temperature
+LC,28,0~7,03,Screen 6/Line 4: Engine Cooling Temperature
+LC,28,0~7,04,Screen 6/Line 4: Outside Temperature
+LC,28,0~7,05,Screen 6/Line 4: Engine RPM
+LC,28,0~7,06,Screen 6/Line 4: Oil Pressure
+LC,28,0~7,07,Screen 6/Line 4: Boost
+LC,28,0~7,08,Screen 6/Line 4: Engine Power
+LC,28,0~7,09,Screen 6/Line 4: Engine Power Loss
+LC,28,0~7,0A,Screen 6/Line 4: Engine Power Wheel
+LC,28,0~7,0B,Screen 6/Line 4: Engine Torque
+LC,28,0~7,0C,Screen 6/Line 4: Engine Torque Loss
+LC,28,0~7,0D,Screen 6/Line 4: Engine Torque Wheel
+LC,28,0~7,0E,Screen 6/Line 4: Engine Pedal Position
+LC,28,0~7,0F,Screen 6/Line 4: Wheel speed Front Left
+LC,28,0~7,10,Screen 6/Line 4: Wheel speed Front Right
+LC,28,0~7,11,Screen 6/Line 4: Wheel speed Back Left
+LC,28,0~7,12,Screen 6/Line 4: Wheel speed Back Right
+LC,28,0~7,13,Screen 6/Line 4: Brake Pressure
+LC,28,0~7,14,Screen 6/Line 4: G across
+LC,28,0~7,15,Screen 6/Line 4: Gierrate
+LC,28,0~7,16,Screen 6/Line 4: Steering Angle
+LC,28,0~7,17,Screen 6/Line 4: Haldex Clutch Open
+LC,28,0~7,18,Screen 6/Line 4: Haldex Transmitted Torque
+LC,28,0~7,19,Screen 6/Line 4: Car Speed
+LC,28,0~7,1A,Screen 6/Line 4: Fuel Content
+LC,28,0~7,1B,Screen 6/Line 4: DSG Oil Temperature
+LC,28,0~7,1C,Screen 6/Line 4: Voltage
+LC,28,0~7,1D,Screen 6/Line 4: Exhaust temperature
+LC,28,0~7,1E,Screen 6/Line 4: Writing MFAXP
+LC,28,0~7,1F,Screen 6/Line 4: Writing HGP
+LC,28,0~7,20,Screen 6/Line 4: Writing BTS
+LC,28,0~7,21,Screen 6/Line 4: Custom Text 1
+LC,28,0~7,22,Screen 6/Line 4: Custom Text 2
+LC,28,0~7,23,Screen 6/Line 4: Custom Text 3
+LC,28,0~7,24,Screen 6/Line 4: Custom Text 4
+LC,28,0~7,25,Screen 6/Line 4: Oillevel
+LC,28,0~7,26,Screen 6/Line 4: Battery state of charge
+LC,28,0~7,27,Screen 6/Line 4: DPF Regeneration
+LC,28,0~7,28,Screen 6/Line 4: Exhaust Flap State
+LC,28,0~7,29,Screen 6/Line 4: Statistic module: VMAX
+LC,28,0~7,2A,Screen 6/Line 4: Statistic module: Max. Power
+LC,28,0~7,2B,Screen 6/Line 4: Statistic module: Max. Torque
+LC,28,0~7,2C,Screen 6/Line 4: Statistic module: Max. Boost
+LC,28,0~7,2D,Screen 6/Line 4: Statistic module: Max. Exhaust temperature
+LC,28,0~7,2E,Screen 6/Line 4: Statistic module: Max. Oil temperature
+LC,28,0~7,2F,Screen 6/Line 4: Statistic module: Max. cooling liquid temperature
+LC,28,0~7,30,Screen 6/Line 4: Statistic module: Max. Intake temperature
+LC,28,0~7,31,Screen 6/Line 4: Statistic module: Time 0-100
+LC,28,0~7,32,Screen 6/Line 4: Statistic module: Time 100-200
+LC,28,0~7,33,Screen 6/Line 4: Statistic module: Time 0-200
+LC,28,0~7,34,Screen 6/Line 4: Boardcomputer: Current consumption
+LC,28,0~7,35,Screen 6/Line 4: Boardcomputer: Distance to fuel stop
+LC,28,0~7,36,Screen 6/Line 4: Boardcomputer: Average consumption
+LC,28,0~7,37,Screen 6/Line 4: Boardcomputer: Range since engine start
+LC,28,0~7,38,Screen 6/Line 4: Boardcomputer: Time since engine start
+LC,28,0~7,39,Screen 6/Line 4: Boardcomputer: Average speed
+LC,28,0~7,3A,Screen 6/Line 4: Boardcomputer: Consumption since refuel
+LC,28,0~7,3B,Screen 6/Line 4: Boardcomputer: Average speed since refuel
+LC,28,0~7,3C,Screen 6/Line 4: Car Speed raw value from ABS/ESP
+LC,28,0~7,3D,Screen 6/Line 4: Date
+LC,28,0~7,3E,Screen 6/Line 4: Time
+LC,28,0~7,3F,Screen 6/Line 4: Car Speed raw value from instrument cluster
+LC,28,0~7,40,Screen 6/Line 4: Difflock
+LC,28,0~7,41,Screen 6/Line 4: Ethanol content in fuel
+LC,28,0~7,42,Screen 6/Line 4: Writing MTM
+LC,28,0~7,43,Screen 6/Line 4: Audio Info 1
+LC,28,0~7,44,Screen 6/Line 4: Audio Info 2
+LC,28,0~7,45,Screen 6/Line 4: Audio Info 3
+LC,28,0~7,46,Screen 6/Line 4: Audio Info 4
+; {Screen 7/Line 1}
+LC,29,0~7,00,Screen 7/Line 1: Off
+LC,29,0~7,01,Screen 7/Line 1: Engine Oil Temperature
+LC,29,0~7,02,Screen 7/Line 1: Engine Intake Temperature
+LC,29,0~7,03,Screen 7/Line 1: Engine Cooling Temperature
+LC,29,0~7,04,Screen 7/Line 1: Outside Temperature
+LC,29,0~7,05,Screen 7/Line 1: Engine RPM
+LC,29,0~7,06,Screen 7/Line 1: Oil Pressure
+LC,29,0~7,07,Screen 7/Line 1: Boost
+LC,29,0~7,08,Screen 7/Line 1: Engine Power
+LC,29,0~7,09,Screen 7/Line 1: Engine Power Loss
+LC,29,0~7,0A,Screen 7/Line 1: Engine Power Wheel
+LC,29,0~7,0B,Screen 7/Line 1: Engine Torque
+LC,29,0~7,0C,Screen 7/Line 1: Engine Torque Loss
+LC,29,0~7,0D,Screen 7/Line 1: Engine Torque Wheel
+LC,29,0~7,0E,Screen 7/Line 1: Engine Pedal Position
+LC,29,0~7,0F,Screen 7/Line 1: Wheel speed Front Left
+LC,29,0~7,10,Screen 7/Line 1: Wheel speed Front Right
+LC,29,0~7,11,Screen 7/Line 1: Wheel speed Back Left
+LC,29,0~7,12,Screen 7/Line 1: Wheel speed Back Right
+LC,29,0~7,13,Screen 7/Line 1: Brake Pressure
+LC,29,0~7,14,Screen 7/Line 1: G across
+LC,29,0~7,15,Screen 7/Line 1: Gierrate
+LC,29,0~7,16,Screen 7/Line 1: Steering Angle
+LC,29,0~7,17,Screen 7/Line 1: Haldex Clutch Open
+LC,29,0~7,18,Screen 7/Line 1: Haldex Transmitted Torque
+LC,29,0~7,19,Screen 7/Line 1: Car Speed
+LC,29,0~7,1A,Screen 7/Line 1: Fuel Content
+LC,29,0~7,1B,Screen 7/Line 1: DSG Oil Temperature
+LC,29,0~7,1C,Screen 7/Line 1: Voltage
+LC,29,0~7,1D,Screen 7/Line 1: Exhaust temperature
+LC,29,0~7,1E,Screen 7/Line 1: Writing MFAXP
+LC,29,0~7,1F,Screen 7/Line 1: Writing HGP
+LC,29,0~7,20,Screen 7/Line 1: Writing BTS
+LC,29,0~7,21,Screen 7/Line 1: Custom Text 1
+LC,29,0~7,22,Screen 7/Line 1: Custom Text 2
+LC,29,0~7,23,Screen 7/Line 1: Custom Text 3
+LC,29,0~7,24,Screen 7/Line 1: Custom Text 4
+LC,29,0~7,25,Screen 7/Line 1: Oillevel
+LC,29,0~7,26,Screen 7/Line 1: Battery state of charge
+LC,29,0~7,27,Screen 7/Line 1: DPF Regeneration
+LC,29,0~7,28,Screen 7/Line 1: Exhaust Flap State
+LC,29,0~7,29,Screen 7/Line 1: Statistic module: VMAX
+LC,29,0~7,2A,Screen 7/Line 1: Statistic module: Max. Power
+LC,29,0~7,2B,Screen 7/Line 1: Statistic module: Max. Torque
+LC,29,0~7,2C,Screen 7/Line 1: Statistic module: Max. Boost
+LC,29,0~7,2D,Screen 7/Line 1: Statistic module: Max. Exhaust temperature
+LC,29,0~7,2E,Screen 7/Line 1: Statistic module: Max. Oil temperature
+LC,29,0~7,2F,Screen 7/Line 1: Statistic module: Max. cooling liquid temperature
+LC,29,0~7,30,Screen 7/Line 1: Statistic module: Max. Intake temperature
+LC,29,0~7,31,Screen 7/Line 1: Statistic module: Time 0-100
+LC,29,0~7,32,Screen 7/Line 1: Statistic module: Time 100-200
+LC,29,0~7,33,Screen 7/Line 1: Statistic module: Time 0-200
+LC,29,0~7,34,Screen 7/Line 1: Boardcomputer: Current consumption
+LC,29,0~7,35,Screen 7/Line 1: Boardcomputer: Distance to fuel stop
+LC,29,0~7,36,Screen 7/Line 1: Boardcomputer: Average consumption
+LC,29,0~7,37,Screen 7/Line 1: Boardcomputer: Range since engine start
+LC,29,0~7,38,Screen 7/Line 1: Boardcomputer: Time since engine start
+LC,29,0~7,39,Screen 7/Line 1: Boardcomputer: Average speed
+LC,29,0~7,3A,Screen 7/Line 1: Boardcomputer: Consumption since refuel
+LC,29,0~7,3B,Screen 7/Line 1: Boardcomputer: Average speed since refuel
+LC,29,0~7,3C,Screen 7/Line 1: Car Speed raw value from ABS/ESP
+LC,29,0~7,3D,Screen 7/Line 1: Date
+LC,29,0~7,3E,Screen 7/Line 1: Time
+LC,29,0~7,3F,Screen 7/Line 1: Car Speed raw value from instrument cluster
+LC,29,0~7,40,Screen 7/Line 1: Difflock
+LC,29,0~7,41,Screen 7/Line 1: Ethanol content in fuel
+LC,29,0~7,42,Screen 7/Line 1: Writing MTM
+LC,29,0~7,43,Screen 7/Line 1: Audio Info 1
+LC,29,0~7,44,Screen 7/Line 1: Audio Info 2
+LC,29,0~7,45,Screen 7/Line 1: Audio Info 3
+LC,29,0~7,46,Screen 7/Line 1: Audio Info 4
+; {Screen 7/Line 2}
+LC,30,0~7,00,Screen 7/Line 2: Off
+LC,30,0~7,01,Screen 7/Line 2: Engine Oil Temperature
+LC,30,0~7,02,Screen 7/Line 2: Engine Intake Temperature
+LC,30,0~7,03,Screen 7/Line 2: Engine Cooling Temperature
+LC,30,0~7,04,Screen 7/Line 2: Outside Temperature
+LC,30,0~7,05,Screen 7/Line 2: Engine RPM
+LC,30,0~7,06,Screen 7/Line 2: Oil Pressure
+LC,30,0~7,07,Screen 7/Line 2: Boost
+LC,30,0~7,08,Screen 7/Line 2: Engine Power
+LC,30,0~7,09,Screen 7/Line 2: Engine Power Loss
+LC,30,0~7,0A,Screen 7/Line 2: Engine Power Wheel
+LC,30,0~7,0B,Screen 7/Line 2: Engine Torque
+LC,30,0~7,0C,Screen 7/Line 2: Engine Torque Loss
+LC,30,0~7,0D,Screen 7/Line 2: Engine Torque Wheel
+LC,30,0~7,0E,Screen 7/Line 2: Engine Pedal Position
+LC,30,0~7,0F,Screen 7/Line 2: Wheel speed Front Left
+LC,30,0~7,10,Screen 7/Line 2: Wheel speed Front Right
+LC,30,0~7,11,Screen 7/Line 2: Wheel speed Back Left
+LC,30,0~7,12,Screen 7/Line 2: Wheel speed Back Right
+LC,30,0~7,13,Screen 7/Line 2: Brake Pressure
+LC,30,0~7,14,Screen 7/Line 2: G across
+LC,30,0~7,15,Screen 7/Line 2: Gierrate
+LC,30,0~7,16,Screen 7/Line 2: Steering Angle
+LC,30,0~7,17,Screen 7/Line 2: Haldex Clutch Open
+LC,30,0~7,18,Screen 7/Line 2: Haldex Transmitted Torque
+LC,30,0~7,19,Screen 7/Line 2: Car Speed
+LC,30,0~7,1A,Screen 7/Line 2: Fuel Content
+LC,30,0~7,1B,Screen 7/Line 2: DSG Oil Temperature
+LC,30,0~7,1C,Screen 7/Line 2: Voltage
+LC,30,0~7,1D,Screen 7/Line 2: Exhaust temperature
+LC,30,0~7,1E,Screen 7/Line 2: Writing MFAXP
+LC,30,0~7,1F,Screen 7/Line 2: Writing HGP
+LC,30,0~7,20,Screen 7/Line 2: Writing BTS
+LC,30,0~7,21,Screen 7/Line 2: Custom Text 1
+LC,30,0~7,22,Screen 7/Line 2: Custom Text 2
+LC,30,0~7,23,Screen 7/Line 2: Custom Text 3
+LC,30,0~7,24,Screen 7/Line 2: Custom Text 4
+LC,30,0~7,25,Screen 7/Line 2: Oillevel
+LC,30,0~7,26,Screen 7/Line 2: Battery state of charge
+LC,30,0~7,27,Screen 7/Line 2: DPF Regeneration
+LC,30,0~7,28,Screen 7/Line 2: Exhaust Flap State
+LC,30,0~7,29,Screen 7/Line 2: Statistic module: VMAX
+LC,30,0~7,2A,Screen 7/Line 2: Statistic module: Max. Power
+LC,30,0~7,2B,Screen 7/Line 2: Statistic module: Max. Torque
+LC,30,0~7,2C,Screen 7/Line 2: Statistic module: Max. Boost
+LC,30,0~7,2D,Screen 7/Line 2: Statistic module: Max. Exhaust temperature
+LC,30,0~7,2E,Screen 7/Line 2: Statistic module: Max. Oil temperature
+LC,30,0~7,2F,Screen 7/Line 2: Statistic module: Max. cooling liquid temperature
+LC,30,0~7,30,Screen 7/Line 2: Statistic module: Max. Intake temperature
+LC,30,0~7,31,Screen 7/Line 2: Statistic module: Time 0-100
+LC,30,0~7,32,Screen 7/Line 2: Statistic module: Time 100-200
+LC,30,0~7,33,Screen 7/Line 2: Statistic module: Time 0-200
+LC,30,0~7,34,Screen 7/Line 2: Boardcomputer: Current consumption
+LC,30,0~7,35,Screen 7/Line 2: Boardcomputer: Distance to fuel stop
+LC,30,0~7,36,Screen 7/Line 2: Boardcomputer: Average consumption
+LC,30,0~7,37,Screen 7/Line 2: Boardcomputer: Range since engine start
+LC,30,0~7,38,Screen 7/Line 2: Boardcomputer: Time since engine start
+LC,30,0~7,39,Screen 7/Line 2: Boardcomputer: Average speed
+LC,30,0~7,3A,Screen 7/Line 2: Boardcomputer: Consumption since refuel
+LC,30,0~7,3B,Screen 7/Line 2: Boardcomputer: Average speed since refuel
+LC,30,0~7,3C,Screen 7/Line 2: Car Speed raw value from ABS/ESP
+LC,30,0~7,3D,Screen 7/Line 2: Date
+LC,30,0~7,3E,Screen 7/Line 2: Time
+LC,30,0~7,3F,Screen 7/Line 2: Car Speed raw value from instrument cluster
+LC,30,0~7,40,Screen 7/Line 2: Difflock
+LC,30,0~7,41,Screen 7/Line 2: Ethanol content in fuel
+LC,30,0~7,42,Screen 7/Line 2: Writing MTM
+LC,30,0~7,43,Screen 7/Line 2: Audio Info 1
+LC,30,0~7,44,Screen 7/Line 2: Audio Info 2
+LC,30,0~7,45,Screen 7/Line 2: Audio Info 3
+LC,30,0~7,46,Screen 7/Line 2: Audio Info 4
+; {Screen 7/Line 3}
+LC,31,0~7,00,Screen 7/Line 3: Off
+LC,31,0~7,01,Screen 7/Line 3: Engine Oil Temperature
+LC,31,0~7,02,Screen 7/Line 3: Engine Intake Temperature
+LC,31,0~7,03,Screen 7/Line 3: Engine Cooling Temperature
+LC,31,0~7,04,Screen 7/Line 3: Outside Temperature
+LC,31,0~7,05,Screen 7/Line 3: Engine RPM
+LC,31,0~7,06,Screen 7/Line 3: Oil Pressure
+LC,31,0~7,07,Screen 7/Line 3: Boost
+LC,31,0~7,08,Screen 7/Line 3: Engine Power
+LC,31,0~7,09,Screen 7/Line 3: Engine Power Loss
+LC,31,0~7,0A,Screen 7/Line 3: Engine Power Wheel
+LC,31,0~7,0B,Screen 7/Line 3: Engine Torque
+LC,31,0~7,0C,Screen 7/Line 3: Engine Torque Loss
+LC,31,0~7,0D,Screen 7/Line 3: Engine Torque Wheel
+LC,31,0~7,0E,Screen 7/Line 3: Engine Pedal Position
+LC,31,0~7,0F,Screen 7/Line 3: Wheel speed Front Left
+LC,31,0~7,10,Screen 7/Line 3: Wheel speed Front Right
+LC,31,0~7,11,Screen 7/Line 3: Wheel speed Back Left
+LC,31,0~7,12,Screen 7/Line 3: Wheel speed Back Right
+LC,31,0~7,13,Screen 7/Line 3: Brake Pressure
+LC,31,0~7,14,Screen 7/Line 3: G across
+LC,31,0~7,15,Screen 7/Line 3: Gierrate
+LC,31,0~7,16,Screen 7/Line 3: Steering Angle
+LC,31,0~7,17,Screen 7/Line 3: Haldex Clutch Open
+LC,31,0~7,18,Screen 7/Line 3: Haldex Transmitted Torque
+LC,31,0~7,19,Screen 7/Line 3: Car Speed
+LC,31,0~7,1A,Screen 7/Line 3: Fuel Content
+LC,31,0~7,1B,Screen 7/Line 3: DSG Oil Temperature
+LC,31,0~7,1C,Screen 7/Line 3: Voltage
+LC,31,0~7,1D,Screen 7/Line 3: Exhaust temperature
+LC,31,0~7,1E,Screen 7/Line 3: Writing MFAXP
+LC,31,0~7,1F,Screen 7/Line 3: Writing HGP
+LC,31,0~7,20,Screen 7/Line 3: Writing BTS
+LC,31,0~7,21,Screen 7/Line 3: Custom Text 1
+LC,31,0~7,22,Screen 7/Line 3: Custom Text 2
+LC,31,0~7,23,Screen 7/Line 3: Custom Text 3
+LC,31,0~7,24,Screen 7/Line 3: Custom Text 4
+LC,31,0~7,25,Screen 7/Line 3: Oillevel
+LC,31,0~7,26,Screen 7/Line 3: Battery state of charge
+LC,31,0~7,27,Screen 7/Line 3: DPF Regeneration
+LC,31,0~7,28,Screen 7/Line 3: Exhaust Flap State
+LC,31,0~7,29,Screen 7/Line 3: Statistic module: VMAX
+LC,31,0~7,2A,Screen 7/Line 3: Statistic module: Max. Power
+LC,31,0~7,2B,Screen 7/Line 3: Statistic module: Max. Torque
+LC,31,0~7,2C,Screen 7/Line 3: Statistic module: Max. Boost
+LC,31,0~7,2D,Screen 7/Line 3: Statistic module: Max. Exhaust temperature
+LC,31,0~7,2E,Screen 7/Line 3: Statistic module: Max. Oil temperature
+LC,31,0~7,2F,Screen 7/Line 3: Statistic module: Max. cooling liquid temperature
+LC,31,0~7,30,Screen 7/Line 3: Statistic module: Max. Intake temperature
+LC,31,0~7,31,Screen 7/Line 3: Statistic module: Time 0-100
+LC,31,0~7,32,Screen 7/Line 3: Statistic module: Time 100-200
+LC,31,0~7,33,Screen 7/Line 3: Statistic module: Time 0-200
+LC,31,0~7,34,Screen 7/Line 3: Boardcomputer: Current consumption
+LC,31,0~7,35,Screen 7/Line 3: Boardcomputer: Distance to fuel stop
+LC,31,0~7,36,Screen 7/Line 3: Boardcomputer: Average consumption
+LC,31,0~7,37,Screen 7/Line 3: Boardcomputer: Range since engine start
+LC,31,0~7,38,Screen 7/Line 3: Boardcomputer: Time since engine start
+LC,31,0~7,39,Screen 7/Line 3: Boardcomputer: Average speed
+LC,31,0~7,3A,Screen 7/Line 3: Boardcomputer: Consumption since refuel
+LC,31,0~7,3B,Screen 7/Line 3: Boardcomputer: Average speed since refuel
+LC,31,0~7,3C,Screen 7/Line 3: Car Speed raw value from ABS/ESP
+LC,31,0~7,3D,Screen 7/Line 3: Date
+LC,31,0~7,3E,Screen 7/Line 3: Time
+LC,31,0~7,3F,Screen 7/Line 3: Car Speed raw value from instrument cluster
+LC,31,0~7,40,Screen 7/Line 3: Difflock
+LC,31,0~7,41,Screen 7/Line 3: Ethanol content in fuel
+LC,31,0~7,42,Screen 7/Line 3: Writing MTM
+LC,31,0~7,43,Screen 7/Line 3: Audio Info 1
+LC,31,0~7,44,Screen 7/Line 3: Audio Info 2
+LC,31,0~7,45,Screen 7/Line 3: Audio Info 3
+LC,31,0~7,46,Screen 7/Line 3: Audio Info 4
+; {Screen 7/Line 4}
+LC,32,0~7,00,Screen 7/Line 4: Off
+LC,32,0~7,01,Screen 7/Line 4: Engine Oil Temperature
+LC,32,0~7,02,Screen 7/Line 4: Engine Intake Temperature
+LC,32,0~7,03,Screen 7/Line 4: Engine Cooling Temperature
+LC,32,0~7,04,Screen 7/Line 4: Outside Temperature
+LC,32,0~7,05,Screen 7/Line 4: Engine RPM
+LC,32,0~7,06,Screen 7/Line 4: Oil Pressure
+LC,32,0~7,07,Screen 7/Line 4: Boost
+LC,32,0~7,08,Screen 7/Line 4: Engine Power
+LC,32,0~7,09,Screen 7/Line 4: Engine Power Loss
+LC,32,0~7,0A,Screen 7/Line 4: Engine Power Wheel
+LC,32,0~7,0B,Screen 7/Line 4: Engine Torque
+LC,32,0~7,0C,Screen 7/Line 4: Engine Torque Loss
+LC,32,0~7,0D,Screen 7/Line 4: Engine Torque Wheel
+LC,32,0~7,0E,Screen 7/Line 4: Engine Pedal Position
+LC,32,0~7,0F,Screen 7/Line 4: Wheel speed Front Left
+LC,32,0~7,10,Screen 7/Line 4: Wheel speed Front Right
+LC,32,0~7,11,Screen 7/Line 4: Wheel speed Back Left
+LC,32,0~7,12,Screen 7/Line 4: Wheel speed Back Right
+LC,32,0~7,13,Screen 7/Line 4: Brake Pressure
+LC,32,0~7,14,Screen 7/Line 4: G across
+LC,32,0~7,15,Screen 7/Line 4: Gierrate
+LC,32,0~7,16,Screen 7/Line 4: Steering Angle
+LC,32,0~7,17,Screen 7/Line 4: Haldex Clutch Open
+LC,32,0~7,18,Screen 7/Line 4: Haldex Transmitted Torque
+LC,32,0~7,19,Screen 7/Line 4: Car Speed
+LC,32,0~7,1A,Screen 7/Line 4: Fuel Content
+LC,32,0~7,1B,Screen 7/Line 4: DSG Oil Temperature
+LC,32,0~7,1C,Screen 7/Line 4: Voltage
+LC,32,0~7,1D,Screen 7/Line 4: Exhaust temperature
+LC,32,0~7,1E,Screen 7/Line 4: Writing MFAXP
+LC,32,0~7,1F,Screen 7/Line 4: Writing HGP
+LC,32,0~7,20,Screen 7/Line 4: Writing BTS
+LC,32,0~7,21,Screen 7/Line 4: Custom Text 1
+LC,32,0~7,22,Screen 7/Line 4: Custom Text 2
+LC,32,0~7,23,Screen 7/Line 4: Custom Text 3
+LC,32,0~7,24,Screen 7/Line 4: Custom Text 4
+LC,32,0~7,25,Screen 7/Line 4: Oillevel
+LC,32,0~7,26,Screen 7/Line 4: Battery state of charge
+LC,32,0~7,27,Screen 7/Line 4: DPF Regeneration
+LC,32,0~7,28,Screen 7/Line 4: Exhaust Flap State
+LC,32,0~7,29,Screen 7/Line 4: Statistic module: VMAX
+LC,32,0~7,2A,Screen 7/Line 4: Statistic module: Max. Power
+LC,32,0~7,2B,Screen 7/Line 4: Statistic module: Max. Torque
+LC,32,0~7,2C,Screen 7/Line 4: Statistic module: Max. Boost
+LC,32,0~7,2D,Screen 7/Line 4: Statistic module: Max. Exhaust temperature
+LC,32,0~7,2E,Screen 7/Line 4: Statistic module: Max. Oil temperature
+LC,32,0~7,2F,Screen 7/Line 4: Statistic module: Max. cooling liquid temperature
+LC,32,0~7,30,Screen 7/Line 4: Statistic module: Max. Intake temperature
+LC,32,0~7,31,Screen 7/Line 4: Statistic module: Time 0-100
+LC,32,0~7,32,Screen 7/Line 4: Statistic module: Time 100-200
+LC,32,0~7,33,Screen 7/Line 4: Statistic module: Time 0-200
+LC,32,0~7,34,Screen 7/Line 4: Boardcomputer: Current consumption
+LC,32,0~7,35,Screen 7/Line 4: Boardcomputer: Distance to fuel stop
+LC,32,0~7,36,Screen 7/Line 4: Boardcomputer: Average consumption
+LC,32,0~7,37,Screen 7/Line 4: Boardcomputer: Range since engine start
+LC,32,0~7,38,Screen 7/Line 4: Boardcomputer: Time since engine start
+LC,32,0~7,39,Screen 7/Line 4: Boardcomputer: Average speed
+LC,32,0~7,3A,Screen 7/Line 4: Boardcomputer: Consumption since refuel
+LC,32,0~7,3B,Screen 7/Line 4: Boardcomputer: Average speed since refuel
+LC,32,0~7,3C,Screen 7/Line 4: Car Speed raw value from ABS/ESP
+LC,32,0~7,3D,Screen 7/Line 4: Date
+LC,32,0~7,3E,Screen 7/Line 4: Time
+LC,32,0~7,3F,Screen 7/Line 4: Car Speed raw value from instrument cluster
+LC,32,0~7,40,Screen 7/Line 4: Difflock
+LC,32,0~7,41,Screen 7/Line 4: Ethanol content in fuel
+LC,32,0~7,42,Screen 7/Line 4: Writing MTM
+LC,32,0~7,43,Screen 7/Line 4: Audio Info 1
+LC,32,0~7,44,Screen 7/Line 4: Audio Info 2
+LC,32,0~7,45,Screen 7/Line 4: Audio Info 3
+LC,32,0~7,46,Screen 7/Line 4: Audio Info 4
+; {Screen 8/Line 1}
+LC,33,0~7,00,Screen 8/Line 1: Off
+LC,33,0~7,01,Screen 8/Line 1: Engine Oil Temperature
+LC,33,0~7,02,Screen 8/Line 1: Engine Intake Temperature
+LC,33,0~7,03,Screen 8/Line 1: Engine Cooling Temperature
+LC,33,0~7,04,Screen 8/Line 1: Outside Temperature
+LC,33,0~7,05,Screen 8/Line 1: Engine RPM
+LC,33,0~7,06,Screen 8/Line 1: Oil Pressure
+LC,33,0~7,07,Screen 8/Line 1: Boost
+LC,33,0~7,08,Screen 8/Line 1: Engine Power
+LC,33,0~7,09,Screen 8/Line 1: Engine Power Loss
+LC,33,0~7,0A,Screen 8/Line 1: Engine Power Wheel
+LC,33,0~7,0B,Screen 8/Line 1: Engine Torque
+LC,33,0~7,0C,Screen 8/Line 1: Engine Torque Loss
+LC,33,0~7,0D,Screen 8/Line 1: Engine Torque Wheel
+LC,33,0~7,0E,Screen 8/Line 1: Engine Pedal Position
+LC,33,0~7,0F,Screen 8/Line 1: Wheel speed Front Left
+LC,33,0~7,10,Screen 8/Line 1: Wheel speed Front Right
+LC,33,0~7,11,Screen 8/Line 1: Wheel speed Back Left
+LC,33,0~7,12,Screen 8/Line 1: Wheel speed Back Right
+LC,33,0~7,13,Screen 8/Line 1: Brake Pressure
+LC,33,0~7,14,Screen 8/Line 1: G across
+LC,33,0~7,15,Screen 8/Line 1: Gierrate
+LC,33,0~7,16,Screen 8/Line 1: Steering Angle
+LC,33,0~7,17,Screen 8/Line 1: Haldex Clutch Open
+LC,33,0~7,18,Screen 8/Line 1: Haldex Transmitted Torque
+LC,33,0~7,19,Screen 8/Line 1: Car Speed
+LC,33,0~7,1A,Screen 8/Line 1: Fuel Content
+LC,33,0~7,1B,Screen 8/Line 1: DSG Oil Temperature
+LC,33,0~7,1C,Screen 8/Line 1: Voltage
+LC,33,0~7,1D,Screen 8/Line 1: Exhaust temperature
+LC,33,0~7,1E,Screen 8/Line 1: Writing MFAXP
+LC,33,0~7,1F,Screen 8/Line 1: Writing HGP
+LC,33,0~7,20,Screen 8/Line 1: Writing BTS
+LC,33,0~7,21,Screen 8/Line 1: Custom Text 1
+LC,33,0~7,22,Screen 8/Line 1: Custom Text 2
+LC,33,0~7,23,Screen 8/Line 1: Custom Text 3
+LC,33,0~7,24,Screen 8/Line 1: Custom Text 4
+LC,33,0~7,25,Screen 8/Line 1: Oillevel
+LC,33,0~7,26,Screen 8/Line 1: Battery state of charge
+LC,33,0~7,27,Screen 8/Line 1: DPF Regeneration
+LC,33,0~7,28,Screen 8/Line 1: Exhaust Flap State
+LC,33,0~7,29,Screen 8/Line 1: Statistic module: VMAX
+LC,33,0~7,2A,Screen 8/Line 1: Statistic module: Max. Power
+LC,33,0~7,2B,Screen 8/Line 1: Statistic module: Max. Torque
+LC,33,0~7,2C,Screen 8/Line 1: Statistic module: Max. Boost
+LC,33,0~7,2D,Screen 8/Line 1: Statistic module: Max. Exhaust temperature
+LC,33,0~7,2E,Screen 8/Line 1: Statistic module: Max. Oil temperature
+LC,33,0~7,2F,Screen 8/Line 1: Statistic module: Max. cooling liquid temperature
+LC,33,0~7,30,Screen 8/Line 1: Statistic module: Max. Intake temperature
+LC,33,0~7,31,Screen 8/Line 1: Statistic module: Time 0-100
+LC,33,0~7,32,Screen 8/Line 1: Statistic module: Time 100-200
+LC,33,0~7,33,Screen 8/Line 1: Statistic module: Time 0-200
+LC,33,0~7,34,Screen 8/Line 1: Boardcomputer: Current consumption
+LC,33,0~7,35,Screen 8/Line 1: Boardcomputer: Distance to fuel stop
+LC,33,0~7,36,Screen 8/Line 1: Boardcomputer: Average consumption
+LC,33,0~7,37,Screen 8/Line 1: Boardcomputer: Range since engine start
+LC,33,0~7,38,Screen 8/Line 1: Boardcomputer: Time since engine start
+LC,33,0~7,39,Screen 8/Line 1: Boardcomputer: Average speed
+LC,33,0~7,3A,Screen 8/Line 1: Boardcomputer: Consumption since refuel
+LC,33,0~7,3B,Screen 8/Line 1: Boardcomputer: Average speed since refuel
+LC,33,0~7,3C,Screen 8/Line 1: Car Speed raw value from ABS/ESP
+LC,33,0~7,3D,Screen 8/Line 1: Date
+LC,33,0~7,3E,Screen 8/Line 1: Time
+LC,33,0~7,3F,Screen 8/Line 1: Car Speed raw value from instrument cluster
+LC,33,0~7,40,Screen 8/Line 1: Difflock
+LC,33,0~7,41,Screen 8/Line 1: Ethanol content in fuel
+LC,33,0~7,42,Screen 8/Line 1: Writing MTM
+LC,33,0~7,43,Screen 8/Line 1: Audio Info 1
+LC,33,0~7,44,Screen 8/Line 1: Audio Info 2
+LC,33,0~7,45,Screen 8/Line 1: Audio Info 3
+LC,33,0~7,46,Screen 8/Line 1: Audio Info 4
+; {Screen 8/Line 2}
+LC,34,0~7,00,Screen 8/Line 2: Off
+LC,34,0~7,01,Screen 8/Line 2: Engine Oil Temperature
+LC,34,0~7,02,Screen 8/Line 2: Engine Intake Temperature
+LC,34,0~7,03,Screen 8/Line 2: Engine Cooling Temperature
+LC,34,0~7,04,Screen 8/Line 2: Outside Temperature
+LC,34,0~7,05,Screen 8/Line 2: Engine RPM
+LC,34,0~7,06,Screen 8/Line 2: Oil Pressure
+LC,34,0~7,07,Screen 8/Line 2: Boost
+LC,34,0~7,08,Screen 8/Line 2: Engine Power
+LC,34,0~7,09,Screen 8/Line 2: Engine Power Loss
+LC,34,0~7,0A,Screen 8/Line 2: Engine Power Wheel
+LC,34,0~7,0B,Screen 8/Line 2: Engine Torque
+LC,34,0~7,0C,Screen 8/Line 2: Engine Torque Loss
+LC,34,0~7,0D,Screen 8/Line 2: Engine Torque Wheel
+LC,34,0~7,0E,Screen 8/Line 2: Engine Pedal Position
+LC,34,0~7,0F,Screen 8/Line 2: Wheel speed Front Left
+LC,34,0~7,10,Screen 8/Line 2: Wheel speed Front Right
+LC,34,0~7,11,Screen 8/Line 2: Wheel speed Back Left
+LC,34,0~7,12,Screen 8/Line 2: Wheel speed Back Right
+LC,34,0~7,13,Screen 8/Line 2: Brake Pressure
+LC,34,0~7,14,Screen 8/Line 2: G across
+LC,34,0~7,15,Screen 8/Line 2: Gierrate
+LC,34,0~7,16,Screen 8/Line 2: Steering Angle
+LC,34,0~7,17,Screen 8/Line 2: Haldex Clutch Open
+LC,34,0~7,18,Screen 8/Line 2: Haldex Transmitted Torque
+LC,34,0~7,19,Screen 8/Line 2: Car Speed
+LC,34,0~7,1A,Screen 8/Line 2: Fuel Content
+LC,34,0~7,1B,Screen 8/Line 2: DSG Oil Temperature
+LC,34,0~7,1C,Screen 8/Line 2: Voltage
+LC,34,0~7,1D,Screen 8/Line 2: Exhaust temperature
+LC,34,0~7,1E,Screen 8/Line 2: Writing MFAXP
+LC,34,0~7,1F,Screen 8/Line 2: Writing HGP
+LC,34,0~7,20,Screen 8/Line 2: Writing BTS
+LC,34,0~7,21,Screen 8/Line 2: Custom Text 1
+LC,34,0~7,22,Screen 8/Line 2: Custom Text 2
+LC,34,0~7,23,Screen 8/Line 2: Custom Text 3
+LC,34,0~7,24,Screen 8/Line 2: Custom Text 4
+LC,34,0~7,25,Screen 8/Line 2: Oillevel
+LC,34,0~7,26,Screen 8/Line 2: Battery state of charge
+LC,34,0~7,27,Screen 8/Line 2: DPF Regeneration
+LC,34,0~7,28,Screen 8/Line 2: Exhaust Flap State
+LC,34,0~7,29,Screen 8/Line 2: Statistic module: VMAX
+LC,34,0~7,2A,Screen 8/Line 2: Statistic module: Max. Power
+LC,34,0~7,2B,Screen 8/Line 2: Statistic module: Max. Torque
+LC,34,0~7,2C,Screen 8/Line 2: Statistic module: Max. Boost
+LC,34,0~7,2D,Screen 8/Line 2: Statistic module: Max. Exhaust temperature
+LC,34,0~7,2E,Screen 8/Line 2: Statistic module: Max. Oil temperature
+LC,34,0~7,2F,Screen 8/Line 2: Statistic module: Max. cooling liquid temperature
+LC,34,0~7,30,Screen 8/Line 2: Statistic module: Max. Intake temperature
+LC,34,0~7,31,Screen 8/Line 2: Statistic module: Time 0-100
+LC,34,0~7,32,Screen 8/Line 2: Statistic module: Time 100-200
+LC,34,0~7,33,Screen 8/Line 2: Statistic module: Time 0-200
+LC,34,0~7,34,Screen 8/Line 2: Boardcomputer: Current consumption
+LC,34,0~7,35,Screen 8/Line 2: Boardcomputer: Distance to fuel stop
+LC,34,0~7,36,Screen 8/Line 2: Boardcomputer: Average consumption
+LC,34,0~7,37,Screen 8/Line 2: Boardcomputer: Range since engine start
+LC,34,0~7,38,Screen 8/Line 2: Boardcomputer: Time since engine start
+LC,34,0~7,39,Screen 8/Line 2: Boardcomputer: Average speed
+LC,34,0~7,3A,Screen 8/Line 2: Boardcomputer: Consumption since refuel
+LC,34,0~7,3B,Screen 8/Line 2: Boardcomputer: Average speed since refuel
+LC,34,0~7,3C,Screen 8/Line 2: Car Speed raw value from ABS/ESP
+LC,34,0~7,3D,Screen 8/Line 2: Date
+LC,34,0~7,3E,Screen 8/Line 2: Time
+LC,34,0~7,3F,Screen 8/Line 2: Car Speed raw value from instrument cluster
+LC,34,0~7,40,Screen 8/Line 2: Difflock
+LC,34,0~7,41,Screen 8/Line 2: Ethanol content in fuel
+LC,34,0~7,42,Screen 8/Line 2: Writing MTM
+LC,34,0~7,43,Screen 8/Line 2: Audio Info 1
+LC,34,0~7,44,Screen 8/Line 2: Audio Info 2
+LC,34,0~7,45,Screen 8/Line 2: Audio Info 3
+LC,34,0~7,46,Screen 8/Line 2: Audio Info 4
+; {Screen 8/Line 3}
+LC,35,0~7,00,Screen 8/Line 3: Off
+LC,35,0~7,01,Screen 8/Line 3: Engine Oil Temperature
+LC,35,0~7,02,Screen 8/Line 3: Engine Intake Temperature
+LC,35,0~7,03,Screen 8/Line 3: Engine Cooling Temperature
+LC,35,0~7,04,Screen 8/Line 3: Outside Temperature
+LC,35,0~7,05,Screen 8/Line 3: Engine RPM
+LC,35,0~7,06,Screen 8/Line 3: Oil Pressure
+LC,35,0~7,07,Screen 8/Line 3: Boost
+LC,35,0~7,08,Screen 8/Line 3: Engine Power
+LC,35,0~7,09,Screen 8/Line 3: Engine Power Loss
+LC,35,0~7,0A,Screen 8/Line 3: Engine Power Wheel
+LC,35,0~7,0B,Screen 8/Line 3: Engine Torque
+LC,35,0~7,0C,Screen 8/Line 3: Engine Torque Loss
+LC,35,0~7,0D,Screen 8/Line 3: Engine Torque Wheel
+LC,35,0~7,0E,Screen 8/Line 3: Engine Pedal Position
+LC,35,0~7,0F,Screen 8/Line 3: Wheel speed Front Left
+LC,35,0~7,10,Screen 8/Line 3: Wheel speed Front Right
+LC,35,0~7,11,Screen 8/Line 3: Wheel speed Back Left
+LC,35,0~7,12,Screen 8/Line 3: Wheel speed Back Right
+LC,35,0~7,13,Screen 8/Line 3: Brake Pressure
+LC,35,0~7,14,Screen 8/Line 3: G across
+LC,35,0~7,15,Screen 8/Line 3: Gierrate
+LC,35,0~7,16,Screen 8/Line 3: Steering Angle
+LC,35,0~7,17,Screen 8/Line 3: Haldex Clutch Open
+LC,35,0~7,18,Screen 8/Line 3: Haldex Transmitted Torque
+LC,35,0~7,19,Screen 8/Line 3: Car Speed
+LC,35,0~7,1A,Screen 8/Line 3: Fuel Content
+LC,35,0~7,1B,Screen 8/Line 3: DSG Oil Temperature
+LC,35,0~7,1C,Screen 8/Line 3: Voltage
+LC,35,0~7,1D,Screen 8/Line 3: Exhaust temperature
+LC,35,0~7,1E,Screen 8/Line 3: Writing MFAXP
+LC,35,0~7,1F,Screen 8/Line 3: Writing HGP
+LC,35,0~7,20,Screen 8/Line 3: Writing BTS
+LC,35,0~7,21,Screen 8/Line 3: Custom Text 1
+LC,35,0~7,22,Screen 8/Line 3: Custom Text 2
+LC,35,0~7,23,Screen 8/Line 3: Custom Text 3
+LC,35,0~7,24,Screen 8/Line 3: Custom Text 4
+LC,35,0~7,25,Screen 8/Line 3: Oillevel
+LC,35,0~7,26,Screen 8/Line 3: Battery state of charge
+LC,35,0~7,27,Screen 8/Line 3: DPF Regeneration
+LC,35,0~7,28,Screen 8/Line 3: Exhaust Flap State
+LC,35,0~7,29,Screen 8/Line 3: Statistic module: VMAX
+LC,35,0~7,2A,Screen 8/Line 3: Statistic module: Max. Power
+LC,35,0~7,2B,Screen 8/Line 3: Statistic module: Max. Torque
+LC,35,0~7,2C,Screen 8/Line 3: Statistic module: Max. Boost
+LC,35,0~7,2D,Screen 8/Line 3: Statistic module: Max. Exhaust temperature
+LC,35,0~7,2E,Screen 8/Line 3: Statistic module: Max. Oil temperature
+LC,35,0~7,2F,Screen 8/Line 3: Statistic module: Max. cooling liquid temperature
+LC,35,0~7,30,Screen 8/Line 3: Statistic module: Max. Intake temperature
+LC,35,0~7,31,Screen 8/Line 3: Statistic module: Time 0-100
+LC,35,0~7,32,Screen 8/Line 3: Statistic module: Time 100-200
+LC,35,0~7,33,Screen 8/Line 3: Statistic module: Time 0-200
+LC,35,0~7,34,Screen 8/Line 3: Boardcomputer: Current consumption
+LC,35,0~7,35,Screen 8/Line 3: Boardcomputer: Distance to fuel stop
+LC,35,0~7,36,Screen 8/Line 3: Boardcomputer: Average consumption
+LC,35,0~7,37,Screen 8/Line 3: Boardcomputer: Range since engine start
+LC,35,0~7,38,Screen 8/Line 3: Boardcomputer: Time since engine start
+LC,35,0~7,39,Screen 8/Line 3: Boardcomputer: Average speed
+LC,35,0~7,3A,Screen 8/Line 3: Boardcomputer: Consumption since refuel
+LC,35,0~7,3B,Screen 8/Line 3: Boardcomputer: Average speed since refuel
+LC,35,0~7,3C,Screen 8/Line 3: Car Speed raw value from ABS/ESP
+LC,35,0~7,3D,Screen 8/Line 3: Date
+LC,35,0~7,3E,Screen 8/Line 3: Time
+LC,35,0~7,3F,Screen 8/Line 3: Car Speed raw value from instrument cluster
+LC,35,0~7,40,Screen 8/Line 3: Difflock
+LC,35,0~7,41,Screen 8/Line 3: Ethanol content in fuel
+LC,35,0~7,42,Screen 8/Line 3: Writing MTM
+LC,35,0~7,43,Screen 8/Line 3: Audio Info 1
+LC,35,0~7,44,Screen 8/Line 3: Audio Info 2
+LC,35,0~7,45,Screen 8/Line 3: Audio Info 3
+LC,35,0~7,46,Screen 8/Line 3: Audio Info 4
+; {Screen 8/Line 4}
+LC,36,0~7,00,Screen 8/Line 4: Off
+LC,36,0~7,01,Screen 8/Line 4: Engine Oil Temperature
+LC,36,0~7,02,Screen 8/Line 4: Engine Intake Temperature
+LC,36,0~7,03,Screen 8/Line 4: Engine Cooling Temperature
+LC,36,0~7,04,Screen 8/Line 4: Outside Temperature
+LC,36,0~7,05,Screen 8/Line 4: Engine RPM
+LC,36,0~7,06,Screen 8/Line 4: Oil Pressure
+LC,36,0~7,07,Screen 8/Line 4: Boost
+LC,36,0~7,08,Screen 8/Line 4: Engine Power
+LC,36,0~7,09,Screen 8/Line 4: Engine Power Loss
+LC,36,0~7,0A,Screen 8/Line 4: Engine Power Wheel
+LC,36,0~7,0B,Screen 8/Line 4: Engine Torque
+LC,36,0~7,0C,Screen 8/Line 4: Engine Torque Loss
+LC,36,0~7,0D,Screen 8/Line 4: Engine Torque Wheel
+LC,36,0~7,0E,Screen 8/Line 4: Engine Pedal Position
+LC,36,0~7,0F,Screen 8/Line 4: Wheel speed Front Left
+LC,36,0~7,10,Screen 8/Line 4: Wheel speed Front Right
+LC,36,0~7,11,Screen 8/Line 4: Wheel speed Back Left
+LC,36,0~7,12,Screen 8/Line 4: Wheel speed Back Right
+LC,36,0~7,13,Screen 8/Line 4: Brake Pressure
+LC,36,0~7,14,Screen 8/Line 4: G across
+LC,36,0~7,15,Screen 8/Line 4: Gierrate
+LC,36,0~7,16,Screen 8/Line 4: Steering Angle
+LC,36,0~7,17,Screen 8/Line 4: Haldex Clutch Open
+LC,36,0~7,18,Screen 8/Line 4: Haldex Transmitted Torque
+LC,36,0~7,19,Screen 8/Line 4: Car Speed
+LC,36,0~7,1A,Screen 8/Line 4: Fuel Content
+LC,36,0~7,1B,Screen 8/Line 4: DSG Oil Temperature
+LC,36,0~7,1C,Screen 8/Line 4: Voltage
+LC,36,0~7,1D,Screen 8/Line 4: Exhaust temperature
+LC,36,0~7,1E,Screen 8/Line 4: Writing MFAXP
+LC,36,0~7,1F,Screen 8/Line 4: Writing HGP
+LC,36,0~7,20,Screen 8/Line 4: Writing BTS
+LC,36,0~7,21,Screen 8/Line 4: Custom Text 1
+LC,36,0~7,22,Screen 8/Line 4: Custom Text 2
+LC,36,0~7,23,Screen 8/Line 4: Custom Text 3
+LC,36,0~7,24,Screen 8/Line 4: Custom Text 4
+LC,36,0~7,25,Screen 8/Line 4: Oillevel
+LC,36,0~7,26,Screen 8/Line 4: Battery state of charge
+LC,36,0~7,27,Screen 8/Line 4: DPF Regeneration
+LC,36,0~7,28,Screen 8/Line 4: Exhaust Flap State
+LC,36,0~7,29,Screen 8/Line 4: Statistic module: VMAX
+LC,36,0~7,2A,Screen 8/Line 4: Statistic module: Max. Power
+LC,36,0~7,2B,Screen 8/Line 4: Statistic module: Max. Torque
+LC,36,0~7,2C,Screen 8/Line 4: Statistic module: Max. Boost
+LC,36,0~7,2D,Screen 8/Line 4: Statistic module: Max. Exhaust temperature
+LC,36,0~7,2E,Screen 8/Line 4: Statistic module: Max. Oil temperature
+LC,36,0~7,2F,Screen 8/Line 4: Statistic module: Max. cooling liquid temperature
+LC,36,0~7,30,Screen 8/Line 4: Statistic module: Max. Intake temperature
+LC,36,0~7,31,Screen 8/Line 4: Statistic module: Time 0-100
+LC,36,0~7,32,Screen 8/Line 4: Statistic module: Time 100-200
+LC,36,0~7,33,Screen 8/Line 4: Statistic module: Time 0-200
+LC,36,0~7,34,Screen 8/Line 4: Boardcomputer: Current consumption
+LC,36,0~7,35,Screen 8/Line 4: Boardcomputer: Distance to fuel stop
+LC,36,0~7,36,Screen 8/Line 4: Boardcomputer: Average consumption
+LC,36,0~7,37,Screen 8/Line 4: Boardcomputer: Range since engine start
+LC,36,0~7,38,Screen 8/Line 4: Boardcomputer: Time since engine start
+LC,36,0~7,39,Screen 8/Line 4: Boardcomputer: Average speed
+LC,36,0~7,3A,Screen 8/Line 4: Boardcomputer: Consumption since refuel
+LC,36,0~7,3B,Screen 8/Line 4: Boardcomputer: Average speed since refuel
+LC,36,0~7,3C,Screen 8/Line 4: Car Speed raw value from ABS/ESP
+LC,36,0~7,3D,Screen 8/Line 4: Date
+LC,36,0~7,3E,Screen 8/Line 4: Time
+LC,36,0~7,3F,Screen 8/Line 4: Car Speed raw value from instrument cluster
+LC,36,0~7,40,Screen 8/Line 4: Difflock
+LC,36,0~7,41,Screen 8/Line 4: Ethanol content in fuel
+LC,36,0~7,42,Screen 8/Line 4: Writing MTM
+LC,36,0~7,43,Screen 8/Line 4: Audio Info 1
+LC,36,0~7,44,Screen 8/Line 4: Audio Info 2
+LC,36,0~7,45,Screen 8/Line 4: Audio Info 3
+LC,36,0~7,46,Screen 8/Line 4: Audio Info 4
+; {Screen 9/Line 1}
+LC,37,0~7,00,Screen 9/Line 1: Off
+LC,37,0~7,01,Screen 9/Line 1: Engine Oil Temperature
+LC,37,0~7,02,Screen 9/Line 1: Engine Intake Temperature
+LC,37,0~7,03,Screen 9/Line 1: Engine Cooling Temperature
+LC,37,0~7,04,Screen 9/Line 1: Outside Temperature
+LC,37,0~7,05,Screen 9/Line 1: Engine RPM
+LC,37,0~7,06,Screen 9/Line 1: Oil Pressure
+LC,37,0~7,07,Screen 9/Line 1: Boost
+LC,37,0~7,08,Screen 9/Line 1: Engine Power
+LC,37,0~7,09,Screen 9/Line 1: Engine Power Loss
+LC,37,0~7,0A,Screen 9/Line 1: Engine Power Wheel
+LC,37,0~7,0B,Screen 9/Line 1: Engine Torque
+LC,37,0~7,0C,Screen 9/Line 1: Engine Torque Loss
+LC,37,0~7,0D,Screen 9/Line 1: Engine Torque Wheel
+LC,37,0~7,0E,Screen 9/Line 1: Engine Pedal Position
+LC,37,0~7,0F,Screen 9/Line 1: Wheel speed Front Left
+LC,37,0~7,10,Screen 9/Line 1: Wheel speed Front Right
+LC,37,0~7,11,Screen 9/Line 1: Wheel speed Back Left
+LC,37,0~7,12,Screen 9/Line 1: Wheel speed Back Right
+LC,37,0~7,13,Screen 9/Line 1: Brake Pressure
+LC,37,0~7,14,Screen 9/Line 1: G across
+LC,37,0~7,15,Screen 9/Line 1: Gierrate
+LC,37,0~7,16,Screen 9/Line 1: Steering Angle
+LC,37,0~7,17,Screen 9/Line 1: Haldex Clutch Open
+LC,37,0~7,18,Screen 9/Line 1: Haldex Transmitted Torque
+LC,37,0~7,19,Screen 9/Line 1: Car Speed
+LC,37,0~7,1A,Screen 9/Line 1: Fuel Content
+LC,37,0~7,1B,Screen 9/Line 1: DSG Oil Temperature
+LC,37,0~7,1C,Screen 9/Line 1: Voltage
+LC,37,0~7,1D,Screen 9/Line 1: Exhaust temperature
+LC,37,0~7,1E,Screen 9/Line 1: Writing MFAXP
+LC,37,0~7,1F,Screen 9/Line 1: Writing HGP
+LC,37,0~7,20,Screen 9/Line 1: Writing BTS
+LC,37,0~7,21,Screen 9/Line 1: Custom Text 1
+LC,37,0~7,22,Screen 9/Line 1: Custom Text 2
+LC,37,0~7,23,Screen 9/Line 1: Custom Text 3
+LC,37,0~7,24,Screen 9/Line 1: Custom Text 4
+LC,37,0~7,25,Screen 9/Line 1: Oillevel
+LC,37,0~7,26,Screen 9/Line 1: Battery state of charge
+LC,37,0~7,27,Screen 9/Line 1: DPF Regeneration
+LC,37,0~7,28,Screen 9/Line 1: Exhaust Flap State
+LC,37,0~7,29,Screen 9/Line 1: Statistic module: VMAX
+LC,37,0~7,2A,Screen 9/Line 1: Statistic module: Max. Power
+LC,37,0~7,2B,Screen 9/Line 1: Statistic module: Max. Torque
+LC,37,0~7,2C,Screen 9/Line 1: Statistic module: Max. Boost
+LC,37,0~7,2D,Screen 9/Line 1: Statistic module: Max. Exhaust temperature
+LC,37,0~7,2E,Screen 9/Line 1: Statistic module: Max. Oil temperature
+LC,37,0~7,2F,Screen 9/Line 1: Statistic module: Max. cooling liquid temperature
+LC,37,0~7,30,Screen 9/Line 1: Statistic module: Max. Intake temperature
+LC,37,0~7,31,Screen 9/Line 1: Statistic module: Time 0-100
+LC,37,0~7,32,Screen 9/Line 1: Statistic module: Time 100-200
+LC,37,0~7,33,Screen 9/Line 1: Statistic module: Time 0-200
+LC,37,0~7,34,Screen 9/Line 1: Boardcomputer: Current consumption
+LC,37,0~7,35,Screen 9/Line 1: Boardcomputer: Distance to fuel stop
+LC,37,0~7,36,Screen 9/Line 1: Boardcomputer: Average consumption
+LC,37,0~7,37,Screen 9/Line 1: Boardcomputer: Range since engine start
+LC,37,0~7,38,Screen 9/Line 1: Boardcomputer: Time since engine start
+LC,37,0~7,39,Screen 9/Line 1: Boardcomputer: Average speed
+LC,37,0~7,3A,Screen 9/Line 1: Boardcomputer: Consumption since refuel
+LC,37,0~7,3B,Screen 9/Line 1: Boardcomputer: Average speed since refuel
+LC,37,0~7,3C,Screen 9/Line 1: Car Speed raw value from ABS/ESP
+LC,37,0~7,3D,Screen 9/Line 1: Date
+LC,37,0~7,3E,Screen 9/Line 1: Time
+LC,37,0~7,3F,Screen 9/Line 1: Car Speed raw value from instrument cluster
+LC,37,0~7,40,Screen 9/Line 1: Difflock
+LC,37,0~7,41,Screen 9/Line 1: Ethanol content in fuel
+LC,37,0~7,42,Screen 9/Line 1: Writing MTM
+LC,37,0~7,43,Screen 9/Line 1: Audio Info 1
+LC,37,0~7,44,Screen 9/Line 1: Audio Info 2
+LC,37,0~7,45,Screen 9/Line 1: Audio Info 3
+LC,37,0~7,46,Screen 9/Line 1: Audio Info 4
+; {Screen 9/Line 2}
+LC,38,0~7,00,Screen 9/Line 2: Off
+LC,38,0~7,01,Screen 9/Line 2: Engine Oil Temperature
+LC,38,0~7,02,Screen 9/Line 2: Engine Intake Temperature
+LC,38,0~7,03,Screen 9/Line 2: Engine Cooling Temperature
+LC,38,0~7,04,Screen 9/Line 2: Outside Temperature
+LC,38,0~7,05,Screen 9/Line 2: Engine RPM
+LC,38,0~7,06,Screen 9/Line 2: Oil Pressure
+LC,38,0~7,07,Screen 9/Line 2: Boost
+LC,38,0~7,08,Screen 9/Line 2: Engine Power
+LC,38,0~7,09,Screen 9/Line 2: Engine Power Loss
+LC,38,0~7,0A,Screen 9/Line 2: Engine Power Wheel
+LC,38,0~7,0B,Screen 9/Line 2: Engine Torque
+LC,38,0~7,0C,Screen 9/Line 2: Engine Torque Loss
+LC,38,0~7,0D,Screen 9/Line 2: Engine Torque Wheel
+LC,38,0~7,0E,Screen 9/Line 2: Engine Pedal Position
+LC,38,0~7,0F,Screen 9/Line 2: Wheel speed Front Left
+LC,38,0~7,10,Screen 9/Line 2: Wheel speed Front Right
+LC,38,0~7,11,Screen 9/Line 2: Wheel speed Back Left
+LC,38,0~7,12,Screen 9/Line 2: Wheel speed Back Right
+LC,38,0~7,13,Screen 9/Line 2: Brake Pressure
+LC,38,0~7,14,Screen 9/Line 2: G across
+LC,38,0~7,15,Screen 9/Line 2: Gierrate
+LC,38,0~7,16,Screen 9/Line 2: Steering Angle
+LC,38,0~7,17,Screen 9/Line 2: Haldex Clutch Open
+LC,38,0~7,18,Screen 9/Line 2: Haldex Transmitted Torque
+LC,38,0~7,19,Screen 9/Line 2: Car Speed
+LC,38,0~7,1A,Screen 9/Line 2: Fuel Content
+LC,38,0~7,1B,Screen 9/Line 2: DSG Oil Temperature
+LC,38,0~7,1C,Screen 9/Line 2: Voltage
+LC,38,0~7,1D,Screen 9/Line 2: Exhaust temperature
+LC,38,0~7,1E,Screen 9/Line 2: Writing MFAXP
+LC,38,0~7,1F,Screen 9/Line 2: Writing HGP
+LC,38,0~7,20,Screen 9/Line 2: Writing BTS
+LC,38,0~7,21,Screen 9/Line 2: Custom Text 1
+LC,38,0~7,22,Screen 9/Line 2: Custom Text 2
+LC,38,0~7,23,Screen 9/Line 2: Custom Text 3
+LC,38,0~7,24,Screen 9/Line 2: Custom Text 4
+LC,38,0~7,25,Screen 9/Line 2: Oillevel
+LC,38,0~7,26,Screen 9/Line 2: Battery state of charge
+LC,38,0~7,27,Screen 9/Line 2: DPF Regeneration
+LC,38,0~7,28,Screen 9/Line 2: Exhaust Flap State
+LC,38,0~7,29,Screen 9/Line 2: Statistic module: VMAX
+LC,38,0~7,2A,Screen 9/Line 2: Statistic module: Max. Power
+LC,38,0~7,2B,Screen 9/Line 2: Statistic module: Max. Torque
+LC,38,0~7,2C,Screen 9/Line 2: Statistic module: Max. Boost
+LC,38,0~7,2D,Screen 9/Line 2: Statistic module: Max. Exhaust temperature
+LC,38,0~7,2E,Screen 9/Line 2: Statistic module: Max. Oil temperature
+LC,38,0~7,2F,Screen 9/Line 2: Statistic module: Max. cooling liquid temperature
+LC,38,0~7,30,Screen 9/Line 2: Statistic module: Max. Intake temperature
+LC,38,0~7,31,Screen 9/Line 2: Statistic module: Time 0-100
+LC,38,0~7,32,Screen 9/Line 2: Statistic module: Time 100-200
+LC,38,0~7,33,Screen 9/Line 2: Statistic module: Time 0-200
+LC,38,0~7,34,Screen 9/Line 2: Boardcomputer: Current consumption
+LC,38,0~7,35,Screen 9/Line 2: Boardcomputer: Distance to fuel stop
+LC,38,0~7,36,Screen 9/Line 2: Boardcomputer: Average consumption
+LC,38,0~7,37,Screen 9/Line 2: Boardcomputer: Range since engine start
+LC,38,0~7,38,Screen 9/Line 2: Boardcomputer: Time since engine start
+LC,38,0~7,39,Screen 9/Line 2: Boardcomputer: Average speed
+LC,38,0~7,3A,Screen 9/Line 2: Boardcomputer: Consumption since refuel
+LC,38,0~7,3B,Screen 9/Line 2: Boardcomputer: Average speed since refuel
+LC,38,0~7,3C,Screen 9/Line 2: Car Speed raw value from ABS/ESP
+LC,38,0~7,3D,Screen 9/Line 2: Date
+LC,38,0~7,3E,Screen 9/Line 2: Time
+LC,38,0~7,3F,Screen 9/Line 2: Car Speed raw value from instrument cluster
+LC,38,0~7,40,Screen 9/Line 2: Difflock
+LC,38,0~7,41,Screen 9/Line 2: Ethanol content in fuel
+LC,38,0~7,42,Screen 9/Line 2: Writing MTM
+LC,38,0~7,43,Screen 9/Line 2: Audio Info 1
+LC,38,0~7,44,Screen 9/Line 2: Audio Info 2
+LC,38,0~7,45,Screen 9/Line 2: Audio Info 3
+LC,38,0~7,46,Screen 9/Line 2: Audio Info 4
+; {Screen 9/Line 3}
+LC,39,0~7,00,Screen 9/Line 3: Off
+LC,39,0~7,01,Screen 9/Line 3: Engine Oil Temperature
+LC,39,0~7,02,Screen 9/Line 3: Engine Intake Temperature
+LC,39,0~7,03,Screen 9/Line 3: Engine Cooling Temperature
+LC,39,0~7,04,Screen 9/Line 3: Outside Temperature
+LC,39,0~7,05,Screen 9/Line 3: Engine RPM
+LC,39,0~7,06,Screen 9/Line 3: Oil Pressure
+LC,39,0~7,07,Screen 9/Line 3: Boost
+LC,39,0~7,08,Screen 9/Line 3: Engine Power
+LC,39,0~7,09,Screen 9/Line 3: Engine Power Loss
+LC,39,0~7,0A,Screen 9/Line 3: Engine Power Wheel
+LC,39,0~7,0B,Screen 9/Line 3: Engine Torque
+LC,39,0~7,0C,Screen 9/Line 3: Engine Torque Loss
+LC,39,0~7,0D,Screen 9/Line 3: Engine Torque Wheel
+LC,39,0~7,0E,Screen 9/Line 3: Engine Pedal Position
+LC,39,0~7,0F,Screen 9/Line 3: Wheel speed Front Left
+LC,39,0~7,10,Screen 9/Line 3: Wheel speed Front Right
+LC,39,0~7,11,Screen 9/Line 3: Wheel speed Back Left
+LC,39,0~7,12,Screen 9/Line 3: Wheel speed Back Right
+LC,39,0~7,13,Screen 9/Line 3: Brake Pressure
+LC,39,0~7,14,Screen 9/Line 3: G across
+LC,39,0~7,15,Screen 9/Line 3: Gierrate
+LC,39,0~7,16,Screen 9/Line 3: Steering Angle
+LC,39,0~7,17,Screen 9/Line 3: Haldex Clutch Open
+LC,39,0~7,18,Screen 9/Line 3: Haldex Transmitted Torque
+LC,39,0~7,19,Screen 9/Line 3: Car Speed
+LC,39,0~7,1A,Screen 9/Line 3: Fuel Content
+LC,39,0~7,1B,Screen 9/Line 3: DSG Oil Temperature
+LC,39,0~7,1C,Screen 9/Line 3: Voltage
+LC,39,0~7,1D,Screen 9/Line 3: Exhaust temperature
+LC,39,0~7,1E,Screen 9/Line 3: Writing MFAXP
+LC,39,0~7,1F,Screen 9/Line 3: Writing HGP
+LC,39,0~7,20,Screen 9/Line 3: Writing BTS
+LC,39,0~7,21,Screen 9/Line 3: Custom Text 1
+LC,39,0~7,22,Screen 9/Line 3: Custom Text 2
+LC,39,0~7,23,Screen 9/Line 3: Custom Text 3
+LC,39,0~7,24,Screen 9/Line 3: Custom Text 4
+LC,39,0~7,25,Screen 9/Line 3: Oillevel
+LC,39,0~7,26,Screen 9/Line 3: Battery state of charge
+LC,39,0~7,27,Screen 9/Line 3: DPF Regeneration
+LC,39,0~7,28,Screen 9/Line 3: Exhaust Flap State
+LC,39,0~7,29,Screen 9/Line 3: Statistic module: VMAX
+LC,39,0~7,2A,Screen 9/Line 3: Statistic module: Max. Power
+LC,39,0~7,2B,Screen 9/Line 3: Statistic module: Max. Torque
+LC,39,0~7,2C,Screen 9/Line 3: Statistic module: Max. Boost
+LC,39,0~7,2D,Screen 9/Line 3: Statistic module: Max. Exhaust temperature
+LC,39,0~7,2E,Screen 9/Line 3: Statistic module: Max. Oil temperature
+LC,39,0~7,2F,Screen 9/Line 3: Statistic module: Max. cooling liquid temperature
+LC,39,0~7,30,Screen 9/Line 3: Statistic module: Max. Intake temperature
+LC,39,0~7,31,Screen 9/Line 3: Statistic module: Time 0-100
+LC,39,0~7,32,Screen 9/Line 3: Statistic module: Time 100-200
+LC,39,0~7,33,Screen 9/Line 3: Statistic module: Time 0-200
+LC,39,0~7,34,Screen 9/Line 3: Boardcomputer: Current consumption
+LC,39,0~7,35,Screen 9/Line 3: Boardcomputer: Distance to fuel stop
+LC,39,0~7,36,Screen 9/Line 3: Boardcomputer: Average consumption
+LC,39,0~7,37,Screen 9/Line 3: Boardcomputer: Range since engine start
+LC,39,0~7,38,Screen 9/Line 3: Boardcomputer: Time since engine start
+LC,39,0~7,39,Screen 9/Line 3: Boardcomputer: Average speed
+LC,39,0~7,3A,Screen 9/Line 3: Boardcomputer: Consumption since refuel
+LC,39,0~7,3B,Screen 9/Line 3: Boardcomputer: Average speed since refuel
+LC,39,0~7,3C,Screen 9/Line 3: Car Speed raw value from ABS/ESP
+LC,39,0~7,3D,Screen 9/Line 3: Date
+LC,39,0~7,3E,Screen 9/Line 3: Time
+LC,39,0~7,3F,Screen 9/Line 3: Car Speed raw value from instrument cluster
+LC,39,0~7,40,Screen 9/Line 3: Difflock
+LC,39,0~7,41,Screen 9/Line 3: Ethanol content in fuel
+LC,39,0~7,42,Screen 9/Line 3: Writing MTM
+LC,39,0~7,43,Screen 9/Line 3: Audio Info 1
+LC,39,0~7,44,Screen 9/Line 3: Audio Info 2
+LC,39,0~7,45,Screen 9/Line 3: Audio Info 3
+LC,39,0~7,46,Screen 9/Line 3: Audio Info 4
+; {Screen 9/Line 4}
+LC,40,0~7,00,Screen 9/Line 4: Off
+LC,40,0~7,01,Screen 9/Line 4: Engine Oil Temperature
+LC,40,0~7,02,Screen 9/Line 4: Engine Intake Temperature
+LC,40,0~7,03,Screen 9/Line 4: Engine Cooling Temperature
+LC,40,0~7,04,Screen 9/Line 4: Outside Temperature
+LC,40,0~7,05,Screen 9/Line 4: Engine RPM
+LC,40,0~7,06,Screen 9/Line 4: Oil Pressure
+LC,40,0~7,07,Screen 9/Line 4: Boost
+LC,40,0~7,08,Screen 9/Line 4: Engine Power
+LC,40,0~7,09,Screen 9/Line 4: Engine Power Loss
+LC,40,0~7,0A,Screen 9/Line 4: Engine Power Wheel
+LC,40,0~7,0B,Screen 9/Line 4: Engine Torque
+LC,40,0~7,0C,Screen 9/Line 4: Engine Torque Loss
+LC,40,0~7,0D,Screen 9/Line 4: Engine Torque Wheel
+LC,40,0~7,0E,Screen 9/Line 4: Engine Pedal Position
+LC,40,0~7,0F,Screen 9/Line 4: Wheel speed Front Left
+LC,40,0~7,10,Screen 9/Line 4: Wheel speed Front Right
+LC,40,0~7,11,Screen 9/Line 4: Wheel speed Back Left
+LC,40,0~7,12,Screen 9/Line 4: Wheel speed Back Right
+LC,40,0~7,13,Screen 9/Line 4: Brake Pressure
+LC,40,0~7,14,Screen 9/Line 4: G across
+LC,40,0~7,15,Screen 9/Line 4: Gierrate
+LC,40,0~7,16,Screen 9/Line 4: Steering Angle
+LC,40,0~7,17,Screen 9/Line 4: Haldex Clutch Open
+LC,40,0~7,18,Screen 9/Line 4: Haldex Transmitted Torque
+LC,40,0~7,19,Screen 9/Line 4: Car Speed
+LC,40,0~7,1A,Screen 9/Line 4: Fuel Content
+LC,40,0~7,1B,Screen 9/Line 4: DSG Oil Temperature
+LC,40,0~7,1C,Screen 9/Line 4: Voltage
+LC,40,0~7,1D,Screen 9/Line 4: Exhaust temperature
+LC,40,0~7,1E,Screen 9/Line 4: Writing MFAXP
+LC,40,0~7,1F,Screen 9/Line 4: Writing HGP
+LC,40,0~7,20,Screen 9/Line 4: Writing BTS
+LC,40,0~7,21,Screen 9/Line 4: Custom Text 1
+LC,40,0~7,22,Screen 9/Line 4: Custom Text 2
+LC,40,0~7,23,Screen 9/Line 4: Custom Text 3
+LC,40,0~7,24,Screen 9/Line 4: Custom Text 4
+LC,40,0~7,25,Screen 9/Line 4: Oillevel
+LC,40,0~7,26,Screen 9/Line 4: Battery state of charge
+LC,40,0~7,27,Screen 9/Line 4: DPF Regeneration
+LC,40,0~7,28,Screen 9/Line 4: Exhaust Flap State
+LC,40,0~7,29,Screen 9/Line 4: Statistic module: VMAX
+LC,40,0~7,2A,Screen 9/Line 4: Statistic module: Max. Power
+LC,40,0~7,2B,Screen 9/Line 4: Statistic module: Max. Torque
+LC,40,0~7,2C,Screen 9/Line 4: Statistic module: Max. Boost
+LC,40,0~7,2D,Screen 9/Line 4: Statistic module: Max. Exhaust temperature
+LC,40,0~7,2E,Screen 9/Line 4: Statistic module: Max. Oil temperature
+LC,40,0~7,2F,Screen 9/Line 4: Statistic module: Max. cooling liquid temperature
+LC,40,0~7,30,Screen 9/Line 4: Statistic module: Max. Intake temperature
+LC,40,0~7,31,Screen 9/Line 4: Statistic module: Time 0-100
+LC,40,0~7,32,Screen 9/Line 4: Statistic module: Time 100-200
+LC,40,0~7,33,Screen 9/Line 4: Statistic module: Time 0-200
+LC,40,0~7,34,Screen 9/Line 4: Boardcomputer: Current consumption
+LC,40,0~7,35,Screen 9/Line 4: Boardcomputer: Distance to fuel stop
+LC,40,0~7,36,Screen 9/Line 4: Boardcomputer: Average consumption
+LC,40,0~7,37,Screen 9/Line 4: Boardcomputer: Range since engine start
+LC,40,0~7,38,Screen 9/Line 4: Boardcomputer: Time since engine start
+LC,40,0~7,39,Screen 9/Line 4: Boardcomputer: Average speed
+LC,40,0~7,3A,Screen 9/Line 4: Boardcomputer: Consumption since refuel
+LC,40,0~7,3B,Screen 9/Line 4: Boardcomputer: Average speed since refuel
+LC,40,0~7,3C,Screen 9/Line 4: Car Speed raw value from ABS/ESP
+LC,40,0~7,3D,Screen 9/Line 4: Date
+LC,40,0~7,3E,Screen 9/Line 4: Time
+LC,40,0~7,3F,Screen 9/Line 4: Car Speed raw value from instrument cluster
+LC,40,0~7,40,Screen 9/Line 4: Difflock
+LC,40,0~7,41,Screen 9/Line 4: Ethanol content in fuel
+LC,40,0~7,42,Screen 9/Line 4: Writing MTM
+LC,40,0~7,43,Screen 9/Line 4: Audio Info 1
+LC,40,0~7,44,Screen 9/Line 4: Audio Info 2
+LC,40,0~7,45,Screen 9/Line 4: Audio Info 3
+LC,40,0~7,46,Screen 9/Line 4: Audio Info 4
+; {Screen 10/Line 1}
+LC,41,0~7,00,Screen 10/Line 1: Off
+LC,41,0~7,01,Screen 10/Line 1: Engine Oil Temperature
+LC,41,0~7,02,Screen 10/Line 1: Engine Intake Temperature
+LC,41,0~7,03,Screen 10/Line 1: Engine Cooling Temperature
+LC,41,0~7,04,Screen 10/Line 1: Outside Temperature
+LC,41,0~7,05,Screen 10/Line 1: Engine RPM
+LC,41,0~7,06,Screen 10/Line 1: Oil Pressure
+LC,41,0~7,07,Screen 10/Line 1: Boost
+LC,41,0~7,08,Screen 10/Line 1: Engine Power
+LC,41,0~7,09,Screen 10/Line 1: Engine Power Loss
+LC,41,0~7,0A,Screen 10/Line 1: Engine Power Wheel
+LC,41,0~7,0B,Screen 10/Line 1: Engine Torque
+LC,41,0~7,0C,Screen 10/Line 1: Engine Torque Loss
+LC,41,0~7,0D,Screen 10/Line 1: Engine Torque Wheel
+LC,41,0~7,0E,Screen 10/Line 1: Engine Pedal Position
+LC,41,0~7,0F,Screen 10/Line 1: Wheel speed Front Left
+LC,41,0~7,10,Screen 10/Line 1: Wheel speed Front Right
+LC,41,0~7,11,Screen 10/Line 1: Wheel speed Back Left
+LC,41,0~7,12,Screen 10/Line 1: Wheel speed Back Right
+LC,41,0~7,13,Screen 10/Line 1: Brake Pressure
+LC,41,0~7,14,Screen 10/Line 1: G across
+LC,41,0~7,15,Screen 10/Line 1: Gierrate
+LC,41,0~7,16,Screen 10/Line 1: Steering Angle
+LC,41,0~7,17,Screen 10/Line 1: Haldex Clutch Open
+LC,41,0~7,18,Screen 10/Line 1: Haldex Transmitted Torque
+LC,41,0~7,19,Screen 10/Line 1: Car Speed
+LC,41,0~7,1A,Screen 10/Line 1: Fuel Content
+LC,41,0~7,1B,Screen 10/Line 1: DSG Oil Temperature
+LC,41,0~7,1C,Screen 10/Line 1: Voltage
+LC,41,0~7,1D,Screen 10/Line 1: Exhaust temperature
+LC,41,0~7,1E,Screen 10/Line 1: Writing MFAXP
+LC,41,0~7,1F,Screen 10/Line 1: Writing HGP
+LC,41,0~7,20,Screen 10/Line 1: Writing BTS
+LC,41,0~7,21,Screen 10/Line 1: Custom Text 1
+LC,41,0~7,22,Screen 10/Line 1: Custom Text 2
+LC,41,0~7,23,Screen 10/Line 1: Custom Text 3
+LC,41,0~7,24,Screen 10/Line 1: Custom Text 4
+LC,41,0~7,25,Screen 10/Line 1: Oillevel
+LC,41,0~7,26,Screen 10/Line 1: Battery state of charge
+LC,41,0~7,27,Screen 10/Line 1: DPF Regeneration
+LC,41,0~7,28,Screen 10/Line 1: Exhaust Flap State
+LC,41,0~7,29,Screen 10/Line 1: Statistic module: VMAX
+LC,41,0~7,2A,Screen 10/Line 1: Statistic module: Max. Power
+LC,41,0~7,2B,Screen 10/Line 1: Statistic module: Max. Torque
+LC,41,0~7,2C,Screen 10/Line 1: Statistic module: Max. Boost
+LC,41,0~7,2D,Screen 10/Line 1: Statistic module: Max. Exhaust temperature
+LC,41,0~7,2E,Screen 10/Line 1: Statistic module: Max. Oil temperature
+LC,41,0~7,2F,Screen 10/Line 1: Statistic module: Max. cooling liquid temperature
+LC,41,0~7,30,Screen 10/Line 1: Statistic module: Max. Intake temperature
+LC,41,0~7,31,Screen 10/Line 1: Statistic module: Time 0-100
+LC,41,0~7,32,Screen 10/Line 1: Statistic module: Time 100-200
+LC,41,0~7,33,Screen 10/Line 1: Statistic module: Time 0-200
+LC,41,0~7,34,Screen 10/Line 1: Boardcomputer: Current consumption
+LC,41,0~7,35,Screen 10/Line 1: Boardcomputer: Distance to fuel stop
+LC,41,0~7,36,Screen 10/Line 1: Boardcomputer: Average consumption
+LC,41,0~7,37,Screen 10/Line 1: Boardcomputer: Range since engine start
+LC,41,0~7,38,Screen 10/Line 1: Boardcomputer: Time since engine start
+LC,41,0~7,39,Screen 10/Line 1: Boardcomputer: Average speed
+LC,41,0~7,3A,Screen 10/Line 1: Boardcomputer: Consumption since refuel
+LC,41,0~7,3B,Screen 10/Line 1: Boardcomputer: Average speed since refuel
+LC,41,0~7,3C,Screen 10/Line 1: Car Speed raw value from ABS/ESP
+LC,41,0~7,3D,Screen 10/Line 1: Date
+LC,41,0~7,3E,Screen 10/Line 1: Time
+LC,41,0~7,3F,Screen 10/Line 1: Car Speed raw value from instrument cluster
+LC,41,0~7,40,Screen 10/Line 1: Difflock
+LC,41,0~7,41,Screen 10/Line 1: Ethanol content in fuel
+LC,41,0~7,42,Screen 10/Line 1: Writing MTM
+LC,41,0~7,43,Screen 10/Line 1: Audio Info 1
+LC,41,0~7,44,Screen 10/Line 1: Audio Info 2
+LC,41,0~7,45,Screen 10/Line 1: Audio Info 3
+LC,41,0~7,46,Screen 10/Line 1: Audio Info 4
+; {Screen 10/Line 2}
+LC,42,0~7,00,Screen 10/Line 2: Off
+LC,42,0~7,01,Screen 10/Line 2: Engine Oil Temperature
+LC,42,0~7,02,Screen 10/Line 2: Engine Intake Temperature
+LC,42,0~7,03,Screen 10/Line 2: Engine Cooling Temperature
+LC,42,0~7,04,Screen 10/Line 2: Outside Temperature
+LC,42,0~7,05,Screen 10/Line 2: Engine RPM
+LC,42,0~7,06,Screen 10/Line 2: Oil Pressure
+LC,42,0~7,07,Screen 10/Line 2: Boost
+LC,42,0~7,08,Screen 10/Line 2: Engine Power
+LC,42,0~7,09,Screen 10/Line 2: Engine Power Loss
+LC,42,0~7,0A,Screen 10/Line 2: Engine Power Wheel
+LC,42,0~7,0B,Screen 10/Line 2: Engine Torque
+LC,42,0~7,0C,Screen 10/Line 2: Engine Torque Loss
+LC,42,0~7,0D,Screen 10/Line 2: Engine Torque Wheel
+LC,42,0~7,0E,Screen 10/Line 2: Engine Pedal Position
+LC,42,0~7,0F,Screen 10/Line 2: Wheel speed Front Left
+LC,42,0~7,10,Screen 10/Line 2: Wheel speed Front Right
+LC,42,0~7,11,Screen 10/Line 2: Wheel speed Back Left
+LC,42,0~7,12,Screen 10/Line 2: Wheel speed Back Right
+LC,42,0~7,13,Screen 10/Line 2: Brake Pressure
+LC,42,0~7,14,Screen 10/Line 2: G across
+LC,42,0~7,15,Screen 10/Line 2: Gierrate
+LC,42,0~7,16,Screen 10/Line 2: Steering Angle
+LC,42,0~7,17,Screen 10/Line 2: Haldex Clutch Open
+LC,42,0~7,18,Screen 10/Line 2: Haldex Transmitted Torque
+LC,42,0~7,19,Screen 10/Line 2: Car Speed
+LC,42,0~7,1A,Screen 10/Line 2: Fuel Content
+LC,42,0~7,1B,Screen 10/Line 2: DSG Oil Temperature
+LC,42,0~7,1C,Screen 10/Line 2: Voltage
+LC,42,0~7,1D,Screen 10/Line 2: Exhaust temperature
+LC,42,0~7,1E,Screen 10/Line 2: Writing MFAXP
+LC,42,0~7,1F,Screen 10/Line 2: Writing HGP
+LC,42,0~7,20,Screen 10/Line 2: Writing BTS
+LC,42,0~7,21,Screen 10/Line 2: Custom Text 1
+LC,42,0~7,22,Screen 10/Line 2: Custom Text 2
+LC,42,0~7,23,Screen 10/Line 2: Custom Text 3
+LC,42,0~7,24,Screen 10/Line 2: Custom Text 4
+LC,42,0~7,25,Screen 10/Line 2: Oillevel
+LC,42,0~7,26,Screen 10/Line 2: Battery state of charge
+LC,42,0~7,27,Screen 10/Line 2: DPF Regeneration
+LC,42,0~7,28,Screen 10/Line 2: Exhaust Flap State
+LC,42,0~7,29,Screen 10/Line 2: Statistic module: VMAX
+LC,42,0~7,2A,Screen 10/Line 2: Statistic module: Max. Power
+LC,42,0~7,2B,Screen 10/Line 2: Statistic module: Max. Torque
+LC,42,0~7,2C,Screen 10/Line 2: Statistic module: Max. Boost
+LC,42,0~7,2D,Screen 10/Line 2: Statistic module: Max. Exhaust temperature
+LC,42,0~7,2E,Screen 10/Line 2: Statistic module: Max. Oil temperature
+LC,42,0~7,2F,Screen 10/Line 2: Statistic module: Max. cooling liquid temperature
+LC,42,0~7,30,Screen 10/Line 2: Statistic module: Max. Intake temperature
+LC,42,0~7,31,Screen 10/Line 2: Statistic module: Time 0-100
+LC,42,0~7,32,Screen 10/Line 2: Statistic module: Time 100-200
+LC,42,0~7,33,Screen 10/Line 2: Statistic module: Time 0-200
+LC,42,0~7,34,Screen 10/Line 2: Boardcomputer: Current consumption
+LC,42,0~7,35,Screen 10/Line 2: Boardcomputer: Distance to fuel stop
+LC,42,0~7,36,Screen 10/Line 2: Boardcomputer: Average consumption
+LC,42,0~7,37,Screen 10/Line 2: Boardcomputer: Range since engine start
+LC,42,0~7,38,Screen 10/Line 2: Boardcomputer: Time since engine start
+LC,42,0~7,39,Screen 10/Line 2: Boardcomputer: Average speed
+LC,42,0~7,3A,Screen 10/Line 2: Boardcomputer: Consumption since refuel
+LC,42,0~7,3B,Screen 10/Line 2: Boardcomputer: Average speed since refuel
+LC,42,0~7,3C,Screen 10/Line 2: Car Speed raw value from ABS/ESP
+LC,42,0~7,3D,Screen 10/Line 2: Date
+LC,42,0~7,3E,Screen 10/Line 2: Time
+LC,42,0~7,3F,Screen 10/Line 2: Car Speed raw value from instrument cluster
+LC,42,0~7,40,Screen 10/Line 2: Difflock
+LC,42,0~7,41,Screen 10/Line 2: Ethanol content in fuel
+LC,42,0~7,42,Screen 10/Line 2: Writing MTM
+LC,42,0~7,43,Screen 10/Line 2: Audio Info 1
+LC,42,0~7,44,Screen 10/Line 2: Audio Info 2
+LC,42,0~7,45,Screen 10/Line 2: Audio Info 3
+LC,42,0~7,46,Screen 10/Line 2: Audio Info 4
+; {Screen 10/Line 3}
+LC,43,0~7,00,Screen 10/Line 3: Off
+LC,43,0~7,01,Screen 10/Line 3: Engine Oil Temperature
+LC,43,0~7,02,Screen 10/Line 3: Engine Intake Temperature
+LC,43,0~7,03,Screen 10/Line 3: Engine Cooling Temperature
+LC,43,0~7,04,Screen 10/Line 3: Outside Temperature
+LC,43,0~7,05,Screen 10/Line 3: Engine RPM
+LC,43,0~7,06,Screen 10/Line 3: Oil Pressure
+LC,43,0~7,07,Screen 10/Line 3: Boost
+LC,43,0~7,08,Screen 10/Line 3: Engine Power
+LC,43,0~7,09,Screen 10/Line 3: Engine Power Loss
+LC,43,0~7,0A,Screen 10/Line 3: Engine Power Wheel
+LC,43,0~7,0B,Screen 10/Line 3: Engine Torque
+LC,43,0~7,0C,Screen 10/Line 3: Engine Torque Loss
+LC,43,0~7,0D,Screen 10/Line 3: Engine Torque Wheel
+LC,43,0~7,0E,Screen 10/Line 3: Engine Pedal Position
+LC,43,0~7,0F,Screen 10/Line 3: Wheel speed Front Left
+LC,43,0~7,10,Screen 10/Line 3: Wheel speed Front Right
+LC,43,0~7,11,Screen 10/Line 3: Wheel speed Back Left
+LC,43,0~7,12,Screen 10/Line 3: Wheel speed Back Right
+LC,43,0~7,13,Screen 10/Line 3: Brake Pressure
+LC,43,0~7,14,Screen 10/Line 3: G across
+LC,43,0~7,15,Screen 10/Line 3: Gierrate
+LC,43,0~7,16,Screen 10/Line 3: Steering Angle
+LC,43,0~7,17,Screen 10/Line 3: Haldex Clutch Open
+LC,43,0~7,18,Screen 10/Line 3: Haldex Transmitted Torque
+LC,43,0~7,19,Screen 10/Line 3: Car Speed
+LC,43,0~7,1A,Screen 10/Line 3: Fuel Content
+LC,43,0~7,1B,Screen 10/Line 3: DSG Oil Temperature
+LC,43,0~7,1C,Screen 10/Line 3: Voltage
+LC,43,0~7,1D,Screen 10/Line 3: Exhaust temperature
+LC,43,0~7,1E,Screen 10/Line 3: Writing MFAXP
+LC,43,0~7,1F,Screen 10/Line 3: Writing HGP
+LC,43,0~7,20,Screen 10/Line 3: Writing BTS
+LC,43,0~7,21,Screen 10/Line 3: Custom Text 1
+LC,43,0~7,22,Screen 10/Line 3: Custom Text 2
+LC,43,0~7,23,Screen 10/Line 3: Custom Text 3
+LC,43,0~7,24,Screen 10/Line 3: Custom Text 4
+LC,43,0~7,25,Screen 10/Line 3: Oillevel
+LC,43,0~7,26,Screen 10/Line 3: Battery state of charge
+LC,43,0~7,27,Screen 10/Line 3: DPF Regeneration
+LC,43,0~7,28,Screen 10/Line 3: Exhaust Flap State
+LC,43,0~7,29,Screen 10/Line 3: Statistic module: VMAX
+LC,43,0~7,2A,Screen 10/Line 3: Statistic module: Max. Power
+LC,43,0~7,2B,Screen 10/Line 3: Statistic module: Max. Torque
+LC,43,0~7,2C,Screen 10/Line 3: Statistic module: Max. Boost
+LC,43,0~7,2D,Screen 10/Line 3: Statistic module: Max. Exhaust temperature
+LC,43,0~7,2E,Screen 10/Line 3: Statistic module: Max. Oil temperature
+LC,43,0~7,2F,Screen 10/Line 3: Statistic module: Max. cooling liquid temperature
+LC,43,0~7,30,Screen 10/Line 3: Statistic module: Max. Intake temperature
+LC,43,0~7,31,Screen 10/Line 3: Statistic module: Time 0-100
+LC,43,0~7,32,Screen 10/Line 3: Statistic module: Time 100-200
+LC,43,0~7,33,Screen 10/Line 3: Statistic module: Time 0-200
+LC,43,0~7,34,Screen 10/Line 3: Boardcomputer: Current consumption
+LC,43,0~7,35,Screen 10/Line 3: Boardcomputer: Distance to fuel stop
+LC,43,0~7,36,Screen 10/Line 3: Boardcomputer: Average consumption
+LC,43,0~7,37,Screen 10/Line 3: Boardcomputer: Range since engine start
+LC,43,0~7,38,Screen 10/Line 3: Boardcomputer: Time since engine start
+LC,43,0~7,39,Screen 10/Line 3: Boardcomputer: Average speed
+LC,43,0~7,3A,Screen 10/Line 3: Boardcomputer: Consumption since refuel
+LC,43,0~7,3B,Screen 10/Line 3: Boardcomputer: Average speed since refuel
+LC,43,0~7,3C,Screen 10/Line 3: Car Speed raw value from ABS/ESP
+LC,43,0~7,3D,Screen 10/Line 3: Date
+LC,43,0~7,3E,Screen 10/Line 3: Time
+LC,43,0~7,3F,Screen 10/Line 3: Car Speed raw value from instrument cluster
+LC,43,0~7,40,Screen 10/Line 3: Difflock
+LC,43,0~7,41,Screen 10/Line 3: Ethanol content in fuel
+LC,43,0~7,42,Screen 10/Line 3: Writing MTM
+LC,43,0~7,43,Screen 10/Line 3: Audio Info 1
+LC,43,0~7,44,Screen 10/Line 3: Audio Info 2
+LC,43,0~7,45,Screen 10/Line 3: Audio Info 3
+LC,43,0~7,46,Screen 10/Line 3: Audio Info 4
+; {Screen 10/Line 4}
+LC,44,0~7,00,Screen 10/Line 4: Off
+LC,44,0~7,01,Screen 10/Line 4: Engine Oil Temperature
+LC,44,0~7,02,Screen 10/Line 4: Engine Intake Temperature
+LC,44,0~7,03,Screen 10/Line 4: Engine Cooling Temperature
+LC,44,0~7,04,Screen 10/Line 4: Outside Temperature
+LC,44,0~7,05,Screen 10/Line 4: Engine RPM
+LC,44,0~7,06,Screen 10/Line 4: Oil Pressure
+LC,44,0~7,07,Screen 10/Line 4: Boost
+LC,44,0~7,08,Screen 10/Line 4: Engine Power
+LC,44,0~7,09,Screen 10/Line 4: Engine Power Loss
+LC,44,0~7,0A,Screen 10/Line 4: Engine Power Wheel
+LC,44,0~7,0B,Screen 10/Line 4: Engine Torque
+LC,44,0~7,0C,Screen 10/Line 4: Engine Torque Loss
+LC,44,0~7,0D,Screen 10/Line 4: Engine Torque Wheel
+LC,44,0~7,0E,Screen 10/Line 4: Engine Pedal Position
+LC,44,0~7,0F,Screen 10/Line 4: Wheel speed Front Left
+LC,44,0~7,10,Screen 10/Line 4: Wheel speed Front Right
+LC,44,0~7,11,Screen 10/Line 4: Wheel speed Back Left
+LC,44,0~7,12,Screen 10/Line 4: Wheel speed Back Right
+LC,44,0~7,13,Screen 10/Line 4: Brake Pressure
+LC,44,0~7,14,Screen 10/Line 4: G across
+LC,44,0~7,15,Screen 10/Line 4: Gierrate
+LC,44,0~7,16,Screen 10/Line 4: Steering Angle
+LC,44,0~7,17,Screen 10/Line 4: Haldex Clutch Open
+LC,44,0~7,18,Screen 10/Line 4: Haldex Transmitted Torque
+LC,44,0~7,19,Screen 10/Line 4: Car Speed
+LC,44,0~7,1A,Screen 10/Line 4: Fuel Content
+LC,44,0~7,1B,Screen 10/Line 4: DSG Oil Temperature
+LC,44,0~7,1C,Screen 10/Line 4: Voltage
+LC,44,0~7,1D,Screen 10/Line 4: Exhaust temperature
+LC,44,0~7,1E,Screen 10/Line 4: Writing MFAXP
+LC,44,0~7,1F,Screen 10/Line 4: Writing HGP
+LC,44,0~7,20,Screen 10/Line 4: Writing BTS
+LC,44,0~7,21,Screen 10/Line 4: Custom Text 1
+LC,44,0~7,22,Screen 10/Line 4: Custom Text 2
+LC,44,0~7,23,Screen 10/Line 4: Custom Text 3
+LC,44,0~7,24,Screen 10/Line 4: Custom Text 4
+LC,44,0~7,25,Screen 10/Line 4: Oillevel
+LC,44,0~7,26,Screen 10/Line 4: Battery state of charge
+LC,44,0~7,27,Screen 10/Line 4: DPF Regeneration
+LC,44,0~7,28,Screen 10/Line 4: Exhaust Flap State
+LC,44,0~7,29,Screen 10/Line 4: Statistic module: VMAX
+LC,44,0~7,2A,Screen 10/Line 4: Statistic module: Max. Power
+LC,44,0~7,2B,Screen 10/Line 4: Statistic module: Max. Torque
+LC,44,0~7,2C,Screen 10/Line 4: Statistic module: Max. Boost
+LC,44,0~7,2D,Screen 10/Line 4: Statistic module: Max. Exhaust temperature
+LC,44,0~7,2E,Screen 10/Line 4: Statistic module: Max. Oil temperature
+LC,44,0~7,2F,Screen 10/Line 4: Statistic module: Max. cooling liquid temperature
+LC,44,0~7,30,Screen 10/Line 4: Statistic module: Max. Intake temperature
+LC,44,0~7,31,Screen 10/Line 4: Statistic module: Time 0-100
+LC,44,0~7,32,Screen 10/Line 4: Statistic module: Time 100-200
+LC,44,0~7,33,Screen 10/Line 4: Statistic module: Time 0-200
+LC,44,0~7,34,Screen 10/Line 4: Boardcomputer: Current consumption
+LC,44,0~7,35,Screen 10/Line 4: Boardcomputer: Distance to fuel stop
+LC,44,0~7,36,Screen 10/Line 4: Boardcomputer: Average consumption
+LC,44,0~7,37,Screen 10/Line 4: Boardcomputer: Range since engine start
+LC,44,0~7,38,Screen 10/Line 4: Boardcomputer: Time since engine start
+LC,44,0~7,39,Screen 10/Line 4: Boardcomputer: Average speed
+LC,44,0~7,3A,Screen 10/Line 4: Boardcomputer: Consumption since refuel
+LC,44,0~7,3B,Screen 10/Line 4: Boardcomputer: Average speed since refuel
+LC,44,0~7,3C,Screen 10/Line 4: Car Speed raw value from ABS/ESP
+LC,44,0~7,3D,Screen 10/Line 4: Date
+LC,44,0~7,3E,Screen 10/Line 4: Time
+LC,44,0~7,3F,Screen 10/Line 4: Car Speed raw value from instrument cluster
+LC,44,0~7,40,Screen 10/Line 4: Difflock
+LC,44,0~7,41,Screen 10/Line 4: Ethanol content in fuel
+LC,44,0~7,42,Screen 10/Line 4: Writing MTM
+LC,44,0~7,43,Screen 10/Line 4: Audio Info 1
+LC,44,0~7,44,Screen 10/Line 4: Audio Info 2
+LC,44,0~7,45,Screen 10/Line 4: Audio Info 3
+LC,44,0~7,46,Screen 10/Line 4: Audio Info 4
+;
+; End of label file.

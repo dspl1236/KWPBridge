@@ -1,0 +1,23 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011 Ross-Tech, LLC
+;
+; Component: J854 - Pretensioner Front Left (#8F)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 4H-8F.LBL
+; 4H-90.LBL
+; 4H0-980-94x-RGS.CLB
+;
+; created on 11/Aug/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 11/Aug/2011
+;
+; requires VCDS 11.3.0 or newer
+;
+;
+REDIRECT,4H0-980-94x-RGS.CLB,4H0-980-945-???
+;

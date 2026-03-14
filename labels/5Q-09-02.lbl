@@ -1,0 +1,31 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2013+ Ross-Tech, LLC
+;
+; Component: Subsystem (#09-02)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 5Q-09-02.LBL
+; 5Q0-955-547.CLB
+;
+; created on 15/Sep/2013 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 01/Jun/2014
+;
+; requires VCDS 12.12.0 / LCode 1.0.6.5 or newer
+;
+;
+;---------------------------------------------------
+;
+; Rain/Light Sensor (Optional Equipment on PQ37)
+;
+;---------------------------------------------------
+;
+;
+REDIRECT,5Q0-955-547.CLB,5Q0-955-547-???,SL
+;
+REDIRECT,5Q0-955-547.CLB,5Q0-955-559-???,SL
+;

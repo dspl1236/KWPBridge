@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2009 Ross-Tech, LLC
+;
+; Audi A4 (8K) / Audi A5 (8T)
+;
+; Component: J431 - Headlight Range (#55)
+;
+; This file is part of a redirection package,
+; make sure you have all of the following files.
+;
+; 8K-55.LBL
+; 8K0-907-357.LBL
+;
+; created on 07/Feb/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 07/Feb/2009
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,8K0-907-357.LBL,8K5-907-357-???
+;

@@ -1,0 +1,41 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2004+ Ross-Tech, LLC
+;
+; Component: J285 - Instrument Cluster (#17)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1K-17.LBL
+; 1T-17.LBL
+; 1Z-17.LBL
+; 2K-17.LBL
+; 5P-17.LBL
+; 1K0-920-xxx-17.LBL
+; 5K0-920-xxx-17.CLB
+;
+; created on 30/Jul/2004 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 13/Mar/2013
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,1K0-920-xxx-17.LBL,1K0-920-???-???  ; Normal
+;
+REDIRECT,1K0-920-xxx-17.LBL,1K6-920-???-???  ; GTI
+;
+REDIRECT,1K0-920-xxx-17.LBL,1K8-920-??0-???  ; Scirocco (< MY 2009)
+REDIRECT,5K0-920-xxx-17.CLB,1K8-920-??1-???  ; Scirocco (MY 2010 >)
+REDIRECT,5K0-920-xxx-17.CLB,1K8-920-??2-???  ; Scirocco (MY 2011 >)
+REDIRECT,5K0-920-xxx-17.CLB,1K8-920-??3-???  ; Scirocco (MY 2012 >)
+REDIRECT,5K0-920-xxx-17.CLB,1K8-920-??4-???  ; Scirocco (MY 2013 >)
+REDIRECT,5K0-920-xxx-17.CLB,1K8-920-??5-???  ; Scirocco (MY 2015 >)
+;
+REDIRECT,5K0-920-xxx-17.CLB,1K8-920-880-???  ; Scirocco (MY 2010 >)
+REDIRECT,5K0-920-xxx-17.CLB,1K8-920-980-???  ; Scirocco (MY 2010 >)
+;
+REDIRECT,1K0-920-xxx-17.LBL,1KD-920-???-???  ; Normal (CHN)
+;

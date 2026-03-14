@@ -1,0 +1,28 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2009-2011 Ross-Tech, LLC
+;
+; Seat Exeo (3R)
+;
+; Component: J431 - Navigation (#37)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3R-37.LBL
+; 3R-56.LBL
+; 8E0-035-192-RNSE.LBL
+; 8J0-035-192-RNSL.LBL
+;
+; created on 29/Jan/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 16/Dec/2011
+;
+; requires VCDS 11.11.0 or newer
+;
+;
+REDIRECT,8E0-035-192-RNSE.LBL,3R0-035-192-??? ; RNS-E
+;
+REDIRECT,8J0-035-192-RNSL.LBL,3R0-035-194-??? ; RNS-Low
+;

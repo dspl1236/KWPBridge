@@ -1,0 +1,28 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2010+ Ross-Tech, LLC
+;
+; Component: J136 - Seat Adjustment Driver (#36)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8K-06.LBL
+; 8K-36.LBL
+; 8T0-959-760.LBL
+;
+; created on 07/Oct/2010 by Dana Smetanick (Dana@Ross-Tech.com)
+; updated on 17/Apr/2012 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modificationon on 17/Apr/2012
+;
+; requires VCDS 11.11.2 or newer
+;
+;
+REDIRECT,8T0-959-760.LBL,8K0-959-760-???
+;
+
+
+
+

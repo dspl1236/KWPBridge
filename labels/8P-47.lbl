@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2005-2011 Ross-Tech, LLC
+;
+; Audi A3 (8P)
+;
+; Component: R44 - Sound System (#47)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8P-47.LBL
+; 8Px-035-382.LBL
+;
+; created on 15/Aug/2005 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 16/Aug/2011
+;
+; requires VCDS 10.6.4 or newer
+;
+;
+REDIRECT,8Px-035-382.LBL,8P?-035-382-???
+;

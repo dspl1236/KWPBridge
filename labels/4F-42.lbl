@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2005-2011 Ross-Tech, LLC
+;
+; Component: J386 - Driver's Door Electronics (#42)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 4F-42.LBL
+; 4F0-910-793-42.LBL
+;
+; created on 16/Oct/2005 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 19/Aug/2011
+;
+; requires VCDS 10.6.4 or newer
+;
+;
+REDIRECT,4F0-910-793-42.LBL,4F0-910-79?-???
+;

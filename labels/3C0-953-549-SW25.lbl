@@ -1,0 +1,127 @@
+;
+; VCDS Label File
+;
+; Copyright © 2009+ Ross-Tech, LLC
+;
+; VW Passat (35/3C)
+;
+; Component: J527 - Steering Wheel Electronics (#16)  (>= SW 0025)
+;
+; P/N: 3C0-953-549-???
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3C-16.LBL
+; 3C0-953-549-SW20.LBL (<= SW 0020)
+; 3C0-953-549-SW25.LBL (>= SW 0025)
+;
+; includes measuring blocks and coding
+;
+; created on 12/Jun/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 04/Apr/2013
+;
+; requires VCDS 805.0 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,1,Blinker,,Display Range: Not Oper./Left/Right
+001,2,Headlamp Flasher,,Display Range: Not Oper./Operated
+001,3,High Beam,,Display Range: Not Oper./Operated
+001,4,Front Wiper,,Display Range: Not Oper./Level/Stage Int./Stage 1/Stage 2
+;
+002,0,Wiper && Washer
+002,1,Interval Stages,,Display Range: Stage 1/Stage 2/Stage 3/Stage 4
+002,2,Wash Front,,Display Range: Not Oper./Operated
+002,3,Wiping Rear,,Display Range: Not Oper./Operated/Not Installed
+002,4,Washing Rear,,Display Range: Not Oper./Operated/Not Installed
+;
+003,1,Terminal Status
+; ?xxxx = P-Contact
+; x?xxx = S-Contact
+; xx?xx = Terminal 75
+; xxx?x = Terminal 15
+; xxxx? = Terminal 50
+003,2,Horn,,Display Range: Not Oper./Operated
+003,3,Board Computer,,Display Range: Not Installed/Not Oper./Operated/Switch Reset/Switch UP/Switch DN/Switch Off
+;
+004,0,Cruise Control System (CCS) / Adaptive Cruise Control (ACC)
+004,1,Main Switch,,Display Range: ON/OFF
+004,2,CCS/ACC-Set,,Display Range: Not Oper./Operated/Accel/Delay/Stored Off
+004,3,CCS/ACC-Status,,Display Range: Not Oper./Operated/Accel/Delay/Stored Off
+;
+005,1,Selector Lever,P Lock Switch
+005,2,Selector Lever,P Position (CAN)
+005,3,CCS Soleniod,,Display Range: ON/OFF
+005,4,Ignition Key,Removal Lock
+;
+006,0,Multifunction Steering Wheel I
+006,1,Communication,,Display Range: Not Installed/OK/not OK
+006,2,Software Version
+006,3,Hardware Version
+006,4,Malfunction,recognized,Display Range: Yes/No
+;
+007,0,Multifunction Steering Wheel II
+007,1,Vehicle Type
+007,2,Vehicle Version
+;
+008,0,Multifunction Steering Wheel III
+008,1,Thumb Wheel,(Left),Display Range: Not Installed/Not Oper.
+008,2,Thumb Wheel,(Right),Display Range: Not Installed/Not Oper.
+008,3,Tiptronic,(Down),Display Range: Not Installed/Not Oper./Operated
+008,4,Tiptronic,(Up),Display Range: Not Installed/Not Oper./Operated
+;
+009,0,Multifunction Steering Wheel IV
+009,1,Steering Wheel,Buttons
+;
+010,0,Heated Steering Wheel && Heated Seats
+010,1,Steering Wheel,Heater,Display Range: Not Installed/OFF/ON\nSignal Type: Output
+010,2,Temperature,,Display Range: Not Installed/Temperature\nSignal Type: Input
+010,3,Steering Wheel,Heater Output,Signal Type: Output
+010,4,Heated Seats,,Display Range: OFF/Stage\nSignal Type: Input
+;
+011,0,Dimming
+011,1,Dimming,,Display Range: 0.0...100.0 %\nSignal Type: Input
+011,2,Dimming,(Discrete),Display Range: 0.0...100.0 %\nSignal Type: Input
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Lensäulenelektronik (J527) Codierung
+C01,0?xxxxx: Drive-Assist-Systems
+C02,0 = with Drive-Assist-System-Message w/o Button
+C03,1 = w/o Drive-Assist-System-Message w/o Button
+C04,2 = with Drive-Assist-System-Message with Button
+C05,3 = w/o Drive-Assist-System-Message with Button
+C06,0x?xxxx: Multi-Function Control Module (J608)
+C07,0 = J608 not installed / 1 = J608 installed (J527 as Master) / 2 = J608 installed (J608 as Master)
+C08,0xx?xxx: Transmission
+C09,0 = Manual Transmission / 1 = Automatic Transmission
+C10,0xxx?xx: Multi-Function Steering Wheel (1-4 = LIN 1.3 / 5-8 = LIN 2.0)
+C11,0 = Multi-Function Steering Wheel not installed
+C12,1 OR 5 = Multi-Function Steering Wheel w/o Tiptronic and w/o Push-To-Talk (PTT) installed
+C13,2 OR 6 = Multi-Function Steering Wheel with Tiptronic and no Push-To-Talk (PTT) installed
+C14,3 OR 7 = Multi-Function Steering Wheel w/o Tiptronic and with Push-To-Talk (PTT) installed
+C15,4 OR 8 = Multi-Function Steering Wheel with Tiptronic and with Push-To-Talk (PTT) installed
+C16,0xxxx?x: Cruise Control System (CCS) and Adaptive Cruise Control (ACC)
+C17,0 = Cruise Control System (CCS) not installed
+C18,1 = 6 Position Cruise Control System (CCS) installed
+C19,2 = 6 Position Adaptive Cruise Control (ACC) installed
+C20,0xxxxx?: Rear Wiper and Wiper Stalk for Board Computer
+C21,1 = Rear Wiper not installed / Wiper Stalk for Board Computer not installed
+C22,2 = Rear Wiper installed / Wiper Stalk for Board Computer not installed
+C23,3 = Rear Wiper not installed / Wiper Stalk for Board Computer installed
+C24,4 = Rear Wiper installed / Wiper Stalk for Board Computer installed
+;

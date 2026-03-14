@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011+ Ross-Tech, LLC
+;
+; VW Touareg (7P)
+;
+; Component: J255 - Heating/Air Conditioning (#08)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 7P-08.LBL
+; 4H0-820-043.CLB
+;
+; created on 17/Mar/2015 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 17/Mar/2015
+;
+; requires VCDS 14.10.2 or newer
+;
+;
+REDIRECT,4H0-820-043.CLB,7P6-907-040-???
+;

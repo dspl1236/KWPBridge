@@ -1,0 +1,61 @@
+;
+; VCDS Label File
+;
+; Copyright © 2010+ Ross-Tech, LLC
+;
+; UNITRONIC
+;
+; Component: J220 - Engine (#01)
+;
+; P/N: 06A-UNI-032-BT / 8N0-UNI-032-BT
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8N-01.LBL
+; 06A-UNI-032-BT.LBL   (1.8l TE      @ XXX HP - UNITRONIC BIG TURBO KIT)
+;
+; includes readiness, coding and coding-II
+;
+; created on 02/Dec/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modificationon on 06/Mar/2014
+;
+; requires VCDS 10.6.2 or newer
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Engine Control Unit (J220) Coding
+C01,This ECU has been modified with aftermarket software that may  
+C02,alter your ability to recode this control module. 
+C03, 
+C04,Please Contact your tuner for further information.
+;
+;
+;---------------------------------------------------
+;
+; login/coding-ii
+;
+;---------------------------------------------------
+;
+;
+L00,Engine (J220) Coding-2
+L01,11463 = Cruise Control System (CCS) Activation
+L02,16167 = Cruise Control System (CCS) Deactivation
+;
+;
+;---------------------------------------------------
+;
+; readiness
+;
+;---------------------------------------------------
+;
+;
+O,06A-UNI-032-BT
+;

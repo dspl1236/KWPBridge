@@ -1,0 +1,96 @@
+;8P0-959-802-G  ---  Türelektr. Beifahr.
+;Bauteil:Tuer-SG         020 0110, Codierung:0000248
+;
+1,0,,
+1,1,,,
+; unbetätigt, ,
+1,2,,,
+; unbetätigt, ,
+1,3,,,
+; Endanschl.gel, ,
+1,4,,,
+; inaktiv, ,
+;
+;
+2,0,,
+2,1,,,
+; unbetätigt, ,
+2,2,,,
+; Ja, ,
+2,3,,,
+;0.0 %,Last,
+2,4,,,
+;0.0 km/h,Geschwindigkeit,
+;
+;
+3,0,,
+3,1,,,
+;12.24 V,Spannung,
+3,2,,,
+; Zweidraht, ,
+3,3,,,
+; Kl.15 EIN, ,
+3,4,,,
+; betätigt, ,
+;
+;
+4,0,,
+4,1,,,
+;15.0 %,Last,
+4,2,,,
+;0.0 %,Last,
+4,3,,,
+; aktiviert, ,
+4,4,,,
+;N/A,,
+;
+;
+5,0,,
+5,1,,,
+; entriegelt, ,
+5,2,,,
+; Tür zu, ,
+5,3,,,
+; unbetätigt, ,
+5,4,,,
+; unbetätigt, ,
+;
+;
+6,0,,
+6,1,,,
+; anklappen, ,
+6,2,,,
+; inaktiv, ,
+6,3,,,
+; aktiviert, ,
+6,4,,,
+; unbetätigt, ,
+;
+;
+7,0,,
+7,1,,,
+; unbetätigt, ,
+7,2,,,
+; n. verbaut, ,
+7,3,,,
+; n. verbaut, ,
+7,4,,,
+; n. verbaut, ,
+;
+;
+8,0,,
+8,1,,,
+; n. verbaut, ,
+8,2,,,
+; n. verbaut, ,
+8,3,,,
+;0.0 %,Last,
+8,4,,,
+;N/A,,
+;
+;
+80,0,,
+80,1,,,
+;KO1-KLO 11.05.06 00020000 0004 0080,,
+;
+;

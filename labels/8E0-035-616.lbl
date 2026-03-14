@@ -1,0 +1,192 @@
+;
+; VCDS Label File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; Audi A6 (4B)
+;
+; Component: J526 - Telephone/Telematics Control Module (#75)
+;
+; P/N: 8E0-035-616-???
+;
+; includes measuring blocks, adaptation and coding
+;
+; created on 01/May/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 01/May/2014
+;
+; requires VCDS 12.12.2 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,Telematics Status
+001,1,Telematics
+001,2,Telematics,Status,Range: Registered/Not Registered
+001,3,Signal Strengths
+001,4,Signal Strengths,Status,Range: 0.0...100.0 %
+;
+002,0,Emergency Battery && Satellites
+002,1,Emergency,Battery
+002,2,Emergency,Battery,Range: Empty/Low/Full
+002,3,GPS Acqired,Sattelites
+002,4,GPS Acqired,Sattelites,Range: 0.0...12.0
+;
+003,0,Cellular Telephone && OnStar Button
+003,1,Cellular Telephone
+003,2,Cellular Telephone,Status,Range: Connected/Not Connected
+003,3,OnStar Button
+003,4,OnStar Button,Status,Range: Operated/Not Oper.
+;
+004,0,Emergency Call && Hang-Up Button
+004,1,Emergency Call,Switch
+004,2,Emergency Call,Switch Status,Range: Operated/Not Oper.
+004,3,Hang-Up Button
+004,4,Hang-Up Button,Status,Range: Operated/Not Oper.
+;
+005,0,Terminal X Status
+005,1,Terminal X,Status,Range: Terminal X ON/Terminal X OFF
+;
+020,0,Global Positioning System (GPS) Longitude I
+020,1,GPS Longitude
+020,2,GPS Longitude,Degrees
+020,3,GPS Longitude,Minutes
+020,4,GPS Longitude,Seconds
+;
+021,0,Global Positioning System (GPS) Latitude I
+021,1,GPS Latitude
+021,2,GPS Latitude,Degrees
+021,3,GPS Latitude,Minutes
+021,4,GPS Latitude,Seconds
+;
+022,0,Global Positioning System (GPS) Altitude I
+022,1,GPS Altitude
+022,2,GPS Altitude
+;
+023,0,Global Positioning System (GPS) Longitude II
+023,1,GPS Longitude
+023,2,GPS Longitude,Degrees
+023,3,GPS Longitude,Minutes
+023,4,GPS Longitude,Seconds
+;
+022,0,Global Positioning System (GPS) Latitude II
+022,1,GPS Latitude
+022,2,GPS Latitude,Degrees
+022,3,GPS Latitude,Minutes
+022,4,GPS Latitude,Seconds
+;
+025,0,Global Positioning System (GPS) Altitude II
+025,1,GPS Altitude
+025,2,GPS Altitude
+;
+026,0,Global Positioning System (GPS) Date
+026,1,GPS Date
+026,2,GPS Date,Day
+026,3,GPS Date,Month
+026,4,GPS Date,Year
+;
+027,0,Global Positioning System (GPS) Time
+027,1,GPS Time
+027,2,GPS Time,Hours
+027,3,GPS Time,Minutes
+027,4,GPS Time,Seconds
+;
+028,0,Global Positioning System (GPS) Direction / Dilution of Precision
+028,1,GPS Direction
+028,2,GPS Direction
+028,3,GPS Dilution,of Precision
+028,4,GPS Dilution,of Precision
+;
+029,0,Speed Signal && GSM Antenna
+029,1,Speed Signal
+029,2,Speed Signal,Status,Range: 0.0...52.0
+029,3,GSM Antenna
+029,4,GSM Antenna,Status,Range: OK/Short Circuit/Open Circuit
+;
+030,0,Vehicle && Emergency Battery
+030,1,Vehicle Battery
+030,2,Vehicle Battery,Voltage,Range: 0.0...20.0 V
+030,3,Emergency Battery
+030,4,Emergency Battery,Voltage,Range: 0.0...25.0 V
+;
+125,0,CAN-Databus Communication (Infotainment)
+125,1,Instruments,(J285),Range: Instrum. 1/Instrum. 0/Instrum. 1-W\nSpecification: Instrum. 1
+125,2,Steering Wheel,Control Module,Range: St. Wheel 1/St. Wheel 0/St. Wheel 1-W\nSpecification: St. Wheel 1
+125,3,Radio System,,Range: Radio 1/Radio 0/Radio 1-W\nSpecification: Radio 1
+125,4,Navigation System,,Range: Navig. 1/Navig. 0/Navig. 1-W\nSpecification: Navig. 1
+;
+126,0,CAN-Databus Communication (Infotainment)
+126,1,CAN-Databus,Infotainment
+126,2,CAN-Databus,Infotainment,Range: Bus OK/Bus Not OK\nSpecification: Bus OK
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;SW:8E0-035-616-A   HW:8E0-035-616-A ---  Telematics
+;Component:Telematik USA1    , Coding:0002033
+;
+C00,Telephone/Telematics Control Module (J526) Coding
+C01,000?xxx: Model
+C02,2 = Audi A6 (4B)
+C03,000x?xx: Steering Wheel
+C04,0 = Multi-Function Steering Wheel (MFSW) NOT installed
+C05,3 = Multi-Function Steering Wheel (MFSW) & Voice Recognition installed
+C06,000xx?x: Navigation
+C07,0 = Navigation System NOT installed
+C08,3 = Navigation System (Generation 4) installed
+C09,000xxx?: Radio/Sound System
+C10,2 = Radio Generation II w/o Sound System installed
+C11,3 = Radio Generation II with Sound System installed
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+A003,0,Transport/Service Mode
+A003,1,Transport/Service Mode
+A003,2,Status
+A003,5,Transport/Service Mode
+A003,6,The Telematic System is disabled while Transport Mode is active to reduce Battery
+A003,7,Drain while the Vehicle is stored or being transported for a longer Period of Time.
+A003,8, 
+A003,9,0 = Transport/Service Mode OFF
+A003,10,1 = Transport/Service Mode ON
+;
+;A007,0,
+;0
+;A007,1,
+;Test call
+;A007,2,
+;OFF 
+;
+A008,0,Emergency Battery
+A008,1,Emergency Battery
+A008,2,Status
+A008,5,Emergency Battery
+A008,6,Before disconnecting the Vehicle Battery the Emergency Battery needs to be switched-off
+A008,7,and switched back on when reconnecting the Vehicle Battery. After replacing the Emergency
+A008,8,Battery the Telematics Control Module needs to reset the Battery Time Register (i.e. how long
+A008,9,the Emergency Battery had been used/powered with the Vehicle Battery being disconnected/low).
+A008,10, 
+A008,11,0 = Emergency Battery ON
+A008,12,1 = Emergency Battery ON (Time Register Reset)
+A008,13,2 = Emergency Battery OFF
+;
+;A099,0,
+;0
+;A099,1,
+;Test OFF 
+;

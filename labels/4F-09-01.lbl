@@ -1,0 +1,33 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2010-2011 Ross-Tech, LLC
+;
+; Component: Subsystem (#09-01)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 4F-09-01.LBL
+; 1Tx-955-119.CLB (Generation 1)
+; 1Kx-955-119.CLB (Generation 2)
+;
+; created on 10/Jun/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 16/Aug/2011
+;
+; requires VCDS 10.6.4 or newer
+;
+;
+;---------------------------------------------------
+;
+; Wiper Motor (Standard Equipment)
+;
+;---------------------------------------------------
+;
+;
+REDIRECT,1Kx-955-119.CLB,4F?-910-113,SL
+REDIRECT,1Kx-955-119.CLB,4F?-910-113-B,SL
+REDIRECT,1Kx-955-119.CLB,4F?-910-113-C,SL
+REDIRECT,1Kx-955-119.CLB,4F?-910-113-D,SL
+;

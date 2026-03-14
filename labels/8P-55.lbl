@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2009 Ross-Tech, LLC
+;
+; Audi A3 (8P) / Audi TT (8J)
+;
+; Component: J431 - Headlight Range (#55)
+;
+; This file is part of a redirection package,
+; make sure you have all of the following files.
+;
+; 8P-55.LBL
+; 8P0-907-357.LBL
+;
+; created on 23/Oct/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 23/Oct/2009
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,8P0-907-357.LBL,8P3-907-357-???
+;

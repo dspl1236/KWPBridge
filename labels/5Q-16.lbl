@@ -1,0 +1,27 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2012+ Ross-Tech, LLC
+;
+; Audi A3 (8V) / / Seat Leon (5F) / VW Golf/Jetta VII (5G)
+;
+; Component: J527 - Steering Column Electronics (#16)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 5Q-16.LBL
+; 8V-16.LBL
+; 5Q0-953-549.CLB
+;
+; created on 25/Oct/2012 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 06/Sep/2013
+;
+; requires VCDS 12.9.0 or newer
+;
+;
+REDIRECT,5Q0-953-549.CLB,5Q0-953-549-???,HW
+;
+REDIRECT,5Q0-953-549.CLB,5Q0-953-569-???,HW
+;

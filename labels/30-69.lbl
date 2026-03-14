@@ -1,0 +1,27 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2009-2010 Ross-Tech, LLC
+;
+; Audi A3/Cabriolet (8P) / Seat Altea/Toledo (5P) / Seat Leon (1P)
+; Skoda Octavia (1Z) / VW Caddy (2K) / VW Eos (1F) / VW Golf/Jetta (1K)
+; VW Golf Plus (5M) / VW Passat (3C) /  VW Tiguan (5N) / VW Touran (1T)
+;
+; Component: J345 - Trailer Recognition (#69)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 30-69.LBL
+; 5C-69.LBL
+; RETROFIT69.LBL
+;
+; created on 26/May/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 08/Nov/2010
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,RETROFIT69.LBL,30?-???-???-???  ; NON-OE RETROFIT (30/1V2.0)
+;

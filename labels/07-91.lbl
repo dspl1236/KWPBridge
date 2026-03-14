@@ -1,0 +1,70 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2015+ Ross-Tech, LLC
+;
+; Component: J220/J623 - Engine (#01)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 07-01.LBL
+; 07-91.LBL
+; 076-906-022-CEB.CLB  (2.5l CR-TDI @ 88/110 HP - CEB)
+; 076-906-022-CEC.CLB  (2.5l CR-TDI @ 136/163 HP - CEC)
+;
+; created on 02/Sep/2015 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 03/Sep/2015
+;
+; requires VCDS 15.7 or newer
+;
+;
+;074-906-032      ; BJK (2E)
+;074-906-032-A    ; BJL (2E)
+;074-906-032-B    ; BJJ (2E)
+;074-906-032-C    ; BJM (2E)
+;074-906-032-R    ; BJK (2E)
+;074-906-032-S    ; BJK (2E)
+;074-906-032-T    ; BJM (2E)
+;074-906-032-AA   ; BJK (2E)
+;074-906-032-AB   ; BJL (2E)
+;074-906-032-AC   ; BJJ (2E)
+;074-906-032-AD   ; BJM (2E)
+;074-906-032-AE   ; BJJ (2E)
+;074-906-032-AF   ; BJK (2E)
+;074-906-032-AG   ; BJL (2E)
+;074-906-032-AH   ; BJM (2E)
+;074-906-032-AN   ; BJK (2E)
+;074-906-032-AP   ; BJL (2E)
+;074-906-032-AQ   ; BJJ (2E)
+;074-906-032-AR   ; BJK/BJL/BJJ/BJM (2E)
+;074-906-032-AS   ; BJJ (2E)
+;074-906-032-AT   ; BJK (2E)
+;074-906-032-BA   ; BJL (2E)
+;074-906-032-BB   ; BJM (2E)
+;074-906-032-BC   ; BJK (2E/4X4)
+;074-906-032-BD   ; BJL (2E/4X4)
+;074-906-032-BE   ; BJM (2E/4X4)
+;
+;074-997-032      ; BJK (2E)
+;074-997-032-A    ; BJL (2E)
+;074-997-032-B    ; BJJ (2E)
+;074-997-032-C    ; BJM (2E)
+;074-997-032-D    ; BJJ (2E)
+;074-997-032-E    ; BJK (2E)
+;074-997-032-F    ; BJL (2E)
+;074-997-032-G    ; BJM (2E)
+;
+REDIRECT,076-906-022-CEB.CLB,076-906-022-A    ; CEBA (2E)
+REDIRECT,076-906-022-CEB.CLB,076-906-022-C    ; CEBB (2E)
+REDIRECT,076-906-022-CEC.CLB,076-906-022-E    ; CECA (2E)
+REDIRECT,076-906-022-CEC.CLB,076-906-022-G    ; CECB (2E)
+REDIRECT,076-906-022-CEB.CLB,076-906-022-M    ; CEBA (2E)
+REDIRECT,076-906-022-CEB.CLB,076-906-022-N    ; CEBB (2E)
+REDIRECT,076-906-022-CEC.CLB,076-906-022-P    ; CECA (2E)
+REDIRECT,076-906-022-CEC.CLB,076-906-022-Q    ; CECB (2E)
+;
+REDIRECT,076-906-022-CEB.CLB,076-997-022      ; CEBA (2E)
+REDIRECT,076-906-022-CEB.CLB,076-997-022-A    ; CEBB (2E)
+;

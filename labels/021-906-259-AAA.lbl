@@ -1,0 +1,476 @@
+;
+; VCDS Label File
+;
+; Copyright © 2000-2010 Ross-Tech, LLC
+;
+; VW Golf/Jetta (1H) / VW Passat (3A)
+;
+; Component: Engine (#01) - AAA (US OBD-II VR6)
+;
+; P/N: 021-906-259-???
+;
+; includes measuring blocks, coding, login and readiness
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 02-01.LBL
+; 021-906-259-AAA.LBL  (2.8l SR    @ 174 HP - AAA)
+; 021-906-259-AES.LBL  (2.8l SR    @ 140 HP - AES)
+;
+; (supposedly) created by Uwe Ross (Uwe@Ross-Tech.com)
+; updated/enhanced on 01/Jun/2008 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 11/Sept/2025 by Peter Schumacher (Peter@Ross-Tech.com)
+;
+; requires VCDS 25.3.0 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+000,0,Basic Functions
+000,1,Coolant Temperature,Specification: 170...204 (80...108 °C)
+000,2,Engine Load,Specification: 28...58 (1.4 to 2.4 %)
+000,3,Engine Speed,Specification: 65...80 (650...800 RPM)
+000,4,Battery Voltage,Specification: 176...212 (12.0..14.0 V)
+000,5,Throttle Valve Angle,Specification: Idle 0...23 (0.0...10.0 <°)
+000,6,Idle Control,Specification: 112...144 (0.0...10.0 <°)
+000,7,Mass Air Flow Idle Adpt,Specification: 112...144 (5...5 kg/h)
+000,8,Lambda Control,Specification: 90...160 (-5...5%)
+000,9,Lambda Control Idle Adpt,Specification: 241...255 | 0...14 (-10...10%)
+000,10,Lambda Control Partial Adpt,Specification: 118...138 (-7...7%)
+;
+001,0,General Engine Data
+001,1,Engine Speed,,Specification: 650...850 rpm
+001,2,Coolant,Temperature,Specification: 80.0...105.0°C
+001,3,Lambda Control,,Specification: -5.0...+5.0 %
+001,4,Ignition,Timing,Specification: 2.0...15.0 <° (Idle)
+;
+002,0,General Engine Data
+002,1,Engine Speed,,Specification: 650...850 rpm
+002,2,Injection,Timing,Specification: 1.5...4.0 ms
+002,3,Voltage Supply,,Specification: 12.0...15.0 V
+002,4,,[unknown]
+;
+003,0,Engine Load Registration 1
+003,1,Engine Speed,,Specification: 650...850 rpm
+003,2,Intake Air Mass,,Specification: 2.0...4.5 g/s
+003,3,Throttle Drive,Angle Sensor 1
+003,4,Intake Air,Temperature,Specification: -48.0...+110.0 °C
+;
+004,0,Lambda Control (Mixture Adaptation)
+004,1,Lambda Control,,Specification: -5.0...+5.0 %
+004,2,Adaptation (Partial),Bank 1 Sensor 1,Range: -25.0...+25.0 %\nSpecification: -10.0...+10.0 %
+004,3,Adaptation (Idle),Bank 1 Sensor 1,Range: -25.0...+25.0 %\nSpecification: -10.0...+10.0 %
+004,4,Tank venting
+;
+005,0,General Engine Data
+005,1,Engine Speed,,Specification: 650...850 rpm
+005,2,Engine Load
+005,3,Vehicle Speed,,Specification: 0 km/h
+005,4,Load Status,,Display Range: Idle/Partial Throttle/Wide Open Throttle (WOT)/Enrichment/Deceleration
+;
+006,0,General Engine Data
+006,1,Engine Speed,,Specification: 650...850 rpm
+006,2,Intake Air Mass,,Specification: 2.0...4.5 g/s
+; 006,3,
+; 72.9 %,Load,
+; 006,4,,,
+; 001  010,Bin. Bits,
+;
+007,0,General Engine Data
+007,1,Engine Speed,,Specification: 650...850 rpm
+007,2,,
+; 0.00 ms,Time,
+007,3,Coolant,Temperature,Specification: 80.0...105.0°C
+007,4,Intake Air,Temperature,Specification: -48.0...+110.0 °C
+;
+008,0,Signals to ECU
+008,1,Engine Speed,,Specification: 650...850 rpm
+008,2,Drive Range,Status
+008,3,Condition,of A/C system,Display Range: A/C-High / A/C-Low
+008,4,Operating condition,of A/C Compressor,Display Range: Compr.ON/Compr.OFF
+;
+009,0,General Engine Data
+009,1,Engine Speed,,Specification: 650...850 rpm
+009,2,,,
+; 0.00 ms,Time,
+009,3,,,
+; 0.0 /s,Misfires,
+009,4,,,
+; 0.0 /s,Misfires,
+;
+010,0,Ignition 1
+010,1,Engine Speed,,Specification: 650...850 rpm
+010,2,Engine Load,
+010,3,Ignition Timing,From Map
+010,4,Ignition Timing,Actual
+;
+011,0,,General Engine Data
+011,1,Engine Speed,,Specification: 650...850 rpm
+011,2,,,
+;0.00 ms,Time,
+011,3,,,
+;5.2°,T.B. Angle,
+011,4,Ignition,Timing,Specification: 2.0...15.0 <° (Idle)
+;
+012,0,,General Engine Data
+012,1,Engine Speed,,Specification: 650...850 rpm
+012,2,,,
+;0.00 ms,Time,
+012,3,,,
+;0.00 ms,Time,
+012,4,Ignition,Timing,Specification: 2.0...15.0 <° (Idle)
+;
+013,0,,General Engine Data
+013,1,Engine Speed,,Specification: 650...850 rpm
+013,2,,,
+;0.00 ms,Time,
+013,3,,,
+;001  010,Bin. Bits,
+013,4,Ignition,Timing,Specification: 2.0...15.0 <° (Idle)
+;
+014,0,,General Engine Data
+014,1,Engine Speed,,Specification: 650...850 rpm
+014,2,,,
+;0.00 ms,Time,
+014,3,,,
+;72.0 °BTDC,Ign. Timing,
+014,4,Ignition,Timing,Specification: 2.0...15.0 <° (Idle)
+;
+015,0,Engine Load Registration 1
+015,1,Engine Speed,,Specification: 650...850 rpm
+015,2,Engine Load, 
+015,3,Engine Load, 
+015,4,Intake Air Mass,,Specification: 2.0...4.5 g/s
+;
+016,0,Engine Load Registration 2
+016,1,Engine Speed,,Specification: 650...850 rpm
+016,2,,Engine Load,
+016,3,,Engine Load,
+016,4,Load Calc. from,Throttle Angle
+;
+017,0,,
+017,1,Engine Speed,,Specification: 650...850 rpm
+017,2,,,
+;0.00 ms,Time,
+017,3,,,
+;0.00 ms,Time,
+017,4,,,
+;-21.1 %,Lambda,
+;
+018,0,,
+018,1,Engine Speed,,Specification: 650...850 rpm
+018,2,,,
+;0.00 ms,Time,
+018,3,,,
+;0.00 ms,Time,
+018,4,,,
+;-21.1 %,Lambda,
+;
+019,0,,
+019,1,Engine Speed,,Specification: 650...850 rpm
+019,2,,,
+;0.00 ms,Time,
+019,3,,,
+;0.00 ms,Time,
+019,4,,,
+;-21.1 %,Lambda,
+;
+020,0,,
+020,1,Engine Speed,,Specification: 650...850 rpm
+020,2,,,
+;0.00 ms,Time,
+020,3,,,
+;0.00 ms,Time,
+020,4,Intake Air Mass,,Specification: 2.0...4.5 g/s
+;
+021,0,,
+021,1,Engine Speed,,Specification: 650...850 rpm
+021,2,,,
+;0.00 ms,Time,
+021,3,,,
+;0.0 km/h,Speed,
+021,4,,,
+;0.00 ms,Time,
+;
+022,0,,
+022,1,Engine Speed,,Specification: 650...850 rpm
+022,2,,,
+;0.00 ms,Time,
+022,3,,,
+;0.00 ms,Time,
+022,4,Ignition,Timing,Specification: 2.0...15.0 <° (Idle)
+;
+023,0,,
+023,1,Engine Speed,,Specification: 650...850 rpm
+023,2,,,
+;0.00 ms,Time,
+023,3,,,
+;0.00 ms,Time,
+023,4,Ignition,Timing,Specification: 2.0...15.0 <° (Idle)
+;
+024,0,,
+024,1,Engine Speed,,Specification: 650...850 rpm
+024,2,,,
+;0.00 ms,Time,
+024,3,,,
+;0.00 ms,Time,
+024,4,Ignition,Timing,Specification: 2.0...15.0 <° (Idle)
+;
+025,0,Lambda Regulation (before Catalyst)
+025,1,Lambda Control,,Specification: -5.0...+5.0 %
+025,2,Lambda (Partial),Self-Adaptation,Specification: -10...+10 %
+025,3,Lambda (Idle),Self-Adaptation,Specification: -5...+5 %
+025,4,Lambda Sensor,Control,Status (See Label file)
+; 1xxxxxxx - Lambda Sensor heater
+; x1xxxxxx - Not relevant
+; xx1xxxxx - Lambda sensors voltage active
+; xxx1xxxx - A/C system
+; xxxx1xxx - Not relevant
+; xxxxx1xx - Lambda sensors adaptation active
+; xxxxxx1x - Lambda Sensor After Catalytic Coverter ready 
+; xxxxxxx1 - Lambda Sensor Before Catalytic Coverter ready 
+;
+026,0,,
+026,1,Engine Speed,,Specification: 650...850 rpm
+026,2,,,
+;0.0 %,Lambda,
+026,3,,,
+;0.455 V,Voltage,
+026,4,,,
+;0.0 %,Lambda,
+;
+027,0,,
+027,1,Engine Speed,,Specification: 650...850 rpm
+027,2,,,
+;0.0 %,Lambda,
+027,3,,,
+;0.455 V,Voltage,
+027,4,,,
+;0.0 %,Lambda,
+;
+028,0,,
+028,1,Engine Speed,,Specification: 650...850 rpm
+028,2,,,
+;0.0 %,Lambda,
+028,3,,,
+;0.455 V,Voltage,
+028,4,,,
+;0.0 %,Lambda,
+;
+029,0,,
+029,1,Engine Speed,,Specification: 650...850 rpm
+029,2,,,
+;0.0 %,Lambda,
+029,3,,,
+;0.455 V,Voltage,
+029,4,,,
+;0.0 %,Lambda,
+;
+030,0,,
+030,1,Engine Speed,,Specification: 650...850 rpm
+030,2,,,
+;0.00 ms,Time,
+030,3,Coolant,Temperature,Specification: 80.0...105.0°C
+030,4,,,
+;O2-Reg.OFF, ,
+;
+031,0,,
+031,1,Engine Speed,,Specification: 650...850 rpm
+031,2,,,
+;0.00 ms,Time,
+031,3,Coolant,Temperature,Specification: 80.0...105.0°C
+031,4,,,
+;O2-Reg.OFF, ,
+;
+032,0,,
+032,1,Engine Speed,,Specification: 650...850 rpm
+032,2,,,
+;0.00 ms,Time,
+032,3,Coolant,Temperature,Specification: 80.0...105.0°C
+032,4,,,
+;O2-Reg.OFF, ,
+;
+033,0,,
+033,1,Engine Speed,,Specification: 650...850 rpm
+033,2,,,
+;0.00 ms,Time,
+033,3,Coolant,Temperature,Specification: 80.0...105.0°C
+033,4,,,
+;O2-Reg.OFF, ,
+;
+034,0,,
+034,1,Engine Speed,,Specification: 650...850 rpm
+034,2,,,
+;0.00 ms,Time,
+034,3,Coolant,Temperature,Specification: 80.0...105.0°C
+034,4,,,
+;O2-Reg.OFF, ,
+;
+035,0,,
+035,1,Engine Speed,,Specification: 650...850 rpm
+035,2,,,
+;0 /min,RPM,
+035,3,Intake Air Mass,,Specification: 2.0...4.5 g/s
+035,4,,,
+;12.32 g/s,Mass Flow,
+;
+036,0,Idle Control
+036,1,Throttle Drive,Angle Sensor 1
+036,2,Mass Air Flow,Idle Adaptation
+036,3,Mass Air Flow,Driving Adaptation
+036,4,[Empty],
+;
+037,0,Idle Control
+037,1,Engine Speed,,Specification: 650...850 rpm
+037,2,,Specification
+037,3,Idle Control,
+037,4,Intake Air Mass,,Specification: 2.0...4.5 g/s
+;
+045,0,Knock Control (Cyl 1-4) 
+045,1,Ign. Angle Cor., Cylinder 1
+045,2,Ign. Angle Cor., Cylinder 2
+045,3,Ign. Angle Cor., Cylinder 3
+045,4,Ign. Angle Cor., Cylinder 4
+;
+046,0,Knock Control (Cyl 5-6) 
+046,1,Ign. Angle Cor., Cylinder 5
+046,2,Ign. Angle Cor., Cylinder 6
+046,3,[empty]
+046,4,[empty]
+;
+047,0,Knock Sensor [Undocumented]
+047,1,,Cylinder 1
+047,2,,Cylinder 2
+047,3,,Cylinder 3
+047,4,,Cylinder 4
+;
+048,0,Knock Sensor [Undocumented]
+048,1,,Cylinder 5
+048,2,,Cylinder 6
+048,3,[empty]
+048,4,[empty]
+;
+098,0,Throttle Control Basic Setting
+098,1,Throttle Drive,Angle Sensor 1,Range: 0.0 ... 5.0 Volts
+098,2,Throttle Drive,Angle Sensor 2,Range: 0.0 ... 5.0 Volts
+098,3,Load Status,,Display Range: Idle/Partial Throttle/Wide Open Throttle (WOT)/Enrichment/Deceleration
+098,4,Basic Setting,Status,Range: ADP runs / ADP OK / ERROR
+;
+103,0,[Undocumented]
+103,1,Engine Speed,,Specification: 650...850 rpm
+103,2,,Coolant
+103,3,CAT Temp,(Calculated)
+103,4,,Status
+;
+110,0,Misfire Detection 1
+110,1,Engine Load,
+110,2,Misf. Count, Imp. Exh. Gas
+110,3,Misf. Count, Impair Cat
+110,4,Misf. Det.,Status
+;
+115,0,Lambda Sensor Before CAT (B1-S1)
+115,1,Coolant,Tempertaure
+115,2,Exh. Gas Temp,(Calculated)
+115,3,,Lambda Sensor
+115,4,,Control,Status (See Label file)
+; xxxxxxx1 = No Diagnostic Trouble Codes (DTCs) detected by On Board Diagnostic (OBD)
+; xxxxxx1x = Malfunction detected by On Board Diagnostic (OBD)
+; xxxxx1xx = Diagnosis complete during current drive cycle
+; xxxx1xxx = Diagnosis is active
+; xxx1xxxx = Lambda Sensor before Catalytic Coverter active
+; xx1xxxxx = Lambda Sensor before Catalytic Coverter ready
+; x1xxxxxx = Lambda Sensors not upto operating tempature
+; 1xxxxxxx = Lambda Sensor Heating Active before Catalytic Coverter
+;
+116,0,Lambda Sensor Behind CAT (B1-S2)
+116,1,Regulation,Time
+116,2,Exh. Gas Temp,(Calculated)
+116,3,,Lambda Sensor
+116,,Control Status
+;
+120,0,Lambda Sensor Heating Before CAT (B1-S1) 
+120,1,Exh. Gas Temp,(Calculated)
+120,2,Lambda Sensor Time to Start,After Heater ON
+120,3,,Lambda Sensor Resistance
+120,4,,Control Status 
+;
+121,0,Lambda Sensor Heating Behind CAT (B1-S2) 
+121,1,CAT Temp,(Calculated)
+121,2,Time to Start,After Heater ON
+121,3,,Sensor Resistance
+121,4,,Control Status 
+;
+125,0,[Undocumented]
+125,1,Engine Speed,,Specification: 650...850 rpm
+125,2,Lambda Sensor,Adaptation
+125,3,Lambda Sensor,Control
+125,4,,Status
+;
+130,0,Lambda Sensor Ageing Before CAT (B1-S1) 
+130,1,Engine Speed,,Specification: 650...850 rpm
+130,2,Cycle Time,(Frequency)
+130,3,Valid Cycles,Counted
+130,4,,Control Status
+;
+131,0,Lambda Sensor Ageing Behind CAT (B1-S2)
+131,1,Engine Speed,,Specification: 650...850 rpm
+131,2,,Lambda Sensor
+132,3,Extended Signal,Frequency
+131,4,,Control Status
+;
+136,0,[Undocumented]
+136,1,Engine Speed,,Specification: 650...850 rpm
+136,2,CAT Temp,(calculated)
+136,3,Cat Efficiency,
+136,4,,Status
+;
+140,0,[Undocumented -- Throttle Control]
+;
+141,0,[Undocumented -- Throttle Control]
+;
+142,0,[Undocumented -- Throttle Control]
+142,1,Throttle,Position
+142,2,T.P.,Minumim
+142,3,T.P.,Maximum
+142,4,,Status
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Engine Control Module (J220) Coding
+C01,00000 = Manual Transmission
+C02,00001 = Automatic Transmission
+;
+;
+;---------------------------------------------------
+;
+; security access
+;
+;---------------------------------------------------
+;
+;
+L00,Engine Control Module (J220) Login
+L01,01283 = Coding Enabling
+;
+;
+;---------------------------------------------------
+;
+; readiness
+;
+;---------------------------------------------------
+;
+;
+O,021-906-259-AAA
+;

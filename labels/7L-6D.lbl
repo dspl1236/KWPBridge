@@ -1,0 +1,23 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2015+ Ross-Tech, LLC
+;
+; Component: J605 - Rear Lid (#6D)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 7L-6D.LBL
+; 7L6-959-107.CLB
+;
+; created on 14/Mar/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 14/Mar/2014
+;
+; requires VCDS 14.10.0 or newer
+;
+;
+REDIRECT,7L6-959-107.CLB,7L5-959-107-???     ; 9PA
+REDIRECT,7L6-959-107.CLB,7L6-959-107-???     ; 7L6
+;

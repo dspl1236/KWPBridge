@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2012+ Ross-Tech, LLC
+;
+; VW Passat (A4)
+;
+; Component: J234 - Airbag (#15)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 56-15.LBL
+; 5K0-959-655.CLB
+;
+; created on 25/Sep/2012 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 25/Sep/2012
+;
+; requires VCDS 11.11.0 or newer
+;
+;
+REDIRECT,5K0-959-655.CLB,56D-959-655-???
+;

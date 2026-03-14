@@ -1,0 +1,31 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2005-2011 Ross-Tech, LLC
+;
+; Skoda Octavia (1Z)
+;
+; Component: Radio-/Navigation (#37) - Navigation
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1Z-37.LBL
+; 1Z-56.LBL
+; 1T0-919-887.LBL
+; 1T0-035-680.LBL
+;
+; created on 27/Mar/2005 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 18/Aug/2011
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,1T0-919-887.LBL,1Z0-035-191-??? ; Nexus (MFD2-CD)
+;
+REDIRECT,1T0-919-887.LBL,1Z0-919-887-??? ; Nexus (MFD2-CD)
+;
+REDIRECT,1T0-035-680.LBL,1Z0-035-680-??? ; Columbus (RNS510)
+REDIRECT,1T0-035-680.LBL,1Z0-035-682-??? ; Columbus (RNS510)
+;

@@ -1,0 +1,128 @@
+;
+; VCDS Label File
+;
+; Copyright © 2011 Ross-Tech, LLC
+;
+; VW Transporter (7H/7J)
+;
+; Component: J446 - Parking Aid (#76) - 8-Channel
+;
+; P/N: 7E0-919-283-???
+;
+; includes measuring blocks, adaptation and coding
+;
+; created on 17/Mar/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 17/Mar/2011
+;
+; requires VCDS 10.6.3 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,Distance (Front)
+001,1,Front Left (G255),Sensor,Range: 0...255 cm\n\n255 cm = No Obstacle recognized
+001,2,Front Left (G254),Center Sensor,Range: 0...255 cm\n\n255 cm = No Obstacle recognized
+001,3,Front Right (G253),Center Sensor,Range: 0...255 cm\n\n255 cm = No Obstacle recognized
+001,4,Front Right (G252),Sensor,Range: 0...255 cm\n\n255 cm = No Obstacle recognized
+;
+002,0,Distance (Rear)
+002,1,Rear Left (G203),Sensor,Range: 0...255 cm\n\n255 cm = No Obstacle recognized
+002,2,Rear Left (G204),Center Sensor,Range: 0...255 cm\n\n255 cm = No Obstacle recognized
+002,3,Rear Right (G205),Center Sensor,Range: 0...255 cm\n\n255 cm = No Obstacle recognized
+002,4,Rear Right (G206),Sensor,Range: 0...255 cm\n\n255 cm = No Obstacle recognized
+;
+003,1,Resulting,Distance Front,Range: 0...255 cm\n\n255 cm = No Obstacle recognized
+003,2,Resulting,Distance Rear,Range: 0...255 cm\n\n255 cm = No Obstacle recognized
+003,3,Vehicle Speed,,Range: 0.0...255.0 km/h
+003,4,Supply Voltage,(Terminal 30),Range: 0.0...20.0 V\nSpecification: 8.7...16.7 V
+;
+004,1,Confirm. Sound,(Reverse Gear),Range: Sound ON/Sound OFF
+004,2,Reverese Gear,engaged,Range: Reverse: Yes/Reverse: No
+004,3,Trailer hitched,,Range: YES/NO/Not Installed
+004,4,Rear Lid,Status,Range: Tailg.close/Tailg.open
+;
+005,1,Parking Aid (K136),Indicator Lamp,Range: LED ON/LED OFF
+005,2,Parking Aid,Button (E266),Display Range: ON/OFF/Not Oper./Not Installed
+;
+006,0,Oscillation Time (Front)
+006,1,Front Left (G255),Sensor
+006,2,Front Left (G254),Center Sensor
+006,3,Front Right (G253),Center Sensor
+006,4,Front Right (G252),Sensor
+;
+007,0,Oscillation Time (Rear)
+007,1,Rear Left (G203),Sensor
+007,2,Rear Left (G204),Center Sensor
+007,3,Rear Right (G205),Center Sensor
+007,4,Rear Right (G206),Sensor
+;
+080,0,Advanced Control Module Identification I
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Parking Aid (J446) Coding
+C01,?xxxx: Trailer Hitch
+C02,0 = Trailer Hitch not installed
+C03,1 = Trailer Hitch installed
+C04,x?xxx: Transmission
+C05,0 = Manual Transmission
+C06,1 = Automatic Transmission
+C07,xx?xx: Confirmation Sound (for Reverse Gear)
+C08,0 = Confirmation Sound inactive
+C09,1 = Confirmation Sound active
+C10,xxx?x: Chassis
+C11,2 = Transporter/Multivan
+C12,xxxx?: Model
+C13,7 = VW Transporter/Multivan (7H)
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+A01,0,Rear Buzzer Volume
+A01,5,Rear Buzzer Volume
+A01,6,Adaptation of the Volume for the Rear Warning Buzzer.
+A01,7,Changes can be checked with the Reverse Gear engaged.
+A01,8, 
+A01,9,Range: 1...7
+;
+A02,0,Rear Buzzer Frequency
+A02,5,Rear Buzzer Frequency
+A02,6,Adaptation of the Frequency for the Rear Warning Buzzer.
+A02,7,Changes can be checked with the Reverse Gear engaged.
+A02,8, 
+A02,9,Range:
+A02,10,0 = 500 Hz / 1 = 660 Hz / 2 = 800 Hz
+A02,11,3 = 1000 Hz / 4 = 2000 Hz
+;
+A03,0,Front Buzzer Volume
+A03,5,Front Buzzer Volume
+A03,6,Adaptation of the Volume for the Front Warning Buzzer.
+A03,7,Changes can be checked with the Reverse Gear engaged.
+A03,8, 
+A03,9,Range: 1...7
+;
+A04,0,Front Buzzer Frequency
+A04,5,Front Buzzer Frequency
+A04,6,Adaptation of the Frequency for the Front Warning Buzzer.
+A04,7,Changes can be checked with the Reverse Gear engaged.
+A04,8, 
+A04,9,Range:
+A04,10,0 = 500 Hz / 1 = 660 Hz / 2 = 800 Hz
+A04,11,3 = 1000 Hz / 4 = 2000 Hz
+;

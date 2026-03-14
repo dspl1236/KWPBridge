@@ -1,0 +1,27 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011 Ross-Tech, LLC
+;
+; Audi A3/Cabriolet (8P) / Seat Altea/Toledo (5P) / Seat Leon (1P)
+; Skoda Octavia (1Z) / VW Caddy (2K) / VW Eos (1F) / VW Golf/Jetta (1K)
+; VW Golf Plus (5M) / VW Passat (3C) /  VW Tiguan (5N) / VW Touran (1T)
+;
+; Component: Telephone (#77) NON-OE RETROFIT
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; KT-77.LBL
+; RETROFIT77.LBL
+;
+; created on 23/May/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 02/Sep/2011
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,RETROFIT77.LBL,KTC-364-31P-??? ; NON-OE RETROFIT
+REDIRECT,RETROFIT77.LBL,KTC-364-96P-??? ; NON-OE RETROFIT
+;

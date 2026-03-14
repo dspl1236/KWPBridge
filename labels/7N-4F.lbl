@@ -1,0 +1,21 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011 Ross-Tech, LLC
+;
+; Component: J520 - Central Electronic 2 (#4F)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 7N-4F.LBL
+; 1K0-907-532.CLB
+;
+; created on 26/Jul/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 26/Jul/2011
+;
+; requires VCDS 11.3.0 or newer
+;
+REDIRECT,1K0-907-532.CLB,7N0-907-532-???
+;

@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2012+ Ross-Tech, LLC
+;
+; VW Touareg (7P)
+;
+; Component: Sound System (#47)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 7P-47.LBL
+; 8T0-035-223-BOM.LBL (Bang & Olufsen Sound System/High End MOST - PR-9VK)
+;
+; created on 22/Jul/2012 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 22/Jul/2012
+;
+; requires VCDS 11.11.4 or newer
+;
+;
+REDIRECT,8T0-035-223-BOM.LBL,7P6-035-466      ; Bang & Olufsen (MOST @ 0090)
+;

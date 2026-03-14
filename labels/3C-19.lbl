@@ -1,0 +1,39 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2012+ Ross-Tech, LLC
+;
+; Component: J533 - Diagnostic Interface for Databus (#19)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3C-19.LBL
+; 3C0-907-530-V1.CLB
+; 3C0-907-530-V2.CLB
+; 3C0-907-530-V3.CLB
+;
+; created on 29/May/2012 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 30/May/2012
+;
+; requires VCDS 11.11.3 or newer
+;
+;
+REDIRECT,3C0-907-530-V1.CLB,3C0-907-530     ; (7 Byte)
+REDIRECT,3C0-907-530-V1.CLB,3C0-907-530-A   ; (7 Byte)
+REDIRECT,3C0-907-530-V1.CLB,3C0-907-530-B   ; (7 Byte)
+REDIRECT,3C0-907-530-V1.CLB,3C0-907-530-C   ; (7 Byte)
+REDIRECT,3C0-907-530-V2.CLB,3C0-907-530-D   ; (9 Byte)
+REDIRECT,3C0-907-530-V2.CLB,3C0-907-530-E   ; (9 Byte)
+REDIRECT,3C0-907-530-V2.CLB,3C0-907-530-F   ; (9 Byte)
+REDIRECT,3C0-907-530-V2.CLB,3C0-907-530-G   ; (9 Byte)
+REDIRECT,3C0-907-530-V2.CLB,3C0-907-530-H   ; (9 Byte)
+REDIRECT,3C0-907-530-V3.CLB,3C0-907-530-J   ; (10 Byte)
+REDIRECT,3C0-907-530-V3.CLB,3C0-907-530-K   ; (10 Byte)
+REDIRECT,3C0-907-530-V3.CLB,3C0-907-530-L   ; (10 Byte)
+REDIRECT,3C0-907-530-V3.CLB,3C0-907-530-M   ; (10 Byte)
+REDIRECT,3C0-907-530-V3.CLB,3C0-907-530-N   ; (10 Byte)
+REDIRECT,3C0-907-530-V3.CLB,3C0-907-530-P   ; (10 Byte)
+REDIRECT,3C0-907-530-V3.CLB,3C0-907-530-Q   ; (10 Byte)
+;

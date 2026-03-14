@@ -1,0 +1,25 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2010 Ross-Tech, LLC
+;
+; Audi A3 (8P) / Audi TT (8J)
+;
+; Component: R199 - Media Player (#0E/#1E/#2E)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8P-2E.LBL
+; 4E0-035-785.LBL - Audi Music Interface (AMI) MOST
+; 8T0-035-785.CLB - Audi Music Interface (AMI) CAN
+;
+; created on 08/Nov/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 08/Nov/2010
+;
+; requires VCDS 10.6.1 or newer
+;
+;
+REDIRECT,8T0-035-785.CLB,8P0-035-785-???
+;

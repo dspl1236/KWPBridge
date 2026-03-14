@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2013+ Ross-Tech, LLC
+;
+; Component: J386 - Driver's Door Electronics (#42)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 35-42.LBL
+; 3C0-959-70X-GEN4.CLB
+;
+; created on 14/Nov/2013 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 14/Nov/2013
+;
+; requires VCDS 12.12.0 or newer
+;
+;
+REDIRECT,3C0-959-70X-GEN4.CLB,35D-959-701     ; GEN4
+;

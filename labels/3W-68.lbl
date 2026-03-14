@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011 Ross-Tech, LLC
+;
+; VW Bentley Continental (3W)
+;
+; Component: J400 - Wiper Motor (#68)
+;
+; This file is part of a label file package,
+; make sure you have both of the following files.
+;
+; 3W-68.lbl
+; 3Wx-955-023.lbl
+;
+; created on 11/Oct/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 11/Oct/2011
+;
+; requires VCDS 10.6.4 or newer
+;
+;
+REDIRECT,3Wx-955-023.CLB,3W?-955-023-???
+;

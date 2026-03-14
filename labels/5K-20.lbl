@@ -1,0 +1,26 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011 Ross-Tech, LLC
+;
+; VW Golf (5K)
+;
+; Component: J844 - High Beam Assist (#20)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 5K-20.LBL
+; 8K0-857-511.CLB
+;
+; created on 17/Feb/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 09/Aug/2011
+;
+; requires VCDS 10.6.3 or newer
+;
+;
+REDIRECT,8K0-857-511.CLB,5K0-857-511-???
+;
+REDIRECT,8K0-857-511.CLB,5K7-857-511-???
+;

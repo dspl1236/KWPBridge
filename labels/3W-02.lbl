@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011+ Ross-Tech, LLC
+;
+; Component: J217 - Transmission (#02) - 0CM/0CU
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3W-02.CLB
+; 0CM-325-025.CLB
+;
+; created on 19/Mar/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 19/Mar/2014
+;
+; requires VCDS 12.12.2 or newer
+;
+;
+REDIRECT,0CM-325-025.CLB,0CU-927-760-???,HW
+;

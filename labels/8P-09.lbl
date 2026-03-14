@@ -1,0 +1,80 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2006-2009 Ross-Tech, LLC
+;
+; Component: J519 - Central Electronics I (#09)
+;
+; This file is part of a redirection package,
+; make sure you have all of the following files.
+;
+; 8P-09.LBL
+; 8P0-907-063.CLB       (MY 2010 >>        )
+; 8P0-907-279-23-B.LBL  (        >> MY 2009 - Basis   - Supports NO Fogs or Xenons)
+; 8P0-907-279-23-H.LBL  (        >> MY 2009 - Highend - Supports Fogs and/or Xenons)
+; 8P0-907-279-30-B.LBL  (        >> MY 2009 - Basis   - Supports NO Fogs or Xenons)
+; 8P0-907-279-30-H.LBL  (        >> MY 2009 - Highend - Supports Fogs and/or Xenons)
+;
+; PR-5D1         = 433 Mhz
+; PR-5D2/5D3/5D4 = 315 Mhz
+; PR-VC0         = Garage Door Opener not installed
+; PR-VC1/VC2      = Garage Door Opener installed
+;
+; created on 24/Nov/2006 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 13/Oct/2011
+;
+; requires VCDS 805.0 or newer
+;
+;
+;---------------------------------------------------
+;
+; MY 2010 >>
+;
+;---------------------------------------------------
+;
+; X>F>M / A>G>N / B>H>R / C>J>P / D>K>Q / E>L>S
+; 
+;8P0-907-063     ; ??? (PR-5D1, VC0) SW 0563/0575
+;8P0-907-063-A   ; Medium (PR-5D1, VC1/VC2) SW 0539/0541/0563/0573/0575
+;8P0-907-063-B   ; Highend (PR-5D1) SW 0541/0563/0575
+;8P0-907-063-C   ; ??? (PR-5D2/5D3/5D4, VC0) SW /0563/0575
+;8P0-907-063-D   ; Medium (PR-5D2/5D3/5D4, VC1/VC2) SW 0539/0563/0573/0575
+;8P0-907-063-E   ; Highend (PR-5D2/5D3/5D4) SW 0541/0563/0573/0575
+;8P0-907-063-F   ; ??? SW 0615
+;8P0-907-063-G   ; Medium (PR-5D1, VC1/VC2) SW 0615
+;8P0-907-063-H   ; Highend (PR-5D1) SW 0615
+;8P0-907-063-J   ; ??? (PR-5D2/5D3/5D4, VC0) SW 0615
+;8P0-907-063-K   ; Medium (PR-5D2/5D3/5D4, VC1/VC2) SW 0615
+;8P0-907-063-L   ; Highend (PR-5D2/5D3/5D4) SW 0615
+;8P0-907-063-M   ; ??? () SW ????
+;8P0-907-063-N   ; Medium (PR-5D1, VC1/VC2) SW 0653
+;8P0-907-063-P   ; ??? (PR-5D2/5D3/5D4, VC0) SW ????
+;8P0-907-063-Q   ; Medium (PR-5D2/5D3/5D4, VC1/VC2) SW ????
+;8P0-907-063-R   ; Highend (PR-5D1) SW 0665
+;8P0-907-063-S   ; Highend (PR-5D2/5D3/5D4) SW 0665
+;
+;
+;---------------------------------------------------
+;
+; >> MY 2009
+;
+;---------------------------------------------------
+;
+;
+REDIRECT,8P0-907-279-23-B.LBL,8P0-907-279     ; 17 Byte (Basis)
+REDIRECT,8P0-907-279-23-H.LBL,8P0-907-279-A   ; 17 Byte (Highend)
+REDIRECT,8P0-907-279-23-B.LBL,8P0-907-279-B   ; 21 Byte (Basis)
+REDIRECT,8P0-907-279-23-H.LBL,8P0-907-279-C   ; 21 Byte (Highend)
+REDIRECT,8P0-907-279-23-H.LBL,8P0-907-279-D   ; 17 Byte (Highend)
+REDIRECT,8P0-907-279-23-B.LBL,8P0-907-279-E   ; 23 Byte (Basis)
+REDIRECT,8P0-907-279-23-H.LBL,8P0-907-279-F   ; 23 Byte (Highend)
+REDIRECT,8P0-907-279-23-H.LBL,8P0-907-279-H   ; 24 Byte (Highend)
+REDIRECT,8P0-907-279-30-B.LBL,8P0-907-279-J   ; 30 Byte (Basis)
+REDIRECT,8P0-907-279-30-H.LBL,8P0-907-279-K   ; 30 Byte (Highend)
+REDIRECT,8P0-907-279-30-H.LBL,8P0-907-279-L   ; 30 Byte (Highend)
+;8P0-907-279-M   ; ?? Byte (???)
+REDIRECT,8P0-907-279-30-H.LBL,8P0-907-279-N   ; 30 Byte (Highend)
+REDIRECT,8P0-907-279-30-H.LBL,8P0-907-279-P   ; 30 Byte (Highend)
+;8P0-907-279-Q   ; ?? Byte (???)
+;

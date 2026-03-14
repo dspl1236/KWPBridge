@@ -1,0 +1,77 @@
+;
+; VCDS Label File
+;
+; Copyright © 2010 Ross-Tech, LLC
+;
+; Audi R8 (42)
+;
+; Component: J525 - Sound System (#47)
+;
+; P/N: 420-035-223-???
+;
+; includes measuring blocks and coding
+;
+; created on 24/Apr/2010 by Sebastian Stange (sebastian@ross-tech.com)
+;
+; last modification on 24/Apr/2010
+;
+; requires VCDS 908.0 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,Allgemein
+001,1,Voltage,(Terminal 30),Specification: 9.0...15.0 V
+001,2,Spannungs-,klemmen,x000xxx1 = Terminal S aktive\nx000xx1x = Terminal 15 aktive\nx000x1xx = Terminal X aktive\nx0001xxx = Terminal 50 aktive\n1000xxxx = Status invalid
+;
+002,0,System Status
+002,1,Temperature,Analog Circuit
+002,2,Temperature,Digital Circuit
+002,3,Cooling Fan,Speed
+002,4,Activation Input,,000 = Signal OFF\n001 = Signal ON
+;
+003,0,System Status
+003,1,Microphone,Input Voltage
+003,2,Vehicle Speed
+;
+080,0,Advanced Control Module Identification I
+;
+081,0,Advanced Control Module Identification II
+081,1,Serial Number
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Sound System (J525) Coding
+C01,00?xxxx: Noise Cancellation
+C02,1 = Noise Cancellation inactive
+C03,2 = Noise Cancellation via GALA from Radio (Sound System Standard)
+C03,3 = Noise Cancellation via CAN
+C04,4 = Noise Cancellation via Microphone/Amplifier (Sound System Premium)
+C05,00x?xxx: Volume Adjustment
+C06,0 = Volume Adjustment inactive
+C07,1 = Volume Increase by 1dB / 2 = Volume Increase by 2dB
+C08,3 = Volume Increase by 3dB / 4 = Volume Increase by 4dB
+C09,5 = Volume Increase by 5dB / 6 = Volume Increase by 6dB (Standard)
+C10,7 = Volume Reduction by 1dB / 8 = Volume Reduction by 2dB
+C11,9 = Volume Reduction by 3dB
+C12,00xx?xx: Activation
+C13,1 = Activation via Signal Wire (Standard)
+C14,2 = Activation via (Audio Source) Signal Level
+C15,00xxx?x: Vehicle Type
+C16,1 = Audi R8 (423) Coupé
+;2 = Audi R8 (42) Roadster
+C17,00xxxx?: Options
+C18,1 = Left-Hand-Drive (LHD)
+C19,2 = Right-Hand-Drive (RHD)
+;

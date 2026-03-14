@@ -1,0 +1,104 @@
+;
+; VCDS Label File
+;
+; Copyright © 2009+ Ross-Tech, LLC
+;
+; VW Eos (1F) / VW Golf/Jetta (1K) / VW Passat (35/3C) / VW Touareg (7L) / VW Touran (1T)
+;
+; Component: J650 - Multimedia System (#2E)
+;
+; P/N: 5N0-035-342-??? / 6J0-035-342-???
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 6J-2E.LBL
+; 5N0-035-342.LBL
+;
+; includes measuring blocks, long coding, adaptation, and selective output test
+;
+; created on 01/Nov/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 02/Jan/2013
+;
+; requires VCDS 805.0 / LCode 910.0 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,General
+001,1,Voltage,Terminal 30,Range: 0.0...20.0 V\nSpecification: 9.0...15.0 V
+001,2,Status,S-Contact,Range: ON/OFF
+001,3,Status,Terminal 15,Range: ON/OFF
+;
+002,0,Driver
+002,1,Driver,(actual),,00000000 xxxxxxx1 = AUX-IN (3.5mm Connector-Driver active)\n00000000 xxxxxx1x = DAP UART (iPod-Driver active)\n00000000 xxxxx1xx = DAP USB-MSC (USB-Driver active)
+;
+003,0,Adapter Cable
+003,1,Adapter Cable,(actual),00000000 xxxxxxx1 = Adapter Cable not connected\n00000000 xxxxxx1x = AUX-IN (3.5mm Adapter connected)\n00000000 xxxxx1xx = DAP UART (iPod-Adapter connected)\n00000000 xxxx1xxx = DAP USB-MC (USB-Adapter connected)
+;
+004,0,Codec
+004,1,Codec,(actual),00000000 00xxxxx1 = No Codec active\n00000000 00xxxx1x = MP3\n00000000 00xxx1xx = MP3-Pro\n00000000 00xx1xxx = WMA\n00000000 00x1xxxx = OGG\n00000000 001xxxxx = AAC
+;
+005,0,Power Supply for external Devices
+005,1,Power Supply,Status
+005,2,Power Supply,Voltage,Range: 0.0..25.5 V\nStandard: ~5.0 V
+;
+006,0,Analoger Input (AUX-IN)
+006,1,Analoger Input,(AUX-IN) recognized,Range: recognized/n. recognized
+;
+007,0,ucMedia Software Level
+007,1,ucMedia,Software Level
+;
+008,0,External Connection
+008,1,Ext. Connect.,recognized,Range: recognized/n. recognized
+;
+;
+;---------------------------------------------------
+;
+; long coding
+;
+;---------------------------------------------------
+;
+;
+LC,00,0~4,00,Control Module NOT coded
+LC,00,0~4,01,Analoger Input (AUX-IN) istalled
+LC,00,0~4,02,Analoger Input (AUX-IN) NOT installed
+LC,00,0~4,03,Analoger Input (AUX-IN) AND Rear-Seat-Entertainment (RSE) installed
+;
+LC,01,0~4,00,Codepage: Standard (not changeable)
+LC,01,0~4,01,Codepage: Latin
+LC,01,0~4,02,Codepage: Chinese
+LC,01,0~4,03,Codepage: Changeable (VW Phaeton (3D) only)
+; Reversible only for VW Phaeton (3D) via ZAB
+;
+;
+;---------------------------------------------------
+;
+; selective output test
+;
+;---------------------------------------------------
+;
+;
+T3376,Activation Left Audio Channel
+T3377,Activation Right Audio Channel
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+;A016,0,
+;1
+;
+;A017,0,
+;1
+;

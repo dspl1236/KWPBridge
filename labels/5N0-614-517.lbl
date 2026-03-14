@@ -1,0 +1,303 @@
+;
+; VCDS Label File
+;
+; Copyright © 2008-2010 Ross-Tech, LLC
+;
+; VW Tiguan (5N)
+;
+; Component: J104 - Brake Electronics (#03) - TRW 450
+;
+; P/N: 5N0-614-517-???
+;
+; includes measuring blocks, basic setting, coding, adaptation 
+;          and security access
+;
+; created on 18/Jul/2008 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 27/Jun/2010
+;
+; requires VCDS 805.0 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks & basic setting
+;
+;---------------------------------------------------
+;
+;
+001,0,Current Wheel Speed
+001,1,Speed Sensor,Front Left (G47),Range: 0.0...255.0 km/h
+001,2,Speed Sensor,Front Right (G45),Range: 0.0...255.0 km/h
+001,3,Speed Sensor,Rear Left (G46),Range: 0.0...255.0 km/h
+001,4,Speed Sensor,Rear Right (G44),Range: 0.0...255.0 km/h
+;
+B001,0,Brake System Bleeding
+B001,1,Status, , 
+B001,2, , , 
+B001,3, , , 
+B001,4, , , 
+;
+;002,1,,,
+;       1,Bin. Bits,
+002,2,All-Wheel-Drive,Status
+;   000100,Bin. Bits,
+;002,3,,,
+;0x0080,Hex Value,
+;
+003,0,Switches and Warning Lights
+003,1,Clutch (F36),& Interlock (N110),1x = Clutch Pedal Switch operated\nx1 = Interlock Switch active (P/N)
+003,2,Brake System,Warning L. (K118)
+003,3,ABS,Warning L. (K47)
+003,4,ASR/ESP,Warning L. (K155)
+;
+004,0,Steering Angle / Lateral Acceleration / Rotation Rate
+004,1,Steering Angle,Sensor (G85),Range: -720.0...+720.0 °\nTolerance (when straight): ±2.5 °
+004,2,Lateral Acc.,Sensor (G200),Specification (Standing): ± 1.5 m/s²
+004,3,Rotation Rate,Sensor (G202),Range: -69.0...+69.0 °/s\nSpecification: ± 1.5 °/s
+004,4,Longitudinal,Acc. Sensor (G251),Specification: ± 1.5 m/s²
+;
+005,0,Brake Pressure && Steering Angle Sensor Status
+005,1,Brake Pressure,Sensor (G201),Specification: ± 3.0 bar
+005,2,Steering Angle,Sensor (G85) Status,Range: Initialised/N. Initialised/Implausible
+005,3,ASR/ESP-Button,(E256),Range: ON/OFF
+005,4,Brake Light,Switch (F)
+;
+006,0,Voltage Supply
+006,1,Voltage,Terminal 15
+006,2,Voltage,Term.30 (Valves),Range: 0.0...20.5 V
+006,3,Voltage,Term.30 (Logic),Range: 0.0...20.5 V
+006,4,Voltage,Pump Motor,Range: 0.0...20.5 V
+;
+007,1,EDS Shut-Off,(Overtemp.),1xxx = Front Left\nx1xx = Front Right\nxx1x = Rear Left\nxxx1 = Rear Right
+;007,2,,,
+;40.0°C,Temperature,
+;
+008,0,Adaptation Status
+008,1,Adaptation,Überlastbetrieb
+;008,2,
+;0,Count,
+008,3,Adaptation,Vacuum Level
+;
+009,1,Vacuum Reserv.,Pressure
+009,2,Brake Pressure,Sensor (G201),Specification: ± 3.0 bar
+009,3,Vacuum Level,Control
+;009,4,,,
+;not installed, ,
+;
+010,1,Trailer,Stabilization
+010,2,Input,Signals,1xx = Wipers ON\nx1x = Drivers Door OPEN\nxx1 = Reverse Gear ENGAGED
+;
+011,0,Speed Encoder Errors (Front Left)
+011,1,Encoder Errors,(G47) Minimum
+011,2,Encoder Errors,(G47) Maximum
+011,3,Encoder Errors,(G47) Average
+;
+012,0,Speed Encoder Errors (Front Right)
+012,1,Encoder Errors,(G45) Minimum
+012,2,Encoder Errors,(G45) Maximum
+012,3,Encoder Errors,(G45) Average
+;
+013,0,Speed Encoder Errors (Rear Left)
+013,1,Encoder Errors,(G46) Minimum
+013,2,Encoder Errors,(G46) Maximum
+013,3,Encoder Errors,(G46) Average
+;
+014,0,Speed Encoder Errors (Rear Right)
+014,1,Encoder Errors,(G44) Minimum
+014,2,Encoder Errors,(G44) Maximum
+014,3,Encoder Errors,(G44) Average
+;
+015,1,Hill Descend,Assist Status,0 = inactive\n1 = active (> 15% Downhill Grade)
+015,2,Hill Descend,Assist Lamp,Range: ON/OFF
+;015,3,,,
+;Not Active, ,
+;15,4,,,
+;0.0 %,Lambda,
+;
+016,0,Tire Pressure Monitoring (TPMS) I
+016,1,Mileage at,last Warning,Mileage (KM) = Field 1 x 65535 + Field 2
+016,2,Mileage at,last Warning,Mileage (KM) = Field 1 x 65535 + Field 2
+;
+017,0,Tire Pressure Monitoring (TPMS) II
+017,1,Mileage at,last Warning,Mileage (KM) = Field 1 x 65535 + Field 2
+017,2,Mileage at,last Warning,Mileage (KM) = Field 1 x 65535 + Field 2
+;
+018,0,Tire Pressure Monitoring (TPMS) III
+018,1,TPMS-Button,(E492),Range: Operated/Not Oper.
+;
+B040,0,Deactivation of Longitudinal Acceleration Sensor (G251)
+;
+B060,0,Adjustment of Steering Angle Sensor (G85)
+B060,1,Adjustment
+B060,2,Adjustment,Status,Specification: OK
+B060,3,Steering Angle,Sensor (G85)
+;
+B061,0,Adjustment of Rotation Rate & Lateral/Longit. Acc. Sensor (G200/G202/G251)
+B061,1,Adjustment
+B061,2,Adjustment,Status,Specification: OK
+;
+B066,0,Adjustment of Brake Pressure Sensor (G201)
+B066,1,Adjustment
+B066,2,Adjustment,Status,Specification: OK
+B066,3,Brake Pressure,Sensor (G201)
+;
+070,1,ESP-Status,,Range: Activated/Not Activated
+070,2,ASR-Status,,Range: Activated/Not Activated
+070,3,EDS-Status,,Range: Activated/Not Activated
+070,4,Auto-Hold,Status,Range: Activated/Not Activated
+;
+071,1,Parking Brake,Status,Range: Activated/Not Activated
+;71,2,,,
+;Disabled, ,
+;
+125,0,CAN-Databus Powertrain (Communication)
+125,1,Engine,,Specification: Engine 1\nRange: Engine 1/Engine 0
+125,3,Instrument Cluster,(J285),Specification: Instruments 1\nRange: Instruments 1/Instruments 0
+125,4,Steering Angle,Sensor (G85),Specification: Steer. ang. 1\nRange: Steer. ang. 1/Steer. ang. 0
+;
+126,0,CAN-Databus Powertrain (Communication)
+126,1,CAN-Gateway,(J533),Specification: Gateway 1\nRange: Gateway 1/Gateway 0
+126,2,Airbag,(J234),Range: Airbag 1/Airbag 0\nSpecification: Airbag 1
+126,3,All-Wheel,Drive (J492)
+126,4,Parking Brake,(J540)
+;
+127,0,CAN-Databus Powertrain (Communication)
+127,2,Immobilizer,,Specification: Immobilizer 1\nRange: Immobilizer 1/Immobilizer 0
+;
+231,0,Tire Pressure Monitoring (TPMS)
+; 0 = Nothing Learned
+; 1 = Only 1st Threshold powered
+; 2 = Only 2nd Threshold powered
+; 3 = Only 1st Threshold rolling
+; 4 = Only 2nd Threshold rolling
+; 5 = 1st Threshold powered and rolling
+; 6 = 1st Threshold powered and 2nd Threshold rolling
+; 7 = 2nd Threshold powered and 1st Threshold rolling
+; 8 = 2nd Threshold powered and rolling (Optimal)
+231,1,Speed Range I
+; 5?xxx = Speed Range 1 ( 15 -  70 km/h)
+; 5x?xx = Speed Range 2 ( 70 - 100 km/h)
+; 5xx?x = Speed Range 3 (100 - 130 km/h)
+; 5xxx? = Speed Range 4 (130 - 160 km/h)
+231,2,Speed Range II
+; 5?xxx = Speed Range 5 (160 - 190 km/h)
+; 5x?xx = Speed Range 6 (190 - 220 km/h)
+; 5xx?x = Speed Range 7 (220 - 250 km/h)
+231,3,Curve/Wheel,Recognition
+; 5?x00 = Curve Recognition (0 = No Curve / 1 = Left or Right Curve learned / 2 = Complete Curve learned)
+; 5x?00 = Wheel Recognition (0 = inactive / 1 = activ)
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+;A001,0,
+;1
+;
+;A021,0,
+;ERROR: Security Acess required
+;
+;A023,0,
+;2
+;A023,1,
+;2.0 km/h
+;
+;A031,0,
+;0
+;A031,1,
+;Enabled
+;
+;A033,0,
+;ERROR: Security Access required
+;
+;A044,0,
+;0
+;A044,1,
+;Enabled
+;
+;A051,0,
+;0
+;A051,1,
+;Enabled
+;
+;A053,0,
+;0
+;A053,1,
+;Rear Axle
+;A053,2,
+;Full
+;A053,3,
+;Delay
+;A053,4,
+;Enabled
+;
+;A055,0,
+;0
+;A055,1,
+;Brake discs
+;A055,2,
+;wiper
+;A055,3,
+;Enabled
+;
+;A056,0,
+;1
+;A56,1,
+;Trailer
+;A056,2,
+;Function
+;A056,3,
+;Deactivated
+;
+;A057,0,
+;ERROR: Security Access required
+;
+;A061,0,
+;0
+;A061,1,
+;Brake Booster
+;A061,2,
+;Deactivated
+;
+;A063,0,
+;0
+;A063,1,
+;Test
+;A063,2,
+;Enabled
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+;
+;
+C00,Brake Electronics (J104) Coding
+C01,To request a proper Coding Value for this Control Module please
+C02,Email Ross-Tech or your local Distrubutor. Make sure to include
+C03,a complete Auto-Scan (full VIN as well) of the Vehicle as well
+C04,as a short Description of what happened to the Car.
+C05, 
+C06,http://www.Ross-Tech.com/contact.html
+;
+;
+;---------------------------------------------------
+;
+; security access
+;
+;---------------------------------------------------
+;
+;
+S00,Brake Electronics (J104) Security Access
+S01,40168 = Basic Setting Enabling
+S02,50403 = Adaptation Enabling
+;

@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; Component: R - Radio (#56)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 5C-56.LBL
+; 5U0-035-1xx-56.CLB (MIB2/MIBGLAM)
+;
+; created on 13/Nov/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 13/Nov/2014
+;
+; requires VCDS 14.10.0 or newer
+;
+;
+REDIRECT,5U0-035-1xx-56.CLB,5C6-035-160-??? ; MIB2 Standard PQ Radio Plus EU/RdW
+;

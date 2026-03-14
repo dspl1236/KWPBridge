@@ -1,0 +1,33 @@
+;
+; VCDS Label File
+;
+; Copyright © 2005-2012 Ross-Tech, LLC
+;
+; VW Phaeton (3D)
+;
+; Component: E265 - Rear HVAC Control Panel (#28)
+;
+; P/N: 3D0-919-158-???
+;
+; created on 30/Aug/2005 by Michael Moore (Moore@Ross-Tech.com)
+; updated on 23/Nov/2005 by Michael Moore (Moore@Ross-Tech.com)
+; updated on 03/Apr/2012 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 03/Apr/2012
+;
+; requires VCDS 11.11.3 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+080,0,Advanced Control Module Identification I
+080,1,Identification
+080,2,Revision
+080,3,Production,Date
+080,4,Manufacturer &,Test Stand Number
+;

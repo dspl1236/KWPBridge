@@ -1,0 +1,38 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2005+ Ross-Tech, LLC
+;
+; Seat Altea/Toledo (5P)
+;
+; Component: R - Radio (#56)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 5P-37.LBL
+; 5P-56.LBL
+; 1K0-035-1xx-56.LBL (Radio X00)
+; 5M0-035-1xx-56.CLB (Modular Radio X10)
+; 1T0-035-680.LBL
+;
+; created on 23/Mar/2005 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 12/Dec/2012
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,1K0-035-1xx-56.LBL,5P1-035-152-??? ; Radio CD
+REDIRECT,1K0-035-1xx-56.LBL,5P2-035-152-??? ; Radio CD
+;
+REDIRECT,5M0-035-1xx-56.CLB,5P0-035-153-??? ; Radio CD
+;
+REDIRECT,5M0-035-1xx-56.CLB,5P0-035-186-??? ; Radio CD/MP3 NEW
+REDIRECT,1K0-035-1xx-56.LBL,5P1-035-186-??? ; Radio CD/MP3
+REDIRECT,1K0-035-1xx-56.LBL,5P2-035-186-??? ; Radio CD/MP3
+;
+REDIRECT,1K0-035-191.LBL,5P0-035-191-B      ; RNS300
+;
+REDIRECT,1T0-035-680.LBL,5P0-035-680-???    ; RNS510
+;

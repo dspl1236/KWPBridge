@@ -1,0 +1,23 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2008+ Ross-Tech, LLC
+;
+; Component: J234 - Airbag (#15)
+;
+; This file is part of a redirection package,
+; make sure you have all of the following files.
+;
+; 3T-15.LBL
+; 5N0-959-605.LBL      (VW10)
+;
+; created on 04/Jul/2008 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 14/Nov/2013
+;
+; requires VCDS 12.12.0 or newer
+;
+;
+REDIRECT,5N0-959-655.LBL,3T0-959-655-???
+REDIRECT,5N0-959-655.LBL,3TD-959-655-???
+;

@@ -1,0 +1,41 @@
+;
+; VCDS Label File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; Audi Cabrio (8G)
+;
+; Component: J255 - Heating/Air Conditioning (#08)
+;
+; P/N: 4A0-919-579-???
+;
+; includes measuring blocks
+;
+; created on 20/Oct/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 20/Oct/2014
+;
+; requires VCDS 12.12.3 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,General
+001,1,Compressor,Shut-Off,Specification: 0/1/6\n\n0 = Compressor ON\n1 = Compressor OFF: Start Delay/Engine Start OR Engine Speed too Low\n2 = Compressor OFF: Pressure Switch (F118) open OR Ambient Temperature below 5 °C OR Ambient Temperature Switch (F38) open\n3 = Compressor OFF: Coolant Temperature too High\n4 = Compressor OFF: Compressor Cut-In active\n5 = Compressor OFF: Belt Slip too High (1x > 60 % OR 10x 30...60 %) OR Control Module for Solenoid Coupling (J153) incorrect OR Compressor Speed not recognized\n6 = Compressor OFF: Kick-Down recognized (Shut-Off for 12 Seconds)\n7 = Compressor OFF: Kick-Down Switch (F8) closed statically
+; 0 = Compressor ON
+; 1 = Compressor OFF: Start Delay/Engine Start OR Engine Speed too Low
+; 2 = Compressor OFF: Pressure Switch (F118) open OR Ambient Temperature below 5 °C OR Ambient Temperature Switch (F38) open
+; 3 = Compressor OFF: Coolant Temperature too High
+; 4 = Compressor OFF: Compressor Cut-In active
+; 5 = Compressor OFF: Belt Slip too High (1x > 60 % OR 10x 30...60 %) OR Control Module for Solenoid Coupling (J153) incorrect OR Compressor Speed not recognized
+; 6 = Compressor OFF: Kick-Down recognized (Shut-Off for 12 Seconds)
+; 7 = Compressor OFF: Kick-Down Switch (F8) closed statically
+001,2,Engine Speed
+001,3,Compressor,Speed
+001,4,Compresor,Belt Slip,Range: 0.0...100.0 %\n\n< 30.0 % = permitted/OK\n30.0...60.0 % = Compressor Cut-In for 10 Seconds OR permanently if detected multiple times\n> 60.0 % = Permanent Compressor Shut-Off
+;

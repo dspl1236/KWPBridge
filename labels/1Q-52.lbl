@@ -1,0 +1,35 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2006-2009 Ross-Tech, LLC
+;
+; Component: J387 - Passenger Door Electronics (#52)
+;
+; This file is part of a redirection package,
+; make sure you have all of the following files.
+;
+; 1K-52.LBL
+; 1Q-52.LBL
+; 1T-52.LBL
+; 1K0-959-702-MAX1.LBL
+; 1K0-959-702-MAX2.LBL
+; 1K0-959-702-MAX3.LBL
+; 1K0-959-702-MIN1.LBL
+; 1K0-959-702-MIN2.LBL
+; 1K0-959-702-MIN3.LBL
+;
+; created on 04/Oct/2006 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 10/Sep/2009
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,1K0-959-702-MAX2.LBL,1Q0-959-702-B   ; MAX GEN2
+REDIRECT,1K0-959-702-MAX2.LBL,1Q0-959-702-C   ; MAX GEN2
+;
+REDIRECT,1K0-959-702-MIN3.LBL,1Q0-959-702-D   ; MIN GEN3
+REDIRECT,1K0-959-702-MAX3.LBL,1Q0-959-702-E   ; MAX GEN3
+REDIRECT,1K0-959-702-MAX3.LBL,1Q0-959-702-F   ; MAX GEN3
+REDIRECT,1K0-959-702-MAX3.LBL,1Q0-959-702-H   ; MAX GEN3
+;

@@ -1,0 +1,25 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; Component: Engine (#01)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 5U-01.LBL
+;
+; created on 25/Apr/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 25/Apr/2014
+;
+; requires VCDS 12.12.2 or newer
+;
+;
+;5U0-906-034-D   ; CFZA (5U) // MM-4GV
+;5U0-906-034-E   ; CFZA (5U) // MM-4GV
+;5U0-906-034-F   ; CCNA (5U) // MM-4GV
+;5U0-906-034-K   ; CFZA (5U) // MM-4GV
+;5U0-906-034-L   ; CCRA (5U) // MM-4GV
+;

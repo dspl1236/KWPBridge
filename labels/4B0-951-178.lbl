@@ -1,0 +1,70 @@
+;
+; VCDS Label File
+;
+; Copyright © 2012+ Ross-Tech, LLC
+;
+; Audi A6 (4B) / Audi A8 (4D)
+;
+; Component: J347 - Interior Monitoring (#45) with Head Airbags
+;
+; P/N: 4B0-951-178-??? / 4D0-951-177-???
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 4D-45.LBL
+; 4B0-951-178.LBL
+;
+; includes measuring blocks, adaptation and coding
+;
+; created on 16/Nov/2012 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 21/Feb/2013
+;
+; requires VCDS 11.11.4 or newer
+;
+;
+;---------------------------------------------------
+;
+; Measuring block informations
+;
+;---------------------------------------------------
+;
+;
+001,0,Basic Functions
+001,1,Input Signals,,0000 = Communication Wire NOT OK\n0001 = Communication Wire OK
+; 0000 = Communication Wire NOT OK
+; 0001 = Communication Wire OK
+001,2,Sensor,Sensitivity,Specification: 50.0...100.0 % (see Adaptation Channel 001)
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+A001,0,Sensitivity
+A001,5,Sensitivity
+A001,6,Sensitivity of the Ultra-Sound Sensors can be lowered/raised.
+A001,7, 
+A001,8,Range: 50...100 %
+A001,9,Standard: 100 (= 100 %)
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Interior Monitoring (J247) Coding
+C01,00?0x: Type
+C02,0 = Audi A8 (4D)
+C03,1 = Audi A6 (4B)
+C04,00x0?: Chassis Type
+C05,1 = Limousine/Sedan
+C06,2 = Avant/Wagon
+;

@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2013+ Ross-Tech, LLC
+;
+; Component: R242 - Front Sensors (#15)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3D-A5.LBL
+; 3AA-980-654.CLB
+;
+; created on 15/Nov/2013 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 15/Nov/2013
+;
+; requires VCDS 12.12.0 or newer
+;
+;
+REDIRECT,3AA-980-654.CLB,3D0-980-654-???
+;

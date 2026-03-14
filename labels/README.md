@@ -2,63 +2,69 @@
 
 VCDS-compatible `.lbl` label files for KWP1281 ECU modules.
 
-These files provide human-readable names for measuring block groups and cells,
-coding values, and adaptation channel descriptions for specific ECU part numbers.
+**221 community-authored files** covering engine ECUs, transmission,
+ABS, airbag, instruments, and other VAG modules from ~1990–2010.
 
 ---
 
-## Format
+## What's Included
+
+Only **community-authored** plain-text `.lbl` files are included.
+
+| Category | Count | Notes |
+|----------|-------|-------|
+| Engine ECUs (906 in part number) | 43 | Most relevant for tuning |
+| Other modules | 178 | Transmission, ABS, cluster, etc. |
+| **Total** | **221** | |
+
+**Not included:**
+- Ross-Tech redirect files (645) — Ross-Tech LLC intellectual property
+- Ross-Tech authored files (302) — Ross-Tech LLC intellectual property  
+- Encrypted `.clb` files — Ross-Tech LLC proprietary format, never included
+
+---
+
+## Scaling Presets
+
+The `../scaling/` directory contains Advanced Measuring Block presets (`.a01`):
+channel combinations optimised for specific diagnostic tasks
+(boost diagnosis, misfire recognition, fuel pressure, etc.).
+
+`OBD.SCL` contains formula scaling definitions (formula byte → display range).
+
+---
+
+## File Format
 
 Plain text, `latin-1` encoding. Lines starting with `;` are comments.
 
 ```
 group, cell, label [, notes1 [, notes2]]
+Cn, value = coding description
 ```
 
-- `group` = measuring block group number (0-based on older ECUs)
-- `cell`  = cell index within the group (1-4 typically)
-- `label` = human-readable name
-- `notes` = optional range / formula / specification text
-
-Coding lines: `C1,value = description`
+Older ECUs (Motronic 2.x, KWP1281) use 0-based group numbering.
+Newer ECUs (ME7+, KWP2000) use 1-based groups.
 
 ---
 
-## Included Files
+## Adding Your Own Label Files
 
-| File | ECU | Engine | Notes |
-|------|-----|--------|-------|
-| `893-906-266-D.lbl` | 893906266D | 7A 2.3 20v | MMS05C late 4-plug. Community file by schorsch9999. |
+Place `.lbl` files here or point KWPBridge at your VCDS installation:
 
----
+```bash
+python -m kwpbridge.gui --vcds-labels "C:/Ross-Tech/VCDS/Labels"
+```
 
-## Adding Label Files
+KWPBridge auto-discovers VCDS on Windows at common install paths.
 
-Label files use the ECU part number as the filename with dashes:
-`893-906-266-D.lbl` → ECU `893906266D`
-
-Place `.lbl` files in this directory. KWPBridge will automatically find and
-load the correct file when an ECU with a matching part number connects.
-
-**Where to get label files:**
-- Your VCDS installation: `C:\Ross-Tech\VCDS\Labels\` (Windows)
-- Ross-Tech website: https://www.ross-tech.com/vag-com/labels.php
-- Community contributions welcome via pull request
-
-**Format:** Only the older plain-text `.lbl` format is supported.
-The newer encrypted `.clb` format (Ross-Tech proprietary) is not supported
-and should not be included in this repository.
+File naming: `{PART-NUMBER}.lbl` — e.g. `893-906-266-D.lbl` → ECU `893906266D`
 
 ---
 
 ## Credits
 
-Label files in this directory are community-created contributions.
-Individual file credits are noted in the file headers (`;` comment lines).
+See `CREDITS.md` for author attribution per file.
 
-The `.lbl` file format specification was published by Ross-Tech LLC.
-KWPBridge is not affiliated with or endorsed by Ross-Tech LLC.
-
-Recommended diagnostic cable: **Ross-Tech HEX+KKL** — handles 5-baud K-line
-init in hardware and is the most reliable option for KWP1281 communication.
-https://www.ross-tech.com
+The `.lbl` format is published by Ross-Tech LLC.
+Ross-Tech HEX+KKL is the recommended cable: https://www.ross-tech.com

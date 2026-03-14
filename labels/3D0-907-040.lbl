@@ -1,0 +1,408 @@
+;
+; VAG-COM label file 3D0-907-040.lbl
+;
+; VW Phaeton (3D) - up to and including model year 2006 
+;
+; component: Auto HVAC - 4 Zone Climatronic  -J255-  (#08)
+;
+;
+; p/n: 3D0 907 040 F  Component: Climatronic D1 1132   Coding: 0000001 (2004 Phaeton W12 NAR) (Brent)
+; p/n: 3D0 907 040 G  Component: Climatronic D1 1145   Coding: 0000002 (2004 Phaeton W12 NAR) (David C)
+; p/n: 3D0 907 040 G  Component: Climatronic D1 1132   Coding: 0000001 (2004 Phaeton W12 NAR) (Mike M)
+; p/n: 3D0 907 040 F  Component: Climatronic D1 1132   Coding: 0000001 (2004 Phaeton W12 ROW) (Daniel)
+; p/n: 3D0 907 040 H  Component: Climatronic D1 2021   Coding: 0000001 (2005 Phaeton V8 NAR) (Robert)
+; p/n: 3D0 907 040 H  Component: Climatronic D1 2021   Coding: 0000001 (2004 Phaeton W12 ROW) (DD AM 2662)
+; p/n: 3D0 907 040 H  Component: Climatronic D1 2021   Coding: 0000001 (2005 Phaeton V6 TDI ROW) (Alex)
+; p/n: 3D0 907 040 J  Component: Climatronic D1 2031   Coding: 0000002 (2006 Phaeton W12 NAR) (jyoung8607)
+; p/n: 3W0 907 040 G  Component: Climatronic BY  614   Coding: 0000001 (Bentley ROW)
+; p/n: 3W0 907 040 B  Component: Climatronic BY  614   Coding: 0000002 (Bentley NAR)
+;
+; created on 28/Aug/2005 by Michael Moore (Moore@Ross-Tech.com)
+; updated on 06/Oct/2006 by Michael Moore (Moore@Ross-Tech.com)
+; updated on 12/Sep/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+; re-written on 7/Dec/2011 by Jason Young (jyoung8607@gmail.com)
+; updated 13/Dec/2011 by Jason Young (jyoung8607@gmail.com)
+; updated 3/Jan/2012 by Jason Young (jyoung8607@gmail.com)
+;
+;
+;
+001,0,AC Compressor and Refrigerant Status
+001,1,Compressor,Shut-Off Reason,Display Range: 0...22\nSee label file for list of reason codes
+001,2,Evaporator,Temp. (G308),Display Range: -40...60°C\nAfter evaporator in air conditioning enclosure
+001,3,Refrigerant,Temp. (G395),Display Range: -40...155°C\nBetween compressor high-pressure line and condenser
+001,4,Refrigerant,Pressure (G395),Display Range: 0...38 bar\nBetween compressor high pressure line and condenser
+; Compressor shut-off codes:
+;  0 = Compressor ON: AC switched on - all requirements met
+;  1 = Refrigerant pressure too high: > 32 bar
+;  2 = Blower motor malfunction: actual voltage < 3 V
+;  3 = Refrigerant pressure too low: < 2 bar (depending on outside temperature)
+;  4 = (not used)
+;  5 = Engine not running or engine runtime < 4 seconds
+;  6 = ECON mode activated
+;  7 = AC shut off - blower speed 0
+;  8 = Outside temperature too low: < -8°C/-5°C
+;  9 = Both outside temperature sensors malfunctioning
+; 10 = (not used)
+; 11 = Engine temperature too high
+; 12 = ECU requested shutoff (overheat/kickdown/etc)
+; 13 = Voltage too high: Terminal 15 > 17V
+; 14 = (not used)
+; 15 = (not used)
+; 16 = Compressor activation circuit fault - N280 signal missing or implausible
+; 17 = Refrigerant pressure monitor circuit fault - G65 signal missing or implausible
+; 18 = Intervention load management - A/C stage 2
+; 19 = Refrigerant loss - current drive cycle only
+; 20 = Refrigerant loss - permanent
+; 21 = -8°C/-5°C < outside temperature < 1°C/3°C and no recirc air request
+; 22 = -8°C/-5°C < outside temperature < 1°C/3°C and interior temp < 10°C
+;
+002,0,Fresh Air Blower (V2) / Control Unit for Fresh Air Blower (J126)
+002,1,V2 Blower,Voltage (Actual),Display Range: 0.0...13.0 V
+002,2,V2 Blower,Voltage (Spec.),Display Range: 0.0...13.0 V
+002,3,V2 Blower,Speed,Display Range: 0.0...100.0 %
+002,4,Supply Voltage,Terminal 30,Display Range: 0...18 V
+;
+; MVB 003 F1 may track V50 pump or request to engine-specific recirculation
+; pump, comes on with residual heat. VW sources say "via CAN" when V50 is
+; directly controlled by Climatronic, so may point toward V51/V55/V36/?
+;
+003,0,Temperature Monitoring
+003,1,Coolant Pump,,Display Range: ON/OFF
+003,2,Outside Temp,Ambient (G17),Display Range: -40...60°C
+003,3,Outside Temp,HVAC Intake (G89),Display Range: -40...60°C
+003,4,V210 Blower,RPM,Display Range: 0...9950/min\nExpected: ~2700 RPM\nPulls air across cabin temperature sensor G56
+;
+004,0,Pump Valve Controls and Heat Exchanger Temperatures
+004,1,Regulation Valve,Left (N175),Display Range: 0.0...100.0 %
+004,2,Exchanger Temp,Left (G306),Display Range: 0...100°C
+004,3,Regulation Valve,Right (N176),Display Range: 0.0...100.0 %
+004,4,Exchanger Temp,Right (G307),,Display Range: 0...100°C
+;
+; MVB 005 data sources:
+;
+; F1 Recirc request and F2 air quality MVB baseline taken from VCDS label
+; file 4B0-820-043-MY2 for which a similar sensor is used. Updated based
+; on observed behavior for jyoung8607's 2006 NAR Phaeton.
+;
+; Operation principle data based on Bentley Publishers eBahn docs:
+; Volkswagen > Phaeton > 2004-2006 Heating, Ventilation and Air Conditioning
+;   80 - Heating and A/C Unit, Disassembling and Assembling
+;     Air Quality Sensor, Function
+;
+005,0,Air Recirculation Status and Air Quality Sensor (G238) Status
+005,1,Recirculation,Requested,0 = Recirculation NOT requested\n10 = Recirculation requested by Air Quality Sensor (G238)\n11 = Recirculation requested by G238 but rejected (Automatic Recirculation inactive)\n12 = Recirculation requested by G238 but rejected (compressor OFF)\n13 = Recirculation requested by G238 but rejected (defrost active)\n20 = Manual Recirculation active\n25 = Recirculation active (vehicle startup or 30 second additional recirc time to dampen on/off change cycling)\n30 = Recirculation active (wiper/headlamp washer active)\n40 = Recirculation active (high ambient temperature)\n50 = Recirculation active (A/C inactive/blower speed 0)\n60 = Partial Recirculation active
+;   0 = Recirculation NOT requested
+;  10 = Recirculation requested by Air Quality Sensor (G238)
+;  11 = Recirculation requested by G238 but rejected (Automatic Recirculation inactive)
+;  12 = Recirculation requested by G238 but rejected (compressor OFF)
+;  13 = Recirculation requested by G238 but rejected (defrost active)
+;  20 = Manual Recirculation active
+;  25 = Recirculation active (vehicle startup or 30 second additional recirc time to dampen on/off change cycling)
+;  30 = Recirculation active (wiper/headlamp washer active)
+;  40 = Recirculation active (high ambient temperature)
+;  50 = Recirculation active (A/C inactive/blower speed 0)
+;  60 = Partial Recirculation active
+005,2,Air Quality,Sensor (G238),0 = Missing Signal from Air Quality Sensor (G238)\n1 = Recirculation requested: Low Increase in oxidisable Gases \n2 = Recirculation requested: High Increase in oxidisable Gases\n3 = Recirculation requested: Low Increase in reducible Gases\n4 = Recirculation requested: High Increase in reducible Gases\n5 = Recirculation NOT requested (Fresh Air Mode/No Pollution recognised)\n7 = Recirculation NOT requested (Fresh Air Mode/No Pollution recognised)\n254 = No Signal from Air Quality Sensor (G238) sensor not yet ready / engine start-up\n255 = No Signal from Air Quality Sensor (G238) engine shut down
+;   0 = Missing Signal from Air Quality Sensor (G238) unknown
+;   1 = Recirculation requested: Low Increase in oxidisable Gases
+;   2 = Recirculation requested: High Increase in oxidisable Gases 
+;   3 = Recirculation requested: Low Increase in reducible Gases
+;   4 = Recirculation requested: High Increase in reducible Gases
+;   5 = Recirculation NOT requested (Fresh Air Mode/No Pollution recognised)
+;   7 = Recirculation NOT requested (Fresh Air Mode/No Pollution recognised)
+; 254 = No Signal from Air Quality Sensor (G238) sensor not yet ready / engine start-up
+; 255 = No Signal from Air Quality Sensor (G238) engine shut down
+005,3,Heated Windshield,,Display Range: ON/OFF\nWithout respect to whether heated windshield is equipped on vehicle
+005,4,Refrigerant Loss,Shutoff Count,Number of compressor shut-off procedures due to refrigerant loss
+;
+006,0,Interior Air Distribution Temperatures
+006,1,Dash Panel,Console (G56),Display Range: -40...100°C
+006,2,Dash Panel Vent,Center (G191),Display Range: -40...100°C
+006,3,Rear Center Vent,Left (G311),Display Range: -40...100°C
+006,4,Rear Center Vent,Right (G312),Display Range: -40...100°C
+;
+007,0,Rear Left and Rear Right Air Distribution with PTC Heating
+007,1,PTC Heater Load,Left (Z42),Display Range: 0.0...100.0 %
+007,2,Temp After PTC,Left (G309),Display Range: -40...100°C
+007,3,PTC Heater Load,Right (Z43),Display Range: 0.0...100.0 %
+007,4,Temp After PTC,Right (G310),Display Range: -40...100°C
+;
+008,0,Windshield Temperature (G355) with Solar Load Sensor (G134)
+008,1,Light Intensity,From Left Side,Display Range: 0.0...100.0 %
+008,2,Light Intensity,From Right Side,Display Range: 0.0...100.0 %
+008,3,Windshield,Temp. (G355),Display Range: -40...90.0°C\nG355 IR pickup from glass
+008,4,Relative Humidity,,Display Range: 0%...100%
+;
+009,0,Compressor Regulating Valve (N280)
+009,1,Regulator,Current (Spec.),Display Range: 0...1.275A
+009,2,Regulator,Current (Actual),Display Range: 0...1.275A
+009,3,Compressor,RPM,Display Range: 0...9950/min
+009,4,Compressor,Load Torque,Display Range: 0...20 Nm
+;
+010,0,Flap Motor V107/G135: Front Windshield Defrost Vent
+010,1,Current Value,,Display Range: 0...255
+010,2,Specified Value,,Display Range: 0...255
+010,3,Minimum Position,Blocked,Display Range: 0...255
+010,4,Maximum Position,Open,Display Range: 0...255
+;
+011,0,Flap Motor V108/G139: Front Left Footwell Vent
+011,1,Current Value,,Display Range: 0...255
+011,2,Specified Value,,Display Range: 0...255
+011,3,Minimum Position,Blocked,Display Range: 0...255
+011,4,Maximum Position,Open,Display Range: 0...255
+;
+012,0,Flap Motor V109/G140: Front Right Footwell Vent
+012,1,Current Value,,Display Range: 0...255
+012,2,Specified Value,,Display Range: 0...255
+012,3,Minimum Position,Blocked,Display Range: 0...255
+012,4,Maximum Position,Open,Display Range: 0...255
+;
+013,0,Flap Motor V200/G318: Front Left Distribution Shutoff (Chest Vent/Defrost)
+013,1,Current Value,,Display Range: 0...255
+013,2,Specified Value,,Display Range: 0...255
+013,3,Minimum Position,Blocked,Display Range: 0...255
+013,4,Maximum Position,Open,Display Range: 0...255
+;
+014,0,Flap Motor V199/G317: Front Right Distribution Shutoff (Chest Vent/Defrost)
+014,1,Current Value,,Display Range: 0...255
+014,2,Specified Value,,Display Range: 0...255
+014,3,Minimum Position,Blocked,Display Range: 0...255
+014,4,Maximum Position,Open,Display Range: 0...255
+;
+015,0,Flap Motor V197/G315: Distribution Temperature Control - Heater Bypass Air
+015,1,Current Value,,Display Range: 0...255
+015,2,Specified Value,,Display Range: 0...255
+015,3,Minimum Position,Blocked,Display Range: 0...255
+015,4,Maximum Position,Open,Display Range: 0...255
+;
+016,0,Flap Motor V198/G316: Distribution Temperature Control - Heated Air
+016,1,Current Value,,Display Range: 0...255
+016,2,Specified Value,,Display Range: 0...255
+016,3,Minimum Position,Open,Display Range: 0...255
+016,4,Maximum Position,Blocked,Display Range: 0...255
+;
+017,0,Flap Motor V71/G113: Outside Air Flow / Backpressure - Under Hood Plenum
+017,1,Current Value,,Display Range: 0...255
+017,2,Specified Value,,Display Range: 0...255
+017,3,Minimum Position,Blocked,Display Range: 0...255
+017,4,Maximum Position,Open,Display Range: 0...255
+;
+018,0,Flap Motor V113/G142: Recirculation - Dash Panel Air Intake
+018,1,Current Value,,Display Range: 0...255
+018,2,Specified Value,,Display Range: 0...255
+018,3,Minimum Position,Open,Display Range: 0...255
+018,4,Maximum Position,Blocked,Display Range: 0...255
+;
+019,0,Flap Motor V206/G324: Front Left Distribution Split for Chest/Defrost Vents
+019,1,Current Value,,Display Range: 0...255
+019,2,Specified Value,,Display Range: 0...255
+019,3,Minimum Position,Chest Vent,Display Range: 0...255
+019,4,Maximum Position,Defrost,Display Range: 0...255
+;
+020,0,Flap Motor V205/G323: Front Right Distribution Split for Chest/Defrost Vents
+020,1,Current Value,,Display Range: 0...255
+020,2,Specified Value,,Display Range: 0...255
+020,3,Minimum Position,Chest Vent,Display Range: 0...255
+020,4,Maximum Position,Defrost,Display Range: 0...255
+;
+021,0,Flap Motor V213/G330: Dash Panel Indirect Ventilation Vents
+021,1,Current Value,,Display Range: 0...255
+021,2,Specified Value,,Display Range: 0...255
+021,3,Minimum Position,Blocked,Display Range: 0...255
+021,4,Maximum Position,Open,Display Range: 0...255
+;
+022,0,Flap Motor V110/G387: Center Left Dash Panel Vent
+022,1,Current Value,,Display Range: 0...255
+022,2,Specified Value,,Display Range: 0...255
+022,3,Minimum Position,Blocked,Display Range: 0...255
+022,4,Maximum Position,Open,Display Range: 0...255
+;
+023,0,Flap Motor V111/G388: Center Right Dash Panel Vent
+023,1,Current Value,,Display Range: 0...255
+023,2,Specified Value,,Display Range: 0...255
+023,3,Minimum Position,Blocked,Display Range: 0...255
+023,4,Maximum Position,Open,Display Range: 0...255
+;
+024,0,Flap Motor V207/G325: Left Dash Panel Design Cover
+024,1,Target Position,Left,Display Range: Open/Closed\nExact positioning data is not reported for this device
+;024,2,Unused
+;024,3,Unused
+;024,4,Unused
+;
+025,0,Flap Motor V208/G326: Center Dash Panel Design Cover
+025,1,Target Position,Center,Display Range: Open/Closed\nExact positioning data is not reported for this device
+;025,2,Unused
+;025,3,Unused
+;025,4,Unused
+;
+026,0,Flap Motor V209/G327: Right Dash Panel Design Cover
+026,1,Target Position,Right,Display Range: Open/Closed\nExact positioning data is not reported for this device
+;026,2,Unused
+;026,3,Unused
+;026,4,Unused
+;
+027,0,Flap Motor V204/G322: Rear Center Left - Heater Bypass Air
+027,1,Current Value,,Display Range: 0...255
+027,2,Specified Value,,Display Range: 0...255
+027,3,Minimum Position,Blocked,Display Range: 0...255
+027,4,Maximum Position,Open,Display Range: 0...255
+;
+028,0,Flap Motor V203/G321: Rear Center Right - Heater Bypass Air
+028,1,Current Value,,Display Range: 0...255
+028,2,Specified Value,,Display Range: 0...255
+028,3,Minimum Position,Blocked,Display Range: 0...255
+028,4,Maximum Position,Open,Display Range: 0...255
+;
+029,0,Flap Motor V202/G320: Rear Center Left - Heated Air
+029,1,Current Value,,Display Range: 0...255
+029,2,Specified Value,,Display Range: 0...255
+029,3,Minimum Position,Open,Display Range: 0...255
+029,4,Maximum Position,Blocked,Display Range: 0...255
+;
+030,0,Flap Motor V201/G319: Rear Center Right - Heated Air
+030,1,Current Value,,Display Range: 0...255
+030,2,Specified Value,,Display Range: 0...255
+030,3,Minimum Position,Open,Display Range: 0...255
+030,4,Maximum Position,Blocked,Display Range: 0...255
+;
+031,0,Flap Motor V212/G329: Rear Left Dist. Shutoff (B-Pillar/Footwell/Defrost)
+031,1,Current Value,,Display Range: 0...255
+031,2,Specified Value,,Display Range: 0...255
+031,3,Minimum Position,Blocked,Display Range: 0...255
+031,4,Maximum Position,Open,Display Range: 0...255
+;
+032,0,Flap Motor V211/G328: Rear Right Dist. Shutoff (B-Pillar/Footwell/Defrost)
+032,1,Current Value,,Display Range: 0...255
+032,2,Specified Value,,Display Range: 0...255
+032,3,Minimum Position,Blocked,Display Range: 0...255
+032,4,Maximum Position,Open,Display Range: 0...255
+;
+033,0,Flap Motor V196/G314: Rear Left Dist. Splitter (B-Pillar/Footwell/Defrost)
+033,1,Current Value,,Display Range: 0...255
+033,2,Specified Value,,Display Range: 0...255
+033,3,Minimum Position,B-Pillar Only,Display Range: 0...255\nMulti-position motor ranging from B-Pillar to Defrost to Footwell
+033,4,Maximum Position,Footwell Only,Display Range: 0...255\nMulti-position motor ranging from B-Pillar to Defrost to Footwell
+;
+034,0,Flap Motor V195/G313: Rear Right Dist. Splitter (B-Pillar/Footwell/Defrost)
+034,1,Current Value,,Display Range: 0...255
+034,2,Specified Value,,Display Range: 0...255
+034,3,Minimum Position,B-Pillar Only,Display Range: 0...255\nMulti-position motor ranging from B-Pillar to Defrost to Footwell
+034,4,Maximum Position,Footwell Only,Display Range: 0...255\nMulti-position motor ranging from B-Pillar to Defrost to Footwell
+;
+035,0,Rocker Switches - Dash Panel Vent Controls
+035,1,Chest Vent,Left (E301),Display Range: Open/Closed/Not Oper.
+035,2,Chest Vent,Ctr Left (E302),Display Range: Open/Closed/Not Oper.
+035,3,Chest Vent,Ctr Right (E303),Display Range: Open/Closed/Not Oper. 
+035,4,Chest Vent,Right (E304),Display Range: Open/Closed/Not Oper.
+;
+036,0,Rocker Switches - Rear Console Vent and Temp Differential Controls
+036,1,Rear Ctr Vent,Left (E306),Display Range: Open/Closed/Not Oper.
+036,2,Rear Ctr Vent,Right (E307),Display Range: Open/Closed/Not Oper.
+036,3,Chest/Footwell,Diff. (E305),Display Range: Open/Closed/Not Oper.
+;036,4,Unused
+;
+037,0,Defrost Shutoff Controls (Front Doors)
+037,1,Driver's Door,Button (E323),Display Range: ON/OFF\nReceived via CAN from door control module (J386)
+037,2,Defrost Blocked,Front Left,Display Range: ON/OFF
+037,3,Passenger Door,Button (E324),Display Range: ON/OFF\nReceived via CAN from door control module (J387)
+037,4,Defrost Blocked,Front Right,Display Range: ON/OFF
+;
+038,0,Defrost Shutoff Controls (Rear Doors)
+038,1,Left B-Pillar,Button (E299),Display Range: ON/OFF
+038,2,Defrost Blocked,Rear Left,Display Range: ON/OFF\nRear door defrost and rear indirect venting are the same thing
+038,3,Right B-Pillar,Button (E300),Display Range: ON/OFF
+038,4,Defrost Blocked,Rear Right,Display Range: ON/OFF\nRear door defrost and rear indirect venting are the same thing
+;
+039,0,Vehicle Information from CAN
+039,1,Terminal 15,,Display Range: ON/OFF
+039,2,Terminal X,,Display Range: ON/OFF
+039,3,Parking Heater,,Display Range: ON/OFF
+039,4,Parking Ventilation,,Display Range: ON/OFF
+;
+040,0,Vehicle Information from CAN (Compressor Related)
+040,1,Engine Speed,Increase,Display Range: ON/OFF
+040,2,Compressor,Operating,Display Range: ON/OFF
+040,3,Compressor,Engine Disabled,Display Range: 0...1\n0 = No shutoff request\n1 = Shutoff request (kickdown/overtemp/etc)
+040,4,Coolant Fan,,Display Range: 0%...100%
+;
+041,0,Vehicle Information from CAN (Engine and Coolant State)
+041,1,Standing Time,Minutes,Display Range: 0.0...120.0 minutes
+041,2,Vehicle,Speed,Display Range: 0...324km/h
+041,3,Engine,RPM,Display Range: 0...9950/min
+041,4,Coolant,Temperature,Display Range: -48...127°C
+;
+; MVB 042 F4 documented by VW but not observed on any of three test vehicles.
+;
+042,0,Vehicle Information from CAN (Miscellaneous)
+042,1,Washer Fluid,Pump Active,Display Range: ON/OFF\nUsed as input into auto-recirculate function
+;042,2,Unused
+;042,3,Unused
+042,4,Key Number,,Display Range: 0...15\nMay not be present on many vehicles
+;
+; MVB 043 F3 is not documented by VW and is not present on some, possibly
+; older Climatronic modules (missing on -F, present on -H and -J with 2XXX
+; generation software). Probably involved with load management but effect
+; is unknown.
+;
+043,0,Vehicle Information from CAN (Intervention Load Management)
+043,1,Load Control,PTC Heaters,Display Range: 0...4\n0 = No intervention / full power available\n1 = Stage 1 intervention / 75% available\n2 = Stage 2 intervention / 50% available\n3 = Stage 3 intervention / 25% available\n4 = Stage 4 intervention / 0% available
+043,2,Load Control,Heated Windshield,Display Range: 0...1\n0 = No intervention / heating available\n1 = Intervention / no windshield heating
+043,3,Unknown,,Display Range: ON/OFF
+043,4,Load Control,Air Conditioning,Display Range: 0...3\n0 = No intervention / full speed available\n1 = Stage 1 intervention / blower motor limited to 30%\n2 = Stage 2 intervention / compressor disable\n3 = Stage 3 intervention / unknown
+;
+044,0,Potentiometer Reference Voltages
+044,1,External Ref 1,Voltage,Display Range: 4.5V...5.5V\nExpected: 5.0V
+044,2,External Ref 2/3,Voltage,Display Range: 4.5V...5.5V\nExpected: 5.0V
+;044,3,Unused
+;044,4,Unused
+;
+045,0,Unknown single-field data
+045,1,Unknown
+;045,2,Unused for single-field MVB
+;045,3,Unused for single-field MVB
+;045,4,Unused for single-field MVB
+;
+; MVB 046 not present on older Climatronic modules. 
+;
+; MVB 046 F1/F2/F3/F4 values never seem to change in the test vehicle.
+; Readings are always 0/0/1/1; might be CAN bus communication states.
+;
+046,0,Unknown values
+046,1,Unknown
+046,2,Unknown
+046,3,Unknown
+046,4,Unknown
+;
+; MVB 047 not present on older Climatronic modules.
+;
+047,0,Windshield Temp and Humidity Sensor (G355) via Roof Electronics (J528)
+047,1,Humidity,Cabin (G355),Display Range: 0.0...100.0 %
+047,2,Temperature,Cabin (G355),G355 cabin air temperature
+047,3,Temperature,Windshield (G355),G355 IR pickup from glass
+047,4,Temperature,Reference (G355),G355 internally generated reference temperature (heater N340)
+;
+080,0,Advanced Control Module Identification I
+080,1,Advanced,Identification I
+;
+082,0,Advanced Control Module Identification III
+082,1,Advanced,Identification III
+;
+;---------------------------------------------------
+;
+; Adaptation
+;
+;---------------------------------------------------
+;
+A001,0,Flap Motor Basic Setting/Normalization
+A001,5,Flap Motor Basic Setting/Normalization
+A001,6,To initialize the Flap Motor Basic Setting/Normalization
+A001,7,Enter "2" as new Value and press Test/Save. The Procedure
+A001,8,start automatically and run for about 35 Seconds.
+;
+;---------------------------------------------------
+;
+; Basic settings - No basic settings blocks exist
+;
+;---------------------------------------------------
+;
+B001,0,*Use Adaptation Block 001 for Flap Motor Basic Settings*

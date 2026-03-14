@@ -1,0 +1,27 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2007-2010 Ross-Tech, LLC
+;
+; Audi R8 (42)
+;
+; Component: Radio (#56)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 42-37.LBL
+; 42-56.LBL
+; 8E0-035-192-RNSE.LBL
+;
+; created on 19/Apr/2007 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 21/Apr/2010
+;
+; requires VCDS 800.0 or newer
+;
+;
+REDIRECT,8E0-035-192-RNSE.LBL,42?-035-192-??? ; RNS-E
+;
+REDIRECT,8E0-035-192-RNSE.LBL,42?-035-195-??? ; "Concert" = RNS-E w/o NAV ;)
+;

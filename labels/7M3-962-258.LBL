@@ -1,0 +1,108 @@
+;
+; VCDS Label File
+;
+; Volkswagen Sharon (7M)
+;
+; Component: J***- Multifunction unit (electronic central electrics) 08.97 ? (#09)
+;
+; P/N: 7M3-962-258-???
+;
+; includes measuring blocks, (converted) coding and adaptation
+;
+; created on 29/Nov/2017 by Seamus Mallon
+; updated on 01/Dec/2017 by Seamus Mallon
+;
+; requires VCDS 14.10.2 / LCode 1.0.5.6 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,Door Key Switch Status
+001,1,Key Switch,Driver Door,Range: Closed
+001,2,Key Switch,Driver Door,Range: OPEN
+001,3,Key Switch,Pass Door,Range: OPEN
+001,4,Key Switch,Rear Lid,Range: OPEN
+;
+002,0,Door Switches Status
+002,1,Interior locking Switch,E150,Range: Lock/Unlock/implausible
+002,2,Rear lid release switch,E165 unlock signal,Range: unlock
+002,3,Door contact switch, driver door -F2-,Range: Door Closed/Door Open
+002,4,Door contact switch, Passenger doors,Range: Door Closed/Door Open
+;
+003,0,Ignition Key Status
+003,1,Vehicle system voltage, terminal 30,Range: 11.5v – 14.5v
+003,2,Terminal 15,,Range: OFF/ON
+003,3,Terminal X,,Range: OFF/ON
+003,4,S-contact (buzzer),,Range: OFF/ON
+;
+004,1,Consumer deactivation,Fuse -S157,Range: OK/Not OK
+004,2,Consumer deactivation,signal,Range: OFF/ON
+004,3,Interior light,signal,Range: OFF/ON
+004,4,Window heater output, Reduction,Range: Yes/No
+;
+005,1,Speed signal,Km/Hour,Range: Speed in km/Hour
+005,2,Alternator,terminal 61,Range: Turn/Still
+005,4,Crash sensor signal,,Range: Off/On
+;
+007,0,Heated Window Status
+007,1,Heated Windscreen,Switch -E180-,Range: Off/On
+007,2,Heated Rear Window,Switch -E15-,Range: Off/On
+007,3,Heated Rear Window,Fuse -S41-,Range: ok/Not OK
+007,4,Heated Rear Window,Status,Range: Off/On;
+;
+008,1,Turn signal switch -E2-,Indicate left position, Range: Off/On
+008,2,Turn signal switch -E2-,Indicate right position, Range: Off/On
+008,3,Turn signal,Left,Range: Off/On
+008,4,Turn signal,Right,Range: Off/On
+;
+009,2,Light switch,-E4- (main & dipped beam),Range: Off/On
+009,3,Dipped beam light,Left, Range: OK/not OK
+009,4,Dipped beam light, Right,Range: OK/not OK
+
+;
+010,1,Brake light Switch,,Range:OFF/ON
+010,2,Brake light,Left,Range:OK/not OK
+010,3,Brake light,Right,Range:OK/not OK
+;
+013,0,Side Lights Status
+013,1,Side light Left,Switch Status,Range:OFF/ON
+013,2,Side light Right,Switch Status,Range:OFF/ON
+013,3,Side-Tail light,Left bulb status,Range:OK / not OK
+013,4,Side-Tail light,Right bulb status,Range: OK / not OK
+;
+014,0,Remote Control Status
+014,1,Radio Remote Control,buttons press,Range: Open/Closed
+014,2,Permanent code known,,Range: OK/not OK 
+014,3,Code within effective,range,Range: OK/not OK
+014,4,Transfer,,Range: OK/not OK
+;
+015,2,Bonnet switch,, Range: Closed/OPEN 
+015,3,Tailgate switch,,Range: Closed/OPEN
+;
+;
+
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Multifunction unit (electronic central electrics) 08.97 ? Coding
+C01,00004 = Central locking  - - - - - - - - - - - Single door opening
+C02,00005 = Central locking  - - - - - - - - - - - All doors opening 
+C03,00256 = CL  Anti-theft alarm - - - - - - - - Selective Central Locking (SCL)
+C04,00257 = CL  Anti-theft alarm - - - - - - - - All door opening
+C05,16384 = CL Radio RC - - - - - - - - - - - - Single door opening
+C06,16385 = CL Radio RC - - - - - - - - - - - - All doors opening	
+C07,4096 = CL Radio RC Anti-theft Alarm - Single door opening
+C08,4097 = CL Radio RC Anti-theft Alarm - All doors opening
+;
+;
+;---------------------------------------------------
+;

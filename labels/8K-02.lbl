@@ -1,0 +1,31 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2009-2011 Ross-Tech, LLC
+;
+; Audi A4 (8K) / Audi A5 (8T)
+;
+; Component: J217 - Transmission (#02)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8K-02.LBL
+; 0AW-927-156.CLB
+; 0B6-927-156.CLB
+;
+; created on 21/Mar/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 18/Oct/2011
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,0AW-927-156.LBL,0AW-927-156-???,HW
+;
+REDIRECT,0B5-927-156.LBL,0B5-927-156-???,HW
+;
+REDIRECT,0B6-927-156.LBL,0B6-927-156-???,HW
+;
+;
+REDIRECT,0BK-927-156.LBL,0BK-927-156-???,HW

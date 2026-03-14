@@ -1,0 +1,108 @@
+;
+; VCDS Label File
+;
+; Copyright © 2012 Ross-Tech, LLC
+;
+; Audi A8 (4E)
+;
+; Component: J431 - Automatic Headlight Aim Control (#55)
+;
+; P/N: 4E0-910-357-???
+;
+; includes measuring blocks, basic setting, coding and adaptation
+;
+; created on 28/Mar/2012 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 28/Mar/2012
+;
+; requires VCDS 11.11.2 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,General
+001,1,Voltage,(Terminal 15)
+001,2,Light,(Terminal 56b),Specification: ON/OFF
+001,3,Vehicle Speed
+001,4,Acceleration
+;
+B001,0,Adjustment Position && Adjustment Learning
+B001,1,Status, , 
+B001,2, , , 
+B001,3, , , 
+B001,4, , , 
+;
+002,0,Sensor Values
+002,1,Front Sensor (G78),(actual)
+002,2,Rear Sensor (G76),(actual)
+002,3,Actuator Motor,Activation
+002,4,Time Constant
+;
+003,0,Input Signals (CAN)
+003,1,Turn Signal,Left,Range: ON/OFF
+003,2,Turn Signal,Right,Range: ON/OFF
+003,3,Brake Lights,,Range: ON/OFF
+003,4,Engine,,Range: ON/OFF
+;
+004,0,Cornering Light
+004,1,Cornering Light,Right,Range: ON/OFF
+004,2,Cornering Light,Left,Range: ON/OFF
+004,3,Cornering Light,Right Flash,Range: ON/OFF
+004,4,Cornering Light,Left Flash,Range: ON/OFF
+;
+005,0,Steering Angle Sensor (G85)
+005,1,Steering Angle,Sensor (G85)
+;
+125,0,CAN-Databus Powertrain (Communication)
+125,1,Brake Electronics,(J104),Display Range: ABS 1/ABS 0\nSpecification: ABS 1
+125,2,CAN-Gateway,(J533)
+125,3,Steering Angle,Sensor (G85),Display Range: Steer. ang. 1/Steer. ang. 0\nSpecification: Steer. ang. 1
+125,4,Engine,,Display Range: Engine 1\Engine 0\nSpecification: Engine 1
+;
+126,0,CAN-Databus Powertrain (Communication)
+126,1,Level Control,(J197)
+126,2,Ignition Lock
+126,3,Immobilizer
+;
+225,0,CAN-Databus Powertrain (Time-Out)
+225,1,Brake Electronics,(J104)
+225,2,CAN-Gateway,(J533)
+225,3,Steering Angle,Sensor (G85)
+225,4,Engine
+;
+226,0,CAN-Databus Powertrain (Time-Out)
+226,1,Level Control,(J197)
+226,2,Ignition Lock
+226,3,Immobilizer
+;
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Automatic Headlight Aim Control (J745) Coding
+C01,0000000 = Halogen Headlights
+C02,0000001 = Bi-Xenon Headlights
+C03,0000002 = Cornering Light (old Front/Dual Frame )
+C04,0000003 = Cornering Light (new Front/Single Frame - Rest of World)
+C05,0000004 = Cornering Light (new Front/Single Frame - North American Region)
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+
+;

@@ -1,0 +1,29 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2015+ Ross-Tech, LLC
+;
+; Component: J731 - Right Sliding door (#78)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 7H-0D.LBL
+; 7H-78.LBL
+; 7H0-959-243-V1.CLB (< SW 0316)
+; 7H0-959-243-V2.CLB (SW 0318 >)
+;
+; created on 05/Feb/2015 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 05/Feb/2015
+;
+; requires VCDS 11.2.0 or newer
+;
+;
+REDIRECT,7H0-959-243-V1.CLB,7H0-959-243     ; SW 0312
+REDIRECT,7H0-959-243-V1.CLB,7H0-959-243-E   ; SW 0314
+;REDIRECT,7H0-959-243-V1.CLB,7H0-959-243-F   ; SW 0316?
+REDIRECT,7H0-959-243-V2.CLB,7H0-959-243-G   ; SW 0318
+REDIRECT,7H0-959-243-V2.CLB,7H0-959-243-J   ; SW 0320
+REDIRECT,7H0-959-243-V2.CLB,7H0-959-243-L   ; SW 0321
+;

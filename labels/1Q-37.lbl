@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; Component: R - Radio (#56)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1Q-37.LBL
+; 1K0-035-27x-37.CLB   (Radio Navigation System 315)
+;
+; created on 20/Oct/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 11/Jun/2015
+;
+; requires VCDS 12.12.3 or newer
+;
+;
+REDIRECT,1K0-035-27x-37.CLB,1Q0-035-274-???   ; RNS315 (NAR)
+REDIRECT,1K0-035-27x-37.CLB,1Q0-035-278-???   ; RNS315 (SAM)
+REDIRECT,1K0-035-27x-37.CLB,1Q0-035-279-???   ; RNS315 (RoW)
+;

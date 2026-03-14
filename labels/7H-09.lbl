@@ -1,0 +1,62 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2010+ Ross-Tech, LLC
+;
+; Component: J519 - Central Electronics I (#09)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 7H-09.LBL
+; 7H0-937-08x-09.CLB
+;
+; created on 22/Apr/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 01/Jul/2015
+;
+; requires VCDS 10.3 / LCode 1000.4 or newer
+;
+;
+REDIRECT,7H0-937-08x-09.CLB,7H0-937-086-???   ; Medium++
+REDIRECT,7H0-937-08x-09.CLB,7H0-937-087-???   ; High+ (PR-8K0/8K1/8K2/8K4)
+REDIRECT,7H0-937-08x-09.CLB,7H0-937-088-???   ; Recuperation
+REDIRECT,7H0-937-08x-09.CLB,7H0-937-089-???   ; Light (PR-8K3/8K8)
+REDIRECT,7H0-937-08x-09.CLB,7H0-937-090-???   ; Max/Li+Re
+;
+;7H0-937-086-B     ; Medium++ (SW 0207)
+;7H0-937-086-D     ; Medium++ (SW 0221)
+;7H0-937-086-F     ; Medium++ (SW 0230)
+;7H0-937-086-H     ; Medium++ (SW 0251/0254)
+;
+;7H0-937-087       ; High+ (SW 0027 / PR-5D0/5D1/5D9)
+;7H0-937-087-B     ; High+ (SW 0207 / PR-5D0/5D1/5D9)
+;7H0-937-087-D     ; High+ (SW 0221 / PR-5D0/5D1/5D9)
+;7H0-937-087-F     ; High+ (SW 0230 / PR-5D0/5D1/5D9)
+;7H0-937-087-H     ; High+ (SW 0254 / PR-5D0/5D1/5D9)
+;7H0-937-087-K     ; High+ (SW 0407 / PR-5D0/5D1/5D9)
+;7H0-937-087-M     ; High+ (SW 0413 / PR-5D0/5D1/5D9)
+;
+;7H0-937-088       ; Recuperation (SW 0353 / PR-5D0/5D1/5D9)
+;7H0-937-088-A     ; Recuperation (SW 0353 / PR-5D2/5D3)
+;
+;7H0-937-089       ; Light (SW 0207 / PR-5D0/5D1/5D9)
+;7H0-937-089-B     ; Light (SW 0221 / PR-5D0/5D1/5D9)
+;7H0-937-089-D     ; Light (SW 0230 / PR-5D0/5D1/5D9)
+;7H0-937-089-F     ; Light (SW 0251/0254/0256 / PR-5D0/5D1/5D9)
+;
+;7H0-937-090       ; Max/Li+Re (SW 0708 / PR-5D0/5D1/5D9)
+;7H0-937-090-B     ; Max/Li+Re (SW 0712 / PR-5D0/5D1/5D9)
+;
+;7H0-937-087       ; Highend (PR-8K0/8K1/8K2/8K4 & 5D0/5D1/5D9)
+;7H0-937-087-B     ; Highend (PR-8K0/8K1 & 5D0/5D1/5D9)
+;7H0-937-087-H     ; ?? (PR-8K0/8K1 & 5D0/5D1/5D9)
+;7H0-937-087-K     ; ?? (PR-7L3 & 8K0/8K1 & 5D0/5D1/5D9)
+;7H0-937-089       ; Highend (PR-8K3/8K8 & 5D0/5D1/5D9)
+;7H0-937-089-A     ; Highend (PR-8K3/8K8 & 5D2/5D3)
+;7H0-937-089-D     ; Highend (PR-8K3/8K8 & 5D0/5D1/5D9)
+;7H0-937-089-E     ; Highend (PR-8K3/8K8 & 5D2/5D3)
+ - PR-7L3 & PR-8K0/8K1/8K3/8K8 & PR-5D0/5D1/5D9 & PR-8TC/8TD)
+;7H0-937-089-G     ; Highend (PR-7L3 & 8K0/8K1/8K3/8K8 & 5D2/5D3)
+;7H0-937-090       ; ?? (PR-7L3 & 8K0/8K1/8K3/8K8 &  & UF2/UF4/UF5/UF8)
+;

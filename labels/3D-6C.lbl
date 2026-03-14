@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2015+ Ross-Tech, LLC
+;
+; VW Phaeton (3D)
+;
+; Component: J772 - Back-Up Camera (#6C)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3D-6C.LBL
+; 5N0-907-441.LBL
+;
+; created on 18/Feb/2015 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 18/Feb/2015
+;
+; requires VCDS 14.10.0 or newer
+;
+;
+REDIRECT,5N0-907-441.LBL,3D0-907-441-???
+;

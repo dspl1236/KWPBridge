@@ -1,0 +1,90 @@
+;
+; VCDS Label File (per LabelSpec v1.0)
+;
+; Copyright © 2025+ planGarage.de for Ross-Tech, LLC
+;
+; VW Polo (6N)
+;
+; Component: MARELLI 1AV - Engine Electronics (# 01) - AFH 1.4L
+;
+; P/N: 030-906-030-D & 030-906-030-E
+;
+; includes Measuring Blocks
+;
+; This file is part of a redirection package,
+; make sure you have all of the following files.
+;
+; 03-01.LBL
+; 030-906-030-AFH.LBL
+;
+; started/created on 11/March/2025 by Dana Smetanick
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+;
+;B001,0,Throttle Control Basic Setting
+;See Marelli ECU notes under Cable-Throttle Engines:
+;http://wiki.ross-tech.com/wiki/index.php/Throttle_Body_Alignment_(TBA)
+;
+;
+001,0,General Engine Data
+001,1,Engine speed,820...920/min
+001,2,Coolant temp,85...110°C
+001,3,Lambda probe,0.00...0.90V
+001,4,Conditions,00000000
+;              1        -A fault is stored in memory
+;               1       -Gear box intervention during gear shift
+;                1      -Air conditioner compressor on
+;                 1     -Idling switch (F60) open
+;                  1    -Fault in lambda control
+;                   1   -Throttle valve open
+;                    1  -Engine speed above 1800rpm
+;                     1 -Coolant temp below 80C
+;
+;
+002,0,General Engine Data 
+002,1,Engine speed,820...920/min
+002,2,Injection Time,2.05...5.12ms
+002,3,ECU Voltage,11.5...14.5V
+002,4,Air intake temp,15...70°C
+;
+003,0,General Engine Data
+003,1,Engine speed,820...920/min
+003,2,Engine Load,18...28%
+003,3,Throttle Angle,1...10°
+003,4,Throttle Valve Position, 5...30%
+;
+004,0,General Engine Data
+004,1,Engine speed,820...920/min
+004,2,Engine Load,18...28%
+004,3,Not Used,Always 255.0 or Speed signal
+004,4,Conditions,00000000
+;              1        -A fault is stored in memory
+;               1       -Gear box intervention during gear shift
+;                1      -Air conditioner compressor on
+;                 1     -Idling switch (F60) open
+;                  1    -Fault in lambda control
+;                   1   -Throttle valve open
+;                    1  -Engine speed above 1800rpm
+;                     1 -Coolant temp below 80C
+;
+005,0,General Engine Data
+005,1,Engine speed,820...920/min
+005,2,Evap Duty Cycle,6.0...19.0%
+;005,3,,Not used
+;005,4,,Not used
+;
+006,0,General Engine Data
+006,1,Mixture Correction,128.0 with range 85...160
+006,2,Mixture Correction,Learning (not for service)
+006,3,Idle Stabilization,,Learning (not for service)
+006,4,TBA Stored,Setting after Basic Settings,20...30
+;
+;
+;

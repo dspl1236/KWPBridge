@@ -1,0 +1,29 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2008+ Ross-Tech, LLC
+;
+; Component: Telephone (#77)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3C-77.LBL
+; 3C0-035-730.LBL
+; 3C8-035-730-A.CLB
+;
+; created on 26/Jun/2008 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 09/Jan/2015
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,3C0-035-730.LBL,3C8-035-730
+;
+REDIRECT,3C8-035-730-A.CLB,3C8-035-730-A   ; REFERENCE ONLY
+REDIRECT,3C8-035-730-A.CLB,3C8-035-730-B
+REDIRECT,3C8-035-730-A.CLB,3C8-035-730-C
+REDIRECT,3C8-035-730-A.CLB,3C8-035-730-D
+REDIRECT,3C8-035-730-A.CLB,3C8-035-730-E
+;

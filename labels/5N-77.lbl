@@ -1,0 +1,30 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2008-2011 Ross-Tech, LLC
+;
+; VW Golf/Jetta (1K/5M) / VW Passat (3C) / / VW Tiguan (5N) / VW Touareg (7L)
+;
+; Component: Telephone (#77)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 5N-77.LBL
+; 7L-77.LBL
+; 3C0-035-730.LBL
+; 3C8-035-730-A.CLB
+;
+; created on 23/Mar/2008 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 10/Feb/2011
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,3C0-035-730.LBL,5N0-035-730
+REDIRECT,3C0-035-730.LBL,5N0-035-730-A
+REDIRECT,3C0-035-730.LBL,5N0-035-730-B
+REDIRECT,3C0-035-730.LBL,5N0-035-730-C
+REDIRECT,3C8-035-730-A.CLB,5N0-035-730-D
+;

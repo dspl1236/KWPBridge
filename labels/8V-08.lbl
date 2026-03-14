@@ -1,0 +1,27 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; Component: J255 - A/C Heating Electronics (#08)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 5E-08.LBL
+; 5F-08.LBL
+; 5G-08.LBL
+; 8V-08.LBL
+; 5G0-907-044.CLB
+; 5G0-907-426.CLB
+;
+; created on 14/Jun/2014 by Niels Ezerman
+;
+; last modification on 14/Jun/2014
+;
+; requires VCDS 12.12.2 or newer
+;
+;
+REDIRECT,5G0-907-044.CLB,8V0-820-043-???
+;
+;

@@ -1,0 +1,27 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2015+ Ross-Tech, LLC
+;
+; Component: R - Radio (#56)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 4H-56.LBL
+; 4F0-035-0xx-56.CLB
+;
+; created on 17/Aug/2015 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 17/Aug/2015
+;
+; requires VCDS 15.7.0 or newer
+;
+;
+REDIRECT,4F0-035-0xx-56.CLB,4H0-035-053-???  ; PR-QV0/QV9+PR-8AJ/8YQ+PR-8RF/8RY+PR-9WC
+REDIRECT,4F0-035-0xx-56.CLB,4H0-035-056-???  ; PR-9VD+PR-8AJ/8YQ+PR-9VD+PR-9WC
+REDIRECT,4F0-035-0xx-56.CLB,4H0-035-061-???  ; PR-QU1/QV3+PR-8AJ/8YQ
+REDIRECT,4F0-035-0xx-56.CLB,4H0-035-080-???  ; PR-QV8
+REDIRECT,4F0-035-0xx-56.CLB,4H0-035-082-???  ; PR-QV8
+REDIRECT,4F0-035-0xx-56.CLB,4H0-035-083-???  ; PR-8DZ
+;

@@ -1,0 +1,136 @@
+;
+; VCDS Label File
+;
+; Copyright © 2005+ Ross-Tech, LLC
+;
+; Bentley Continental (3W) / Porsche Cayenne (9P) / VW Touareg (7L) / VW Phaeton (3D)
+;
+; Component: J234 - Airbag (#15) 8.4+
+;
+; P/N: 3D0-909-601-???
+;
+; includes measuring blocks, basic settings, security access, adaptation and misc
+;
+; created on 30/Aug/2005 by Michael Moore (Moore@ross-tech.com)
+; updated on 08/Feb/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 18/Jul/2014
+;
+; requires VCDS 12.12.2 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks & basic setting
+;
+;---------------------------------------------------
+;
+;
+001,0,Ignitiers I (Front Airbags Stage 1 && Front Belt Tensioners)
+001,1,Airbag (Stage 1),Driver Side,Specification: Correct\nRange: Correct/Signal too Low/Signal too High/Short to Ground/Short to Plus/Not Installed
+001,2,Airbag (Stage 1),Passenger Side,Specification: Correct\nRange: Correct/Signal too Low/Signal too High/Short to Ground/Short to Plus/Not Installed
+001,3,Belt Tensioner,Front Driver Side,Specification: Correct\nRange: Correct/Signal too Low/Signal too High/Short to Ground/Short to Plus/Not Installed
+001,4,Belt Tensioner,Front Pass. Side,Specification: Correct\nRange: Correct/Signal too Low/Signal too High/Short to Ground/Short to Plus/Not Installed
+;
+B001,0,Seat Occupied Recognition Control Module (J706) Basic Setting
+B001,1,Status, , 
+B001,2, , , 
+B001,3, , , 
+B001,4, , , 
+;
+002,0,Ignitiers II (Rear Belt Tensioners)
+002,1,Belt Tensioner,Rear Driver Side,Specification: Correct\nRange: Correct/Signal too Low/Signal too High/Short to Ground/Short to Plus/Not Installed
+002,2,Belt Tensioner,Rear Pass. Side,Specification: Correct\nRange: Correct/Signal too Low/Signal too High/Short to Ground/Short to Plus/Not Installed
+002,3,Belt Tensioner,Rear Center,Specification: Correct\nRange: Correct/Signal too Low/Signal too High/Short to Ground/Short to Plus/Not Installed
+002,4,Pyrotechnic Igniter,Battery Separating,Range: Correct/Signal too Low/Signal too High/Short to Ground/Short to Plus/Not Installed
+;
+003,0,Voltage && Seat. Occupation && Belt Inquiry I (Front)
+003,1,Voltage Supply,,Specification: Correct
+003,2,Occupied Seat,Sensor Pass. Side,Range: child/child seat/light adult/heavy adult/occupied/not occupied/not installed
+003,3,Belt Inquiry,Front Driver Side,Specification: Not Installed/Belt Yes/Belt No\nRange: Signal too Low/Signal too High/Short to Ground/Short to Plus/Not Installed/Belt Yes/Belt No
+003,4,Belt Inquiry,Front Pass. Side,Specification: Not Installed/Belt Yes/Belt No\nRange: Signal too Low/Signal too High/Short to Ground/Short to Plus/Not Installed/Belt Yes/Belt No
+;
+004,0,Belt Inquiry II (Rear)
+004,1,Belt Inquiry,Rear Driver Side,Specification: Not Installed/Belt Yes/Belt No\nRange: Signal too Low/Signal too High/Short to Ground/Short to Plus/Not Installed/Belt Yes/Belt No
+004,2,Belt Inquiry,Rear Pass. Side,Specification: Not Installed/Belt Yes/Belt No\nRange: Signal too Low/Signal too High/Short to Ground/Short to Plus/Not Installed/Belt Yes/Belt No
+004,3,Belt Inquiry,Rear Center,Display Range: Signal too Low/Signal too High/Short to Ground/Short to Plus/Not Installed/Belt Yes/Belt No
+;
+006,0,Igniter Status (Side Airbag)
+006,1,Front Left Side,Airbag Igniter,Display Range: Correct/Signal too Low/Signal too High/Short to Ground/Short to Plus/Not Installed
+006,2,Front Right Side,Airbag Igniter,Display Range: Correct/Signal too Low/Signal too High/Short to Ground/Short to Plus/Not Installed
+;
+008,0,Igniter Status (Head Airbag)
+008,1,Airbag (Stage 2),Driver Side,Specification: Correct\nDisplay Range: Correct/Too Low/Too High/Trig.Ground/Trig.Plus
+008,2,Airbag (Stage 2),Passenger Side,Specification: Correct\nDisplay Range: Correct/Too Low/Too High/Trig.Ground/Trig.Plus
+008,3,Driver Head,Airbag Igniter,Display Range: Correct/Signal too Low/Signal too High/Short to Ground/Short to Plus/Not Installed
+008,4,Passenger Head,Airbag Igniter,Display Range: Correct/Signal too Low/Signal too High/Short to Ground/Short to Plus/Not Installed
+;
+009,0,Key Switch Status
+009,1,Key Switch,Passenger Airbag,Display Range: ON/OFF
+009,2,Key Switch,(HW Path),Display Range: ON/OFF/Signal too Low/Signal too High/Short to Ground/Short to Plus/Not Installed
+009,3,Key Switch,(SW Path),Display Range: ON/OFF/Signal too Low/Signal too High/Short to Ground/Short to Plus/Not Installed
+;
+;011,1,
+;zu gross
+;011,2,
+;zu gross
+;011,3,
+;zu gross
+;011,4,
+;zu gross
+;
+080,0,Advanced Control Module Identification I
+;
+125,0,CAN-Databus Powertrain (Communication)
+125,1,Brake Electronics,(J104),Specification: ABS 1\nRange: ABS 1/ABS 0
+125,2,Instrument Cluster,(J285),Specification: Instruments 1\nRange: Instruments 1/Instruments 0
+;
+225,0,CAN-Databus Powertrain (Timeout)
+225,1,Brake Electronics,(J104)
+225,2,Instrument Cluster,(J285)
+;
+;
+;---------------------------------------------------
+;
+; security access
+;
+;---------------------------------------------------
+;
+;
+S00,Airbag (J234) Security Access
+S01,20324 = Seat Occupied Recognition Basic Setting/Zero Balancing
+S02,or (if rejected)
+S03,30475 = Seat Occupied Recognition Basic Setting/Zero Balancing (Alternative)
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+A000,0,Seat Occupied Recognition Reset
+A000,5,Seat Occupied Recognition Reset
+A000,6,If a repair on the Seat Occupied Recognition
+A000,7,has been performed a reset has to be performed too.
+A000,8, 
+A000,9,Prerequisites:
+A000,10,* Seat in normal position.
+A000,11,* Seat must NOT be occupied during the whole procedure.
+A000,12,* Seatbelt must NOT be plugged in.
+A000,13,* No faults in the system.
+A000,14,* Interior temperature must be between 0 °C and 37 °C (32 °F and 98 °F).
+A000,15, 
+A000,16,NOTE: Perform Security Access first.
+;
+;
+;---------------------------------------------------
+;
+; misc
+;
+;---------------------------------------------------
+;
+;
+I,
+;

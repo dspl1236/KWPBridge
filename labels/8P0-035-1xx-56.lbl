@@ -1,0 +1,135 @@
+;
+; VCDS Label File
+;
+; Copyright © 2008+ Ross-Tech, LLC
+;
+; Audi A3 (8P)
+;
+; Component: R - Radio (#56) - Chorus/Concert/Symphony 2
+;
+; P/N: ??0-035-1??-???
+;
+; includes measuring blocks, adaptation, coding and selective output test
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8P-56.LBL
+; 8P0-035-1xx-56.LBL
+;
+; created on 23/Oct/2008 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 11/Jul/2012
+;
+; requires VCDS 805.0 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,General
+001,1,Voltage,(Terminal 30),Specification: 9.0...15.0 V
+001,2,Amplifier,Output,only if Amplifier installed
+001,3,Telephone
+001,4,Telephone,Mute Signal,Range: ON/OFF
+;
+002,0,Speaker/Line-Out (Front Left)
+002,1,Location/Type
+002,2,Status
+;
+003,0,Remote Feed Antenna I
+003,1,Type
+003,2,Component
+003,3,Status
+;
+004,0,CD-Connection
+004,1,Component
+004,2,Status,,Display Range: OK/not OK
+;
+005,1,IF-Output
+005,2,IF-Output,Status
+;
+080,0,Advanced Control Module Identification I
+080,1,Identification
+080,2,Revision
+080,3,Production,Date
+080,4,Manufacturer &,Test Stand Number
+;
+081,0,Advanced Control Module Identification II
+081,1,Serial Number
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Radio (R) Coding
+C01,0?xxxxx: Configuration I
+C02,+1 = Satellite Radio installed / +2 = Digital Radio installed
+C03,+4 = Vehicle Speed Display available
+C04,0x?xxxx: Configuration II
+C05,+1 = Front Speaker Monitoring inactive
+C06,+2 = GALA-Function inactive / +4 = Long Wave Reception inactive
+C07,0xx?xxx: Sound Characteristics
+C08,0 = Linear Sound Characteristics
+C09,1 = Audi A3 (8P1)
+C10,2 = Audi A3 Sportback (8PA)
+C11,0xxx?xx: Fader/BOSE/Amplifier
+C12,+1 = Fader Display ON
+C13,+2 = BOSE Display ON
+C14,+4 = Amplifier Deactivation with incoming Call ON
+C15,0xxxx?x: Options I
+C16,+1 = Navigation System installed / +2 = Telephone installed
+C17,+4 = Speech Recognition installed
+C18,0xxxxx?: Options II
+C19,+1 = Antenna Diversity installed / +2 = CD-Changer installed
+C20,+4 = Multi-Function Steering Wheel installed
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+A002,0,Remote Control: Frequency FM
+;969
+A002,1,Reception,Level,Unit: dBµV
+;45.0
+A002,5,Remote Control: Frequency FM
+A002,6,The FM Frequency is being selected by entering the
+A002,7,Value without Decimal Point (i.e. 968 for 96.8 MHz).
+;
+;A003,0,
+;0
+;A003,1,
+;36.0
+;
+;A004,0,
+;0
+;A004,1,
+;31.0
+;
+A005,0,Remote Control: Volume
+A005,5,Remote Control: Volume
+A005,6,Range: 0...30 dB
+A005,7, 
+A005,8,The selected Volume will stay active
+A005,9,after closing the Diagnostic Session.
+;
+A006,0,Signal Position
+A006,5,Signal Position
+A006,6,0 = Fader Center / Balance Center
+A006,7,1 = Fader Front / Balance Left
+A006,8,2 = Fader Front / Balance Right
+A006,9,3 = Fader Rear / Balance Left
+A006,10,4 = Fader Rear / Balance Right
+;

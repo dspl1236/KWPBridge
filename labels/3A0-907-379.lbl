@@ -1,0 +1,56 @@
+;
+; VCDS Label File
+;
+; Copyright © 2013+ Ross-Tech, LLC
+;
+; VW Golf (1H) / VW Passat (3A) / Seat Ibiza (6K) / VW Caddy (9K) / VW Polo/Polo Classic (6K)
+;
+; Component: J104 - Brake Electronics (#03) Teves MK20
+;
+; P/N: 3A0-907-379-???
+;
+; includes measuring blocks and coding
+;
+; created on 18/Sep/2013 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 18/Sep/2013
+;
+; requires VCDS 11.11.5 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,Current Wheel Speed
+001,1,Speed Sensor,Front Left (G47),Range: 0.0...255.0 km/h
+001,2,Speed Sensor,Front Right (G45),Range: 0.0...255.0 km/h
+001,3,Speed Sensor,Rear Left (G46),Range: 0.0...255.0 km/h
+001,4,Speed Sensor,Rear Right (G44),Range: 0.0...255.0 km/h
+;
+002,0,Starting Wheel Speed
+002,1,Speed Sensor,Front Left (G47),Specification: 0.0...254.0 km/h (255.0 km/h = standing)
+002,2,Speed Sensor,Front Right (G45),Specification: 0.0...254.0 km/h (255.0 km/h = standing)
+002,3,Speed Sensor,Rear Left (G46),Specification: 0.0...254.0 km/h (255.0 km/h = standing)
+002,4,Speed Sensor,Rear Right (G44),Specification: 0.0...254.0 km/h (255.0 km/h = standing)
+;
+003,0,Switches
+003,1,Brake Light,Switch (F),Range: 0 = Not Oper. / 1 = Operated
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Brake Electronics (J104) Coding
+C01,03604 = VW Golf/Vento (1H - from 02/1995)
+C02,03704 = VW Golf/Vento (1H - from 07/1996)
+C03,04505 = VW Passat (3A)
+C03,06406 = Seat Ibiza (6K) / VW Caddy (9K) / VW Polo/Polo Classic (6K)
+;

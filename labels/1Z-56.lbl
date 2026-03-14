@@ -1,0 +1,63 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2005-2011 Ross-Tech, LLC
+;
+; Skoda Octavia (1Z)
+;
+; Component: R - Radio (#56)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1Z-37.LBL
+; 1Z-56.LBL
+; 1K0-035-1xx-56.LBL
+; 1T0-035-095.LBL
+; 1T0-035-680.LBL
+; 5M0-035-1xx-56.CLB
+;
+; created on 06/Apr/2005 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 13/Mar/2014
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,1K0-035-1xx-56.LBL,1Z0-035-152-A    ; Radio Melody
+REDIRECT,1K0-035-1xx-56.LBL,1Z0-035-152-B    ; Radio Melody
+REDIRECT,5M0-035-1xx-56.CLB,1Z0-035-152-D    ; Radio Blues
+REDIRECT,5M0-035-1xx-56.CLB,1Z0-035-152-E    ; Radio Blues
+;
+REDIRECT,1K0-035-1xx-56.LBL,1Z0-035-156-A    ; Radio Audience
+REDIRECT,1K0-035-1xx-56.LBL,1Z0-035-156-B    ; Radio Audience
+REDIRECT,1K0-035-1xx-56.LBL,1Z0-035-156-C    ; Radio Audience
+REDIRECT,1K0-035-1xx-56.LBL,1Z0-035-156-D    ; Radio Audience
+REDIRECT,5M0-035-1xx-56.CLB,1Z0-035-156-F    ; Radio Bolero
+REDIRECT,5M0-035-1xx-56.CLB,1Z0-035-156-G    ; Radio Bolero
+REDIRECT,5M0-035-1xx-56.CLB,1Z0-035-156-M    ; Radio Bolero
+REDIRECT,5M0-035-1xx-56.CLB,1Z0-035-156-N    ; Radio Bolero
+;
+REDIRECT,1K0-035-1xx-56.LBL,1Z0-035-161-A    ; Radio Stream
+REDIRECT,1K0-035-1xx-56.LBL,1Z0-035-161-B    ; Radio Stream
+REDIRECT,1K0-035-1xx-56.LBL,1Z0-035-161-C    ; Radio Stream
+REDIRECT,5M0-035-1xx-56.CLB,1Z0-035-161-F    ; Radio Swing
+REDIRECT,5M0-035-1xx-56.CLB,1Z0-035-161-G    ; Radio Swing
+REDIRECT,5M0-035-1xx-56.CLB,1Z0-035-161-M    ; Radio Swing
+REDIRECT,5M0-035-1xx-56.CLB,1Z0-035-161-N    ; Radio Swing
+REDIRECT,5M0-035-1xx-56.CLB,1Z0-035-161-P    ; Radio Swing
+;
+REDIRECT,1T0-035-095.LBL,1Z0-035-191-???     ; Nexus (MFD2-CD)
+;
+REDIRECT,1T0-035-680.LBL,1Z0-035-680-???     ; Columbus (RNS510)
+REDIRECT,1T0-035-680.LBL,1Z0-035-682-???     ; Columbus (RNS510)
+;
+;1ZD-035-152      ; Radio ??? (CHN)
+;
+;1ZD-035-156      ; Radio ??? (CHN)
+REDIRECT,5M0-035-1xx-56.CLB,1ZD-035-156-B    ; Radio ??? (CHN)
+;
+REDIRECT,1K0-035-1xx-56.LBL,1ZD-035-161-A    ; Radio ??? (CHN)
+;
+;1ZD-035-186      ; Radio ??? (CHN)
+;

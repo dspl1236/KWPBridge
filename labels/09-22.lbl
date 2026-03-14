@@ -1,0 +1,26 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011+ Ross-Tech, LLC
+;
+; Component: J492 - All Wheel Electronics (#22)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 09-22.LBL
+; 0AY-907-554-V1.CLB
+; 0AY-907-554-V2.CLB
+;
+; created on 30/Sep/2011 by Niels Ezerman (nez@netech.dk)
+; updated on 06/Feb/2012 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 04/Nov/2014
+;
+; requires VCDS 11.3.0 or newer
+;
+;
+REDIRECT,0AY-907-554-V1.CLB,09N-907-554-A
+REDIRECT,0AY-907-554-V1.CLB,09N-907-554-B
+REDIRECT,0AY-907-554-V1.CLB,09N-907-554-C
+;

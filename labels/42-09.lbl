@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2015+ Ross-Tech, LLC
+;
+; Component: J519 - Central Electronics I (#09)
+;
+; This file is part of a redirection package,
+; make sure you have all of the following files.
+;
+; 42-09.LBL
+; 8P0-907-063.CLB
+;
+; created on 12/Jun/2015 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 12/Jun/2015
+;
+; requires VCDS 14.10.2 or newer
+;
+;
+REDIRECT,8P0-907-063.CLB,420-907-063-???
+;

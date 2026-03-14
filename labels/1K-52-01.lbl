@@ -1,0 +1,34 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011+ Ross-Tech, LLC
+;
+; Component: Subsystem (#52-01)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1T-52-01.LBL
+; 3C-52-01.LBL
+; 56-52-01.LBL
+; 1K0-959-70X-GEN4.CLB
+;
+; created on 23/Sep/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 01/Feb/2013
+;
+; requires VCDS 11.8.0 / LCode 1.0.2 or newer
+;
+;
+;---------------------------------------------------
+;
+; Rear Right Door
+;
+;---------------------------------------------------
+;
+;
+REDIRECT,1K0-959-70X-GEN4.CLB,1K0-959-704-AB,SL  // RETROFIT
+REDIRECT,1K0-959-70X-GEN4.CLB,1K0-959-704-AF,SL
+REDIRECT,1K0-959-70X-GEN4.CLB,1K0-959-704-AG,SL
+REDIRECT,1K0-959-70X-GEN4.CLB,1K0-959-704-AH,SL
+;

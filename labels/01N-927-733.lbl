@@ -1,0 +1,90 @@
+;
+; VCDS Label File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; VW Passat (3B)
+;
+; Component: J217 - Transmission (#02) - 4-Speed Automatic Transmission (01N)
+;
+; P/N: 01N-927-733-???
+;
+; includes measuring blocks and basic settings
+;
+; created on 20/Oct/2014 by Sebastian Stange (sebastian@ross-tech.com)
+;
+; last modification on 20/Oct/2014
+;
+; requires VCDS 12.12.3 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks & basic settings
+;
+;---------------------------------------------------
+;
+;
+B000,0,Kick Down Alignment
+B000,11,Press and Hold the Gas Pedal incl. Kick-Down for 3 Seconds.
+;
+001,1,Selector Lever,Position (F125),Range: P/R/N/D/3/2/1
+001,2,Throttle Body,Potentiom. (G69),Specification (Idle / w/o CAN): 0.156...0.800 V\nSpecification (Full Load / w/o CAN): 3.500...4.680 V
+001,3,Accelerator,Pedal Position,Range: 0.0...100.0 %\nSpecification (Idle): 0.0...1.0 %\nSpecification (Full Load):  99.0...100.0 %
+001,4,Switch Positions,,1 = operated/active / 0 = not operated/inactive\n?xxxxxxx = Brake Light Switch (F)\nx?xxxxxx = Engine Drag Torque Control (EDTC/MSR)\nxxx?xxxx = Kick-Down Switch (F8)\nxxxx?xxx = Multi-Function Switch (F125): 0 = P/1 / 1 = R/N/D/R/2\nxxxxx?xx = Multi-Function Switch (F125): 0 = N/D/3 / 1 = P/R/2/1\nxxxxxx?x = Multi-Function Switch (F125): 0 = 3/2/1 / 1 = P/R/N/D\nxxxxxxx? = Multi-Function Switch (F125): 0 = D/3/2/1 / 1 = P/R/N
+; 1 = operated/active / 0 = not operated/inactive
+; ?xxxxxxx = Brake Light Switch (F)
+; x?xxxxxx = Engine Drag Torque Control (EDTC/MSR)
+; xxx?xxxx = Kick-Down Switch (F8)
+; xxxx?xxx = Multi-Function Switch (F125): 0 = P/1 / 1 = R/N/D/R/2
+; xxxxx?xx = Multi-Function Switch (F125): 0 = N/D/3 / 1 = P/R/2/1
+; xxxxxx?x = Multi-Function Switch (F125): 0 = 3/2/1 / 1 = P/R/N/D
+; xxxxxxx? = Multi-Function Switch (F125): 0 = D/3/2/1 / 1 = P/R/N
+;
+002,1,Solenoid Valve 6,(N93/actual),Specification (Idle): max. 1.1 A\nSpecification: (Full Load): 0.0 A
+002,2,Solenoid Valve 6,(N93/specified),Specification (Idle): max. 1.1 A\nSpecification: (Full Load): 0.0 A
+002,3,Voltage,(Terminal 30),Specification: 10.8...16.0 V
+002,4,Sensor (G68) for,Vehicle Speed,Specification (Standing): 2.0...2.52 V
+;
+003,1,Vehicle Speed
+003,2,Engine Speed
+003,3,Selected Gear,,Range: 0/R/1H/1M/2H/2M/3H/3M/4H/4M
+003,4,Accelerator,Pedal Position,Range: 0.0...100.0 %\nSpecification (Idle): 0.0...1.0 %\nSpecification (Full Load):  99.0...100.0 %
+;
+004,1,Solenoid Valve,Status,?xxx-xx- = N88\nx?xx-xx- = N89\nxx?x-xx- = N90\nxxx?-xx- = N91\nxxxx-?x- = N92\nxxxx-x?- = N94\n1010-00- = N/P/R\n0010-00- = R/D/3/2/1 (1H/1M)\n0110-00- = D/3/2/1 (2H/2M)\n0000-01- = D/3 (3H/3M)\n1100-01- = D (4H/4M)
+; ?xxx-xx- = N88
+; x?xx-xx- = N89
+; xx?x-xx- = N90
+; xxx?-xx- = N91
+; xxxx-?x- = N92
+; xxxx-x?- = N94
+; 1010-00- = N/P/R
+; 0010-00- = R/D/3/2/1 (1H/1M)
+; 0110-00- = D/3/2/1 (2H/2M)
+; 0000-01- = D/3 (3H/3M)
+; 1100-01- = D (4H/4M)
+004,2,Selected Gear,,Range: 0/R/1H/1M/2H/2M/3H/3M/4H/4M
+004,3,Selector Lever,Position (F125),Range: P/R/N/D/3/2/1
+004,4,Vehicle Speed
+;
+005,1,Transmission Fluid,Temp. (ATF/G93),Specification (Level Check): 35.0...45.0 °C
+005,2,Switch Outputs,,1 = operated/active / 0 = not operated/inactive\n??xxxxx- = Engine Cut-In\nxx??xxx- = Selector Lever Lock Solenoid (N110)\nxxxx?xx- = Cruise Control System (CCS)\nxxxxx?x- = Climate Control\nxxxxxx?- = Selector Lever in Park/Neutral
+; 1 = operated/active / 0 = not operated/inactive
+; ??xxxxx- = Engine Cut-In
+; xx??xxx- = Selector Lever Lock Solenoid (N110)
+; xxxx?xx- = Cruise Control System (CCS)
+; xxxxx?x- = Climate Control
+; xxxxxx?- = Selector Lever in Park/Neutral
+005,3,Selected Gear,,Range: 0/R/1H/1M/2H/2M/3H/3M/4H/4M
+005,4,Engine Speed
+;
+006,1,Incline/Decline,,Slide: max. -32.0 %\nAscent: max. +32.0 %
+006,2,Hill Driving,Factor,,Range: 0.0...100.0 %
+006,3,Dynamic Index,,Range: 0.0...100.0 %
+006,4,Accelerator,Pedal Position,Range: 0.0...100.0 %\nSpecification (Idle): 0.0...1.0 %\nSpecification (Full Load):  99.0...100.0 %
+;
+007,1,Selected Gear,,Range: 0/R/1H/1M/2H/2M/3H/3M/4H/4M
+007,2,Lock-Up Clutch,Slip Condition,Specification (in mechanical Gears): 0...130 RPM
+007,3,Engine Speed
+007,4,Accelerator,Pedal Position,Range: 0.0...100.0 %\nSpecification (Idle): 0.0...1.0 %\nSpecification (Full Load):  99.0...100.0 %
+;

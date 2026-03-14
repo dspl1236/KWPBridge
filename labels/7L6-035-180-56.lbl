@@ -1,0 +1,115 @@
+;
+; VCDS Label File
+;
+; Copyright © 2013+ Ross-Tech, LLC
+;
+; Component: R - Radio (#56) - Premium 6 (7L6)
+;
+; This file is part of a redirection package,
+; make sure you have all of the following files.
+;
+; 7L-56.LBL
+; 7L6-035-180-56.LBL
+;
+; includes measuring blocks, coding and adaptation
+;
+; created on 02/Jun/2006 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 25/Feb/2013
+;
+; requires VCDS 11.11.5 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,General
+001,1,Supply Voltage,(Terminal 30),Specification: 5...18 V
+001,2,Amplifier,Output,only if Amplifier installed
+001,3,Telephone-Mute
+001,4,Telephone-Mute,Status,Range: ON/OFF
+;
+002,0,Speaker/Line-Out (Front)
+002,1,Location/Type
+002,2,Status
+002,3,Location/Type
+002,4,Status
+;
+003,0,Speaker/Line-Out (Rear)
+003,1,Location/Type
+003,2,Status
+003,3,Location/Type
+003,4,Status
+;
+004,0,Remote Feed Antenna
+004,1,Antenna,Type
+004,2,Component
+004,3,Antenna,Status
+;
+005,0,IF-Output
+005,1,Component
+005,2,IF-Output,Status
+;
+007,0,Communication Status CD-Changer (R41)
+007,1,Component
+007,2,CD-Changer,Status
+;
+008,0,Signal Strength
+008,1,Signal Strength
+008,2,Signal Strength,Tuner
+;
+025,0,Internal Control Module Malfunctions
+025,1,Control Module,Status,01 = Button(s) Jam\n02 = Checksum Error ROM/EPROM/Flash-ROM\n03 = Writing Error EEPROM\n04 = CC-Drive (Casette) Error\n05 = CD/DVD-Drive Error
+; 01 = Button(s) Jam
+; 02 = Checksum Error ROM/EPROM/Flash-ROM
+; 03 = Writing Error EEPROM
+; 04 = CC-Drive (Casette) Error
+; 05 = CD/DVD-Drive Error
+;
+080,0,Advanced Control Module Identification I
+080,1,Identification
+080,2,Revision
+080,3,Production,Date
+080,4,Manufacturer &,Test Stand Number
+;
+081,0,Advanced Control Module Identification II
+081,1,Serial Number
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Radio (R) Coding
+C01,000?xxx: Radio Configuration I
+C02,+1 = IF-Output
+C03,+2 = Telephone (via CAN)
+C04,+4 = Multi-Function Steering Wheel (via CAN)
+C05,000x?xx: Speaker Channels
+C06,0 = No passive Speakers (Sound System)
+C07,2 = 2 passive Speakers (Front)
+C08,4 = 4 passive Speakers (Front & Rear)
+C09,000xx?x: Sound System Correction
+C10,0 = No Sound System (No Correction)
+C11,00xxxx?: Radio Configuration II
+C12,+1 = Active/Remote Supplied Antenna
+C13,+2 = CD-Changer/iPod-Connection
+C14,+4 = CAN-Secondary Display (Board Computer/large Display)
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+
+;

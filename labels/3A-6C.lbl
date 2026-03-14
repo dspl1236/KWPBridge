@@ -1,0 +1,25 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2012+ Ross-Tech, LLC
+;
+; VW Passat (36)
+;
+; Component: J772 - Back-Up Camera (#6C)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3A-6C.LBL
+; 5N0-907-441.LBL
+;
+; created on 12/Oct/2012 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 12/Nov/2012
+;
+; requires VCDS 11.11.4 or newer
+;
+;
+REDIRECT,5N0-907-441.LBL,3AE-907-441-???
+REDIRECT,5N0-907-441.LBL,3AF-907-441-???
+;

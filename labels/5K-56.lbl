@@ -1,0 +1,26 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2010+ Ross-Tech, LLC
+;
+; VW Amarok (2H) / VW Passat CC (35) / VW Tiguan (5N)
+;
+; Component: R - Radio (#56)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 5K-56.LBL
+; 5M0-035-1xx-56.CLB (Modular Radio X10)
+;
+; created on 05/Dec/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 06/Feb/2015
+;
+; requires VCDS 10.6.2 or newer
+;
+;
+REDIRECT,5M0-035-1xx-56.CLB,5K0-035-156-??? ; RCD210
+;
+REDIRECT,5M0-035-1xx-56.CLB,5K0-035-190-??? ; RCD510
+;

@@ -1,0 +1,43 @@
+;
+; VCDS Label File
+;
+; Copyright © 2010 Ross-Tech, LLC
+;
+; VW Passat (3C)
+;
+; Component: J738 - Operations (#5D)
+;
+; P/N: 3C0-035-151-???
+;
+; includes measuring blocks and selective output test
+;
+; created on 12/Nov/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 12/Nov/2010
+;
+; requires VCDS 805.0 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,Symbol Code
+001,1,Symbol Code
+;
+002,0,Dimming
+002,1,Dimming
+;
+;
+;---------------------------------------------------
+;
+; selective output test
+;
+;---------------------------------------------------
+;
+;
+T694,Button Ilumination
+;

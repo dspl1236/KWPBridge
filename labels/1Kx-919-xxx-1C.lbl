@@ -1,0 +1,59 @@
+;
+; VCDS Label File
+;
+; Copyright © 2005-2009 Ross-Tech, LLC
+;
+; VW Eos (1F) / VW Golf/Jetta (1K) / VW Passat (35/3C)
+;
+; Component: J603 - Position Sensing (#1C)
+;
+; P/N: 3C0-919-965-??? / 3C8-919-965
+;
+; includes measuring blocks and adaptation
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1K-1C.LBL
+; 1Q-1C.LBL
+; 3C-1C.LBL
+; 1Kx-919-xxx-1C.LBL
+;
+; created on 15/Jul/2005 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 01/Nov/2009
+;
+; requires VCDS 805.0 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,Current Position
+001,1,Direction
+001,2,Current Angle
+001,3,Zone
+001,4,Magnetic Area
+;
+002,0,Current Status
+002,1,Calibration,Status
+002,2,Sensor,calibrated
+002,3,Malfunction
+002,4,Malfunction
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+A001,0,Compass Zone
+A001,5,Compass Zone
+A001,6,See Factory Repair Manual.
+;

@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2015+ Ross-Tech, LLC
+;
+; Component: Engine (#01)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 7X-01.LBL
+; 030-906-034-BTJ.LBL  (1.4l MPIFLEX @  83 PS - BTJ)
+;
+; created on 12/Jun/2015 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 12/Jun/2015
+;
+; requires VCDS 14.10.2 or newer
+;
+;
+REDIRECT,030-906-034-BTJ.CLB,7X0-906-034-???  ; BTJ (7X)
+;

@@ -1,0 +1,31 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2009+ Ross-Tech, LLC
+;
+; Audi Q5 (8R)
+;
+; Component: J217 - Transmission (#02)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8R-02.LBL
+; 0B5-927-156.CLB
+; 0B6-927-156.CLB
+; 0BK-927-156.CLB
+;
+; created on 21/Mar/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 19/Aug/2015
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,0B5-927-156.LBL,0B5-927-156-???,HW
+;
+REDIRECT,0B6-927-156.LBL,0B6-927-156-???,HW
+;
+REDIRECT,0BK-927-156.LBL,0BK-927-156-???,HW
+REDIRECT,0BK-927-156.LBL,0BW-927-156-???,HW
+;

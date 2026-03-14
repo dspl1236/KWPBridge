@@ -1,0 +1,33 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2005+ Ross-Tech, LLC
+;
+; Bentley Continental (3W)
+;
+; Component: J197 - Level Control System (#34)
+;
+; P/N: 3D0-907-553-??? / 3W?-907-553-???
+;
+; This file is part of a label file package,
+; make sure you have both of the following files.
+;
+; 3D-34.LBL
+; 3W-34.LBL
+; 3D0-907-553-V1.CLB
+; 3D0-907-553-V2.CLB
+; 3Wx-907-553-34.CLB
+;
+; created on 23/Sep/2005 by Michael Moore (Moore@Ross-Tech.com)
+; updated on 25/Sep/2006 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 26/Feb/2013
+;
+; requires VCDS 11.11.5 or newer
+;
+;
+REDIRECT,3D0-907-553-V1.lbl,3D0-907-553
+REDIRECT,3D0-907-553-V1.lbl,3D0-907-553-A
+REDIRECT,3D0-907-553-V1.lbl,3D0-907-553-B
+REDIRECT,3D0-907-553-V2.lbl,3D0-907-553-C
+;

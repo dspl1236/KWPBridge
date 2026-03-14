@@ -1,0 +1,72 @@
+;
+; VCDS Label File
+;
+; Copyright © 2005+ Ross-Tech, LLC
+;
+; Audi A3 (8L) / Audi A4 (8D) / Audi A6 (4B) / Audi A8 (4D)
+;
+; Component: J347 - Interior Monitoring (#45) w/o Head Airbags
+;
+; P/N: 4B0-951-173-??? / 8L0-951-173-???
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8L-45.LBL
+; 4B0-951-173.LBL
+;
+; includes measuring blocks, adaptation and coding
+;
+; created on 07/Jun/2005 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 21/Feb/2013
+;
+; requires VCDS 11.11.4 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,Basic Functions
+001,1,Input Signals,,?xxx = Switch for Int. Monitoring operated\nx?xx = Driver's Door Contact Switch open\nxx?x = Anti-Theft Warning System active\nxxx? = Glass Breakage recognized (Avant/Wagon only)
+; ?xxx = Switch for Int. Monitoring operated
+; x?xx = Driver's Door Contact Switch open
+; xx?x = Anti-Theft Warning System active
+; xxx? = Glass Breakage recognized (Avant/Wagon only)
+001,2,Sensor,Sensitivity,Specification: 50...100 % (see Adaptation Channel 001)
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+A001,0,Sensitivity
+A001,5,Sensitivity
+A001,6,Sensitivity of the Ultra-Sound Sensors can be lowered/raised.
+A001,7, 
+A001,8,Range: 50...100 %
+A001,9,Standard: 100 (= 100 %)
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Interior Monitoring (J247) Coding
+C01,00?0x: Type
+C02,0 = Audi A3 (8L) / Audi A6 (4B)
+C03,1 = Audi A4 (8D) / Audi A8 (4D)
+C04,00x0?: Chassis Type
+C05,1 = Limousine/Sedan
+C06,2 = Avant/Wagon
+;

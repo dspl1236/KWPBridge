@@ -1,0 +1,81 @@
+;
+; VCDS Label File
+;
+; Copyright © 2005+ planGarage.de for Ross-Tech, LLC
+;
+; Audi A4 (8E/8H) / Audi A6 (4B) / Audi A8 (4D)
+; Skoda Superb (3U / VW Passat (3B)
+;
+; Component: J431 - Headlight Aim Control (#55) - DYNAMIC REGULATION
+;
+; P/N: 4B0-907-357-??? / 4Z7-907-357-???
+;
+; includes measuring blocks, basic settings and coding
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 4B-55.LBL
+; 4Z-55.LBL
+; 4B0-907-357-AUT.LBL
+; 4B0-907-357-DYN.LBL
+;
+; created on 27/Sep/2004 by Sebastian Stange (sst@plangarage.de)
+;
+; last modification on 10/Mar/2017
+;
+; requires VCDS 17.1.3 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks & basic settings
+;
+;---------------------------------------------------
+;
+;
+001,0,General
+001,1,Voltage Supply,(Terminal 15),Specifcation: 0.0...15.0 V
+001,2,Light Switch,Status,Specification:\n0 = Light OFF\n1 = Light ON
+001,3,Vehicle Speed,,Specification: 0...300 km/h
+001,4,Acceleration,(Vehicle),Specification: 0.00...7.00 m/s²
+;
+B001,0,Adjustment Position (Step 1)
+B001,1,Status, , 
+B001,2, , , 
+B001,3, , , 
+B001,4, , , 
+;
+002,0,General
+002,1,Front Level,Sensor (G78),Range: 0.0...5.0 V\nSpecification: 1.56...3.45 V\n0.00 V = level sensor faulty\n5.00 V = wiring faulty
+002,2,Rear Level,Sensor (G76),Range: 0.0...5.0 V\nSpecification: 0.50...4.50 V\n0.00 V = level sensor faulty\n5.00 V = wiring faulty
+002,3,Actuator Motors,Specification,Range: 0.0...100.0 %
+002,4,Time Constant,,Range: 0.0...2.0 s
+;
+B002,0,Adjustment Position learning (Step 2)
+B002,1,Status, , 
+B002,2, , , 
+B002,3, , , 
+B002,4, , , 
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Head Light Aim Control (J431) Coding
+C01,00001 = Audi A8 (4D)
+C02,00005 = Skoda Superb (3U) Front-Wheel-Drive (FWD)
+C03,00006 = Skoda Superb (3U) All-Wheel-Drive (AWD)
+C04,00007 = VW Passat (3B) Front-Wheel-Drive (FWD)
+C05,00008 = VW Passat (3B) All-Wheel-Drive (AWD)
+C06,00020 = Audi A6/S6 (4B) (through MY 2000)
+C07,00030 = Audi Allroad (4H)
+C08,00040 = Audi A6/S6/RS6 (4B) Front-Wheel-Drive (FWD) (from MY 2001)
+C09,00050 = Audi A6/S6/RS6 (4B) All-Wheel-Drive (AWD) (from MY 2001)
+C10,00060 = Audi A4/S4/RS4 (8E)
+C11,00070 = Audi A4/S4/RS4 Cabriolet (8H)
+;

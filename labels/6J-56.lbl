@@ -1,0 +1,34 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011+ Ross-Tech, LLC
+;
+; Seat Ibiza (6J)
+;
+; Component: R - Radio (#56)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 6J-56.LBL
+; 5M0-035-1xx-56.CLB (Modular Radio X10)
+; 6J0-035-153.CLB
+;
+; created on 21/Mar/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 17/Jun/2015
+;
+; requires VCDS 10.6.4 or newer
+;
+;
+REDIRECT,6J0-035-153.CLB,6J1-035-153-C
+REDIRECT,6J0-035-153.CLB,6J1-035-153-D
+REDIRECT,6J0-035-153.CLB,6J1-035-153-F
+REDIRECT,6J0-035-153.CLB,6J1-035-153-G
+REDIRECT,6J0-035-153.CLB,6J1-035-153-H
+;
+REDIRECT,6J0-035-153.CLB,6J2-035-153-E
+REDIRECT,6J0-035-153.CLB,6J2-035-153-G
+;
+REDIRECT,5M0-035-1xx-56.CLB,6J0-035-156-??? ; Radio Entry (Gen 2)
+;

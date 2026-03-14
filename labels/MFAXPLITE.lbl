@@ -1,0 +1,564 @@
+;
+; MFA XP Lite Label file. Valid from software V2.00
+;
+; (C) MFA XP Automotive Systems 2013
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,Misc
+001,1,Battery
+001,2,NWM
+001,3,Ignition
+001,4,S-Contact
+;
+002,0,Boost pressure
+002,1,Raw AD
+002,2,Voltage
+002,3,Result
+002,4,Spare
+;
+003,0,Oil pressure
+003,1,Raw
+003,2,Resistance
+003,3,Result
+003,4,Spare
+;
+;---------------------------------------------------
+;
+; adaption
+;
+;---------------------------------------------------
+;
+A001,0,Max. engine torque in NM (0 = Use CAN)
+;
+;
+;---------------------------------------------------
+;
+; Long Coding
+;
+;---------------------------------------------------
+;
+;
+; {Basic Setup}
+LC,00,0,Bring MFA XP Lite to front after ignition is on
+LC,00,1,Show raw boost pressure instead of height corrected
+LC,00,2,Set exhaust flap to open during ignition on (otherwise flap state is normal)
+LC,00,3~4,08,Language: German
+LC,00,3~4,10,Language: English
+; {Boost source}
+LC,00,5~7,00,Boost source: OFF
+LC,00,5~7,20,Boost source: CAN 0...2.5bar
+LC,00,5~7,40,Boost source: CAN 0...5bar
+LC,00,5~7,60,Boost source: Box internal
+LC,00,5~7,80,Boost source: VW 250kPA
+LC,00,5~7,A0,Boost source: VW 300kPA
+LC,00,5~7,C0,Boost source: VW 400kPA
+; {Units Setup}
+LC,01,0,Temperature Unit: °F instead of °C
+LC,01,1,Speed Unit: MPH instead of KM/H
+LC,01,2,Power Unit: KW instead of HP
+LC,01,3,Torque Unit: LBF instead of NM
+LC,01,4,Pressure Unit: PSI instead of BAR
+; {Screen 1/Line 1}
+LC,02,0~7,00,Screen 1/Line 1: Off
+LC,02,0~7,01,Screen 1/Line 1: Engine Oil Temperature
+LC,02,0~7,02,Screen 1/Line 1: Engine Intake Temperature
+LC,02,0~7,03,Screen 1/Line 1: Engine Cooling Temperature
+LC,02,0~7,04,Screen 1/Line 1: Outside Temperature
+LC,02,0~7,05,Screen 1/Line 1: Engine RPM
+LC,02,0~7,06,Screen 1/Line 1: Oil Pressure
+LC,02,0~7,07,Screen 1/Line 1: Boost
+LC,02,0~7,08,Screen 1/Line 1: Engine Power
+LC,02,0~7,09,Screen 1/Line 1: Engine Power Loss
+LC,02,0~7,0A,Screen 1/Line 1: Engine Power Wheel
+LC,02,0~7,0B,Screen 1/Line 1: Engine Torque
+LC,02,0~7,0C,Screen 1/Line 1: Engine Torque Loss
+LC,02,0~7,0D,Screen 1/Line 1: Engine Torque Wheel
+LC,02,0~7,0E,Screen 1/Line 1: Engine Pedal Position
+LC,02,0~7,0F,Screen 1/Line 1: Engine Throttle Position
+LC,02,0~7,10,Screen 1/Line 1: Wheel speed Front Left
+LC,02,0~7,11,Screen 1/Line 1: Wheel speed Front Right
+LC,02,0~7,12,Screen 1/Line 1: Wheel speed Back Left
+LC,02,0~7,13,Screen 1/Line 1: Wheel speed Back Right
+LC,02,0~7,14,Screen 1/Line 1: Brake Pressure
+LC,02,0~7,15,Screen 1/Line 1: G across
+LC,02,0~7,16,Screen 1/Line 1: Gierrate
+LC,02,0~7,17,Screen 1/Line 1: Steering Angle
+LC,02,0~7,18,Screen 1/Line 1: Haldex Clutch Open
+LC,02,0~7,19,Screen 1/Line 1: Haldex Overtemp
+LC,02,0~7,1A,Screen 1/Line 1: Haldex Transmitted Torque
+LC,02,0~7,1B,Screen 1/Line 1: Haldex Oil Temperature
+LC,02,0~7,1C,Screen 1/Line 1: Car Speed
+LC,02,0~7,1D,Screen 1/Line 1: Fuel Content
+LC,02,0~7,1E,Screen 1/Line 1: Voltage
+LC,02,0~7,1F,Screen 1/Line 1: DSG Current Gear
+; {Screen 1/Line 2}
+LC,03,0~7,00,Screen 1/Line 2: Off
+LC,03,0~7,01,Screen 1/Line 2: Engine Oil Temperature
+LC,03,0~7,02,Screen 1/Line 2: Engine Intake Temperature
+LC,03,0~7,03,Screen 1/Line 2: Engine Cooling Temperature
+LC,03,0~7,04,Screen 1/Line 2: Outside Temperature
+LC,03,0~7,05,Screen 1/Line 2: Engine RPM
+LC,03,0~7,06,Screen 1/Line 2: Oil Pressure
+LC,03,0~7,07,Screen 1/Line 2: Boost
+LC,03,0~7,08,Screen 1/Line 2: Engine Power
+LC,03,0~7,09,Screen 1/Line 2: Engine Power Loss
+LC,03,0~7,0A,Screen 1/Line 2: Engine Power Wheel
+LC,03,0~7,0B,Screen 1/Line 2: Engine Torque
+LC,03,0~7,0C,Screen 1/Line 2: Engine Torque Loss
+LC,03,0~7,0D,Screen 1/Line 2: Engine Torque Wheel
+LC,03,0~7,0E,Screen 1/Line 2: Engine Pedal Position
+LC,03,0~7,0F,Screen 1/Line 2: Engine Throttle Position
+LC,03,0~7,10,Screen 1/Line 2: Wheel speed Front Left
+LC,03,0~7,11,Screen 1/Line 2: Wheel speed Front Right
+LC,03,0~7,12,Screen 1/Line 2: Wheel speed Back Left
+LC,03,0~7,13,Screen 1/Line 2: Wheel speed Back Right
+LC,03,0~7,14,Screen 1/Line 2: Brake Pressure
+LC,03,0~7,15,Screen 1/Line 2: G across
+LC,03,0~7,16,Screen 1/Line 2: Gierrate
+LC,03,0~7,17,Screen 1/Line 2: Steering Angle
+LC,03,0~7,18,Screen 1/Line 2: Haldex Clutch Open
+LC,03,0~7,19,Screen 1/Line 2: Haldex Overtemp
+LC,03,0~7,1A,Screen 1/Line 2: Haldex Transmitted Torque
+LC,03,0~7,1B,Screen 1/Line 2: Haldex Oil Temperature
+LC,03,0~7,1C,Screen 1/Line 2: Car Speed
+LC,03,0~7,1D,Screen 1/Line 2: Fuel Content
+LC,03,0~7,1E,Screen 1/Line 2: Voltage
+LC,03,0~7,1F,Screen 1/Line 2: DSG Current Gear
+; {Screen 1/Line 3}
+LC,04,0~7,00,Screen 1/Line 3: Off
+LC,04,0~7,01,Screen 1/Line 3: Engine Oil Temperature
+LC,04,0~7,02,Screen 1/Line 3: Engine Intake Temperature
+LC,04,0~7,03,Screen 1/Line 3: Engine Cooling Temperature
+LC,04,0~7,04,Screen 1/Line 3: Outside Temperature
+LC,04,0~7,05,Screen 1/Line 3: Engine RPM
+LC,04,0~7,06,Screen 1/Line 3: Oil Pressure
+LC,04,0~7,07,Screen 1/Line 3: Boost
+LC,04,0~7,08,Screen 1/Line 3: Engine Power
+LC,04,0~7,09,Screen 1/Line 3: Engine Power Loss
+LC,04,0~7,0A,Screen 1/Line 3: Engine Power Wheel
+LC,04,0~7,0B,Screen 1/Line 3: Engine Torque
+LC,04,0~7,0C,Screen 1/Line 3: Engine Torque Loss
+LC,04,0~7,0D,Screen 1/Line 3: Engine Torque Wheel
+LC,04,0~7,0E,Screen 1/Line 3: Engine Pedal Position
+LC,04,0~7,0F,Screen 1/Line 3: Engine Throttle Position
+LC,04,0~7,10,Screen 1/Line 3: Wheel speed Front Left
+LC,04,0~7,11,Screen 1/Line 3: Wheel speed Front Right
+LC,04,0~7,12,Screen 1/Line 3: Wheel speed Back Left
+LC,04,0~7,13,Screen 1/Line 3: Wheel speed Back Right
+LC,04,0~7,14,Screen 1/Line 3: Brake Pressure
+LC,04,0~7,15,Screen 1/Line 3: G across
+LC,04,0~7,16,Screen 1/Line 3: Gierrate
+LC,04,0~7,17,Screen 1/Line 3: Steering Angle
+LC,04,0~7,18,Screen 1/Line 3: Haldex Clutch Open
+LC,04,0~7,19,Screen 1/Line 3: Haldex Overtemp
+LC,04,0~7,1A,Screen 1/Line 3: Haldex Transmitted Torque
+LC,04,0~7,1B,Screen 1/Line 3: Haldex Oil Temperature
+LC,04,0~7,1C,Screen 1/Line 3: Car Speed
+LC,04,0~7,1D,Screen 1/Line 3: Fuel Content
+LC,04,0~7,1E,Screen 1/Line 3: Voltage
+LC,04,0~7,1F,Screen 1/Line 3: DSG Current Gear
+; {Screen 1/Line 4}
+LC,05,0~7,00,Screen 1/Line 4: Off
+LC,05,0~7,01,Screen 1/Line 4: Engine Oil Temperature
+LC,05,0~7,02,Screen 1/Line 4: Engine Intake Temperature
+LC,05,0~7,03,Screen 1/Line 4: Engine Cooling Temperature
+LC,05,0~7,04,Screen 1/Line 4: Outside Temperature
+LC,05,0~7,05,Screen 1/Line 4: Engine RPM
+LC,05,0~7,06,Screen 1/Line 4: Oil Pressure
+LC,05,0~7,07,Screen 1/Line 4: Boost
+LC,05,0~7,08,Screen 1/Line 4: Engine Power
+LC,05,0~7,09,Screen 1/Line 4: Engine Power Loss
+LC,05,0~7,0A,Screen 1/Line 4: Engine Power Wheel
+LC,05,0~7,0B,Screen 1/Line 4: Engine Torque
+LC,05,0~7,0C,Screen 1/Line 4: Engine Torque Loss
+LC,05,0~7,0D,Screen 1/Line 4: Engine Torque Wheel
+LC,05,0~7,0E,Screen 1/Line 4: Engine Pedal Position
+LC,05,0~7,0F,Screen 1/Line 4: Engine Throttle Position
+LC,05,0~7,10,Screen 1/Line 4: Wheel speed Front Left
+LC,05,0~7,11,Screen 1/Line 4: Wheel speed Front Right
+LC,05,0~7,12,Screen 1/Line 4: Wheel speed Back Left
+LC,05,0~7,13,Screen 1/Line 4: Wheel speed Back Right
+LC,05,0~7,14,Screen 1/Line 4: Brake Pressure
+LC,05,0~7,15,Screen 1/Line 4: G across
+LC,05,0~7,16,Screen 1/Line 4: Gierrate
+LC,05,0~7,17,Screen 1/Line 4: Steering Angle
+LC,05,0~7,18,Screen 1/Line 4: Haldex Clutch Open
+LC,05,0~7,19,Screen 1/Line 4: Haldex Overtemp
+LC,05,0~7,1A,Screen 1/Line 4: Haldex Transmitted Torque
+LC,05,0~7,1B,Screen 1/Line 4: Haldex Oil Temperature
+LC,05,0~7,1C,Screen 1/Line 4: Car Speed
+LC,05,0~7,1D,Screen 1/Line 4: Fuel Content
+LC,05,0~7,1E,Screen 1/Line 4: Voltage
+LC,05,0~7,1F,Screen 1/Line 4: DSG Current Gear
+; {Screen 1/Line 5}
+LC,06,0~7,00,Screen 1/Line 5 (red display only): Off
+LC,06,0~7,01,Screen 1/Line 5 (red display only): Engine Oil Temperature
+LC,06,0~7,02,Screen 1/Line 5 (red display only): Engine Intake Temperature
+LC,06,0~7,03,Screen 1/Line 5 (red display only): Engine Cooling Temperature
+LC,06,0~7,04,Screen 1/Line 5 (red display only): Outside Temperature
+LC,06,0~7,05,Screen 1/Line 5 (red display only): Engine RPM
+LC,06,0~7,06,Screen 1/Line 5 (red display only): Oil Pressure
+LC,06,0~7,07,Screen 1/Line 5 (red display only): Boost
+LC,06,0~7,08,Screen 1/Line 5 (red display only): Engine Power
+LC,06,0~7,09,Screen 1/Line 5 (red display only): Engine Power Loss
+LC,06,0~7,0A,Screen 1/Line 5 (red display only): Engine Power Wheel
+LC,06,0~7,0B,Screen 1/Line 5 (red display only): Engine Torque
+LC,06,0~7,0C,Screen 1/Line 5 (red display only): Engine Torque Loss
+LC,06,0~7,0D,Screen 1/Line 5 (red display only): Engine Torque Wheel
+LC,06,0~7,0E,Screen 1/Line 5 (red display only): Engine Pedal Position
+LC,06,0~7,0F,Screen 1/Line 5 (red display only): Engine Throttle Position
+LC,06,0~7,10,Screen 1/Line 5 (red display only): Wheel speed Front Left
+LC,06,0~7,11,Screen 1/Line 5 (red display only): Wheel speed Front Right
+LC,06,0~7,12,Screen 1/Line 5 (red display only): Wheel speed Back Left
+LC,06,0~7,13,Screen 1/Line 5 (red display only): Wheel speed Back Right
+LC,06,0~7,14,Screen 1/Line 5 (red display only): Brake Pressure
+LC,06,0~7,15,Screen 1/Line 5 (red display only): G across
+LC,06,0~7,16,Screen 1/Line 5 (red display only): Gierrate
+LC,06,0~7,17,Screen 1/Line 5 (red display only): Steering Angle
+LC,06,0~7,18,Screen 1/Line 5 (red display only): Haldex Clutch Open
+LC,06,0~7,19,Screen 1/Line 5 (red display only): Haldex Overtemp
+LC,06,0~7,1A,Screen 1/Line 5 (red display only): Haldex Transmitted Torque
+LC,06,0~7,1B,Screen 1/Line 5 (red display only): Haldex Oil Temperature
+LC,06,0~7,1C,Screen 1/Line 5 (red display only): Car Speed
+LC,06,0~7,1D,Screen 1/Line 5 (red display only): Fuel Content
+LC,06,0~7,1E,Screen 1/Line 5 (red display only): Voltage
+LC,06,0~7,1F,Screen 1/Line 5 (red display only): DSG Current Gear
+; {Screen 2/Line 1}
+LC,07,0~7,00,Screen 2/Line 1: Off
+LC,07,0~7,01,Screen 2/Line 1: Engine Oil Temperature
+LC,07,0~7,02,Screen 2/Line 1: Engine Intake Temperature
+LC,07,0~7,03,Screen 2/Line 1: Engine Cooling Temperature
+LC,07,0~7,04,Screen 2/Line 1: Outside Temperature
+LC,07,0~7,05,Screen 2/Line 1: Engine RPM
+LC,07,0~7,06,Screen 2/Line 1: Oil Pressure
+LC,07,0~7,07,Screen 2/Line 1: Boost
+LC,07,0~7,08,Screen 2/Line 1: Engine Power
+LC,07,0~7,09,Screen 2/Line 1: Engine Power Loss
+LC,07,0~7,0A,Screen 2/Line 1: Engine Power Wheel
+LC,07,0~7,0B,Screen 2/Line 1: Engine Torque
+LC,07,0~7,0C,Screen 2/Line 1: Engine Torque Loss
+LC,07,0~7,0D,Screen 2/Line 1: Engine Torque Wheel
+LC,07,0~7,0E,Screen 2/Line 1: Engine Pedal Position
+LC,07,0~7,0F,Screen 2/Line 1: Engine Throttle Position
+LC,07,0~7,10,Screen 2/Line 1: Wheel speed Front Left
+LC,07,0~7,11,Screen 2/Line 1: Wheel speed Front Right
+LC,07,0~7,12,Screen 2/Line 1: Wheel speed Back Left
+LC,07,0~7,13,Screen 2/Line 1: Wheel speed Back Right
+LC,07,0~7,14,Screen 2/Line 1: Brake Pressure
+LC,07,0~7,15,Screen 2/Line 1: G across
+LC,07,0~7,16,Screen 2/Line 1: Gierrate
+LC,07,0~7,17,Screen 2/Line 1: Steering Angle
+LC,07,0~7,18,Screen 2/Line 1: Haldex Clutch Open
+LC,07,0~7,19,Screen 2/Line 1: Haldex Overtemp
+LC,07,0~7,1A,Screen 2/Line 1: Haldex Transmitted Torque
+LC,07,0~7,1B,Screen 2/Line 1: Haldex Oil Temperature
+LC,07,0~7,1C,Screen 2/Line 1: Car Speed
+LC,07,0~7,1D,Screen 2/Line 1: Fuel Content
+LC,07,0~7,1E,Screen 2/Line 1: Voltage
+LC,07,0~7,1F,Screen 2/Line 1: DSG Current Gear
+; {Screen 2/Line 2}
+LC,08,0~7,00,Screen 2/Line 2: Off
+LC,08,0~7,01,Screen 2/Line 2: Engine Oil Temperature
+LC,08,0~7,02,Screen 2/Line 2: Engine Intake Temperature
+LC,08,0~7,03,Screen 2/Line 2: Engine Cooling Temperature
+LC,08,0~7,04,Screen 2/Line 2: Outside Temperature
+LC,08,0~7,05,Screen 2/Line 2: Engine RPM
+LC,08,0~7,06,Screen 2/Line 2: Oil Pressure
+LC,08,0~7,07,Screen 2/Line 2: Boost
+LC,08,0~7,08,Screen 2/Line 2: Engine Power
+LC,08,0~7,09,Screen 2/Line 2: Engine Power Loss
+LC,08,0~7,0A,Screen 2/Line 2: Engine Power Wheel
+LC,08,0~7,0B,Screen 2/Line 2: Engine Torque
+LC,08,0~7,0C,Screen 2/Line 2: Engine Torque Loss
+LC,08,0~7,0D,Screen 2/Line 2: Engine Torque Wheel
+LC,08,0~7,0E,Screen 2/Line 2: Engine Pedal Position
+LC,08,0~7,0F,Screen 2/Line 2: Engine Throttle Position
+LC,08,0~7,10,Screen 2/Line 2: Wheel speed Front Left
+LC,08,0~7,11,Screen 2/Line 2: Wheel speed Front Right
+LC,08,0~7,12,Screen 2/Line 2: Wheel speed Back Left
+LC,08,0~7,13,Screen 2/Line 2: Wheel speed Back Right
+LC,08,0~7,14,Screen 2/Line 2: Brake Pressure
+LC,08,0~7,15,Screen 2/Line 2: G across
+LC,08,0~7,16,Screen 2/Line 2: Gierrate
+LC,08,0~7,17,Screen 2/Line 2: Steering Angle
+LC,08,0~7,18,Screen 2/Line 2: Haldex Clutch Open
+LC,08,0~7,19,Screen 2/Line 2: Haldex Overtemp
+LC,08,0~7,1A,Screen 2/Line 2: Haldex Transmitted Torque
+LC,08,0~7,1B,Screen 2/Line 2: Haldex Oil Temperature
+LC,08,0~7,1C,Screen 2/Line 2: Car Speed
+LC,08,0~7,1D,Screen 2/Line 2: Fuel Content
+LC,08,0~7,1E,Screen 2/Line 2: Voltage
+LC,08,0~7,1F,Screen 2/Line 2: DSG Current Gear
+; {Screen 2/Line 3}
+LC,09,0~7,00,Screen 2/Line 3: Off
+LC,09,0~7,01,Screen 2/Line 3: Engine Oil Temperature
+LC,09,0~7,02,Screen 2/Line 3: Engine Intake Temperature
+LC,09,0~7,03,Screen 2/Line 3: Engine Cooling Temperature
+LC,09,0~7,04,Screen 2/Line 3: Outside Temperature
+LC,09,0~7,05,Screen 2/Line 3: Engine RPM
+LC,09,0~7,06,Screen 2/Line 3: Oil Pressure
+LC,09,0~7,07,Screen 2/Line 3: Boost
+LC,09,0~7,08,Screen 2/Line 3: Engine Power
+LC,09,0~7,09,Screen 2/Line 3: Engine Power Loss
+LC,09,0~7,0A,Screen 2/Line 3: Engine Power Wheel
+LC,09,0~7,0B,Screen 2/Line 3: Engine Torque
+LC,09,0~7,0C,Screen 2/Line 3: Engine Torque Loss
+LC,09,0~7,0D,Screen 2/Line 3: Engine Torque Wheel
+LC,09,0~7,0E,Screen 2/Line 3: Engine Pedal Position
+LC,09,0~7,0F,Screen 2/Line 3: Engine Throttle Position
+LC,09,0~7,10,Screen 2/Line 3: Wheel speed Front Left
+LC,09,0~7,11,Screen 2/Line 3: Wheel speed Front Right
+LC,09,0~7,12,Screen 2/Line 3: Wheel speed Back Left
+LC,09,0~7,13,Screen 2/Line 3: Wheel speed Back Right
+LC,09,0~7,14,Screen 2/Line 3: Brake Pressure
+LC,09,0~7,15,Screen 2/Line 3: G across
+LC,09,0~7,16,Screen 2/Line 3: Gierrate
+LC,09,0~7,17,Screen 2/Line 3: Steering Angle
+LC,09,0~7,18,Screen 2/Line 3: Haldex Clutch Open
+LC,09,0~7,19,Screen 2/Line 3: Haldex Overtemp
+LC,09,0~7,1A,Screen 2/Line 3: Haldex Transmitted Torque
+LC,09,0~7,1B,Screen 2/Line 3: Haldex Oil Temperature
+LC,09,0~7,1C,Screen 2/Line 3: Car Speed
+LC,09,0~7,1D,Screen 2/Line 3: Fuel Content
+LC,09,0~7,1E,Screen 2/Line 3: Voltage
+LC,09,0~7,1F,Screen 2/Line 3: DSG Current Gear
+; {Screen 2/Line 4}
+LC,10,0~7,00,Screen 2/Line 4: Off
+LC,10,0~7,01,Screen 2/Line 4: Engine Oil Temperature
+LC,10,0~7,02,Screen 2/Line 4: Engine Intake Temperature
+LC,10,0~7,03,Screen 2/Line 4: Engine Cooling Temperature
+LC,10,0~7,04,Screen 2/Line 4: Outside Temperature
+LC,10,0~7,05,Screen 2/Line 4: Engine RPM
+LC,10,0~7,06,Screen 2/Line 4: Oil Pressure
+LC,10,0~7,07,Screen 2/Line 4: Boost
+LC,10,0~7,08,Screen 2/Line 4: Engine Power
+LC,10,0~7,09,Screen 2/Line 4: Engine Power Loss
+LC,10,0~7,0A,Screen 2/Line 4: Engine Power Wheel
+LC,10,0~7,0B,Screen 2/Line 4: Engine Torque
+LC,10,0~7,0C,Screen 2/Line 4: Engine Torque Loss
+LC,10,0~7,0D,Screen 2/Line 4: Engine Torque Wheel
+LC,10,0~7,0E,Screen 2/Line 4: Engine Pedal Position
+LC,10,0~7,0F,Screen 2/Line 4: Engine Throttle Position
+LC,10,0~7,10,Screen 2/Line 4: Wheel speed Front Left
+LC,10,0~7,11,Screen 2/Line 4: Wheel speed Front Right
+LC,10,0~7,12,Screen 2/Line 4: Wheel speed Back Left
+LC,10,0~7,13,Screen 2/Line 4: Wheel speed Back Right
+LC,10,0~7,14,Screen 2/Line 4: Brake Pressure
+LC,10,0~7,15,Screen 2/Line 4: G across
+LC,10,0~7,16,Screen 2/Line 4: Gierrate
+LC,10,0~7,17,Screen 2/Line 4: Steering Angle
+LC,10,0~7,18,Screen 2/Line 4: Haldex Clutch Open
+LC,10,0~7,19,Screen 2/Line 4: Haldex Overtemp
+LC,10,0~7,1A,Screen 2/Line 4: Haldex Transmitted Torque
+LC,10,0~7,1B,Screen 2/Line 4: Haldex Oil Temperature
+LC,10,0~7,1C,Screen 2/Line 4: Car Speed
+LC,10,0~7,1D,Screen 2/Line 4: Fuel Content
+LC,10,0~7,1E,Screen 2/Line 4: Voltage
+LC,10,0~7,1F,Screen 2/Line 4: DSG Current Gear
+; {Screen 2/Line 5}
+LC,11,0~7,00,Screen 2/Line 5 (red display only): Off
+LC,11,0~7,01,Screen 2/Line 5 (red display only): Engine Oil Temperature
+LC,11,0~7,02,Screen 2/Line 5 (red display only): Engine Intake Temperature
+LC,11,0~7,03,Screen 2/Line 5 (red display only): Engine Cooling Temperature
+LC,11,0~7,04,Screen 2/Line 5 (red display only): Outside Temperature
+LC,11,0~7,05,Screen 2/Line 5 (red display only): Engine RPM
+LC,11,0~7,06,Screen 2/Line 5 (red display only): Oil Pressure
+LC,11,0~7,07,Screen 2/Line 5 (red display only): Boost
+LC,11,0~7,08,Screen 2/Line 5 (red display only): Engine Power
+LC,11,0~7,09,Screen 2/Line 5 (red display only): Engine Power Loss
+LC,11,0~7,0A,Screen 2/Line 5 (red display only): Engine Power Wheel
+LC,11,0~7,0B,Screen 2/Line 5 (red display only): Engine Torque
+LC,11,0~7,0C,Screen 2/Line 5 (red display only): Engine Torque Loss
+LC,11,0~7,0D,Screen 2/Line 5 (red display only): Engine Torque Wheel
+LC,11,0~7,0E,Screen 2/Line 5 (red display only): Engine Pedal Position
+LC,11,0~7,0F,Screen 2/Line 5 (red display only): Engine Throttle Position
+LC,11,0~7,10,Screen 2/Line 5 (red display only): Wheel speed Front Left
+LC,11,0~7,11,Screen 2/Line 5 (red display only): Wheel speed Front Right
+LC,11,0~7,12,Screen 2/Line 5 (red display only): Wheel speed Back Left
+LC,11,0~7,13,Screen 2/Line 5 (red display only): Wheel speed Back Right
+LC,11,0~7,14,Screen 2/Line 5 (red display only): Brake Pressure
+LC,11,0~7,15,Screen 2/Line 5 (red display only): G across
+LC,11,0~7,16,Screen 2/Line 5 (red display only): Gierrate
+LC,11,0~7,17,Screen 2/Line 5 (red display only): Steering Angle
+LC,11,0~7,18,Screen 2/Line 5 (red display only): Haldex Clutch Open
+LC,11,0~7,19,Screen 2/Line 5 (red display only): Haldex Overtemp
+LC,11,0~7,1A,Screen 2/Line 5 (red display only): Haldex Transmitted Torque
+LC,11,0~7,1B,Screen 2/Line 5 (red display only): Haldex Oil Temperature
+LC,11,0~7,1C,Screen 2/Line 5 (red display only): Car Speed
+LC,11,0~7,1D,Screen 2/Line 5 (red display only): Fuel Content
+LC,11,0~7,1E,Screen 2/Line 5 (red display only): Voltage
+LC,11,0~7,1F,Screen 2/Line 5 (red display only): DSG Current Gear
+; {Screen 3/Line 1}
+LC,12,0~7,00,Screen 3/Line 1: Off
+LC,12,0~7,01,Screen 3/Line 1: Engine Oil Temperature
+LC,12,0~7,02,Screen 3/Line 1: Engine Intake Temperature
+LC,12,0~7,03,Screen 3/Line 1: Engine Cooling Temperature
+LC,12,0~7,04,Screen 3/Line 1: Outside Temperature
+LC,12,0~7,05,Screen 3/Line 1: Engine RPM
+LC,12,0~7,06,Screen 3/Line 1: Oil Pressure
+LC,12,0~7,07,Screen 3/Line 1: Boost
+LC,12,0~7,08,Screen 3/Line 1: Engine Power
+LC,12,0~7,09,Screen 3/Line 1: Engine Power Loss
+LC,12,0~7,0A,Screen 3/Line 1: Engine Power Wheel
+LC,12,0~7,0B,Screen 3/Line 1: Engine Torque
+LC,12,0~7,0C,Screen 3/Line 1: Engine Torque Loss
+LC,12,0~7,0D,Screen 3/Line 1: Engine Torque Wheel
+LC,12,0~7,0E,Screen 3/Line 1: Engine Pedal Position
+LC,12,0~7,0F,Screen 3/Line 1: Engine Throttle Position
+LC,12,0~7,10,Screen 3/Line 1: Wheel speed Front Left
+LC,12,0~7,11,Screen 3/Line 1: Wheel speed Front Right
+LC,12,0~7,12,Screen 3/Line 1: Wheel speed Back Left
+LC,12,0~7,13,Screen 3/Line 1: Wheel speed Back Right
+LC,12,0~7,14,Screen 3/Line 1: Brake Pressure
+LC,12,0~7,15,Screen 3/Line 1: G across
+LC,12,0~7,16,Screen 3/Line 1: Gierrate
+LC,12,0~7,17,Screen 3/Line 1: Steering Angle
+LC,12,0~7,18,Screen 3/Line 1: Haldex Clutch Open
+LC,12,0~7,19,Screen 3/Line 1: Haldex Overtemp
+LC,12,0~7,1A,Screen 3/Line 1: Haldex Transmitted Torque
+LC,12,0~7,1B,Screen 3/Line 1: Haldex Oil Temperature
+LC,12,0~7,1C,Screen 3/Line 1: Car Speed
+LC,12,0~7,1D,Screen 3/Line 1: Fuel Content
+LC,12,0~7,1E,Screen 3/Line 1: Voltage
+LC,12,0~7,1F,Screen 3/Line 1: DSG Current Gear
+; {Screen 3/Line 2}
+LC,13,0~7,00,Screen 3/Line 2: Off
+LC,13,0~7,01,Screen 3/Line 2: Engine Oil Temperature
+LC,13,0~7,02,Screen 3/Line 2: Engine Intake Temperature
+LC,13,0~7,03,Screen 3/Line 2: Engine Cooling Temperature
+LC,13,0~7,04,Screen 3/Line 2: Outside Temperature
+LC,13,0~7,05,Screen 3/Line 2: Engine RPM
+LC,13,0~7,06,Screen 3/Line 2: Oil Pressure
+LC,13,0~7,07,Screen 3/Line 2: Boost
+LC,13,0~7,08,Screen 3/Line 2: Engine Power
+LC,13,0~7,09,Screen 3/Line 2: Engine Power Loss
+LC,13,0~7,0A,Screen 3/Line 2: Engine Power Wheel
+LC,13,0~7,0B,Screen 3/Line 2: Engine Torque
+LC,13,0~7,0C,Screen 3/Line 2: Engine Torque Loss
+LC,13,0~7,0D,Screen 3/Line 2: Engine Torque Wheel
+LC,13,0~7,0E,Screen 3/Line 2: Engine Pedal Position
+LC,13,0~7,0F,Screen 3/Line 2: Engine Throttle Position
+LC,13,0~7,10,Screen 3/Line 2: Wheel speed Front Left
+LC,13,0~7,11,Screen 3/Line 2: Wheel speed Front Right
+LC,13,0~7,12,Screen 3/Line 2: Wheel speed Back Left
+LC,13,0~7,13,Screen 3/Line 2: Wheel speed Back Right
+LC,13,0~7,14,Screen 3/Line 2: Brake Pressure
+LC,13,0~7,15,Screen 3/Line 2: G across
+LC,13,0~7,16,Screen 3/Line 2: Gierrate
+LC,13,0~7,17,Screen 3/Line 2: Steering Angle
+LC,13,0~7,18,Screen 3/Line 2: Haldex Clutch Open
+LC,13,0~7,19,Screen 3/Line 2: Haldex Overtemp
+LC,13,0~7,1A,Screen 3/Line 2: Haldex Transmitted Torque
+LC,13,0~7,1B,Screen 3/Line 2: Haldex Oil Temperature
+LC,13,0~7,1C,Screen 3/Line 2: Car Speed
+LC,13,0~7,1D,Screen 3/Line 2: Fuel Content
+LC,13,0~7,1E,Screen 3/Line 2: Voltage
+LC,13,0~7,1F,Screen 3/Line 2: DSG Current Gear
+; {Screen 3/Line 3}
+LC,14,0~7,00,Screen 3/Line 3: Off
+LC,14,0~7,01,Screen 3/Line 3: Engine Oil Temperature
+LC,14,0~7,02,Screen 3/Line 3: Engine Intake Temperature
+LC,14,0~7,03,Screen 3/Line 3: Engine Cooling Temperature
+LC,14,0~7,04,Screen 3/Line 3: Outside Temperature
+LC,14,0~7,05,Screen 3/Line 3: Engine RPM
+LC,14,0~7,06,Screen 3/Line 3: Oil Pressure
+LC,14,0~7,07,Screen 3/Line 3: Boost
+LC,14,0~7,08,Screen 3/Line 3: Engine Power
+LC,14,0~7,09,Screen 3/Line 3: Engine Power Loss
+LC,14,0~7,0A,Screen 3/Line 3: Engine Power Wheel
+LC,14,0~7,0B,Screen 3/Line 3: Engine Torque
+LC,14,0~7,0C,Screen 3/Line 3: Engine Torque Loss
+LC,14,0~7,0D,Screen 3/Line 3: Engine Torque Wheel
+LC,14,0~7,0E,Screen 3/Line 3: Engine Pedal Position
+LC,14,0~7,0F,Screen 3/Line 3: Engine Throttle Position
+LC,14,0~7,10,Screen 3/Line 3: Wheel speed Front Left
+LC,14,0~7,11,Screen 3/Line 3: Wheel speed Front Right
+LC,14,0~7,12,Screen 3/Line 3: Wheel speed Back Left
+LC,14,0~7,13,Screen 3/Line 3: Wheel speed Back Right
+LC,14,0~7,14,Screen 3/Line 3: Brake Pressure
+LC,14,0~7,15,Screen 3/Line 3: G across
+LC,14,0~7,16,Screen 3/Line 3: Gierrate
+LC,14,0~7,17,Screen 3/Line 3: Steering Angle
+LC,14,0~7,18,Screen 3/Line 3: Haldex Clutch Open
+LC,14,0~7,19,Screen 3/Line 3: Haldex Overtemp
+LC,14,0~7,1A,Screen 3/Line 3: Haldex Transmitted Torque
+LC,14,0~7,1B,Screen 3/Line 3: Haldex Oil Temperature
+LC,14,0~7,1C,Screen 3/Line 3: Car Speed
+LC,14,0~7,1D,Screen 3/Line 3: Fuel Content
+LC,14,0~7,1E,Screen 3/Line 3: Voltage
+LC,14,0~7,1F,Screen 3/Line 3: DSG Current Gear
+; {Screen 3/Line 4}
+LC,15,0~7,00,Screen 3/Line 4: Off
+LC,15,0~7,01,Screen 3/Line 4: Engine Oil Temperature
+LC,15,0~7,02,Screen 3/Line 4: Engine Intake Temperature
+LC,15,0~7,03,Screen 3/Line 4: Engine Cooling Temperature
+LC,15,0~7,04,Screen 3/Line 4: Outside Temperature
+LC,15,0~7,05,Screen 3/Line 4: Engine RPM
+LC,15,0~7,06,Screen 3/Line 4: Oil Pressure
+LC,15,0~7,07,Screen 3/Line 4: Boost
+LC,15,0~7,08,Screen 3/Line 4: Engine Power
+LC,15,0~7,09,Screen 3/Line 4: Engine Power Loss
+LC,15,0~7,0A,Screen 3/Line 4: Engine Power Wheel
+LC,15,0~7,0B,Screen 3/Line 4: Engine Torque
+LC,15,0~7,0C,Screen 3/Line 4: Engine Torque Loss
+LC,15,0~7,0D,Screen 3/Line 4: Engine Torque Wheel
+LC,15,0~7,0E,Screen 3/Line 4: Engine Pedal Position
+LC,15,0~7,0F,Screen 3/Line 4: Engine Throttle Position
+LC,15,0~7,10,Screen 3/Line 4: Wheel speed Front Left
+LC,15,0~7,11,Screen 3/Line 4: Wheel speed Front Right
+LC,15,0~7,12,Screen 3/Line 4: Wheel speed Back Left
+LC,15,0~7,13,Screen 3/Line 4: Wheel speed Back Right
+LC,15,0~7,14,Screen 3/Line 4: Brake Pressure
+LC,15,0~7,15,Screen 3/Line 4: G across
+LC,15,0~7,16,Screen 3/Line 4: Gierrate
+LC,15,0~7,17,Screen 3/Line 4: Steering Angle
+LC,15,0~7,18,Screen 3/Line 4: Haldex Clutch Open
+LC,15,0~7,19,Screen 3/Line 4: Haldex Overtemp
+LC,15,0~7,1A,Screen 3/Line 4: Haldex Transmitted Torque
+LC,15,0~7,1B,Screen 3/Line 4: Haldex Oil Temperature
+LC,15,0~7,1C,Screen 3/Line 4: Car Speed
+LC,15,0~7,1D,Screen 3/Line 4: Fuel Content
+LC,15,0~7,1E,Screen 3/Line 4: Voltage
+LC,15,0~7,1F,Screen 3/Line 4: DSG Current Gear
+; {Screen 3/Line 5}
+LC,16,0~7,00,Screen 3/Line 5 (red display only): Off
+LC,16,0~7,01,Screen 3/Line 5 (red display only): Engine Oil Temperature
+LC,16,0~7,02,Screen 3/Line 5 (red display only): Engine Intake Temperature
+LC,16,0~7,03,Screen 3/Line 5 (red display only): Engine Cooling Temperature
+LC,16,0~7,04,Screen 3/Line 5 (red display only): Outside Temperature
+LC,16,0~7,05,Screen 3/Line 5 (red display only): Engine RPM
+LC,16,0~7,06,Screen 3/Line 5 (red display only): Oil Pressure
+LC,16,0~7,07,Screen 3/Line 5 (red display only): Boost
+LC,16,0~7,08,Screen 3/Line 5 (red display only): Engine Power
+LC,16,0~7,09,Screen 3/Line 5 (red display only): Engine Power Loss
+LC,16,0~7,0A,Screen 3/Line 5 (red display only): Engine Power Wheel
+LC,16,0~7,0B,Screen 3/Line 5 (red display only): Engine Torque
+LC,16,0~7,0C,Screen 3/Line 5 (red display only): Engine Torque Loss
+LC,16,0~7,0D,Screen 3/Line 5 (red display only): Engine Torque Wheel
+LC,16,0~7,0E,Screen 3/Line 5 (red display only): Engine Pedal Position
+LC,16,0~7,0F,Screen 3/Line 5 (red display only): Engine Throttle Position
+LC,16,0~7,10,Screen 3/Line 5 (red display only): Wheel speed Front Left
+LC,16,0~7,11,Screen 3/Line 5 (red display only): Wheel speed Front Right
+LC,16,0~7,12,Screen 3/Line 5 (red display only): Wheel speed Back Left
+LC,16,0~7,13,Screen 3/Line 5 (red display only): Wheel speed Back Right
+LC,16,0~7,14,Screen 3/Line 5 (red display only): Brake Pressure
+LC,16,0~7,15,Screen 3/Line 5 (red display only): G across
+LC,16,0~7,16,Screen 3/Line 5 (red display only): Gierrate
+LC,16,0~7,17,Screen 3/Line 5 (red display only): Steering Angle
+LC,16,0~7,18,Screen 3/Line 5 (red display only): Haldex Clutch Open
+LC,16,0~7,19,Screen 3/Line 5 (red display only): Haldex Overtemp
+LC,16,0~7,1A,Screen 3/Line 5 (red display only): Haldex Transmitted Torque
+LC,16,0~7,1B,Screen 3/Line 5 (red display only): Haldex Oil Temperature
+LC,16,0~7,1C,Screen 3/Line 5 (red display only): Car Speed
+LC,16,0~7,1D,Screen 3/Line 5 (red display only): Fuel Content
+LC,16,0~7,1E,Screen 3/Line 5 (red display only): Voltage
+LC,16,0~7,1F,Screen 3/Line 5 (red display only): DSG Current Gear
+;
+;End of label files

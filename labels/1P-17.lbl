@@ -1,0 +1,42 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2005+ Ross-Tech, LLC
+;
+; Seat Leon (1P)
+;
+; Component: J285 - Instrument Cluster (#17)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1P-17.LBL
+; 1P-25.LBL
+; 1K0-920-xxx-17.LBL
+; 5K0-920-xxx-17.CLB
+;
+; created on 27/Sep/2005 by Sebastian Stange (sebastian@ross-tech.com)
+;
+; last modification on 24/Jun/2013
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,1K0-920-xxx-17.LBL,1P0-920-?04-???  ; MY 2005-2009
+REDIRECT,1K0-920-xxx-17.LBL,1P0-920-?07-???  ; MY 2005-2009
+REDIRECT,1K0-920-xxx-17.LBL,1P0-920-?23-???  ; MY 2005-2009
+REDIRECT,1K0-920-xxx-17.LBL,1P0-920-?25-???  ; MY 2005-2009
+REDIRECT,1K0-920-xxx-17.LBL,1P0-920-?27-???  ; MY 2005-2009
+REDIRECT,1K0-920-xxx-17.LBL,1P0-920-?40-???  ; MY 2005-2009
+REDIRECT,1K0-920-xxx-17.LBL,1P0-920-?41-???  ; MY 2005-2009
+REDIRECT,1K0-920-xxx-17.LBL,1P0-920-?47-???  ; MY 2005-2009
+;
+REDIRECT,5K0-920-xxx-17.CLB,1P0-920-?09-???  ; MY 2009+
+REDIRECT,5K0-920-xxx-17.CLB,1P0-920-?10-???  ; MY 2009+
+REDIRECT,5K0-920-xxx-17.CLB,1P0-920-?11-???  ; MY 2009+
+REDIRECT,5K0-920-xxx-17.CLB,1P0-920-?50-???  ; MY 2009+
+REDIRECT,5K0-920-xxx-17.CLB,1P0-920-?51-???  ; MY 2009+
+REDIRECT,5K0-920-xxx-17.CLB,1P0-920-?52-???  ; MY 2009+
+REDIRECT,5K0-920-xxx-17.CLB,1P0-920-?53-???  ; MY 2009+
+REDIRECT,5K0-920-xxx-17.CLB,1P0-920-?54-???  ; MY 2009+
+;

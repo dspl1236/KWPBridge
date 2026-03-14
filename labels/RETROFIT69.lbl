@@ -1,0 +1,43 @@
+;
+; VCDS Label File
+;
+; Copyright © 2009-2012 Ross-Tech, LLC
+;
+; Audi A3/Cabriolet (8P) / Seat Altea/Toledo (5P) / Seat Leon (1P)
+; Skoda Octavia (1Z) / VW Caddy (2K) / VW Eos (1F) / VW Golf/Jetta (1K)
+; VW Golf Plus (5M) / VW Passat (3C) /  VW Tiguan (5N) / VW Touran (1T)
+;
+; Component: J345 - Trailer Recognition (#69) NON-OE RETROFIT
+;
+; P/N: 30/1V2.01 / 5F0-???-???-?
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 30-69.LBL
+; 5F-69.LBL
+; SW-69.LBL
+; RETROFIT69.LBL
+;
+; only fault codes supported and coding supported
+;
+; created on 26/May/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 13/Feb/2012
+;
+; requires VCDS 805.0 or newer
+;
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Trailer Recognition (J345) Coding
+C01,This is an Aftermarket Control Module from a 3rd Party Vendor.
+C02, 
+C03,Please Contact the Parts Vendor/Supplier for further Information.
+;

@@ -1,0 +1,112 @@
+;
+; VCDS Label File
+;
+; Copyright © 2005-2009 Ross-Tech, LLC
+;
+; Audi A3 (8P) / Audi R8 (42) / Audi TT (8J)
+;
+; Component: J386 - Driver Door Electronics (#42) - Generation 1 MIN
+;
+; P/N: 420-959-801-??? / 8J?-959-801-??? / 8P?-959-801-???
+;
+; includes measuring blocks and coding
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 42-42.LBL
+; 8J-42.LBL
+; 8P-42.LBL
+; 8P0-959-801-MAX1.LBL
+; 8P0-959-801-MAX2.LBL
+; 8P0-959-801-MAX3.LBL
+; 8P0-959-801-MIN1.LBL
+; 8P0-959-801-MIN2.LBL
+; 8P0-959-801-MIN3.LBL
+;
+; created on 09/Nov/2005 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 24/Oct/2009
+;
+; requires VCDS 805.0 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,Window Regulator
+001,1,WR-Button (E40),Driver Door,Range: Auto Open/Auto Close/Manual Open/Manual Close/Not Oper.
+001,2,WR-Button (E40),Driver Door,Range: Auto Open/Auto Close/Manual Open/Manual Close/Not Oper.
+001,3,Window Regulator,(V147),Range: Up/Down/Ends Learned/At Top/At Bottom/Pinch Protect/Over-Temp S/O\nSpecification: Ends Learned
+001,4,Thermal Protection,,Range: Not Active/Active
+;
+002,0,Window Regulator && General
+002,1,Window Regulator,Comfort Control,Range: Open/Closed/Not Oper.
+002,2,Window Regulator,Enabling,Range: Yes/No
+002,3,Dimming,(Terminal 58d),Range: 0.0...100.0 %
+002,4,Vehicle Speed,,Range: 0.0...300.0 km/h
+;
+003,0,General
+003,1,Voltage,(Terminal 30),Range: 0.0...20.0 V\nSpecification: 9.0...14.0 V
+003,2,Databus,Condition,Range: 1-Wire/2-Wire\nSpecification: 2-Wire
+003,3,Ignition,(Terminal 15),Range: Terminal 15 ON/Terminal 15 OFF
+003,4,S-Contact,(Terminal S),Range: Activated
+;
+004,0,Illumination
+004,1,Dimming,(Terminal 58s),Range: 0.0...100.0 %
+004,2,Interior Door,Handle Illumination,Range: 0.0...100.0 %/Not Installed
+004,3,Ambient,Illumination,Range: 0.0...100.0 %/Not Installed
+004,4,Interior Locking,Switch Illumination,Range: Enabled/Disabled
+;
+005,0,Central Locking
+005,1,Locking Unit (F220),Driver Door,Range: Locked/Unlocked/Safe
+005,2,Contact Switch (F2),Driver Door,Range: Door Open/Door Closed
+005,3,Interior Locking,Button (E308),Range: Lock/Unlock/Not Oper./Not Installed
+005,4,Key Switch,Driver Door,Range: Open/Closed/Not Oper./Not Installed
+;
+006,1,Mirror Selector,Switch (E48),Range: Left/Right/ON (Mirror Heater Switch)/OFF (Mirror Heater Switch)/Not Oper.
+006,2,Mirror Adjustment,Switch (E43),Range: Pos X+/Pos X-/Pos Y+/Pos Y-/Not Oper./Not Installed
+006,3,Mirror Heater,(Z4),Range: Active/Not Active
+006,4,Window Regulator,Position (V147),Range: 0.0...100.0 %
+;
+007,0,Driver's Door Buttons I
+007,1,Rear Lid Remote,Lock Button (E233),Range: Operated/Not Oper./Not Installed
+007,2,Fuel Tank Lid,Unlock Butt. (E319),Range: Operated/Not Oper./Not Installed
+007,3,Child Safety Lock,Button (E318),Range: Operated/Not Oper./Not Installed
+;
+008,0,Window Regulator Buttons (Local)
+008,1,WR-Button (E40),Driver Door,Range: Auto Open/Auto Close/Manual Open/Manual Close/Not Oper.
+008,2,WR-Button (E81),Passenger Door,Range: Auto Open/Auto Close/Manual Open/Manual Close/Not Oper.
+008,3,WR-Button (E53),Rear Left Door,Range: Auto Open/Auto Close/Manual Open/Manual Close/Not Oper.
+008,4,WR-Button (E55),Rear Right Door,Range: Auto Open/Auto Close/Manual Open/Manual Close/Not Oper.
+;
+009,0,Driver's Door Buttons II
+009,1,Anti Theft System,Button (E217),Range: Operated/Not Oper./Not Installed
+009,2,Interior Monitoring,Button (E183),Range: Operated/Not Oper./Not Installed
+;
+080,0,Advanced Control Module Identification I
+080,1,Advanced,Identification
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Door Electronics Driver (J386) Coding
+C01,+0000001 = Rear Lid Remote Unlock Button (E233)
+C02,+0000008 = Interior Door Handle Illumination installed
+C03,+0000016 = Automatic Run active
+C04,+0000032 = Mirror Heater installed
+C05,+0000064 = Door Exit/Warning Light installed
+C06,+0000128 = 5-Door Chassis
+C07,+0000512 = Right Hand Steering
+C08,+0001024 = Safe-Motor not installed
+C09,+0002048 = Pinch Protection inactive
+;

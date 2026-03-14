@@ -1,0 +1,31 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2010 Ross-Tech, LLC
+;
+; Component: Subsystem (#09-01)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8J-09-01.LBL
+; 1Tx-955-119.CLB (Generation 1)
+; 1Kx-955-119.CLB (Generation 2)
+;
+; created on 10/Jun/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 10/Jun/2010
+;
+; requires VCDS 10.3 / LCode 1000.4 or newer
+;
+;
+;---------------------------------------------------
+;
+; Wiper Motor (Standard Equipment on PQ35)
+;
+;---------------------------------------------------
+;
+;
+REDIRECT,1Kx-955-119.CLB,8J?-955-119,SL
+REDIRECT,1Kx-955-119.CLB,8J?-955-119-A,SL
+;

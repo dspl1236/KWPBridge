@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011 Ross-Tech, LLC
+;
+; VW Sharan (7N)
+;
+; Component: J234 - Airbag (#15)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 7N-15.LBL
+; 5K0-959-655.CLB
+;
+; created on 17/Feb/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 17/Feb/2011
+;
+; requires VCDS 11.2.0 or newer
+;
+;
+REDIRECT,5K0-959-655.CLB,7N0-959-655-???
+;

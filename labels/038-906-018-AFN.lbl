@@ -1,0 +1,265 @@
+;
+; VCDS Label File
+;
+; Copyright © 2021+ Ross-Tech, LLC
+;
+; Audi A4 (8D) / VW Passat (3B)
+;
+; Component: J248 - Engine Electronics (# 01) - AFN/AVG
+;
+; P/N: 038-906-018.??
+;
+; includes Measuring Blocks, Basic Settings, Coding, Login and Adaptation
+;
+; This file is part of a redirection package,
+; make sure you have all of the following files.
+;
+; 03-01.LBL
+; 038-906-018-AFN.LBL (1.9l TDI @ 110 HP - AFN/AVG)
+;
+; created/translated by Ivan Aprilov
+; updated on 30/Jan/2021 by Sebastian Stange (sebastian@ross-tech.com)
+;
+;
+;---------------------------------------------------
+;
+; Measuring Blocks & Basic Settings
+;
+;---------------------------------------------------
+;
+;
+000,0,Basic Functions
+000,1,Engine speed (G28),Specification (Idle): 37...43 (860...945 RPM)
+000,2,Start of Injection,Specification (Idle): 0...88 (3°ATDC...4°BTDC)
+000,3,Accel. Pedal position,Specification (Idle): 0 (0 %) | Specification (Full Load): 255 (100 %)
+000,4,Injected Quantity,Specification (Idle): 11...45 (2.2..9 mg/stroke) | Specification (Full Load): 180...210 (36...42 mg/stroke)
+000,5,Manifold pressure,Specification (Full Load):  158...194 (1650...2000 mbar)
+000,6,Atmospheric Pressure
+000,7,Coolant Temp. (G62),Specification: 80...35 (80...110 °C)
+000,8,Intake Manifold Temp. (G42),Specification: 182...50 (10...100 °C)
+000,9,Fuel Temp. (G81),Specification (Idle): 91...201 (20...80 °C)
+000,10,Air Mass,Specification (Idle): 69...135 (230...450 mg/stroke)
+;
+B000,0,Testing Dynamic Start of Injection
+;
+001,0,Injection Quantity
+001,1,Engine Speed,(G28),Specification (Idle): 860...945 RPM
+001,2,Injection Quantity,,Specification (Idle): 2.2...9 mg/stroke
+001,3,Mod. Piston,Disp. (G149),Specification (Idle): 1.45...1.90 V
+001,4,Coolant,Temperature (G62),Specification: 80...110 °C
+;
+002,0,Idle Speed
+002,1,Engine Speed,(G28),Specification (Idle): 860...945 RPM
+002,2,Accel. Pedal Pos.,(G79),Specification (Idle):,Range: 0.0...100.0%
+002,3,Operating,condition,Specification (Idle): 010\n1xx = A/C Switched On (Increased idle speed)\nx1x = Idle / Closed Throttle switch closed\nxx1 = A/C Compressor On
+; 1xx = A/C Switched On (Increased idle speed)
+; x1x = Idle / Closed Throttle switch closed
+; xx1 = A/C Compressor On
+002,4,Coolant,Temperature (G62),Specification: 80...110 °C
+;
+003,0,Exhaust Gas Recirculation (EGR)
+003,1,Engine Speed,(G28),Specification (Idle): 860...945 RPM
+003,2,MAF,Air Mass (Specified),Specification (Idle): 230...450 mg/stroke
+003,3,MAF,Air Mass (Actual),Specification (Idle): 230...450 mg/stroke
+003,4,EGR,Duty cycle,Specification (Idle): 4...95 %
+;
+B003,0,Exhaust Gas Recirculation (EGR) System Test at Idle
+B003,1,Engine Speed,(G28),Specification: (Idle): 870...950 RPM
+B003,2,
+B003,3,Air Mass,Actual,Specification (Idle): 230...4500 mg/H
+B003,4,EGR Solenoid,(N18),Specification: 4...95 % Duty cycle
+;
+004,0,Injection Control
+004,1,Engine Speed,(G28),Specification (Idle): 860...945 RPM
+004,2,Start of Injection,(Specified),Specification (Idle): 3 °ATDC...4° BTDC
+004,3,Start of Injection,(Actual),Specification (Idle): 3 °ATDC...4° BTDC
+004,4,Duty cycle (N108), for Start of Injection,Specification (Idle): 2...95 %
+;
+005,0,Starting Conditions
+005,1,,Engine Speed,(G28)
+005,2,Start Injection,Quantity
+005,3,Start of Injection (Actual)
+005,4,Coolant,Temperature (G62)
+;
+006,0,Cruise Control System (CCS)
+006,1,Vehicle Speed
+006,2,Brake Pedal,Monitoring,Specification:\n1xx = Clutch Pedal Switch (F36) Open\nx1x = Brake Pedal Switch (F47) Open\nxx1 = Brake Light Switch (F) Closed
+; 1xx = Clutch Pedal Switch (F36) Open
+; x1x = Brake Pedal Switch (F47) Open
+; xx1 = Brake Light Switch (F) Closed
+006,3,Cruise Control, System (CCS),Specification:\nxxxxx1 = CCS Enabled / Switched On \nxxxx1x = CCS On and Memory Inactive \nxxx1xx = Acceleration \nxx1xxx = Resume \nx1xxxx = Brake Pedal Operated \n1xxxxx = Clutch Pedal Operated
+; xxxxx1 = CCS Enabled / Switched On
+; xxxx1x = CCS On and Memory Inactive
+; xxx1xx = Acceleration
+; xx1xxx = Resume
+; x1xxxx = Brake Pedal Operated
+; 1xxxxx = Clutch Pedal Operated
+006,4,Cruise Control, System (CCS),0 = Cruise Control: Switched OFF\n1 = Cruise Control: Switched ON\n2 = Cruise Control: Speed Up\n4 = Cruise Control: Speed Down\n8 = Cruise Control: Resume\n16 = Cruise Control: Brake Pedal Recognized\n32 = Cruise Control: Maintain Speed\n255 = Cruise Control NOT installed\nNote: W/ Auto. Trans. it may be necessary to test drive exceeding the speed of 30 km/h (19 mph) before voltage is supplied to the CCS switch.
+; 0 = Cruise Control: Switched OFF
+; 1 = Cruise Control: Switched ON
+; 2 = Cruise Control: Speed Up
+; 4 = Cruise Control: Speed Down
+; 8 = Cruise Control: Resume
+; 16 = Cruise Control: Brake Pedal Recognized
+; 32 = Cruise Control: Maintain Speed
+; 255 = Cruise Control NOT installed
+; Note: W/ Auto. Trans. it may be necessary to test drive exceeding the speed of 30 km/h (19 mph) before voltage is supplied to the CCS switch.
+;
+007,0,Temperatures
+007,1,Fuel,Temperature (G81)
+007,3,Intake Air Temp.,Temperature (G72),Specification: about Ambient Temperature
+007,4,Coolant,Temperature (G62)
+;
+008,0,Injected Quantity (IQ) Limitation I
+008,1,Engine Speed,(G28),Specification (Full Load): 2900...3100 RPM
+008,2,Injection Quantity,(Driver Wish),via Gas Pedal (Specification (Full Load): 39...45 mg/stroke)
+008,3,IQ Limit,about speed,Torque Limitation (Specification (Full Load): 40...42 mg/stroke)
+008,4,IQ Limit,about Air Mass,Smoke prevention (Specification (Full Load): 38...43 mg/stroke)
+;
+009,0,Injected Quantity (IQ) Limitation II
+009,1,Engine Speed
+009,2,Limitation,(CCS active)
+009,3,Limitation,(Shift),from automatic transmission
+009,4,Voltage,Mod. PActualon,Disp.
+;
+010,0,Air System && Charge Pressure Control
+010,1,Mass Air Flow,(Actual),Specification (Full Load): 850...1050 mg/stroke
+010,2,Air Pressure,(F96)
+010,3,Manifold Pressure,(Boost Ppressure),Specification (Full Load): 1800...2200 mg/stroke
+010,4,Accel. Pedal Pos.,G(79),Specification (Full Load): Range: 0.0...100.0%
+;
+011,0,Boost Pressure Control
+011,1,Engine Speed,(G28),Specification (Full Load): 2900...3100 RPM
+011,2,Boost Pressure,(Specified),Specification (Full Load): 1800...2000 mbar
+011,3,Boost Pressure,(Actual),Specification (Full Load): 1800...2000 mbar
+011,4,Duty cycle,Boost Pressure (N75) Solenoid,Specification (Full Load): 20...70 %
+;
+B011,0,Charge Pressure Control at Idle in Basic Setting
+B011,1,Engine Speed,(G28),Specification: (Idle): 860...945 RPM
+B011,2,Boost,Specified,Charge Pressure Control is \nalternately switched On and Off
+B011,3,Boost,Actual,Charge Pressure Control is \nalternately switched On and Off
+B011,4,Charge Pressure,(N75) Solenoid
+;
+012,0,Glow Plugs
+012,2,Pre-Glow Period
+012,3,Supply Voltage,(Terminal 30)
+012,4,Coolant,Temperature (G62)
+;
+013,0,I.Q. Idle Stabilization (Injection Quantity Deviation)
+013,1,IQ Cylinder 1,,Specification: -2.0...+2.0 mg/H
+013,2,IQ Cylinder 2,,Specification: -2.0...+2.0 mg/H
+013,3,IQ Cylinder 3,,Specification: -2.0...+2.0 mg/H
+013,4,IQ Cylinder 4,,Specification: -2.0...+2.0 mg/H
+;
+015,0,Fuel consumption
+015,1,Engine Speed
+015,2,Injection Quantity,(Actual)
+015,3,Fuel consumption
+015,4,Injection Quantity,(Driver Wish),via Gas Pedal
+;
+016,0,Auxiliary Heating
+016,1,Generator,Load
+016,2,Auxiliary Heating,Shut-Off Conditions,xx1xxxxx = ECT (G62)/ IAT (G72) Faulty \nxxx1xxxx = Engine Start within 10 seconds \nxxxx1xxx = Engine Speed below 870/RPM \nxxxxx1xx - Battery voltage below 9 V \nxxxxxx1x = Generator (GEN) Inoperative \nxxxxxxx1 = ECT (G62) Exceeds 70...80 °C \nxxxxxxx1 = IAT (G72) Exceeds 5 °C
+; xx1xxxxx = ECT (G62)/ IAT (G72) Faulty
+; xxx1xxxx = Engine Start within 10 seconds
+; xxxx1xxx = Engine Speed below 870/RPM
+; xxxxx1xx - Battery voltage below 9 V
+; xxxxxx1x = Generator (GEN) Inoperative
+; xxxxxxx1 = ECT (G62) Exceeds 70...80 °C
+; xxxxxxx1 = IAT (G72) Exceeds 5 °C
+016,3,Heating Element,Activation,1x = Relay for High Heat output (J360) ON\nx1 = Relay for Low Heat output (J359) ON
+; 1x = Relay for High Heat output (J360) ON
+; x1 = Relay for Low Heat output (J359) ON
+016,4,Supply Voltage,(Terminal 30)
+;
+019,0,Quantity Adjuster
+019,1,Position (Start/Min.),Mod. Piston (G149) Disp. Sensor,Specification 0.500...0.970 V
+019,2,Position (Stop/Max.),Mod. Piston (G149) Disp. Sensor,Specification 4.150...4.740 V
+;
+;
+;---------------------------------------------------
+;
+; Adaptation
+;
+;---------------------------------------------------
+;
+;
+A001,0,Injection Quantity (IQ)
+A001,1,Engine Speed,(G28)
+A001,2,Injection,Quantity, 3-5 mg/H
+A001,3,Mod. Piston
+A001,4,Coolant Temp
+A001,5,Injected Quantity Increase to solve slowdown
+A001,6,shudder problems. Check the injected quantity at idle with
+A001,7,engine warm and all power consuming devices turned off.
+A001,8,Note the original values prior to modification.
+A001,9,
+A001,10,Login - 11 with 12233 may be required first.
+;
+A002,0,Idle speed
+A002,1,Engine Speed,,860...945 RPM
+A002,2,Throttle Position
+A002,3,Operating,Condition
+A002,4,Coolant,Temperature
+A002,5,Increase or decrease this to change idle speed
+A002,6,Note the original values prior to modification.
+;
+A003,0,Exhaust Gas Recirculation (EGR)
+A003,1,Engine Speed,, 860...945 RPM
+A003,2,MAF (Specified),,230-450 mg/H
+A003,3,MAF (Actual),,230-450 mg/H
+A003,4,EGR Solenoid (N18),,4-95% Duty Cycle
+A003,5,Exhaust Gas Recirculation (EGR) Modification
+A003,6,Note the original values prior to modification.
+A003,7,To reduce EGR to a minimum (for off-road use only!)
+A003,8,increase the value. Typically 33768 is Max.
+A003,9,
+A003,10,To restore EGR to stock, set this channel to 32768
+A003,11,Login - 11 with 12233 may be required first.
+;
+A004,0,Start of Injection - Modification is Strongly Discouraged
+A004,1,Engine Speed,,860...945 RPM
+A004,2,Specified Start,,2 °ATDC ... 4 °BTDC
+A004,3,Actual Start,,2 °ATDC ... 3 °BTDC
+A004,4,Cold Start Valve,, 3-80%
+A004,5,Modification of this Channel is Strongly Discouraged!
+A004,6,Note the original values prior to modification.
+A004,7,Login - 11 with 12233 may be required first.
+;
+A005,0,Starting Conditions
+A005,1,Engine Speed,,860...945 RPM
+A005,2,Start Injection,Quantity
+A005,3,Actual Start,Quantity
+A005,4,Coolant,Temperature
+A005,5,Starting Conditions
+A005,6,This channel alters the Injected Quantity (IQ) allowed
+A005,7,when starting. Temporary fix for poorly starting engine.
+A005,8,Note the original values prior to modification.
+A005,9,Login - 11 with 12233 may be required first.
+;
+;
+;---------------------------------------------------
+;
+; Coding
+;
+;---------------------------------------------------
+;
+;
+C0,Engine Control Unit (J248) Coding
+C1,00001 = Automatic Transmission
+C2,00002 = Manual Transmission (Front Wheel Drive)
+C3,00003 = Manual Transmission (All Wheel Drive)
+;
+;
+;
+;---------------------------------------------------
+;
+; Login
+;
+;---------------------------------------------------
+;
+;
+L00,Engine Control Unit (J248) Login
+L01,11463 = Cruise Control Activation (CCS)
+L02,16167 = Cruise Control Deactivation (CCS)
+L03,12233 = Adaptation Enabling

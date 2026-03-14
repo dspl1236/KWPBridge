@@ -1,0 +1,21 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2013+ Ross-Tech, LLC
+;
+; Component: J794 - Navigation System (#37)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3A-37.LBL
+; 1K0-035-27x-37.CLB  (Radio Navigation System 315)
+; 1T0-035-680.LBL     (Radio Navigation System 510)
+;
+; created on 14/Nov/2013 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 14/Nov/2013
+;
+;
+REDIRECT,1K0-035-27x-37.CLB,3AD-035-272-???   ; RNS315 (CHN)
+;

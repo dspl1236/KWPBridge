@@ -1,0 +1,19 @@
+;
+; VCDS Dummy Label File
+;
+; Copyright © 2012+ Ross-Tech, LLC
+;
+; Audi Cabrio (8G)
+;
+; Component: J234 - Airbag Electronics (#15) - AUDI AIRBAG II
+;
+; P/N: 4A0-959-655-???
+;
+; only fault codes supported, no real label needed ;)
+;
+; created on 19/Mar/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 19/Mar/2014
+;
+; requires VCDS 12.12.2 or newer
+;

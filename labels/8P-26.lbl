@@ -1,0 +1,28 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2009-2010 Ross-Tech, LLC
+;
+; Audi A3 Cabriolet (8P7)
+;
+; Component: J256 - Convertible Top (#26)
+;
+; This file is part of a redirection package,
+; make sure you have all of the following files.
+;
+; 8P-26.LBL
+; 8P7-959-255-3FN.LBL (PR-3FN/half automatic)
+; 8P7-959-255-3FT.LBL (PR-3FT/fully automatic)
+;
+; created on 28/Jan/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 23/Jun/2010
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,8P7-959-255-3FT.LBL,8P7-959-255     ; PR-3FT
+REDIRECT,8P7-959-255-3FN.LBL,8P7-959-255-A   ; PR-3FN
+REDIRECT,8P7-959-255-3FT.LBL,8P7-959-255-B   ; PR-3FT
+REDIRECT,8P7-959-255-3FN.LBL,8P7-959-255-C   ; PR-3FN
+;

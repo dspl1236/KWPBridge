@@ -1,0 +1,30 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2008+ Ross-Tech, LLC
+;
+; Component: J791 - Park Steer Assist (#10)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3T-10.LBL
+; 1T0-919-475.CLB
+; 3T0-919-475-V2.CLB
+;
+; created on 04/Jul/2008 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 10/Jul/2015
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,1T0-919-475.CLB,3T0-919-475
+REDIRECT,1T0-919-475.CLB,3T0-919-475-A
+REDIRECT,1T0-919-475.CLB,3T0-919-475-B
+REDIRECT,1T0-919-475.CLB,3T0-919-475-C
+REDIRECT,3T0-919-475-V2.CLB,3T0-919-475-D
+REDIRECT,3T0-919-475-V2.CLB,3T0-919-475-E
+REDIRECT,3T0-919-475-V2.CLB,3T0-919-475-F
+REDIRECT,3T0-919-475-V2.CLB,3T0-919-475-G
+;

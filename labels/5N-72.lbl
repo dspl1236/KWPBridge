@@ -1,0 +1,33 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2007-2011 Ross-Tech, LLC
+;
+; Component: J389 - Door Electronics Rear Right (#72)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1K-72.LBL
+; 1Q-72.LBL
+; 1T-72.LBL
+; 3C-72.LBL
+; 5N-72.LBL
+; 1K0-959-704-GEN1.LBL
+; 1K0-959-704-GEN2.LBL
+; 1K0-959-704-GEN3.LBL
+;
+; created on 16/Dec/2007 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 19/Aug/2011
+;
+; requires VCDS 800.0 or newer
+;
+;
+REDIRECT,1K0-959-704-GEN3.LBL,5N0-959-704     ; GEN3
+REDIRECT,1K0-959-704-GEN3.LBL,5N0-959-704-A   ; GEN3
+REDIRECT,1K0-959-704-GEN3.LBL,5N0-959-704-B   ; GEN3
+REDIRECT,1K0-959-704-GEN3.LBL,5N0-959-704-C   ; GEN3
+REDIRECT,1K0-959-704-GEN3.LBL,5N0-959-704-D   ; GEN3
+REDIRECT,1K0-959-704-GEN3.LBL,5N0-959-704-E   ; GEN3
+;

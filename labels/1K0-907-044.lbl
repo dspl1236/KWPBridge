@@ -1,0 +1,194 @@
+;
+; VCDS Label File
+;
+; Copyright © 2005+ Ross-Tech, LLC
+;
+; Seat Altea/Toledo (5P) / Seat Leon (1P) / Skoda Octavia II (1Z)
+; VW Caddy (2K) / VW Eos (1F) / VW Golf/Jetta (1K) / VW Touran (1T)
+;
+; Component: J255 - A/C Heating Electronics (#08) - Climatronic
+;
+; P/N: 1K0-907-044-???
+;
+; includes measuring blocks, basic setting and adaptation
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1P-08.LBL
+; 1Q-08.LBL
+; 1T-08.LBL
+; 1Z-08.LBL
+; 5P-08.LBL
+; 1K0-907-044.LBL
+;
+; created on 23/Mar/2005 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 15/Sep/2016
+;
+; requires VCDS 12.12.2 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks & basic setting
+;
+;---------------------------------------------------
+;
+;
+001,0,General
+001,1,Compressor,Shut-Off Code,Specification: 0/6/7/8\n\n0 = Compressor ON\n1 = Compressor OFF: Refrigerant Pressure too high (above 32 bar)\n2 = Compressor OFF: Blower faulty or Blower Voltage too low (below 3 V)\n3 = Compressor OFF: Refrigerant Pressure too low (below 2 bar)\n5 = Compressor OFF: Engine Start not detected (Engine Runtime less than 4 Seconds)\n6 = Compressor OFF: Shut-Off via Control Panel (ECON-Mode)\n7 = Compressor OFF: Shut-Off via Control Panel (OFF)\n8 = Compressor OFF: Outside Temperature too low (below 3 °C)\n10 = Compressor OFF: Supply Voltage too low\n11 = Compressor OFF: Coolant Temperature too high (above 118 °C)\n12 = Compressor OFF: Shut-Off via Engine Control Module (ECM)\n13 = Compressor OFF: Supply Voltage too high (about 17 V)\n14 = Compressor OFF: Evaporator Temperature too low (Risk of Icing)\n15 = Compressor OFF: Control Module Coding incorrect\n16 = Compressor OFF: Activation Signal faulty (Short or Open)\n17 = Compressor OFF: Refrigerant Pressure Sensor implausible Signal
+;  0 = Compressor ON
+;  1 = Compressor OFF: Refrigerant Pressure too high (above 32 bar)
+;  2 = Compressor OFF: Blower faulty or Blower Voltage too low (below 3 V)
+;  3 = Compressor OFF: Refrigerant Pressure too low (below 2 bar)
+;  5 = Compressor OFF: Engine Start not detected (Engine Runtime less than 4 Seconds)
+;  6 = Compressor OFF: Shut-Off via Control Panel (ECON-Mode)
+;  7 = Compressor OFF: Shut-Off via Control Panel (OFF)
+;  8 = Compressor OFF: Outside Temperature too low (below 3 °C)
+; 10 = Compressor OFF: Supply Voltage too low
+; 11 = Compressor OFF: Coolant Temperature too high (above 118 °C)
+; 12 = Compressor OFF: Shut-Off via Engine Control Module (ECM)
+; 13 = Compressor OFF: Supply Voltage too high (about 17 V)
+; 14 = Compressor OFF: Evaporator Temperature too low (Risk of Icing)
+; 15 = Compressor OFF: Control Module Coding incorrect
+; 16 = Compressor OFF: Activation Signal faulty (Short or Open)
+; 17 = Compressor OFF: Refrigerant Pressure Sensor implausible Signal
+001,2,Engine Speed
+001,3,Vehicle Speed
+001,4,Standing Time
+;
+B001,0,Potentiometer && Flap Alignment
+B001,1, , , 
+B001,2, , , 
+B001,3, , , 
+B001,4, , , 
+B001,11,The Basic Setting (Duration max. 30 Seconds) must be performed when:
+B001,12,- Climatronic Control Module (J255) or Display/Operating Unit Rear (E265) replaced
+B001,13,- Flap Motor or Fan Control replaced
+;
+002,0,Compressor
+002,1,Compressor,Current (actual)
+002,2,Compressor,Current (specified)
+002,3,Compressor,Rotations
+002,4,Compressor Load
+;
+003,1,Refrigerant,Pressure
+003,2,Radiator Fan,Activation (actual)
+003,3,Radiator Fan,Activation (spec.)
+003,4,Engine Speed,(increase)
+;
+004,0,Temperatures
+004,1,Outside Temp.,Unfiltered,Display Range: -50...+63 °C
+004,2,Outside Temp.,Regulation,Display Range: -50...+77 °C
+004,3,Fresh Air Intake,Temperature,Display Range: -40...+60 °C
+004,4,Coolant,Temperature,Display Range: -48...+126 °C
+;
+005,0,Outlet/Footwell Blower Temperature
+005,1,Left Outlet Blower,Temperature,Display Range: 0...84 °C
+005,2,Right Outlet Blower,Temperature,Display Range: 0...84 °C
+005,3,Left Footwell,Blower Temp.,Display Range: 0...84 °C
+005,4,Right Footwell,Blower Temp.,Display Range: 0...84 °C
+;
+006,1,Evaporator,Temperature
+006,2,Interior,Temperature
+006,3,Left Sunlight,Intensity (G107),W/m²
+006,4,Right Sunlight,Intensity (G134),W/m²
+;
+007,1,Turbine Voltage,(actual),Display Range: 0.0...13.0 V
+007,2,Turbine Voltage,(specified),Display Range: 0.0...13.0 V
+007,3,Turbine Load,,Display Range: 0.0...100.0 %
+007,4,Voltage,(Terminal 30)
+;
+008,1,Voltage,(Terminal 15)
+008,3,Dimming,(Terminal 58d),Display Range: 0.0...100.0 %
+008,4,Country,,0 = Rest of World (RoW)\n2 = North America (NAR)\n5 = Japan
+;
+009,0,Rear Window Heater (Z2) && Aux. Heater
+009,1,Rear Window,Heater (Z2 / Actual)
+009,2,Rear Window,Heater (Z2 / Spec.)
+009,3,Aux. Heater,Status,Display Range: ON/OFF
+009,4,Aux. Heater,Current
+;
+010,1,Aux. Heater,Request,Display Range: ON/OFF
+010,2,Heater OFF,,Display Range: ON/OFF
+010,3,Back-Up Lights,,Display Range: ON/OFF
+010,4,Front Wiper,,Display Range: ON/OFF
+;
+011,0,Air Recirculation Flap Control Motor (V113) / Potentiometer (G143)
+011,1,Potentiom. (G143),Current Value
+011,2,Potentiom. (G143),Specified Value
+011,3,Min. Position (G143),(Lower Stop/Close)
+011,4,Max. Position (G143),(Upper Stop/Open)
+;
+012,0,Left Temperature Flap Control Motor (V158) / Potentiometer (G220)
+012,1,Potentiom. (G220),Current Value
+012,2,Potentiom. (G220),Specified Value
+012,3,Min. Position (G220),(Lower Stop/Close)
+012,4,Max. Position (G220),(Upper Stop/Open)
+;
+013,0,Right Temperature Flap Control Motor (V159) / Potentiometer (G221)
+013,1,Potentiom. (G221),Current Value
+013,2,Potentiom. (G221),Specified Value
+013,3,Min. Position (G221),(Lower Stop/Close)
+013,4,Max. Position (G221),(Upper Stop/Open)
+;
+014,0,Center Flap Control Motor (V70) / Potentiometer (G112)
+014,1,Potentiom. (G112),Current Value
+014,2,Potentiom. (G112),Specified Value
+014,3,Min. Position (G112),(Lower Stop/Close)
+014,4,Max. Position (G112),(Upper Stop/Open)
+;
+015,0,Defroster Flap Control Motor (V107) / Potentiometer (G135)
+015,1,Potentiom. (G135),Current Value
+015,2,Potentiom. (G135),Specified Value
+015,3,Min. Position (G135),(Lower Stop/Close)
+015,4,Max. Position (G135),(Upper Stop/Open)
+;
+016,0,Air Flow Flap Control Motor (V71) / Potentiometer (G113)
+016,1,Potentiom. (G113),Current Value
+016,2,Potentiom. (G113),Specified Value
+016,3,Min. Position (G113),(Lower Stop/Close)
+016,4,Max. Position (G113),(Upper Stop/Open)
+;
+017,1,Vehicle Derivate 
+017,2,Convertible,Top Status,0 = Closed\n1 = Moving: opening\n2 = Open\n3 = Moving: Closing
+;
+080,0,Advanced Control Module Identification I
+080,1,Identification
+080,2,Revision
+080,3,Production,Date
+080,4,Manufacturer &,Test Stand Number
+;
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+A001,0,Air Flow Flap Control Motor (V71)
+A001,5,Air Flow Flap Control Motor (V71)
+A001,6,0 = Vehicles with separate Air Flow Flap Control Motor (through ca. MY 2007)
+A001,7,1 = Vehicles w/o separate Air Flow Flap Control Motor (from ca. MY 2008)
+A001,8, 
+A001,9,Only effects the following Control Modules:
+A001,10,1K0-907-044-* (from SW 1111)
+A001,11,1Q0-907-044-* (from SW 0303)
+A001,12,1Z0-907-044-* (from SW 0600)
+A001,13,3C0-907-044-* (from SW 0707)
+A001,14, 
+A001,15,Note: See TPI 2016077 (VW) or TPI 2020543 (Skoda)
+;
+A002,0,Air Recirculation Flap Control Motor (V113)
+A002,5,Air Recirculation Flap Control Motor (V113)
+A002,6,0 = Vehicles with separate Air Recirculation Flap Control Motor (from ca. MY 2007)
+A002,7,1 = Vehicles w/o separate Air Recirculation Flap Control Motor (from ca. MY 2008)
+A002,8, 
+A002,9,Only effects the following Control Modules:
+A002,10,1Z0-907-044-* (from SW 0600)
+A002,11, 
+A002,12,Note: See TPI 2016077 (VW) or TPI 2020543 (Skoda)
+;

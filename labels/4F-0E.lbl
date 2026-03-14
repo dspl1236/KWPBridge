@@ -1,0 +1,28 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2006+ Ross-Tech, LLC
+;
+; Audi A6 (4F)
+;
+; Component: R89 - CD-Player (#0E)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 4F-0E.LBL
+; 8T-0E.LBL
+; 4E0-910-111.LBL
+; 4F0-910-7xx-0E.LBL
+;
+; created on 31/Dec/2006 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 19/Jul/2013
+;
+; requires VCDS 11.11.5 or newer
+;
+;
+REDIRECT,4F0-910-7xx-0E.LBL,4F0-910-7??-??? ; R89 integrated in J523
+;
+REDIRECT,4E0-910-111.LBL,4F0-035-110-???    ; MP3-Changer
+;

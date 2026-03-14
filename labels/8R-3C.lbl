@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2008+ Ross-Tech, LLC
+;
+; Component: J769 - Lane Change Assist (#3C)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8R-3C.LBL
+; 8K0-907-566.CLB
+;
+; created on 07/Dec/2008 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 13/Feb/2013
+;
+; requires VCDS 11.11.5 or newer
+;
+;
+REDIRECT,8K0-907-566.CLB,8R0-907-566-???
+;

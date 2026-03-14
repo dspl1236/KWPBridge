@@ -1,0 +1,32 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2007-2011 Ross-Tech, LLC
+;
+; Component: Radio (#56)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8T-56.LBL
+; 8Tx-035-152-56.LBL (Chorus III)
+; 8Tx-035-1xx-56.LBL (Concert/Symphony III)
+;
+; created on 12/Jul/2007 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 18/Aug/2011
+;
+; requires VCDS 10.6.4 or newer
+;
+;
+REDIRECT,8Tx-035-152-56.CLB,8T?-035-152-???   ; Chorus III
+;
+REDIRECT,8Tx-035-1xx-56.CLB,8T?-035-186-???   ; Concert III
+;
+REDIRECT,8Tx-035-1xx-56.CLB,8T?-035-195-???   ; Symphony III
+;
+REDIRECT,4F0-910-7xx-56.LBL,8T0-035-769       ; LOW II
+REDIRECT,4F0-910-7xx-56.LBL,8T0-035-769-A     ; LOW II
+REDIRECT,4F0-910-7xx-56.LBL,8T0-035-769-B     ; LOW II
+REDIRECT,4F0-910-7xx-56.LBL,8T0-035-769-C     ; LOW II
+;

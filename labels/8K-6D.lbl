@@ -1,0 +1,27 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2009 Ross-Tech, LLC
+;
+; Audi A4 (8K)
+;
+; Component: J605 - Rear Lid (#6D)
+;
+; This file is part of a redirection package,
+; make sure you have all of the following files.
+;
+; 4F-6D.LBL
+; 8K-6D.LBL
+; 8R-6D.LBL
+; 4L0-910-945.LBL
+; 8K9-827-851.LBL
+;
+; created on 07/Mar/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 18/Aug/2020
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,8K9-827-851.LBL,8K9-827-851-???
+;

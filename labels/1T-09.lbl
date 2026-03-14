@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2004-2011 Ross-Tech, LLC
+;
+; Component: J519 - Central Electronic (#09)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1T-09.LBL
+; 1K0-937-049-21-B.LBL  (Basis)
+;
+; created on 03/Sep/2004 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 24/Nov/2015
+;
+; requires VCDS 10.6.4 or newer
+;
+;
+REDIRECT,1K0-937-049-21-B.LBL,1T0-937-049     ; 17 Byte (Basis)
+;

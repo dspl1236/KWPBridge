@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; VW Transporter/Multivan (7E/7F)
+;
+; Component: J772 - Back-Up Camera (#6C)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 2H-6C.LBL
+; 5N0-907-441.LBL/CLB
+;
+; created on 20/Feb/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 20/Feb/2014
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,5N0-907-441.CLB,2H0-907-441-???
+;

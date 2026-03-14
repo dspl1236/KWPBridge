@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2009 Ross-Tech, LLC
+;
+; Audi TT (8J)
+;
+; Component: J104 - Brake Electronics (#03)
+;
+; This file is part of a redirection package,
+; make sure you have all of the following files.
+;
+; 8J-03.LBL
+; 8J0-614-517.LBL (MK60EC1)
+;
+; created on 19/Oct/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 19/Oct/2009
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,8J0-614-517.LBL,8J0-910-517-???
+;

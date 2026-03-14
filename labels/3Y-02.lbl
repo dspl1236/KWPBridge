@@ -1,0 +1,25 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; Bentley Mulsanne (3Y)
+;
+; Component: J217 - Transmission (#02)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3Y-02.LBL
+; 0BK-927-156.CLB
+;
+; created on 17/Mar/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 17/Mar/2014
+;
+; requires VCDS 12.12.2.0 or newer
+;
+;
+REDIRECT,0BK-927-156.LBL,0BL-927-156-???,HW
+;
+

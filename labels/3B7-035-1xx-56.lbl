@@ -1,0 +1,179 @@
+;
+; VCDS Label File
+;
+; Copyright © 2006+ Ross-Tech, LLC
+;
+; Component: R - Radio (#56) - DELTA 6/Premium 6/RHAPSODY
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1U-56.LBL
+; 3B-56.LBL
+; 3B7-035-1xx-56.LBL
+;
+; includes measuring blocks, adaptation and coding
+;
+; created on 02/Jun/2006 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 09/Jul/2013
+;
+; requires VCDS 11.11.5 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,General
+001,1,Supply Voltage,(Terminal 30),Specification: 5...18 V
+001,2,Amplifier,Output,only if Amplifier installed
+001,3,Telephone-Mute
+001,4,Telephone-Mute,Status,Range: ON/OFF
+;
+002,0,Speaker/Line-Out (Front)
+002,1,Location/Type
+002,2,Status
+002,3,Location/Type
+002,4,Status
+;
+003,0,Speaker/Line-Out (Rear)
+003,1,Location/Type
+003,2,Status
+003,3,Location/Type
+003,4,Status
+;
+004,0,Remote Feed Antenna
+004,1,Antenna,Type
+004,2,Component
+004,3,Antenna,Status
+;
+005,0,IF-Output
+005,1,Component
+005,2,IF-Output,Status
+;
+007,0,Communication Status CD-Changer (R41)
+007,1,Component
+007,2,CD-Changer,Status
+;
+008,0,Signal Strength
+008,1,Signal Strength
+008,2,Signal Strength,Tuner
+;
+025,0,Internal Control Module Malfunctions
+025,1,Control Module,Status,01 = Button(s) Jam\n02 = Checksum Error ROM/EPROM/Flash-ROM\n03 = Writing Error EEPROM\n04 = CC-Drive (Casette) Error\n05 = CD/DVD-Drive Error
+; 01 = Button(s) Jam
+; 02 = Checksum Error ROM/EPROM/Flash-ROM
+; 03 = Writing Error EEPROM
+; 04 = CC-Drive (Casette) Error
+; 05 = CD/DVD-Drive Error
+;
+080,0,Advanced Control Module Identification I
+080,1,Identification
+080,2,Revision
+080,3,Production,Date
+080,4,Manufacturer &,Test Stand Number
+;
+081,0,Advanced Control Module Identification II
+081,1,Serial Number
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Radio (R) Coding
+C01,000?xxx: Radio Configuration I
+C02,+1 = IF-Output
+C03,+2 = Telephone (via CAN)
+C04,+4 = Multi-Function Steering Wheel (via CAN)
+C05,000x?xx: Speaker Channels
+C06,0 = No passive Speakers (Sound System)
+C07,2 = 2 passive Speakers (Front)
+C08,4 = 4 passive Speakers (Front & Rear)
+C09,000xx?x: Sound System Correction
+C10,0 = No Sound System (No Correction)
+C11,1 = Sound System with Cloth Interior
+C12,2 = Sound System with Leather Interior
+C13,3 = Monsoon (USA only)
+C14,000xxx?: Radio Configuration II
+C15,+1 = Active/Remote Supplied Antenna
+C16,+2 = CD-Changer
+C17,+4 = CAN-Secondary Display (Board Computer/large Display)
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+A001,0,Reception Optimization
+A001,5,Reception Optimization
+A001,6,This channel allows optimization of the reception
+A001,7,behavior for areas with strong FM interference.
+A001,8, 
+A001,9,0 = Normal reception
+A001,10,1 = Optimized reception
+;
+A010,0,Remote Control
+A010,5,Remote Control
+A010,6,0 = Playback disabled
+A010,7,1 = Playback enabled
+A010,8, 
+A010,9,Note: After closing the Diagnostic Session/Communication
+A010,10,the Standard Value 0 is automatically being restored.
+;
+A011,0,Remote Control: Source
+A011,5,Remote Control: Source
+A011,6,0 = FM
+A011,7,1 = AM
+A011,8, 
+A011,9,Note: After closing the Diagnostic Session/Communication
+A011,10,the Standard Value 0 is automatically being restored.
+;
+A012,0,Remote Control: Frequency FM
+A012,5,Remote Control: Frequency FM
+A012,6,The Frequency Adjustment is being carried out
+A012,7,incrementally starting with 0 = 88.3 MHz.
+A012,8, 
+A012,9,Note: After closing the Diagnostic Session/Communication
+A012,10,the Standard Value 0 is automatically being restored.
+;
+A013,0,Remote Control: Frequency AM
+A013,1,Remote Control: Frequency AM
+A013,6,The Frequency Adjustment is being carried out
+A013,7,incrementally starting with 0 = 540 kHz.
+A013,8, 
+A013,9,Note: After closing the Diagnostic Session/Communication
+A013,10,the Standard Value 0 is automatically being restored.
+;
+A014,0,Remote Control: Volume
+A014,5,Remote Control: Volume
+A014,6,Range: 0...100
+A014,7,Standard: 40
+A014,8, 
+A014,9,Note: After closing the Diagnostic Session/Communication
+A014,10,the Standard Value 0 is automatically  being restored.
+;
+A015,0,Remote Control: Balance
+A015,5,Remote Control: Balance
+A015,6,Note: After closing the Diagnostic Session/Communication
+A015,7,the Standard Value 0 is automatically  being restored.
+;
+A016,0,Remote Control: Fader
+A016,1,Remote Control: Fader
+A016,6,Note: After closing the Diagnostic Session/Communication
+A016,7,the Standard Value 0 is automatically  being restored.
+;
+A050,0,Development Test Mode
+A050,5,Development Test Mode
+A050,6,To Enable the Development Test Mode save "1" as new value.
+;

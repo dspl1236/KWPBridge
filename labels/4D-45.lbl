@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2013+ Ross-Tech, LLC
+;
+; Component: Interior Monitoring (#45)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 4D-45.LBL
+; 4B0-951-178.LBL
+;
+; created on 21/Feb/2013 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 20/Feb/2019
+;
+; requires VCDS 11.11.5 or newer
+;
+;
+REDIRECT,4B0-951-178.LBL,4D0-951-173-???
+REDIRECT,4B0-951-178.LBL,4D0-951-177-???
+REDIRECT,4B0-951-178.LBL,4D0-951-178-???
+;

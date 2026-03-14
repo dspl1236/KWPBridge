@@ -1,0 +1,32 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2009+ Ross-Tech, LLC
+;
+; Component: Engine (#01)
+;
+; This file is part of a label files package,
+; make sure you have all of the following files.
+;
+; 5L-01.LBL
+; 06J-907-115-CDA.CLB  (1.8l TFSI   @ 152/160 HP - CDA*/CEA*)
+;
+; created on 21/Jul/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 12/Nov/2014
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,06J-907-115-CDA.CLB,5L0-907-115     ; CDAA (5L)
+REDIRECT,06J-907-115-CDA.CLB,5L0-907-115-A   ; CDAB (5L)
+REDIRECT,06J-907-115-CDA.CLB,5L0-907-115-B   ; CDAA (5L)
+REDIRECT,06J-907-115-CDA.CLB,5L0-907-115-C   ; CDAA (5L)
+REDIRECT,06J-907-115-CDA.CLB,5L0-907-115-D   ; CDAB (5L)
+REDIRECT,06J-907-115-CDA.CLB,5L0-907-115-E   ; CDAA (5L)
+REDIRECT,06J-907-115-CDA.CLB,5L0-907-115-F   ; CEAA (0Y)
+REDIRECT,06J-907-115-CDA.CLB,5L0-907-115-G   ; CDAB (5L)
+REDIRECT,06J-907-115-CDA.CLB,5L0-907-115-H   ; CDAB (5L)
+REDIRECT,06J-907-115-CDA.CLB,5L0-907-115-J   ; CDAB (5L)
+REDIRECT,06J-907-115-CDA.CLB,5L0-907-115-K   ; CEAA (0Y)
+;

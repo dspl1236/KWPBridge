@@ -1,0 +1,100 @@
+;
+; VCDS Label File
+;
+; Copyright © 2015+ Ross-Tech, LLC
+;
+; VW T2C/Kombi (7X)
+;
+; Component: J285 - Instrument Cluster (#17)
+;
+; P/N: 7X0-920-???-???
+;
+; includes measuring blocks, adaptation, coding and service reset
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 7X-17.LBL
+; 7X0-920-xxx-17.LBL
+;
+; created on 11/Jun/2015 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 11/Jun/2015
+;
+; requires VCDS 14.10.2 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,General
+001,1,Vehicle Speed
+001,2,Engine Speed
+001,4,Oil Pressure,Switch 2,Range: Oil Pr. 2 <min / Oil Pr. 2 OK
+;
+002,0,General
+002,1,Odometer
+002,2,Fuel Level
+002,3,Fuel Sender,Resistance
+002,4,Ambient,Temperature
+;
+003,0,General
+003,1,Coolant,Temperature
+;
+050,0,General
+050,1,Odometer
+050,2,Engine Speed
+050,3,Oil Temperature
+050,4,Coolant,Temperature
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;Component:A0-KOMBIINSTR. VDO V05 , Coding:01040
+;
+C00,Instrument Cluster (J285) Coding
+;C01,00040 = All Other Engine Variants
+C01,01040 = 1.4l MPI/FLEX (BTJ)
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+;
+A009,0,Mileage/Odometer
+A009,5,Mileage/Odometer
+A009,6,Increments: 1 = 10 km or 1 = 10 mi
+A009,7, 
+A009,8,The distance can only be changed once until
+A009,9,the current value is not over 100 km/62 mi.
+;
+;A16,0,
+;2015
+;;
+;
+;A17,0,
+;2015
+;
+A030,0,Tank Characteristic (Fuel Level Sensor)
+A030,5,Tank Characteristic (Fuel Level Sensor)
+A030,6,This channel is used to set the fuel gauge reserve mark
+A030,7,therfor fill the tank with 9 l of fuel and correct the
+A030,8,needle to hit the reserve mark. This is a parallel shift
+A030,9,of the tank characteristic.
+A030,10, 
+A030,11,Standard: 128
+A030,12,Range: 108...148 (-5.0...+5.0 l)
+A030,13,Increments: 1 = 1 Ohm = 1/4 l
+;

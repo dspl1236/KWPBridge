@@ -1,0 +1,142 @@
+;
+; VCDS Label File
+;
+; Copyright © 2008+ Ross-Tech, LLC
+;
+; Audi A4 (8E/8H)
+;
+; Component: J527 - Steering Column Electronics (#16)
+;
+; P/N: 8E0-953-549-???
+;
+; includes measuring blocks, adaptation and coding
+;
+; created on 26/Sep/2004 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 09/Oct/2014
+;
+; requires VCDS 12.12.3 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+;
+001,1,Ignition Switch,,1xxxx = Terminal P active\nx1xxx = Terminal S active\nxx1xx = Terminal 75 active\nxxx1x = Terminal 15 active\nxxxx1 = Terminal 50 active
+; 1xxxx = Terminal P active
+; x1xxx = Terminal S active
+; xx1xx = Terminal 75 active
+; xxx1x = Terminal 15 active
+; xxxx1 = Terminal 50 active
+001,2,Blinker,Turn Signal,Range: Not Oper./Left/Right\nSignal Type: Input
+001,3,Headlight,Flasher,Range: Not Oper./Operated\nSignal Type: Input
+001,4,High Beam,,Range: Not Oper./Operated\nSignal Type: Input
+;
+002,1,Horn,,Range: Not Oper./Operated\nSignal Type: Input
+002,2,Wiper Front,,Range: Not Oper./Level/Stage Int./Stage 1/Stage 2\nSignal Type: Input
+002,3,Wiper,Interval Stages,Range: Stage 1/Stage 2/Stage 3/Stage 4\nSignal Type: Input
+002,4,Washer Front,,Range: Not Oper./Operated\nSignal Type: Input
+;
+003,1,Wiper Rear,,Range: Not Oper./Operated/Not Installed\nSignal Type: Input
+003,2,Washer Rear,,Range: Not Oper./Operated/Not Installed\nSignal Type: Input
+003,3,Board Computer,,Range: Not Oper./Operated\nSignal Type: Input
+003,4,Sport Button,,Range: Not Oper./Operated/Not Installed\nSignal Type: Input
+;
+004,0,Cruise Control System (CCS)
+004,1,Main Switch,,Range: ON/OFF\nSignal Type: Input/Output
+004,2,CCS-Set,,Range: Not Oper./Operated\nSignal Type: Input
+004,3,CCS-Status,,Range: Not Oper.\nSignal Type: Input
+;
+006,0,Multifunction Steering Wheel (MFSW) I
+006,1,Communication,,Range: Not Installed/OK/not OK
+006,2,Software Version
+006,3,Hardware Version
+006,4,Malfunction,recognized,Range: Yes/No
+;
+007,0,Multifunction Steering Wheel (MFSW) II
+007,1,Button 1 OR,Button Left,Range: Not Oper./Operated/Not Installed
+007,2,Button 2 OR,Button Right,Range: Not Oper./Operated/Not Installed
+007,3,Button 3 OR,Wheel Button Left,Range: Not Oper./Operated/Not Installed
+007,4,Button 4 OR,Wheel Button Right,Range: Not Oper./Operated/Not Installed
+;
+008,0,Multifunction Steering Wheel (MFSW) III
+008,1,Button 5 OR,Wheel Left,Range: Not Oper./Operated/Not Installed OR Not Oper./Not Installed/Scroll Up/Scroll Down
+008,2,Button 6 OR,Wheel Right,Range: Not Oper./Operated/Not Installed OR Not Oper./Not Installed/Volume Up/Volume Down
+;
+009,1,Dimming,(Terminal 58d),Range: 0.0...100.0 %
+009,2,Right Hand Drive,,Range: Yes/No
+009,3,Seat Heating,Left,Range: OFF/[Stage]
+009,4,Seat Heating,Right,Range: OFF/[Stage]
+;
+010,0,Tiptronic Selector
+010,1,Tiptronic,Manual (M),Range: Not Oper./Operated\nSignal Type: Input
+;
+080,0,Advanced Control Module Identification I
+080,1,Identification
+080,2,Revision
+080,3,Production,Date
+080,4,Manufacturer &,Test Stand Number
+;
+081,0,Advanced Control Module Identification II
+081,1,Vehicle Ident.,Number (VIN)
+;
+125,0,CAN-Databus Powertrain (Communication)
+125,1,Instrument Cluster,(J285),Range: Instruments 1/Instruments 0\nSpecification: Instruments 1
+125,2,Central Electronics,(J519),Range: E.Load.Crtl 1/E.Load.Crtl 0\nSpecification: E.Load.Crtl 1
+125,3,Heating/Air,Condition (J255),Range: HVAC 1/HVAC 0\nSpecification: HVAC 1
+;
+126,0,CAN-Databus Comfort (Communication)
+126,1,Door Electronics,Driver (J386),Range: Dr. Door 1/Dr. Door 0\nSpecification: Dr. Door 1
+126,2,Door Electronics,Passenger (J387),Range: Pas. Door 1/Pas. Door 0\nSpecification: Pas. Door 1
+126,3,Door Electronics,Rear Left (J388),Range: RL Door 1/RL Door 0\nSpecification: RL Door 1
+126,4,Door Electronics,Rear Right (J389),Range: RR Door 1/RR Door 0\nSpecification: RR Door 1
+;
+127,0,CAN-Databus Infotainment (Communication)
+127,1,Radio (analog),(R),Range: Radio 1/Radio 0\nSpecification: Radio 1
+127,2,Telephone,Electronics (R36),Range: Telephone 1/Telephone 0\nSpecification: Telephone 1
+127,3,Voice Control,(J507),Specification: VoiceCmd 1\nRange: VoiceCmd 1/VoiceCmd 0
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Steering Wheel Electronics (J527) Coding
+C01,0?xxx: Steering Wheel
+C02,0 = Standard (without Multifunction)
+C03,1 = 3-Spoke Steering Wheel (Sport Steering Wheel)
+C04,2 = Multifunction Steering Wheel with Radio Control
+C05,3 = Multifunction Steering Wheel with Radio/Telephone Control
+C06,4 = Multifunction Steering Wheel with Radio/Telephone/Voice Control
+C07,5 = Multifunction Steering Wheel with Radio/Voice Control
+C08,0x?xx: Options
+C09,+1 = Tiptronic
+C10,0xx?x: Board Computer & Cruise Control
+C11,0 = Board Computer & Cruise Control not installed
+C12,1 = Board Computer installed
+C13,2 = Cruise Control installed
+C14,4 = Board Computer & Cruise Control installed
+C15,0xxx?: Rear Wiper (Chassis)
+C16,1 = Rear Wiper not installed (Sedan/Cabriolet)
+C17,2 = Rear Wiper installed (Avant)
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+A081,0,Component Protection (Vehicle Identification Number)
+A081,5,Component Protection (Vehicle Identification Number)
+A081,6,To Start the Vehicle Identification Number (VIN)
+A081,7,Learning Process enter/save 00111 as new Value.
+;;

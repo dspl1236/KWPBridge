@@ -1,0 +1,34 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2008+ Ross-Tech, LLC
+;
+; Component: R36 - Telephone (#77)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 7L-77.LBL
+; 3C0-035-730.LBL
+; 7L6-035-729-9W8.LBL (PR-9W8/9W9)
+; 7L6-035-729-9ZA.LBL (PR-9W4/9ZA)
+; 7L6-035-729-9ZF.LBL (PR-9ZF)
+;
+; created on 10/Mar/2008 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 26/Nov/2012
+;
+; requires VCDS 10.6.4 or newer
+;
+;
+REDIRECT,3C0-035-730.LBL,7L6-035-730-???
+;
+REDIRECT,7L6-035-729-9W8.LBL,7L6-035-729     ; PR-9W8/9W9
+REDIRECT,7L6-035-729-9ZF.LBL,7L6-035-729-A   ; PR-9ZF
+REDIRECT,7L6-035-729-9ZA.LBL,7L6-035-729-D   ; PR-9W4/9ZA
+REDIRECT,7L6-035-729-9ZF.LBL,7L6-035-729-E   ; PR-9ZF
+REDIRECT,7L6-035-729-9ZA.LBL,7L6-035-729-F   ; PR-9W4/9ZA
+REDIRECT,7L6-035-729-9ZA.LBL,7L6-035-729-H   ; PR-9W4/9ZA
+REDIRECT,7L6-035-729-9ZF.LBL,7L6-035-729-J   ; PR-9ZF
+REDIRECT,7L6-035-729-FIX.LBL,7L6-035-729-K   ; PR-9W8/9W9
+;

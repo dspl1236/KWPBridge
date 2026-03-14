@@ -1,0 +1,25 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2008-2011 Ross-Tech, LLC
+;
+; Audi A4 (8K) / Audi A5 (8T)
+;
+; Component: R36 - Telephone (#77)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8T-77.LBL
+; 8P0-862-335.LBL
+;
+; created on 22/Oct/2007 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 18/Aug/2011
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,8P0-862-335.LBL,8T0-862-335-???
+REDIRECT,8P0-862-335.LBL,8T0-862-336-???
+;

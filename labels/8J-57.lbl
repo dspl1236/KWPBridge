@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2012 Ross-Tech, LLC
+;
+; Component: R78 - TV-Tuner (#57)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8J-57.LBL
+; 7L6-919-148.CLB
+;
+; created on 21/May/2012 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 21/May/2012
+;
+; requires VCDS 11.11.0 or newer
+;
+;
+;REDIRECT,7L6-919-148.CLB,8J0-919-148-???
+;

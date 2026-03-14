@@ -1,0 +1,44 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2015+ Ross-Tech, LLC
+;
+; Component: J794 - Information Electronics I (#5F)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8F-5F.LBL
+; 4E0-035-6xx-5F.CLB
+;
+; created on 19/Aug/2015 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 19/Aug/2015
+;
+; requires VCDS 805.0 or newer
+;
+;
+; PR-8DN = MMI LOW I
+; PR-8DP = MMI LOW II
+; PR-8AJ = MMI HIGH RDW
+; PR-8DY = MMI HIGH NAR
+; PR-8DZ = MMI HIGH JPN
+; PR-8UV = MMI HIGH CHN
+; PR-8YF = MMI HIGH ROK
+; PR-8YQ = MMI HIGH EUR
+;
+; PR-9W0 = No Telephone
+; PR-9W5 = Telephone (External/Preparation)
+; PR-9ZD = 
+; PR-9ZF = 
+; PR-9ZX = Telephone (External/Preparation)
+; PR-9ZW = Bluetooth Telephone (Internal)
+;
+;
+REDIRECT,4E0-035-6xx-5F.CLB,8F1-035-664-???  ; PR-8DY & PR-9W0/9ZX
+REDIRECT,4E0-035-6xx-5F.CLB,8F1-035-666-???  ; PR-8YQ & PR-9W0/9ZF/9ZX
+REDIRECT,4E0-035-6xx-5F.CLB,8F1-035-670-???  ; PR-8YQ & PR-9ZW
+REDIRECT,4E0-035-6xx-5F.CLB,8F1-035-746-???  ; PR-8DY & PR-9ZW
+REDIRECT,4E0-035-6xx-5F.CLB,8F1-035-766-???  ; PR-8UV & PR-9W0/9ZX
+REDIRECT,4E0-035-6xx-5F.CLB,8F1-035-770-???  ; PR-8UV & PR-9ZW
+;

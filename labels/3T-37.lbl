@@ -1,0 +1,33 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2008+ Ross-Tech, LLC
+;
+; Component: Navigation System (#37)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3T-37.LBL
+; 3T-56.LBL
+; 1K0-035-27x-37.CLB   (Radio Navigation System 315)
+; 1T0-035-680.LBL      (Radio Navigation System 510)
+; 3C0-035-270.CLB      (Radio Navigation System 310)
+;
+; created on 04/Jul/2008 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 26/Jan/2015
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,3C0-035-270.CLB,3T0-035-191-???    ; Radio/Navigation System Amundsen  (RNS310)
+REDIRECT,1K0-035-27x-37.CLB,3T0-035-192-??? ; Radio/Navigation System Amundsen+ (RNS315)
+REDIRECT,1K0-035-27x-37.CLB,3T0-035-193-??? ; Radio/Navigation System Amundsen+ (RNS315)
+REDIRECT,1K0-035-27x-37.CLB,3T0-035-197-??? ; Radio/Navigation System Amundsen+ (RNS315)
+;
+REDIRECT,1T0-035-680.LBL,3T0-035-680-???    ; Radio/Navigation System Columbus (RoW)
+REDIRECT,1T0-035-680.LBL,3T0-035-686-???    ; Radio/Navigation System Columbus (RoW DAB+)
+;
+REDIRECT,1T0-035-680.LBL,3TD-035-682-???    ; Radio/Navigation System Columbus (CHN)
+;

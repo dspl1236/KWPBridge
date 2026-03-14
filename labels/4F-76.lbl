@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2008-2011 Ross-Tech, LLC
+;
+; Component: Telephone (#77)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 4F-76.LBL
+; 4Fx-910-283.LBL
+;
+; created on 21/May/2008 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 18/Aug/2011
+;
+; requires VCDS 10.6.4 or newer
+;
+;
+REDIRECT,4Fx-910-283.LBL,4F?-910-283-???
+;

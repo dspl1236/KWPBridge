@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2009 Ross-Tech, LLC
+;
+; Audi A4 (8K) / Audi A5 (8T) / Audi A6 (4F) / Audi Q5 (8R)
+;
+; Component: J844 - High Beam Assist (#20)
+;
+; This file is part of a redirection package,
+; make sure you have all of the following files.
+;
+; 4F-20.LBL
+; 8K0-857-511.CLB
+;
+; created on 27/Jun/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 27/Jun/2009
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,8K0-857-511.CLB,4F0-857-511-???
+;

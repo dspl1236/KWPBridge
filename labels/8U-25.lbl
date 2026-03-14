@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011 Ross-Tech, LLC
+;
+; Component: Immobilizer (#25)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8U-25.LBL
+; 5K0-920-xxx-25.CLB
+;
+; created on 18/Oct/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 18/Oct/2011
+;
+; requires VCDS 11.10.0 or newer
+;
+;
+REDIRECT,5K0-920-xxx-25.CLB,8U0-920-???-???
+;

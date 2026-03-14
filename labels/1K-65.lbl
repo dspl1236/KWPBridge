@@ -1,0 +1,27 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2005-2011 Ross-Tech, LLC
+;
+; Component: J502 - Tire Pressure Monitoring (#65)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1K-65.LBL
+; 3C-65.LBL
+; 5K-65.LBL
+; 3C0-959-433-65.LBL
+; 1K0-937-08x-65.LBL
+;
+; created on 27/Oct/2005 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 07/Jul/2011
+;
+; requires VCDS 11.3.0 or newer
+;
+;
+REDIRECT,3C0-959-433-65.LBL,1K0-959-433-???
+;
+REDIRECT,1K0-937-08x-65.CLB,1K0-937-08?-???
+;

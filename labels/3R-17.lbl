@@ -1,0 +1,25 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2010+ Ross-Tech, LLC
+;
+; Seat Exeo (3R)
+;
+; Component: J285 - Instrument Cluster/Immobilizer (#17/#25)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3R-17.LBL
+; 3R-25.LBL
+; 3R0-920-xxx-17.CLB
+;
+; created on 18/Apr/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 16/Dec/2012
+;
+; requires VCDS 11.11.0 or newer
+;
+;
+REDIRECT,3R0-920-xxx-17.CLB,3R0-920-???-???
+;

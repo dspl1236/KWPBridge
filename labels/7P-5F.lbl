@@ -1,0 +1,49 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011 Ross-Tech, LLC
+;
+; VW Touareg (7P)
+;
+; Component: J794 - Information Electronics I (#5F)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 4E-5F.LBL
+; 4E0-035-6xx-5F.CLB
+;
+; created on 30/Aug/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 30/Aug/2011
+;
+; requires VCDS 11.3.0 or newer
+;
+; PR-7Q1 = Navigation System
+; PR-7Q2 = Navigation System for Rest of World (RoW)
+; PR-7Q6 = Navigation System for Japan (JP)
+; PR-7Q8 = Navigation System for North American Region (NAR)
+; PR-7T4 = Navigation System for China (CHN)
+; PR-7T5 = Navigation System Preparation
+; PR-9W0 = Telephone (External)
+; PR-9ZW = Bluetooth Telephone (Internal)
+;
+;
+REDIRECT,4E0-035-6xx-5F.CLB,7P6-035-664-???  ; PR-7Q8
+;
+REDIRECT,4E0-035-6xx-5F.CLB,7P6-035-666-???  ; PR-7Q2 & PR-9W0
+;
+REDIRECT,4E0-035-6xx-5F.CLB,7P6-035-670-???  ; PR-7Q2 & PR-9ZW
+;
+REDIRECT,4E0-035-6xx-5F.CLB,7P6-035-678-???  ; PR-7Q6
+;
+REDIRECT,4E0-035-6xx-5F.CLB,7P6-035-748-???  ; PR-7Q9 (ROK)
+;
+REDIRECT,4E0-035-6xx-5F.CLB,7P6-035-754-???  ; PR-7Q1/7T5 & PR-9W0
+;
+REDIRECT,4E0-035-6xx-5F.CLB,7P6-035-764-???  ; PR-7Q1/7T5 & PR-9W0
+;
+REDIRECT,4E0-035-6xx-5F.CLB,7P6-035-766-???  ; PR-7T4 & PR-9W0
+;
+REDIRECT,4E0-035-6xx-5F.CLB,7P6-035-770-???  ; PR-7T4 & PR-9ZW
+;

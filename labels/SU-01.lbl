@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; Component: Engine (#01)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; SU-01.LBL
+; 06F-907-115-AXX.LBL  (2.0l TFSI  @ 200 HP - AXX/BGB/BHZ/BPJ/BPY/BWA)
+;
+; created on 07/Oct/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 07/Oct/2010
+;
+; requires VCDS 12.12.2 or newer
+;
+;
+REDIRECT,06F-907-115-AXX.LBL,8P0-907-115-E,HW ; BHZ (8P) // Seat Leon Supercopa
+;

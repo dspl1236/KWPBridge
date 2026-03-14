@@ -1,0 +1,16 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011-2012 Ross-Tech, LLC & NEtech ApS
+;
+; Component: R41 - Media Player (#0E)
+;
+; created on 26/May/2011 by Niels Ezerman
+;
+; last modification on 03/Feb/2012
+;
+; requires VCDS 10.5 or newer
+;
+;
+REDIRECT,4F0-035-110.LBL,8X0-035-110-??? 
+;

@@ -1,0 +1,82 @@
+;
+; VAG-COM Label File
+;
+; VW Transporter (7D)
+;
+; Component: Transmission Electronic (#02) - 4-Speed Automatic Transmission 01P
+;
+; P/N: 01P-927-733-???
+;
+; includes measuring blocks and coding
+;
+; created on 16/Jan/2008 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification: 20/May/2022
+;
+; requires VAG-COM 402.3 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,1,Selector Lever,Position
+001,2,Throttle Valve,Voltage,Specification: 0...5.0 V
+001,3,Value of,Accelerator Pedal,Specification: 0...100 %
+001,4,Multi-Function,Switch,x00x0111 = Selector in 'P'\nx00x1111 = Selector in 'R'\nx00x1011 = Selector in 'N'\nx00x1010 = Selector in 'D'\nx00x1000 = Selector in '3'\nx00x1100 = Selector in '2'\nx00x0100 = Selector in '1'\nx001xxxx = Kick Down Switch operated\n1xx0xxxx = Brake Light Switch operated
+; x00x0111 = Selector in 'P'
+; x00x1111 = Selector in 'R'
+; x00x1011 = Selector in 'N'
+; x00x1010 = Selector in 'D'
+; x00x1000 = Selector in '3'
+; x00x1100 = Selector in '2'
+; x00x0100 = Selector in '1'
+; x001xxxx = Kick Down Switch operated
+; 1xx0xxxx = Brake Light Switch operated
+;
+002,1,Solenoid Valve 6,Actual Current,N93 (Specification: 0.0...1.100 A)
+002,2,Solenoid Valve 6,Specified Current,N93 (Specification: 0.0...1.100 A)
+002,3,Battery,Voltage,Specification: 0...15.93 V
+002,4,Vehicle Speed,Sensor Voltage,G68 (Specification: 0...5.0 V)
+;
+003,1,Speed,,Specification: 0...255 km/h
+003,2,Engine Speed,,Specification: 0...7650 RPM
+003,3,Selected Gear
+003,4,Value of,Accelerator Pedal,Specification: 0...100 %
+;
+004,1,Solenoid Valves,Condition,?xxxxx = Solenoid Valve 1 (N88)\nx?xxxx = Solenoid Valve 2 (N89)\nxx?xxx = Solenoid Valve 3 (N90)\nxxx?xx = Solenoid Valve 4 (N91)\nxxxx?x = Solenoid Valve 5 (N92)\nxxxxx? = Solenoid Valve 6 (N94)\n\n101000 = P\n001000 = R\n101000 = N\n001000 = D/1H\n001000 = D/1M\n011000 = D/2H\n011000 = D/2M\n000000 = D/3\n000000 = D/3M\n110001 = D/4H\n110001 = D/4M
+; ?xxxxx = Solenoid Valve 1 (N88)
+; x?xxxx = Solenoid Valve 2 (N89)
+; xx?xxx = Solenoid Valve 3 (N90)
+; xxx?xx = Solenoid Valve 4 (N91)
+; xxxx?x = Solenoid Valve 5 (N92)
+; xxxxx? = Solenoid Valve 6 (N94)
+;
+; 101000 = P
+; 001000 = R
+; 101000 = N
+; 001000 = D/1H (Lever in D, Gear 1 hydraulic)
+; 001000 = D/1M (Lever in D, Gear 1 mechanical)
+; 011000 = D/2H (Lever in D, Gear 2 hydraulic)
+; 011000 = D/2M (Lever in D, Gear 2 mechanical)
+; 000000 = D/3H (Lever in D, Gear 3 hydraulic)
+; 000000 = D/3M (Lever in D, Gear 3 mechanical)
+; 110001 = D/4H (Lever in D, Gear 4 hydraulic)
+; 110001 = D/4M (Lever in D, Gear 4 mechanical)
+004,2,Driving Mode
+004,3,Selector Lever,Position
+004,4,Speed,,Specification: 0...255 km/h
+;
+005,1,ATF Temperature,,Specification: -40...+170 °C
+005,2,Multi-Function,Switch 2
+005,3,Gear to be,engaged
+005,4,Engine Speed,,Specification: 0...7650 RPM
+;
+007,1,Selected Gear
+007,2,Lock-Up clutch,Slip Slipping,Specification: 0...3820 RPM
+007,3,Engine Speed,,Specification: 0...7650 RPM
+007,4,Value of,Accelerator Pedal,Specification: 0...100 %
+;

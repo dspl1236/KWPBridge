@@ -1,0 +1,78 @@
+;
+; VAG-COM Labeldatei
+;
+; Audi 100 (4A)
+;
+; Komponente: Motorelektronik (#01) - ABK (bis 06/1993)
+;
+; T/N: 039 906 022 ??
+;
+; This file is part of a redirection package,
+; make sure you have all of the following files.
+;
+; 03-01.LBL
+; 039-906-022-ABK.LBL  (2.0l     @ 115 HP - ABK) - bis 06/1993
+; 039-906-024-ABK.LBL  (2.0l     @ 115 HP - ABK) - ab 07/1993
+;
+; Component: DIGIFANT 1.6        1243PMC 11
+;
+; beinhaltet Messwertgruppen
+;
+; erstellt am 23.05.2005 von Sebastian Stange (sebastian@ross-tech.com)
+;
+; letzte Änderung: 23.05.2005
+; Translated by Richard Vincent on 14/May/2020
+; Edited to include Component info on 22/July/2020
+;
+; benötigt mindestens VAG-COM 405.0 oder höher
+;
+;
+;---------------------------------------------------
+;
+; Measured value groups information
+;
+;---------------------------------------------------
+;
+;
+000,0,Basic functions
+000,1,Intake air temp,Setpoint: 15...70 (12...65 °C)
+000,2,Supply voltage,Setpoint: 115...150 (10.8...14.0 V)
+000,3,Coolant temp,Setpoint: 0...8 (85...115 °C)
+000,4,Engine load,Setpoint: 35...65 (14...25 %)
+000,5,Lambda sensor,voltage,Setpoint: 230...80 (0.1...1.1 V)
+000,6,Lambda control,time counter,Setpoint: 0
+000,7,Probe status,counter,Setpoint: 0...10
+000,8,Throttle pot,voltage,Setpoint: 10...130 (0.2...2.6 V)
+000,9,Injection time,Setpoint: 3...7 (1.5...3.5 ms)
+000,10,Engine RPM,Setpoint: 211...186 (770...870 U/min)
+;
+001,0,Basic functions (Basic settings: Drosselklappe)
+001,1,Coolant temperature,,Setpoint: 85..115 °C
+001,2,Engine RPM,,Setpoint: 770...870 U/min
+001,3,Lambda probe,voltage,Setpoint: 0.1...1.1 V
+001,4,Injection time,,Setpoint: 1.5...3.5 ms
+;
+002,0,Basic functions
+002,1,Coolant temp,,Setpoint: 85..115 °C
+002,2,Engine RPM,,Setpoint: 770...870 U/min
+002,3,Throttle angle,,Setpoint (Neutral): 0.0...2.0 <°\nSetpoint (Vollast): mind. 75 <°
+002,4,Engine load,,Setpoint: 14...25 %
+;
+003,0,Basic functions
+003,1,Coolant temp,,Setpoint: 85..115 °C
+003,2,Engine RPM,,Setpoint: 770...870 U/min
+003,3,Air intake,temp,
+003,4,Supply,voltage,Setpoint: 10.8...14.0 V
+ 
+004,0,Basic functions
+004,1,Coolant temp,,Setpoint: 85..115 °C
+004,2,Engine RPM,,Setpoint: 770...870 U/min
+004,3,Ignition advance,
+004,4,Engine load,,Setpoint: 14...25 %
+;
+005,0,Basic functions
+005,1,Coolant temp,,Setpoint: 85..115 °C
+005,2,Engine RPM,,Setpoint: 770...870 U/min
+005,3,Throttle angle,,Setpoint (Neutral): 0.0...2.0 <°\nSetpoint (Vollast): mind. 75 <°
+005,4,Supply voltage,,Setpoint: 10.8...14.0 V
+;

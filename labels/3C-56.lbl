@@ -1,0 +1,40 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2006+ Ross-Tech, LLC
+;
+; Component: R - Radio (#56)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3C-37.LBL
+; 3C-56.LBL
+; 1K0-035-1xx-56.LBL  (Radio Generation 6)
+; 1T0-035-680.LBL     (Radio Navigation System 510)
+;
+; created on 19/Aug/2006 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 10/Nov/2015
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,1K0-035-1xx-56.LBL,3C0-035-195-???   ; RCD500
+;
+REDIRECT,5M0-035-1xx-56.CLB,3C8-035-190-???   ; RCD510
+;
+REDIRECT,5M0-035-1xx-56.CLB,3C8-035-195-???   ; RCD510
+;
+REDIRECT,1T0-035-680.LBL,3C0-035-680-???      ; RNS510 RoW
+;
+REDIRECT,1T0-035-680.LBL,3C0-035-681-???      ; RNS510 JAPAN
+REDIRECT,1T0-035-680.LBL,3C0-035-684-???      ; RNS510 NAR
+;
+REDIRECT,1T0-035-680.LBL,3C8-035-680-???      ; RNS510 NAR
+REDIRECT,1T0-035-680.LBL,3C8-035-684-???      ; RNS510 NAR
+REDIRECT,1T0-035-680.LBL,3C8-035-685-???      ; RNS510 ROK
+REDIRECT,1T0-035-680.LBL,3C8-035-686-???      ; RNS510 DAB+ RoW
+;
+REDIRECT,1T0-035-680.LBL,3CD-035-682-???      ; RNS510 CHINA
+;

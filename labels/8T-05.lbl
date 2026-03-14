@@ -1,0 +1,26 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011 Ross-Tech, LLC
+;
+; Audi A4 (8K) / Audi A5 (8T) / Audi Q5 (8R)
+;
+; Component: Immobilizer (#05)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 4H-05.LBL
+; 8K-05.LBL
+; 8T-05.LBL
+; 8K0-907-064-05.CLB
+;
+; created on 13/Jul/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 13/Jul/2011
+;
+; requires VCDS 11.3.0 or newer
+;
+;
+REDIRECT,8K0-907-064-05.CLB,8T0-907-064-???
+;

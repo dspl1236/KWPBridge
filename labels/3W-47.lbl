@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2004+ Ross-Tech, LLC
+;
+; Component: Sound System (#47)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3D-47.LBL
+; 3W-47.LBL
+; 7L-47.LBL
+; 7Lx-035-4xx-47.LBL
+;
+; created on 01/Dec/2004 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 25/Jun/2012
+;
+; requires VCDS 11.11.3 or newer
+;
+;
+REDIRECT,7Lx-035-4xx-47.LBL,3W?-035-456-???  ; 12-Channel
+;

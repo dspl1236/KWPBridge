@@ -1,0 +1,32 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; VW Phaeton (3D)
+;
+; Component: J466 - Parking Aid (#76)
+;
+; This file is part of a label file package,
+; make sure you have both of the following files.
+;
+; 3D-76.LBL
+; 7L-76.LBL
+; 3D0-919-283-V1.CLB
+; 3D0-919-283-V2.CLB
+; 3D0-919-283-V3.CLB
+;
+; created on 17/Aug/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 17/Aug/2014
+;
+; requires VCDS 12.12.2 or newer
+;
+;
+;REDIRECT,3D0-919-283-V1.CLB,3D0-919-283-A
+;REDIRECT,3D0-919-283-V2.CLB,3D0-919-283-B
+;REDIRECT,3D0-919-283-V2.CLB,3D0-919-283-C
+;REDIRECT,3D0-919-283-V3.CLB,3D0-919-283-D
+;REDIRECT,3D0-919-283-V3.CLB,3D0-919-283-E
+REDIRECT,3D0-919-283-V3.CLB,3D0-919-283-F
+;

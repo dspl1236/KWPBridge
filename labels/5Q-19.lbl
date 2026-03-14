@@ -1,0 +1,68 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; Component: J533 - Diagnostic Interface for Databus (#19)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 5Q-19.LBL
+; 5Q0-907-530-LV1.CLB (0K0/0K2+6K0+7Y0+8G0+QK0+1MR/2PG/2PV)
+; 5Q0-907-530-MV1.CLB (0K0/0K2+6K0+7Y0+8G0+QK0+1XW/1XX/2PF/2PK/2ZQ/2ZS)
+; 5Q0-907-530-HV1.CLB (0K0/0K2+6K3/6K4+7Y1/7Y4/7Y5+QK1)
+; 5QE-907-530-V1.CLB (0K3)
+;
+; PR-0K0 = w/o Alternative Powertrain
+; PR-0K2 = Natural Gas Powertrain (CNG)
+; PR-0K3 = Hybrid Powertrain PHEV
+; PR-1MR/2PG/2PV = Steering Wheel w/o Multi-Function-Buttons
+; PR-1XW/1XX/2PF/2PK/2ZQ/2ZS = Steering Wheel with Multi-Function-Buttons
+; PR-6K0 = w/o Front Assist
+; PR-6K3 = Front Assist with City ANB for ACC low
+; PR-6K4 = Front Assist with City ANB for ACC high
+; PR-7Y0 = w/o Lane Change Assist
+; PR-7Y1 = Lane Change Assist
+; PR-7Y4 = Lane Maintenance Assist
+; PR-7Y5 = Lane Maintenance & Lane Change Assist
+; PR-8G0 = w/o Light Sensor
+; PR-8G1 = High Beam Assist
+; PR-8G2 = Adjustable Beam Assist
+; PR-QK0 = w/o Camera & w/o Distance Sensor (Driver Assist)
+; PR-QK1 = Camera and/or Distance Sensor (Driver Assist)
+;
+; HW1XX = Lear
+; HW2XX = Conti
+;
+; created on 21/Aug/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 11/Nov/2014
+;
+; requires VCDS 12.12.0 or newer
+;
+;
+REDIRECT,5Q0-907-530-V1.CLB,5Q0-907-530-???
+;
+;REDIRECT,5Q0-907-530-LV1.CLB,5Q0-907-530-A
+;REDIRECT,5Q0-907-530-MV1.CLB,5Q0-907-530-B   ; HW108/SW1072
+;REDIRECT,5Q0-907-530-HV1.CLB,5Q0-907-530-C   ; HW109/SW1072
+;REDIRECT,5Q0-907-530-LV1.CLB,5Q0-907-530-D   ; HW120/SW1109 & HW123/SW1109
+;REDIRECT,5Q0-907-530-MV1.CLB,5Q0-907-530-E   ; HW121/SW1109 & HW124/SW1109
+;REDIRECT,5Q0-907-530-HV1.CLB,5Q0-907-530-F   ; HW122/SW1109 & HW125/SW1109
+;REDIRECT,5Q0-907-530-LV1.CLB,5Q0-907-530-G   ; 
+;REDIRECT,5Q0-907-530-MV1.CLB,5Q0-907-530-H   ; HW124/SW1126
+;REDIRECT,5Q0-907-530-HV1.CLB,5Q0-907-530-J   ; HW122/SW1126 & HW125/SW1126
+;REDIRECT,5Q0-907-530-LV1.CLB,5Q0-907-530-K   ; HW123/SW1144 & HW210/SW2147
+;REDIRECT,5Q0-907-530-MV1.CLB,5Q0-907-530-L   ; HW123/SW1144 & HW124/SW1144 & HW211/SW2147
+;REDIRECT,5Q0-907-530-HV1.CLB,5Q0-907-530-M   ; HW125/SW1144 & HW212/SW2147
+;REDIRECT,5Q0-907-530-LV1.CLB,5Q0-907-530-N   ; HW123/SW1164
+;REDIRECT,5Q0-907-530-MV1.CLB,5Q0-907-530-P   ; HW124/SW1164
+;REDIRECT,5Q0-907-530-HV1.CLB,5Q0-907-530-Q   ; HW125/SW1164 & HW212/SW2163
+;REDIRECT,5Q0-907-530-MV1.CLB,5Q0-907-530-S   ; HW211/SW2186
+;REDIRECT,5Q0-907-530-HV1.CLB,5Q0-907-530-T   ; HW212/SW2186
+;
+REDIRECT,5QE-907-530-V1.CLB,5QE-907-530-???
+;
+;REDIRECT,5QE-907-530-YV1.CLB,5QE-907-530-B
+;

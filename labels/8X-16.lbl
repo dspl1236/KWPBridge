@@ -1,0 +1,18 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2010 Ross-Tech, LLC
+;
+; Audi A1 (8X)
+;
+; Component: J527 - Steering Column Electronics (#16)
+;
+; created on 12/Sep/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 12/Sep/2010
+;
+; requires VCDS 10.5 or newer
+;
+;
+REDIRECT,8X0-953-569.CLB,5K0-953-569-???,HW
+;

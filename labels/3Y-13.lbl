@@ -1,0 +1,23 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; Component: J428 - Distance Regulation (#13)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3Y-13.LBL
+; 3Y-8B.LBL
+; 4H0-907-561.CLB
+;
+; created on 18/Mar/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 18/Mar/2014
+;
+; requires VCDS 12.12.2 or newer
+;
+;
+REDIRECT,4H0-907-561.CLB,3Y0-907-561-???
+;

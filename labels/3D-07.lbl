@@ -1,0 +1,26 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2005-2011 Ross-Tech, LLC
+;
+; VW Phaeton (3D)
+;
+; Component: J523 - Control Head Front (#07)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3D-07.LBL
+; 3W-07.LBL
+; 3D0-035-00x-07.LBL
+;
+; created on 27/Feb/2005 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 16/Aug/2011
+;
+; requires VCDS 10.6.4 or newer
+;
+;
+REDIRECT,3D0-035-00x-07.LBL,3D0-035-007-??? ; RoW (Rest of World)
+REDIRECT,3D0-035-00x-07.LBL,3D0-035-008-??? ; NAR (North America)
+;

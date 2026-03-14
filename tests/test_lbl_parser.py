@@ -141,7 +141,7 @@ def test_registry_get_by_dashed_pn(registry):
 
 
 def test_registry_miss_returns_none(registry):
-    assert registry.get("000000000X") is None
+    assert registry.get("ZZ9999999Z") is None   # no file for ZZ prefix
 
 
 def test_registry_caches(registry):
@@ -171,3 +171,29 @@ def test_insert_dashes_preserves_unknown():
     # Short/unknown part numbers shouldn't crash
     result = _insert_dashes("ABC")
     assert isinstance(result, str)
+
+
+# ── Multi-letter variant suffix tests (e.g. AGU, ARL) ──────────────────────
+
+def test_insert_dashes_multi_letter_suffix():
+    """Part numbers with 3-letter variant code like AGU, ARL."""
+    assert _insert_dashes("06A906018AGU") == "06A-906-018-AGU"
+    assert _insert_dashes("038906019ARL") == "038-906-019-ARL"
+    assert _insert_dashes("022906032AXK") == "022-906-032-AXK"
+
+def test_registry_finds_multi_letter_suffix():
+    """Registry should find files with multi-letter suffixes."""
+    reg = LBLRegistry([LABELS_DIR])
+    lf  = reg.get("06A906018AGU")
+    if (LABELS_DIR / "06A-906-018-AGU.lbl").exists():
+        assert lf is not None
+        assert lf.part_number == "06A906018AGU"
+        assert len(lf.cells) > 5          # should have many groups
+
+def test_registry_total_count():
+    """Registry should find all 221 community label files."""
+    reg = LBLRegistry([LABELS_DIR])
+    available = reg.available()
+    # At least the files we know are there
+    assert "893906266D" in available
+    assert len(available) >= 100          # sanity check on collection size

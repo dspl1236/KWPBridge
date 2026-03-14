@@ -1,0 +1,37 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2008-2011 Ross-Tech, LLC
+;
+; Component: J519 - Central Electronics I (#09)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 18-09.LBL
+; 6R-09.LBL
+; 6R0-937-08x-09.CLB
+;
+; created on 05/Dec/2008 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 27/Apr/2011
+;
+; requires VCDS 904.0 / LCode 811.3 or newer
+;
+;
+REDIRECT,6R0-937-08x-09.CLB,6R0-937-084-???   ; Basis
+REDIRECT,6R0-937-08x-09.CLB,6R0-937-085-???   ; Low/Medium+
+REDIRECT,6R0-937-08x-09.CLB,6R0-937-086-???   ; Medium++
+REDIRECT,6R0-937-08x-09.CLB,6R0-937-087-???   ; High+
+REDIRECT,6R0-937-08x-09.CLB,6R0-937-088-???   ; High++ (incl. Start/Stop)
+;
+REDIRECT,6R0-937-08x-09.CLB,6R7-937-084-???   ; Basis
+REDIRECT,6R0-937-08x-09.CLB,6R7-937-085-???   ; Low/Medium+
+REDIRECT,6R0-937-08x-09.CLB,6R7-937-086-???   ; Medium++
+REDIRECT,6R0-937-08x-09.CLB,6R7-937-087-???   ; High+
+;
+REDIRECT,6R0-937-08x-09.CLB,6RU-937-084-???   ; Basis
+REDIRECT,6R0-937-08x-09.CLB,6RU-937-085-???   ; Low/Medium+
+REDIRECT,6R0-937-08x-09.CLB,6RU-937-086-???   ; Medium++
+REDIRECT,6R0-937-08x-09.CLB,6RU-937-087-???   ; High+
+;

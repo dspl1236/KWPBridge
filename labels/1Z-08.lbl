@@ -1,0 +1,30 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2005-2011 Ross-Tech, LLC
+;
+; Component: J255 - A/C Heating Electronics (#08)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1P-08.LBL
+; 1T-08.LBL
+; 1Z-08.LBL
+; 5P-08.LBL
+; 1K0-820-047.LBL
+; 1K0-907-044.LBL
+;
+; created on 03/Apr/2005 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 16/Aug/2011
+;
+; requires VCDS 11.3.0 or newer
+;
+;
+REDIRECT,1K0-820-047.LBL,1Z0-820-047-??? ; Climatic
+REDIRECT,1K0-820-047.LBL,1ZD-820-047-??? ; Climatic
+;
+REDIRECT,1K0-907-044.LBL,1Z0-907-044-??? ; Climatronic
+REDIRECT,1K0-907-044.LBL,1ZD-907-044-??? ; Climatronic
+;

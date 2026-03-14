@@ -1,0 +1,29 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2009-2012 Ross-Tech, LLC
+;
+; Component: J345 - Trailer Recognition (#69)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 30-69.LBL
+; 5F-69.LBL
+; RETROFIT69.LBL
+;
+; created on 08/Jul/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 13/Feb/2012
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,RETROFIT69.LBL,5F0-01V-000-6   ; NON-OE RETROFIT
+REDIRECT,RETROFIT69.LBL,5F0-05V-000-3   ; NON-OE RETROFIT
+REDIRECT,RETROFIT69.LBL,5F0-05V-010-1   ; NON-OE RETROFIT
+REDIRECT,RETROFIT69.LBL,5F0-05V-020-2   ; NON-OE RETROFIT
+REDIRECT,RETROFIT69.LBL,5F0-05V-030-1   ; NON-OE RETROFIT
+REDIRECT,RETROFIT69.LBL,5F0-05V-030-7   ; NON-OE RETROFIT
+REDIRECT,RETROFIT69.LBL,5F0-07V-010-1   ; NON-OE RETROFIT
+;

@@ -1,0 +1,27 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011+ Ross-Tech, LLC
+;
+; Component: G397 - Rain/Light Sensor (#09-01)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8X-09-01.LBL
+; 8K0-955-559.CLB
+; 8U0-955-559.CLB
+;
+; created on 10/Nov/2011 by Niels Ezerman (nez@netech.dk)
+; updated on 30/Oct/2013 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 30/Oct/2013
+;
+; requires VCDS 12.12.0 / LCode 1.0.6.8 or newer
+;
+;
+REDIRECT,8K0-955-559.CLB,8K0-955-559-???,SL   ; RLS
+;
+REDIRECT,8U0-955-559.CLB,8U0-955-559-A,SL     ; RLS
+REDIRECT,8U0-955-559.CLB,8U0-955-559-B,SL     ; RLFS
+;

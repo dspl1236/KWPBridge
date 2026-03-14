@@ -1,0 +1,105 @@
+;
+; VCDS Label File
+;
+; Copyright © 2012 Ross-Tech, LLC
+;
+; VW Caddy (2K) / VW Golf/Jetta (1K/5M) / VW Touran (1T)
+;
+; Component: J412 - Telephone (#77) - Preparation
+;
+; P/N: 1K0-035-729-???
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1K-77.LBL
+; 1K0-035-729-FIX.LBL (PR-9W9)
+; 1K0-035-729-UNI.LBL (PR-9W2/9W8)
+;
+; includes measuring blocks and coding
+;
+; created on 28/Mar/2012 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 08/May/2012
+;
+; requires VCDS 11.11.2 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,Microphone
+001,1,Microphone,Voltage
+001,2,Microphone
+001,3,Status,Microphone,Range: OK/Not OK
+001,4,Status,Microphone,Range: ON/OFF
+;
+002,0,Mute
+002,1,Mute Voltage
+002,2,Mute Button,Voltage
+002,3,Mute Status,,Range: OK/Not OK
+002,4,Mute Status,,Range: ON/OFF
+;
+003,0,Audio Output Plus (+),
+003,1,Voltage Audio,Output Plus (+)
+003,2,Audio Output,Plus (+)
+003,3,Status Audio,Output Plus (+),Range: OK/Not OK
+003,4,Status Audio,Output Plus (+),Range: ON/OFF
+;
+004,0,Audio Output Minus (-)
+004,1,Voltage Audio,Output Minus (-)
+004,2,Audio Output,Minus (-)
+004,3,Status Audio,Output Minus (-),Range: OK/Not OK
+004,4,Status Audio,Output Minus (-),Range: ON/OFF
+;
+005,0,Versorgungsspannung
+005,1,Voltage,(Terminal 30),Specification: 9.0...15.0 V
+005,2,Supply Voltage
+005,3,Status,Voltage Supply,Range: OK/Not OK
+005,4,Status,Voltage Supply,Range: ON/OFF
+;
+006,0,Button for Roadside Assistance
+006,1,Roadside,Assistance Button
+006,2,Roadside,Assistance Button,Range: Operated/Not Oper./Not Recogn.
+;
+007,0,Button for Emergency Call
+007,1,Emergency Call,Button
+007,2,Emergency Call,Button Status,Range: Operated/Not Oper./Not Recogn.
+;
+008,0,Telephone
+008,1,Telephone
+008,2,Telephone,Status,Range: Not Connected/Connected
+;
+080,0,Advanced Control Module Identification I
+080,1,Identification
+080,2,Revision
+080,3,Production,Date
+080,4,Manufacturer &,Test Stand Number
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Telephone Preparation (J412) Coding
+C01,0000???: Country
+C02,202 = Greece (GR) / 204 = Netherlands (NL)
+C03,206 = Belgium (B) / 208 = France (F)
+C04,214 = Spain (E) / 216 = Hungary (H)
+C05,219 = Croatia (HR) / 222 = Italy (I)
+C06,228 = Switzerland (CH) / 230 = Czech Republic (CR)
+C07,231 = Slovakia (SK) / 232 = Austria (A)
+C08,234 = Great Britain (GB) / 238 = Denmark (DK)
+C09,240 = Sweden (S) / 242 = Norway (N)
+C10,244 = Finland (FIN)
+C11,262 = Germany (D) and all other Countries
+C12,268 = Portugal (P) / 270 = Luxembourg (L)
+C13,272 = Ireland (IRL) / 293 = Slovenia (SLO)
+;

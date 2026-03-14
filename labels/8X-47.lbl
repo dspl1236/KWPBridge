@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2015+ Ross-Tech, LLC
+;
+; Audi A1 (8X) / Audi Q3 (8U)
+;
+; Component: Sound System (#47)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8X-47.LBL
+; 4G0-035-223.CLB
+;
+; created on 25/Feb/2015 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 25/Feb/2015
+;
+; requires VCDS 14.10.0 or newer
+;
+;
+REDIRECT,4G0-035-223.CLB,8X0-035-223-???
+;

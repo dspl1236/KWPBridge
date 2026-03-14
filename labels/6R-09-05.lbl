@@ -1,0 +1,29 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2013 Ross-Tech, LLC
+;
+; Component: Subsystem (#16-01)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 6R-09-05.LBL
+; 3C8-959-537.CLB
+;
+; created on 22/Oct/2013 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 22/Oct/2013
+;
+; requires VCDS 12.12.0 / LCode 1.0.6.0 or newer
+;
+;
+;-----------------------------------------------------------
+;
+; Multi-Function Steering Wheel (Optional Equipment on PQ25)
+;
+;-----------------------------------------------------------
+;
+;
+REDIRECT,3C8-959-537.CLB,5K0-959-542-???,SL
+;

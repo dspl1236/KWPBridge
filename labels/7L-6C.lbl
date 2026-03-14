@@ -1,0 +1,25 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2009 Ross-Tech, LLC
+;
+; VW Touareg (7L)
+;
+; Component: J772 - Back-Up Camera (#6C)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3C-6C.LBL
+; 7L-6C.LBL
+; 5N0-907-441.LBL
+;
+; created on 15/Jul/2009 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 15/Jul/2009
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,5N0-907-441.LBL,7L6-907-441-???
+;

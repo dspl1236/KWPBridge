@@ -1,0 +1,23 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2012+ Ross-Tech, LLC
+;
+; Component: J364 - Auxiliary Heater (#18)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 4H-18.LBL
+; 7P-18.LBL
+; 8R0-265-105.CLB
+;
+; created on 15/Dec/2012 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 04/Feb/2015
+;
+; requires VCDS 14.10.0 or newer
+;
+;
+REDIRECT,8R0-265-105.CLB,7P0-963-272-???
+;

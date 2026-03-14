@@ -1,0 +1,46 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2008-2011 Ross-Tech, LLC
+;
+; Component: W - Wiper Electronics (#09-02)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1K-09-01.LBL
+; 1K0-955-559-AF.LBL
+; 1K0-955-559-AG.LBL
+;
+; Created on 28/Nov/2008 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 19/Aug/2011
+;
+; requires VCDS 910.0 or newer
+;
+;
+;---------------------------------------------------
+;
+; Rain/Light Sensor (VW756)
+;
+;---------------------------------------------------
+;
+; (See 1K-09-02.LBL)
+;
+REDIRECT,1K0-955-559-AF.LBL,1K0-955-559-K,SL
+REDIRECT,1K0-955-559-AF.LBL,1K0-955-559-L,SL
+REDIRECT,1K0-955-559-AF.LBL,1K0-955-559-M,SL
+REDIRECT,1K0-955-559-AF.LBL,1K0-955-559-N,SL
+REDIRECT,1K0-955-559-AF.LBL,1K0-955-559-P,SL
+REDIRECT,1K0-955-559-AF.LBL,1K0-955-559-Q,SL
+REDIRECT,1K0-955-559-AF.LBL,1K0-955-559-R,SL
+REDIRECT,1K0-955-559-AF.LBL,1K0-955-559-S,SL
+REDIRECT,1K0-955-559-AF.LBL,1K0-955-559-T,SL
+REDIRECT,1K0-955-559-AF.LBL,1K0-955-559-AB,SL
+REDIRECT,1K0-955-559-AF.LBL,1K0-955-559-AC,SL
+REDIRECT,1K0-955-559-AF.LBL,1K0-955-559-AD,SL
+REDIRECT,1K0-955-559-AF.LBL,1K0-955-559-AE,SL
+REDIRECT,1K0-955-559-AF.LBL,1K0-955-559-AF,SL
+REDIRECT,1K0-955-559-AG.LBL,1K0-955-559-AG,SL
+REDIRECT,1K0-955-559-AG.LBL,1K0-955-559-AH,SL
+;

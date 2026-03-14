@@ -1,0 +1,255 @@
+;
+; VCDS Label File
+;
+; Copyright © 2007+ Ross-Tech, LLC
+;
+; Audi A3 (8P) / Audi R8 (42) / Audi TT (8J)
+;
+; Component: J250 - Electronic Damping Control (#14)
+;
+; P/N: 420-910-376-??? / 8J0-910-376-??? / 8P0-907-376-???
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 42-14.LBL
+; 8J-14.LBL
+; 8P0-907-376.LBL
+;
+; includes measuring blocks, coding, security access,
+;          selective output test and adaptation
+;
+; created on 20/Oct/2007 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 04/Sep/2015
+;
+; requires VCDS 11.3.0 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks
+;
+;---------------------------------------------------
+;
+;
+001,0,General
+001,1,Status,Terminal 15,Range: Term. 15 ON/Term. 15 OFF
+001,2,Voltage Supply,(Terminal 30),Range: 9.0...16.0 V
+001,3,Status,Warning Light,Range: ON/OFF
+001,4,Voltage Supply,(Level Sensors),Specification: 3.75...5.62 V
+;
+002,0,Height Deviation from Standard Level
+002,1,Height Deviation,Front Left,Range: -127.0...+128.0 mm
+002,2,Height Deviation,Front Right,Range: -127.0...+128.0 mm
+002,3,Height Deviation,Rear Left,Range: -127.0...+128.0 mm
+002,4,Height Deviation,Rear Right,Range: -127.0...+128.0 mm
+;
+003,0,Absolute Vehicle Height (Wheel Center to Fender Edge)
+003,1,Vehicle Height,Front Left,Range: 0.0...535.5 mm\nTolerance to actual Measurement: ±5 mm
+003,2,Vehicle Height,Front Right,Range: 0.0...535.5 mm\nTolerance to actual Measurement: ±5 mm
+003,3,Vehicle Height,Rear Left,Range: 0.0...535.5 mm\nTolerance to actual Measurement: ±5 mm
+003,4,Vehicle Height,Rear Right,Range: 0.0...535.5 mm\nTolerance to actual Measurement: ±5 mm
+;
+004,0,Damper Status
+004,1,Damper Status,,Specification: 00000000
+; xxxxxxx1 = Service Dämpfungssystem (Stromfehler aktiv)
+; xxxxxx1x = Geschwindigkeitsabhängiger Systemstandard aktiv
+; xxxxx1xx = Sekundäre Steuerung aktiv (Watchdog)
+; xxxx1xxx = Stabilitäts- und Fahrdynamikregelung beeinträchtigt
+; xxx1xxxx = Ausfall des Dämpfers VL auf weichster Stufe
+; xx1xxxxx = Ausfall des Dämpfers VR auf weichster Stufe
+; x1xxxxxx = Ausfall des Dämpfers HL auf weichster Stufe
+; 1xxxxxxx = Ausfall des Dämpfers HR auf weichster Stufe
+004,2,Current,Calibration,Range: Normal/Sport
+004,3,Control,Algorithm
+004,4,Current,Switch Position,Range: Normal/Sport
+;
+005,0,Damper Valve Current
+005,1,Valve Current,Front Left,Range: 0.000...8.000 A
+005,2,Valve Current,Front Right,Range: 0.000...8.000 A
+005,3,Valve Current,Rear Left,Range: 0.000...8.000 A
+005,4,Valve Current,Rear Right,Range: 0.000...8.000 A
+;
+006,0,Damper Valve Current / Pulse Width I
+006,1,Valve Current,Front Left,Range: 0.000...8.000 A
+006,2,Pulse Width,Front Left,Range: 0.0...100.0 %
+006,3,Valve Current,Front Right,Range: 0.000...8.000 A
+006,4,Pulse Width,Front Right,Range: 0.0...100.0 %
+;
+007,0,Damper Valve Current / Pulse Width II
+007,1,Valve Current,Rear Left,Range: 0.000...8.000 A
+007,2,Pulse Width,Rear Left,Range: 0.0...100.0 %
+007,3,Valve Current,Rear Right,Range: 0.000...8.000 A
+007,4,Pulse Width,Rear Right,Range: 0.0...100.0 %
+;
+008,0,Vehicle Data
+008,1,Turn Rate
+008,2,Vehicle Speed
+008,3,Steering Angle
+008,4,Lateral,Acceleration
+;
+027,0,Deviation from Height Adjustment (Output Signal)
+027,1,Deviation,Front Left,Range: -128.0...+128.0 mm
+027,2,Deviation,Front Right,Range: -128.0...+128.0 mm
+027,3,Deviation,Rear Left,Range: -128.0...+128.0 mm
+027,4,Deviation,Rear Right,Range: -128.0...+128.0 mm
+;
+028,0,Operating Temperatures
+028,1,Temp. (Service),Front Axle
+028,2,Temp. (Service),Rear Axle
+028,3,Temp. (Model),Front Axle
+028,4,Temp. (Model),Rear Axle
+;
+125,0,CAN-Databus Powertrain (Communication)
+125,1,Engine Electronics,,Range: Engine 1/Engine 0\nSpecification: Engine 1
+125,2,Brake Electronics,(J104),Range: ABS 1/ABS 0\nSpecification: ABS 1
+125,3,Steering Angle,Sensor (G85),Range: Steer. ang. 1/Steer. ang. 0\nSpecification: Steer. ang. 1
+125,4,Instrument Cluster,(J285),Range: Instruments 1/Instruments 0\nSpecification: Instruments 1
+;
+126,0,CAN-Databus Powertrain (Communication)
+126,1,Gateway,(J533),Range: Gateway 1/Gateway 0\nSpecification: Gateway 1
+;
+;
+;---------------------------------------------------
+;
+; coding
+;
+;---------------------------------------------------
+;
+;
+C00,Electronic Damping Control (J250) Coding
+C01,0000?xx: Model
+C02,0 = Audi TT (8J) without Sport Button [PR-2H0/2H2]
+C03,0 = Audi TTRS (8J) with Sport Button [PR-2H3+FN1]
+C04,0 = Audi R8 (42)
+C05,1 = Audi A3 (8P)
+C06,2 = Audi TT with Sport Button (excl. TTRS) [PR-2H3+FM0/FN0]
+C07,0000x?x: Engine
+C08,1 = 3.2l V6 [PR-T36]
+C09,2 = 2.0l R4 TFSI [PR-T59/TA2/TD6/TE6/TH6/TQ2+FM0]
+C10,3 = 2.0l R4 TFSI [PR-T59/TA2/TD6/TE6/TH6/TQ2+FN0]
+C11,4 = 2.0l R4 TDI [PR-TG3/TL4+FM0]
+C12,5 = 5.0l V10 [PR-TU7]
+C13,6 = 4.2l V8 FSI [PR-TK7]
+C14,7 = 2.5l R5 TFSI [PR-TB9+FN1]
+C15,0000xx?: Model
+C16,1 = Coupé with Front-Wheel-Drive (FWD)
+C17,2 = Coupé with All-Wheel-Drive (AWD)
+C18,3 = Roadster with Front-Wheel-Drive (FWD)
+C19,4 = Roadster with All-Wheel-Drive (AWD)
+C20, 
+C21,Note: Prior to Coding the Module the Function has to be
+C22,enabled by entering a Security Access Code. Once the
+C23,Coding has been performed cycle the Ignition (5 Seconds).
+;
+;
+;---------------------------------------------------
+;
+; security access
+;
+;---------------------------------------------------
+;
+;
+S00,Electronic Damping Control (J250) Security Access
+S01,20117 = Adaptation Enabling (Cold Start/Reset)
+S02,31564 = Adaptation Enabling (Height Adjustment)
+S03,61378 = Coding Enabling
+;
+;
+;---------------------------------------------------
+;
+; selective output test
+;
+;---------------------------------------------------
+;
+;
+T367,Damper Front Left "soft"
+T368,Damper Front Left "hard"
+T369,Damper Front Right "soft"
+T370,Damper Front Right "hard"
+T371,Damper Rear Left "soft"
+T372,Damper Rear Left "hard"
+T373,Damper Rear Right "soft"
+T374,Damper Rear Right "hard"
+;
+;
+;---------------------------------------------------
+;
+; adaptation
+;
+;---------------------------------------------------
+;
+;
+A001,0,Height Adjustment Front Left
+A001,5,Height Adjustment Front Left
+A001,6,Determine the Height for the Front Left Wheel by measuring
+A001,7,the Distance between Wheel Center and Fender Lower Edge.
+A001,8,Alternatively the Height can also be calculated as follows:
+A001,9,x = a/2+b
+A001,10,x = Height
+A001,11,a = Wheel Rim Diameter
+A001,12,b = Rim Top Edge to Fender Lower Edge
+A001,13, 
+A001,14,Front Axle (Standard): XXX mm (Tolerance: ±50 mm)
+;
+A002,0,Height Adjustment Front Right
+A002,5,Height Adjustment Front Right
+A002,6,Determine the Height for the Front Right Wheel by measuring
+A002,7,the Distance between Wheel Center and Fender Lower Edge.
+A002,8,Alternatively the Height can also be calculated as follows:
+A002,9,x = a/2+b
+A002,10,x = Height
+A002,11,a = Wheel Rim Diameter
+A002,12,b = Rim Top Edge to Fender Lower Edge
+A002,13, 
+A002,14,Front Axle (Standard): XXX mm (Tolerance: ±50 mm)
+;
+A003,0,Height Adjustment Rear Left
+A003,5,Height Adjustment Rear Left
+A003,6,Determine the Height for the Rear Left Wheel by measuring
+A003,7,the Distance between Wheel Center and Fender Lower Edge.
+A003,8,Alternatively the Height can also be calculated as follows:
+A003,9,x = a/2+b
+A003,10,x = Height
+A003,11,a = Wheel Rim Diameter
+A003,12,b = Rim Top Edge to Fender Lower Edge
+A003,13, 
+A003,14,Rear Axle (Standard): XXX mm (Tolerance: ±50 mm)
+;
+A004,0,Height Adjustment Rear Right
+A004,5,Height Adjustment Rear Right
+A004,6,Determine the Height for the Rear Right Wheel by measuring
+A004,7,the Distance between Wheel Center and Fender Lower Edge.
+A004,8,Alternatively the Height can also be calculated as follows:
+A004,9,x = a/2+b
+A004,10,x = Height
+A004,11,a = Wheel Rim Diameter
+A004,12,b = Rim Top Edge to Fender Lower Edge
+A004,13, 
+A004,14,Rear Axle (Standard): XXX mm (Tolerance: ±50 mm)
+;
+A005,0,Height Adjustment Saving
+A005,5,Height Adjustment Saving
+A005,6,Once all Adjustments have been performed you have to Apply the
+A005,6,Height Adjustment and Confirm the new Settings by entering and
+A005,7,testing/saving '1' as New Value.
+;
+A110,0,Cold Start/Reset
+A110,5,Cold Start/Reset
+A110,6,With increasing Temperature the Dampers are become softer and to
+A110,7,compensate this the Control Module has to increase the Current.
+A110,8,the Control Module needs to check the Resistance of the Dampers
+A110,9,to calculate the Damper Temperature.
+A110,10, 
+A110,11,Under normal Circumstances the Cold Start/Reset is being automatically
+A110,12,performed after a Standing Time higher than 3 Hours once the Ignition
+A110,13,(Terminal 15) is switched ON. If the Cold Start/Reset hasn't be performed
+A110,14,there may be slight differences in the Damper Behavior. The Safety and
+A110,15,Drivability is guarenteed even when the Cold Start/Reset hasn't been performed.
+A110,16, 
+A110,17,To manually Initiate the Cold Start/Reset save '170' as New Value.
+A110,18, 
+A110,19,Note: All 4 Dampers have to be sitting at Ambient Temperature for
+A110,20,about 3 Hours while the acceptable Temperature Tolerance is ±5 °C.
+;

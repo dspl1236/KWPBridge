@@ -1,0 +1,22 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2014+ Ross-Tech, LLC
+;
+; Component: J500 - Steering Aid (#44)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 8R-44.LBL
+; 8K0-909-144.CLB
+;
+; created on 11/Nov/2014 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 11/Nov/2014
+;
+; requires VCDS 14.10.0 or newer
+;
+;
+REDIRECT,8K0-909-144.CLB,8R0-909-144-???
+;

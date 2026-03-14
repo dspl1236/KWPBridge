@@ -1,0 +1,28 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2010+ Ross-Tech, LLC
+;
+; Bentley Continental (3W)
+;
+; Component: J772 - Back-Up Camera (#6C)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3C-6C.LBL
+; 3W-6C.LBL
+; 7E-6C.LBL
+; 7L-6C.LBL
+; 5N0-907-441.LBL
+;
+; created on 10/Nov/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 30/Jul/2012
+;
+; requires VCDS 10.6.1 or newer
+;
+;
+REDIRECT,5N0-907-441.LBL,3W3-907-441-???     ; 3W3
+REDIRECT,5N0-907-441.LBL,3W5-907-441-???     ; 3W2
+;

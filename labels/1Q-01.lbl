@@ -1,0 +1,33 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2006-2011 Ross-Tech, LLC
+;
+; Component: Engine (#01)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 1K-01.LBL
+; 06F-907-115-AXX.LBL (2.0l TE  @ 200 HP - AXX/BGB/BPJ/BPY/BWA)
+; 06J-907-115-CCZ.CLB  (2.0l TFSI  @ 200 HP - CCZA/CCZB)
+;
+; created on 14/Apr/2006 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 26/Feb/2011
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,06F-907-115-AXX.LBL,1Q0-907-115     ; BWA (1F)
+REDIRECT,06F-907-115-AXX.LBL,1Q0-907-115-A   ; BWA (1F)
+REDIRECT,06F-907-115-AXX.LBL,1Q0-907-115-C   ; BWA (1F)
+REDIRECT,06F-907-115-AXX.LBL,1Q0-907-115-D   ; BPY (1F)
+REDIRECT,06F-907-115-AXX.LBL,1Q0-907-115-E   ; BPY (1F)
+REDIRECT,06F-907-115-AXX.LBL,1Q0-907-115-F   ; BWA (1F)
+REDIRECT,06F-907-115-AXX.LBL,1Q0-907-115-G   ; BWA (1F)
+REDIRECT,06J-907-115-CCZ.CLB,1Q0-907-115-H   ; CCZA (1F)
+REDIRECT,06J-907-115-CCZ.CLB,1Q0-907-115-J   ; CCZB (1F)
+REDIRECT,06J-907-115-CCZ.CLB,1Q0-907-115-L   ; CCZA (1F)
+REDIRECT,06J-907-115-CCZ.CLB,1Q0-907-115-M   ; CCZB (1F)
+;

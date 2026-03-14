@@ -1,0 +1,25 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2010 Ross-Tech, LLC
+;
+; VW Jetta (AJ)
+;
+; Component: J234 - Airbag (#15)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 5C-15.LBL
+; 7E-15.LBL
+; 5K0-959-655.CLB
+;
+; created on 03/Nov/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 03/Nov/2010
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,5K0-959-655.CLB,5C0-959-655-???
+;

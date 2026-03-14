@@ -1,0 +1,87 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2006-2009 Ross-Tech, LLC
+;
+; Component: J519 - Central Electronics I (#09)
+;
+; This file is part of a redirection package,
+; make sure you have all of the following files.
+;
+; 1K-09.LBL
+; 1T-09.LBL
+; 3C-09.LBL
+; 1K0-937-049-21-B.LBL  (Basis)
+; 3C0-937-049-23-M.LBL  (Medium  - Supports NO Fogs or Xenons)
+; 3C0-937-049-23-H.LBL  (Highend - Supports Fogs and/or Xenons)
+; 1K0-937-084.CLB       (Basis   - Supports NO Fogs or Xenons)
+; 1K0-937-085.CLB       (Lowend  - Supports NO Fogs or Xenons)
+; 1K0-937-086.CLB       (Medium  - Supports Fogs but NO Xenons)
+; 1K0-937-087.CLB       (Highend - Supports Fogs and/or Xenons)
+;
+; created on 26/Jan/2006 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 24/Jul/2009
+;
+; requires VCDS 904.0 / LCode 811.3 or newer
+;
+;
+REDIRECT,1K0-937-049-21-B.LBL,1K0-937-049     ; ?? Byte (Basis)
+REDIRECT,3C0-937-049-23-M.LBL,1K0-937-049-A   ; 17 Byte (Medium)
+REDIRECT,3C0-937-049-23-H.LBL,1K0-937-049-B   ; 17 Byte (Highend)
+REDIRECT,3C0-937-049-23-H.LBL,1K0-937-049-C   ; 21 Byte (Highend?)
+REDIRECT,3C0-937-049-23-M.LBL,1K0-937-049-F   ; 17 Byte (Medium)
+REDIRECT,3C0-937-049-23-H.LBL,1K0-937-049-G   ; 17 Byte (Highend)
+REDIRECT,3C0-937-049-23-M.LBL,1K0-937-049-H   ; 17 Byte (Medium)
+REDIRECT,3C0-937-049-23-H.LBL,1K0-937-049-J   ; 17 Byte (Highend)
+REDIRECT,3C0-937-049-23-M.LBL,1K0-937-049-K   ; 17 Byte (Medium)
+REDIRECT,3C0-937-049-23-H.LBL,1K0-937-049-L   ; 17 Byte (Highend)
+REDIRECT,3C0-937-049-23-M.LBL,1K0-937-049-M   ; 21 Byte (Medium)
+REDIRECT,3C0-937-049-23-H.LBL,1K0-937-049-N   ; 21 Byte (Highend)
+REDIRECT,1K0-937-049-21-B.LBL,1K0-937-049-P   ; 17 Byte (Basis)
+REDIRECT,3C0-937-049-23-M.LBL,1K0-937-049-S   ; 17 Byte (Medium)
+REDIRECT,3C0-937-049-23-H.LBL,1K0-937-049-T   ; 17 Byte (Highend)
+REDIRECT,1K0-937-049-21-B.LBL,1K0-937-049-AA  ; 21 Byte (Basis)
+REDIRECT,1K0-937-049-21-B.LBL,1K0-937-049-AD  ; ?? Byte (Basis)
+REDIRECT,1K0-937-049-21-B.LBL,1K0-937-049-AG  ; ?? Byte (Basis)
+;
+REDIRECT,3C0-937-049-23-M.LBL,1K1-937-049     ; 17 Byte (Medium)
+;
+REDIRECT,1K0-937-08x-09.CLB,1K0-937-084-???   ; Basis
+REDIRECT,1K0-937-08x-09.CLB,1K0-937-085-???   ; Basis+/Basis++
+REDIRECT,1K0-937-08x-09.CLB,1K0-937-086-???   ; Medium/Medium+
+REDIRECT,1K0-937-08x-09.CLB,1K0-937-087-???   ; Highend
+;
+;1K0-937-084       ; Basis (PR-5D1/5D9)
+;1K0-937-084-A     ; Basis (PR-5D2/5D3/5D5)
+;1K0-937-084-B     ; Basis (PR-5D1/5D9)
+;1K0-937-084-C     ; Basis (PR-5D2/5D3/5D5)
+;1K0-937-085       ; Basis+ (PR-5D1/5D9)
+;1K0-937-085-B     ; Basis+ (PR-5D2/5D3/5D5)
+;1K0-937-085-C     ; Basis++ (PR-5D2/5D3/5D5)
+;1K0-937-085-D     ; Basis+ (PR-5D1/5D9)
+;1K0-937-085-F     ; Basis+ (PR-5D2/5D3/5D5)
+;1K0-937-086       ; Medium (PR-5D1/5D9)
+;1K0-937-086-A     ; Medium+ (PR-5D1/5D9)
+;1K0-937-086-B     ; Medium (PR-5D2/5D3/5D5)
+;1K0-937-086-C     ; Medium (PR-5D1/5D9)
+;1K0-937-086-D     ; Medium+ (PR-5D1/5D9)
+;1K0-937-086-E     ; Medium (PR-5D2/5D3/5D5)
+;1K0-937-086-F     ; Medium (PR-5D2/5D3/5D5)
+;1K0-937-087       ; High (PR-5D1/5D9 - HW020/SW0358)
+;1K0-937-087-A     ; High+ (PR-5D1/5D9 - HW019/SW0337)
+;1K0-937-087-B     ; High (PR-5D2/5D3/5D5)
+;1K0-937-087-C     ; High+ (PR-5D2/5D3/5D5)
+;1K0-937-087-D     ; High (PR-5D1/5D9 - HW103/SW0537)
+;1K0-937-087-E     ; High+ (PR-5D1/5D9 - HW103/SW0537)
+;1K0-937-087-F     ; High (PR-5D1/5D9)
+;1K0-937-087-G     ; High+ (PR-5D2/5D3/5D5)
+;1K0-937-087-H     ; High+ (PR-5D2/5D3/5D5 - HW103/SW0575)
+;1K0-937-087-J     ; High (PR-5D1/5D9 - HW103/SW0615)
+;1K0-937-087-K     ; High (PR-5D1/5D9 - HW103/SW0615)
+;1K0-937-087-L     ; High (PR-5D2/5D3/5D5 - HW104/SW0615)
+;1K0-937-087-P     ; High+ (PR-5D1/5D9 - HW104/SW0651)
+;1K0-937-087-R     ; High+ (PR-5D1/5D9 - HW103/SW0651)
+;1K0-937-087-AF    ; High+ (PR-5D2/5D3/5D5 - HW112/SW0709)
+;1K0-937-087-AK    ; High (PR-5D1/5D9 - HW112/SW0771)
+;

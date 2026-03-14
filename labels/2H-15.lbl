@@ -1,0 +1,24 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2010 Ross-Tech, LLC
+;
+; VW Transporter/Multivan (7E/7F)
+;
+; Component: J234 - Airbag (#15)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 2H-15.LBL
+; 5K0-959-655.CLB
+;
+; created on 26/Nov/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 26/Nov/2010
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,5K0-959-655.CLB,2H0-959-655-???
+;

@@ -1,0 +1,33 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2008+ Ross-Tech, LLC
+;
+; Component: R - Radio System (#56)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 3T-37.LBL
+; 3T-56.LBL
+; 1T0-035-680.LBL    (Radio Navigation System 510)
+; 5M0-035-1xx-56.CLB (Modular Radio X10)
+;
+; created on 04/Jul/2008 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 10/Sep/2013
+;
+; requires VCDS 805.0 or newer
+;
+;
+REDIRECT,5M0-035-1xx-56.CLB,3T0-035-156-??? ; Radio Bolero
+;
+REDIRECT,5M0-035-1xx-56.CLB,3T0-035-161-??? ; Radio Swing
+;
+REDIRECT,5M0-035-1xx-56.CLB,3T0-035-186-??? ; Radio Swing
+;
+REDIRECT,1T0-035-680.LBL,3T0-035-680-???    ; Radio/Navigation System Columbus (RoW)
+REDIRECT,1T0-035-680.LBL,3T0-035-686-???    ; Radio/Navigation System Columbus (RoW DAB+)
+;
+REDIRECT,1T0-035-680.LBL,3TD-035-682-???    ; Radio/Navigation System Columbus (CHN)
+;

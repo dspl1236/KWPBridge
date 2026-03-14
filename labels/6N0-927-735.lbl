@@ -1,0 +1,264 @@
+;
+; VCDS Label File
+;
+; Copyright © 2015+ Ross-Tech, LLC
+;
+; Audi A2 (8Z) / VW Lupo (6E) / Seat Arosa (6B)
+;
+; Component: Automated Manual Transmission (#02) 085DS
+;
+; P/N: 6N0-927-735-???
+;
+; includes measuring blocks and basic settings
+;
+; created on 08/May/2015 by Sebastian Stange (sebastian@ross-tech.com)
+;
+; last modification on 13/Dec/2015
+;
+; requires VCDS 14.10.2 or newer
+;
+;
+;---------------------------------------------------
+;
+; measuring blocks & basic settings
+;
+;---------------------------------------------------
+;
+;
+001,0,General
+001,1,Engine Speed,,Range: 0...8160 RPM
+001,2,Transmission,Speed,Range: 0...8160 RPM
+001,3,Accelerator Pedal,Position (G79),Range: 0.0...100.0 %\nSpecification (not operated): max. 4.0 %\nSpecification (operated): min. 96.0 %
+001,4,Selected Gear,in Transmission,Range: 1.GANG...5.GANG/R-GANG/LG 1-2/LG 3-4/SYNC/ERROR
+;
+002,0,General
+002,1,Engine Load,(via CAN),Range: 0.00...5.00 V
+002,2,Clutch Travel,Sensor (G162),Range: 0.4...4.7 V\nSpecification (Clutch closed): 1.80...2.00 V\nSpecification (Clutch open): 3.9...4.0 V
+002,3,Voltage,(Terminal 15),Range: 0.0...20.0 V\nSpecification: 11.8...16.0 V
+002,4,Coolant,Temperature (G62),Range: -40.5...+135.0 °C\nSpecification (Warm): 80.0...115.0 °C
+;
+003,0,General
+003,1,Engine Speed,,Range: 0...8160 RPM
+003,2,Transmission,Speed,Range: 0...8160 RPM
+003,3,Clutch Position,(actual),Range: 0.0..100.0 %\nTolerance (to Specification): max. ±5.0 %
+003,4,Clutch Position,(specified),Range: 0.0..100.0 %\nTolerance (to Actual): max. ±5.0 %
+;
+004,0,Input/Output Information
+004,1,Input,Information 1,00?1xxxx: 0 = Door open / 1 = Door closed\n00x1?xxx: 0 = Starting Sequence inactive (Terminal 50 OFF) / 1 = Starting Sequence active (Terminal 50 ON)\n00x1x?xx: 0 = Selector Lever in "D" / 1 Selector Lever in Tiptronic-Gate\n00x1xx?x: 0 = Hydraulic Pump Relay (J510) active / 1 = Hydraulic Pump Relay (J510) inactive\n00x1xxx?: 0 = ECO-Mode / 1 = Normal Mode
+; 00?1xxxx: 0 = Door open / 1 = Door closed
+; 00x1?xxx: 0 = Starting Sequence inactive (Terminal 50 OFF) / 1 = Starting Sequence active (Terminal 50 ON)
+; 00x1x?xx: 0 = Selector Lever in "D" / 1 Selector Lever in Tiptronic-Gate
+; 00x1xx?x: 0 = Hydraulic Pump Relay (J510) active / 1 = Hydraulic Pump Relay (J510) inactive
+; 00x1xxx?: 0 = ECO-Mode / 1 = Normal Mode
+004,2,Input,Information 2,00010?xx: 0 = Reverse Gear NOT engaged / 1 = Reverse Gear engaged\n00010x?x: 1 = Terminal 30 active\n00010xx?: 0 = Brake Pedal NOT operated / 1 = Brake Pedal operated
+; 00010?xx: 0 = Reverse Gear NOT engaged / 1 = Reverse Gear engaged
+; 00010x?x: 1 = Terminal 30 active
+; 00010xx?: 0 = Brake Pedal NOT operated / 1 = Brake Pedal operated
+004,3,Output,Informationen 1,000?xxx0: 0 = ECO-Mode / 1 = Normal Mode\n000x?xx0: 0 = Buzzer/Gear active / 1 = Normal Mode\n000xx?x0: Hydraulic Pump Relay (J510) [0 = active / 1 = inactive]\n000xxx?0: Start Inhibitor/Backup Light Relay (J226) [0 = operated | 1 = not operated]
+; 000?xxx0: 0 = ECO-Mode / 1 = Normal Mode
+; 000x?xx0: 0 = Buzzer/Gear active / 1 = Normal Mode
+; 000xx?x0: Hydraulic Pump Relay (J510) [0 = active / 1 = inactive]
+; 000xxx?0: Start Inhibitor/Backup Light Relay (J226) [0 = operated | 1 = not operated]
+004,4,Output,Informationen 2,?000xx1x = Valve 3 for Gear Selector (N286) [0 = active/engaged | 1 = inactive/disengaged]\nx000?x1x = Valve 3 for Gear Selector (N286) [0 = active/engaged | 1 = inactive/disengaged]\nx000x?1x = Valve 4 for Gear Selector (N287) [0 = active/engaged | 1 = inactive/disengaged]\nx000xx1? = Valve 4 for Gear Selector (N287) [0 = active/engaged | 1 = inactive/disengaged]
+; ?000xx1x = Valve 3 for Gear Selector (N286) [0 = active/engaged | 1 = inactive/disengaged]
+; x000?x1x = Valve 3 for Gear Selector (N286) [0 = active/engaged | 1 = inactive/disengaged]
+; x000x?1x = Valve 4 for Gear Selector (N287) [0 = active/engaged | 1 = inactive/disengaged]
+; x000xx1? = Valve 4 for Gear Selector (N287) [0 = active/engaged | 1 = inactive/disengaged]
+;
+005,0,Selector Lever Position && Clutch Actuator Valve (N255)
+005,1,Engine Speed,,Range: 0...8160 RPM
+005,2,Battery Voltage,(Terminal 30),Specification: 11.0...15.0 V
+005,3,Selector Lever,Position,Range: A-STOP/A-N/A-R/A-E/T-0/T-MI/T-PL/???\n\nA-STOP = Automatic Gate Stop-Position\nA-N    = Automatic Gate N-Position\nA-R    = Automatic Gate R-Position\nA-E    = Automatic Gate D/E-Position\nT-0    = Automatic Gate Center Position\nT-MI   = Automatic Gate Minus Position\nT-PL   = Automatic Gate Plus Position\n???    = Error/Invalid Position
+; A-STOP = Automatic Gate Stop-Position
+; A-N    = Automatic Gate N-Position
+; A-R    = Automatic Gate R-Position
+; A-E    = Automatic Gate D/E-Position
+; T-0    = Automatic Gate Center Position
+; T-MI   = Automatic Gate Minus Position
+; T-PL   = Automatic Gate Plus Position
+; ???    = Error/Invalid Position
+005,4,Clutch Actuator,Valve (N255),Specification (Clutch open): 0.80...0.90 A\nSpecification (Clutch closed): 0.05...0.73 A
+;
+007,1,Engine Speed,,Range: 0...8160 RPM
+007,2,Transmission,Speed (actual),Range: 0...8160 RPM
+007,3,Transmission,Speed (spec.),Range: 0...8160 RPM (calculated via Vehicle Speed and selected Gear)
+007,4,Vehicle Speed,Signal
+;
+008,1,Clutch Position,(actual),Range: 0.0..100.0 %\nTolerance (to Specification): max. ±5.0 %
+008,2,Selected Gear,in Transmission,Range: 1.GANG...5.GANG/R-GANG/LG 1-2/LG 3-4/SYNC/ERROR
+008,3,Engine Speed,,Range: 0...8160 RPM
+008,4,Transmission,Speed,Range: 0...8160 RPM
+;
+009,1,Control Module,Reset Counter,Number of Resets while the Control Module was running (e.g. due to electro magnetic issues).
+009,2,Ambient,Temperature
+;
+010,1,Starter
+010,2,Mileage,(Transmission),Resolution: 1000 km
+010,3,Starter Tolerance,(absolute),Resolution: 1000\n\nNumber of Starter Actuations with this Control Module
+010,4,Starter Tolerance,(Term. 15 Cycle),Number of Starter Actuations during this Ignition Cycle
+;
+011,1,Transmission,Speed,Range: 0...8160 RPM
+011,2,Selected Gear,in Transmission,Range: 1.GANG...5.GANG/R-GANG/LG 1-2/LG 3-4/SYNC/ERROR
+011,3,Gear Recogn. 1,Voltage (G239/act.),Specification: 0.4...4.7 V\n\n3.8 V +/- 0.2 V = Selector Lever in "R"\n3.8 V +/- 0.2 V = Selector Lever in Tiptronic and 1st Gear selected\n1.7 V +/- 0.2 V = Selector Lever in Tiptronic and 2nd Gear selected\n3.8 V +/- 0.2 V = Selector Lever in Tiptronic and 3rd Gear selected\n1.7 V +/- 0.2 V = Selector Lever in Tiptronic and 4th Gear selected\n3.8 V +/- 0.2 V = Selector Lever in Tiptronic and 5th Gear selected
+; 3.8 V +/- 0.2 V = Selector Lever in "R"
+; 3.8 V +/- 0.2 V = Selector Lever in Tiptronic and 1st Gear selected
+; 1.7 V +/- 0.2 V = Selector Lever in Tiptronic and 2nd Gear selected
+; 3.8 V +/- 0.2 V = Selector Lever in Tiptronic and 3rd Gear selected
+; 1.7 V +/- 0.2 V = Selector Lever in Tiptronic and 4th Gear selected
+; 3.8 V +/- 0.2 V = Selector Lever in Tiptronic and 5th Gear selected
+011,4,Gear Recognition,Position (act.),Range: 0...100 %\n\nca.  0....10 % = Selector Lever in "R"\nca. 50....55 % = Selector Lever in "N"\nca.  0....10 % = Selector Lever in Tiptronic and 1st Gear selected\nca. 90...100 % = Selector Lever in Tiptronic and 2nd Gear selected\nca.  0....10 % = Selector Lever in Tiptronic and 3rd Gear selected\nca. 90...100 % = Selector Lever in Tiptronic and 4th Gear selected\nca.  0....10 % = Selector Lever in Tiptronic and 5th Gear selected
+; ca.  0....10 % = Selector Lever in "R"
+; ca. 50....55 % = Selector Lever in "N"
+; ca.  0....10 % = Selector Lever in Tiptronic and 1st Gear selected
+; ca. 90...100 % = Selector Lever in Tiptronic and 2nd Gear selected
+; ca.  0....10 % = Selector Lever in Tiptronic and 3rd Gear selected
+; ca. 90...100 % = Selector Lever in Tiptronic and 4th Gear selected
+; ca.  0....10 % = Selector Lever in Tiptronic and 5th Gear selected
+;
+013,1,Battery Voltage,(Terminal 30),Specification: 11.0...15.0 V
+013,2,Clutch Actuator,Valve (N255),Specification (Clutch open): 0.80...0.90 A\nSpecification (Clutch closed): 0.05...0.73 A
+013,3,Clutch Position,(actual),Range: 0.0..100.0 %\nTolerance (to Specification): max. ±5.0 %
+013,4,Clutch Position,(specified),Range: 0.0..100.0 %\nTolerance (to Actual): max. ±5.0 %
+;
+B014,0,Gear Selecter Adaptation
+; Selector Lever in Tiptronic Gate
+; Follow Instructions
+; Loosen Nut for Gear Selector and tighten gently
+B014,1,Instruction(s)
+B014,2,Transmission,Position,Range: 0...28\nSollwert: 0
+B014,11,Selector Lever in Tiptronic Gate
+B014,12,Follow Instructions
+B014,13,Loosen Nut for Gear Selector and tighten gently
+;
+015,1,Selector Lever,Position (spec.),Range: 0.0...5.0 V\nSpecification: 0.4...4.7 V\n\nca. 3.14 V = Selector Lever in "R"\nca. 2.55 V = Selector Lever in "N"\nca. 2.20 V = Selector Lever in "D"\nca. 1.58 V = Selector Lever in Tiptronic-Gate\nca. 2.50 V = Selector Lever pushed to Tiptronic "+"\nca. 1.70 V = Selector Lever pushed to Tiptronic "-"
+; ca. 3.14 V = Selector Lever in "R"
+; ca. 2.55 V = Selector Lever in "N"
+; ca. 2.20 V = Selector Lever in "D"
+; ca. 1.58 V = Selector Lever in Tiptronic-Gate
+; ca. 2.50 V = Selector Lever pushed to Tiptronic "+"
+; ca. 1.70 V = Selector Lever pushed to Tiptronic "-"
+015,3,Gear Recogn. 1,Voltage (G239/act.),Specification: 0.4...4.7 V\n\n3.8 V +/- 0.2 V = Selector Lever in "R"\n3.8 V +/- 0.2 V = Selector Lever in Tiptronic and 1st Gear selected\n1.7 V +/- 0.2 V = Selector Lever in Tiptronic and 2nd Gear selected\n3.8 V +/- 0.2 V = Selector Lever in Tiptronic and 3rd Gear selected\n1.7 V +/- 0.2 V = Selector Lever in Tiptronic and 4th Gear selected\n3.8 V +/- 0.2 V = Selector Lever in Tiptronic and 5th Gear selected
+; 3.8 V +/- 0.2 V = Selector Lever in "R"
+; 3.8 V +/- 0.2 V = Selector Lever in Tiptronic and 1st Gear selected
+; 1.7 V +/- 0.2 V = Selector Lever in Tiptronic and 2nd Gear selected
+; 3.8 V +/- 0.2 V = Selector Lever in Tiptronic and 3rd Gear selected
+; 1.7 V +/- 0.2 V = Selector Lever in Tiptronic and 4th Gear selected
+; 3.8 V +/- 0.2 V = Selector Lever in Tiptronic and 5th Gear selected
+015,4,Gear Recogn. 2,Voltage (G240/act.),Specification: 0.4...4.7 V\n\n3.6 V +/- 0.2 V = Selector Lever in "R"\n2.8 V +/- 0.2 V = Selector Lever in Tiptronic and 1st Gear selected\n2.8 V +/- 0.2 V = Selector Lever in Tiptronic and 2nd Gear selected\n2.0 V +/- 0.2 V = Selector Lever in Tiptronic and 3rd Gear selected\n2.0 V +/- 0.2 V = Selector Lever in Tiptronic and 4th Gear selected\n1.2 V +/- 0.2 V = Selector Lever in Tiptronic and 5th Gear selected
+; 3.6 V +/- 0.2 V = Selector Lever in "R"
+; 2.8 V +/- 0.2 V = Selector Lever in Tiptronic and 1st Gear selected
+; 2.8 V +/- 0.2 V = Selector Lever in Tiptronic and 2nd Gear selected
+; 2.0 V +/- 0.2 V = Selector Lever in Tiptronic and 3rd Gear selected
+; 2.0 V +/- 0.2 V = Selector Lever in Tiptronic and 4th Gear selected
+; 1.2 V +/- 0.2 V = Selector Lever in Tiptronic and 5th Gear selected
+;
+016,0,Selector Lever Position
+016,1,Selector Lever,Position (spec.),Range: 0.0...100.0 %\n\nca. 100 % = Selector Lever in STOP"\nca.  77 % = Selector Lever in "R"\nca.  55 % = Selector Lever in "N"\nca.  20 % = Selector Lever in "D"\nca.  22 % = Selector Lever in Tiptronic-Gate\nca.  45 % = Selector Lever pushed to Tiptronic "+"\nca.   0 % = Selector Lever pushed to Tiptronic "-"
+; ca. 100 % = Selector Lever in STOP"
+; ca.  77 % = Selector Lever in "R"
+; ca.  55 % = Selector Lever in "N"
+; ca.  20 % = Selector Lever in "D"
+; ca.  22 % = Selector Lever in Tiptronic-Gate
+; ca.  45 % = Selector Lever pushed to Tiptronic "+"
+; ca.   0 % = Selector Lever pushed to Tiptronic "-"
+016,3,Gear Recogn. 1,Voltage (G239/act.)
+016,4,Gear Recogn. 2,Voltage (G240/act.)
+;
+017,1,Voltage,(Terminal 15),Range: 0.0...20.0 V\nSpecification: 11.8...16.0 V
+017,2,Clutch Actuator,Valve (N255),Specification (Clutch open): 0.80...0.90 A\nSpecification (Clutch closed): 0.05...0.73 A
+017,3,Valve 1 for,Gear Sel. (N284),Range: 0.0...2.5 A\nSpecification: 0.39 A
+017,4,Valve 2 for,Gear Sel. (N285),Range: 0.0...2.5 A\nSpecification: 0.39 A
+;
+018,0,Gear Recognition 
+018,1,Selected Gear,in Transmission,Range: 1.GANG...5.GANG/R-GANG/LG 1-2/LG 3-4/SYNC/ERROR
+018,3,Gear Recogn. 1,Voltage (G239/act.),Specification: 0.4...4.7 V\n\n3.8 V +/- 0.2 V = Selector Lever in "R"\n3.8 V +/- 0.2 V = Selector Lever in Tiptronic and 1st Gear selected\n1.7 V +/- 0.2 V = Selector Lever in Tiptronic and 2nd Gear selected\n3.8 V +/- 0.2 V = Selector Lever in Tiptronic and 3rd Gear selected\n1.7 V +/- 0.2 V = Selector Lever in Tiptronic and 4th Gear selected\n3.8 V +/- 0.2 V = Selector Lever in Tiptronic and 5th Gear selected
+; 3.8 V +/- 0.2 V = Selector Lever in "R"
+; 3.8 V +/- 0.2 V = Selector Lever in Tiptronic and 1st Gear selected
+; 1.7 V +/- 0.2 V = Selector Lever in Tiptronic and 2nd Gear selected
+; 3.8 V +/- 0.2 V = Selector Lever in Tiptronic and 3rd Gear selected
+; 1.7 V +/- 0.2 V = Selector Lever in Tiptronic and 4th Gear selected
+; 3.8 V +/- 0.2 V = Selector Lever in Tiptronic and 5th Gear selected
+018,4,Gear Recogn. 2,Voltage (G240/act.),Specification: 0.4...4.7 V\n\n3.6 V +/- 0.2 V = Selector Lever in "R"\n2.8 V +/- 0.2 V = Selector Lever in Tiptronic and 1st Gear selected\n2.8 V +/- 0.2 V = Selector Lever in Tiptronic and 2nd Gear selected\n2.0 V +/- 0.2 V = Selector Lever in Tiptronic and 3rd Gear selected\n2.0 V +/- 0.2 V = Selector Lever in Tiptronic and 4th Gear selected\n1.2 V +/- 0.2 V = Selector Lever in Tiptronic and 5th Gear selected
+; 3.6 V +/- 0.2 V = Selector Lever in "R"
+; 2.8 V +/- 0.2 V = Selector Lever in Tiptronic and 1st Gear selected
+; 2.8 V +/- 0.2 V = Selector Lever in Tiptronic and 2nd Gear selected
+; 2.0 V +/- 0.2 V = Selector Lever in Tiptronic and 3rd Gear selected
+; 2.0 V +/- 0.2 V = Selector Lever in Tiptronic and 4th Gear selected
+; 1.2 V +/- 0.2 V = Selector Lever in Tiptronic and 5th Gear selected
+;
+019,0,Gear Selection
+019,1,Selected Gear,(specified),0 = Neutral\n1-5 = 1st-5th Gear\n6 = Reverse Gear\n251 = Neutral Gate 1-2\n252 = Neutral Gate Reverse Gear\n253 = Neutral Gate 5th Gear\n254 = Neutral Gate 3-4\n255 = Transition between 2 Positions
+;   0 = Neutral
+; 1-5 = 1st-5th Gear
+;   6 = Reverse Gear
+; 251 = Neutral Gate 1-2
+; 252 = Neutral Gate Reverse Gear
+; 253 = Neutral Gate 5th Gear
+; 254 = Neutral Gate 3-4
+; 255 = Transition between 2 Positions
+019,2,Selected Gear,(actual),0 = Neutral\n1-5 = 1st-5th Gear\n6 = Reverse Gear\n251 = Neutral Gate 1-2\n252 = Neutral Gate Reverse Gear\n253 = Neutral Gate 5th Gear\n254 = Neutral Gate 3-4\n255 = Transition between 2 Positions
+;   0 = Neutral
+; 1-5 = 1st-5th Gear
+;   6 = Reverse Gear
+; 251 = Neutral Gate 1-2
+; 252 = Neutral Gate Reverse Gear
+; 253 = Neutral Gate 5th Gear
+; 254 = Neutral Gate 3-4
+; 255 = Transition between 2 Positions
+019,3,Accelerator Pedal,Position (G79),Range: 0.0...100.0 %\nSpecification (not operated): max. 4.0 %\nSpecification (operated): min. 96.0 %
+019,4,Vehicle Speed,Signal
+;
+020,0,Voltages
+020,1,Voltage,(Terminal 15),Range: 0.0...20.0 V\nSpecification: 11.8...16.0 V
+020,2,Voltage,(Terminal 30),Range: 0.0...20.0 V\nSpecification: 11.8...16.0 V
+020,3,Transmission,Sensor Supply,Range: 0.0...5.0 V\nSpecification: 4.80...5.00 V
+020,4,Hydraulic Pressure,Sensor Volt. (G270)
+;
+021,1,Gradient,[°],Range: -32...+32 ° (calculated via Load/Speed)
+021,2,Hill Factor,[%],internal Calculation Value (calculated via Gradient)
+021,3,Sport Factor,[%],internal Calculation Value
+021,4,Accelerator Pedal,Position (G79),Range: 0.0...100.0 %\nSpecification (not operated): max. 4.0 %\nSpecification (operated): min. 96.0 %
+;
+022,0,Selector Lever Position
+022,1,Selector Lever,Position,Range: A-STOP/A-N/A-R/A-E/T-0/T-MI/T-PL/???\n\nA-STOP = Automatic Gate Stop-Position\nA-N    = Automatic Gate N-Position\nA-R    = Automatic Gate R-Position\nA-E    = Automatic Gate D/E-Position\nT-0    = Automatic Gate Center Position\nT-MI   = Automatic Gate Minus Position\nT-PL   = Automatic Gate Plus Position\n???    = Error/Invalid Position
+; A-STOP = Automatic Gate Stop-Position
+; A-N    = Automatic Gate N-Position
+; A-R    = Automatic Gate R-Position
+; A-E    = Automatic Gate D/E-Position
+; T-0    = Automatic Gate Center Position
+; T-MI   = Automatic Gate Minus Position
+; T-PL   = Automatic Gate Plus Position
+; ???    = Error/Invalid Position
+022,2,Selector Lever,Position (spec.),Range: 0.0...5.0 V\nSpecification: 0.4...4.7 V\n\nca. 3.14 V = Selector Lever in "R"\nca. 2.55 V = Selector Lever in "N"\nca. 2.20 V = Selector Lever in "D"\nca. 1.58 V = Selector Lever in Tiptronic-Gate\nca. 2.50 V = Selector Lever pushed to Tiptronic "+"\nca. 1.70 V = Selector Lever pushed to Tiptronic "-"
+; ca. 3.14 V = Selector Lever in "R"
+; ca. 2.55 V = Selector Lever in "N"
+; ca. 2.20 V = Selector Lever in "D"
+; ca. 1.58 V = Selector Lever in Tiptronic-Gate
+; ca. 2.50 V = Selector Lever pushed to Tiptronic "+"
+; ca. 1.70 V = Selector Lever pushed to Tiptronic "-"
+022,3,Selector Lever,Position (spec.),Range: 0.0...100.0 %\n\nca. 100 % = Selector Lever in STOP"\nca.  77 % = Selector Lever in "R"\nca.  55 % = Selector Lever in "N"\nca.  20 % = Selector Lever in "D"\nca.  22 % = Selector Lever in Tiptronic-Gate\nca.  45 % = Selector Lever pushed to Tiptronic "+"\nca.   0 % = Selector Lever pushed to Tiptronic "-"
+; ca. 100 % = Selector Lever in STOP"
+; ca.  77 % = Selector Lever in "R"
+; ca.  55 % = Selector Lever in "N"
+; ca.  20 % = Selector Lever in "D"
+; ca.  22 % = Selector Lever in Tiptronic-Gate
+; ca.  45 % = Selector Lever pushed to Tiptronic "+"
+; ca.   0 % = Selector Lever pushed to Tiptronic "-"
+;
+023,0,NOT RELEVANT
+;
+024,0,NOT RELEVANT
+;
+025,0,Creep/Slip Point
+025,1,Creep Point,,Specification: 55...65 % (Moment the Vehicle starts to Move)\n\nCreep Point musst be equal or lower than the Slip Point\nDeviation from Spec. => Perform Basic Settings
+; Creep Point musst be equal or lower than the Slip Point
+; Deviation from Spec. => Perform Basic Settings
+025,2,Slip Point,,Specification: 55...85 % (Moment the Clutch starts Slipping)\n\nSlip Point musst be equal or higher than the Creep Point\nDeviation from Spec. => Perform Basic Settings
+; Slip Point musst be equal or higher than the Creep Point
+; Deviation from Spec. => Perform Basic Settings
+025,3,Rem. Creep Pt.,Adaptations,Specification: 0 (Deviation from Spec. => Perform Basic Settings)\n\nThe Creep Point Adaptation is performed at the End of the Basic Setting and\nhas to be repeated until the Remaing Adaptations are down to '0'.
+; The Creep Point Adaptation is performed at the End of the Basic Setting and
+; has to be repeated until the Remaing Adaptations are down to '0'.
+025,4,Filtered,Engine Torque,Range: 0...255 (Value should be relatively constant!)\n\nDeviation (Value changes too much or jumps) => Check Engine Control Module for Fault Codes
+; Deviation (Value changes too much or jumps) => Check Engine Control Module for Fault Codes
+;

@@ -1,0 +1,23 @@
+;
+; VCDS Redirect File
+;
+; Copyright © 2011+ Ross-Tech, LLC
+;
+; Component: J558 - Left Sliding door (#0D)
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; 7E-0D.LBL
+; 7E-78.LBL
+; 7H0-959-243-V2.CLB
+;
+; created on 15/Sep/2011 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 05/Feb/2015
+;
+; requires VCDS 11.2.0 or newer
+;
+;
+REDIRECT,7H0-959-243-V2.CLB,7E0-959-243-???
+;

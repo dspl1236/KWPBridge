@@ -1,0 +1,29 @@
+;
+; VCDS Label File
+;
+; Copyright © 2010 Ross-Tech, LLC
+;
+; VW Tiguan (5N)
+;
+; Component: Telephone (#77) NON-OE RETROFIT
+;
+; P/N: KTC-364-96P
+;
+; This file is part of a label file package,
+; make sure you have all of the following files.
+;
+; KT-77.LBL
+; RETROFIT77.LBL
+;
+; includes coding
+;
+; created on 08/Nov/2010 by Sebastian Stange (Sebastian@Ross-Tech.com)
+;
+; last modification on 08/Nov/2010
+;
+; requires VCDS 805.0 or newer
+;
+;
+C00,Telephone Module (RETROFIT) Coding
+C01,Please contact the Manufacturer of this Module for Coding Information.
+;
