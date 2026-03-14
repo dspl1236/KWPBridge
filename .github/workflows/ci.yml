@@ -25,6 +25,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip setuptools wheel
           pip install pyserial pytest pytest-timeout
+          pip install --no-build-isolation -e .
 
       - name: Run tests
         run: pytest tests/ -v --timeout=10
