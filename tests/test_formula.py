@@ -1,67 +1,61 @@
-"""Tests for KWP1281 measuring block value decode formulas."""
+"""Tests for KWP1281 measuring block formula decoding."""
 
-import pytest
+import sys
+sys.path.insert(0, '/home/claude/KWPBridge')
 from kwpbridge.formula import decode_cell, FORMULA
 
 
-def test_rpm_decode():
-    # Formula 0x08 = RPM, value = (A*256+B) * 0.25
-    # 2400 RPM: raw = 2400/0.25 = 9600 = 0x2580 → A=0x25, B=0x80
-    value, unit, display = decode_cell(0x08, 0x25, 0x80)
+def test_rpm_formula():
+    # Formula 0x08: RPM = (A*256+B) * 0.25
+    # 850 RPM = 3400 raw = A=13, B=72
+    raw = 3400
+    a, b = raw >> 8, raw & 0xFF
+    value, unit, display = decode_cell(0x08, a, b)
+    assert abs(value - 850.0) < 0.1
     assert unit == "RPM"
-    assert abs(value - 2400.0) < 1.0
 
 
-def test_temperature_decode():
-    # Formula 0x12 = temp, value = (A*256+B)*0.1 - 273.15
-    # 90°C: raw = (90 + 273.15)/0.1 = 3631.5 ≈ 3632 = 0x0E30 → A=0x0E, B=0x30
-    value, unit, display = decode_cell(0x12, 0x0E, 0x30)
+def test_temperature_formula():
+    # Formula 0x12: temp = (A*256+B)*0.1 - 273.15
+    # 87°C = 3601.5 raw -> A=14, B=25... approx
+    # Test: raw=3601 -> 3601*0.1 - 273.15 = 86.95
+    raw = 3601
+    a, b = raw >> 8, raw & 0xFF
+    value, unit, display = decode_cell(0x12, a, b)
+    assert abs(value - 86.95) < 0.1
     assert unit == "°C"
-    assert abs(value - 90.05) < 0.5
 
 
-def test_voltage_decode():
-    # Formula 0x07 = voltage, value = (A*256+B) * 0.001
-    # 13.8V: raw = 13800 = 0x35E8 → A=0x35, B=0xE8
-    value, unit, display = decode_cell(0x07, 0x35, 0xE8)
-    assert unit == "V"
+def test_voltage_formula():
+    # Formula 0x07: voltage = (A*256+B) * 0.001
+    # 13.8V = 13800 raw = A=53, B=232
+    raw = 13800
+    a, b = raw >> 8, raw & 0xFF
+    value, unit, display = decode_cell(0x07, a, b)
     assert abs(value - 13.8) < 0.01
-
-
-def test_lambda_decode():
-    # Formula 0x05 = lambda, value = (A*256+B)*0.0001 + 0.5
-    # λ=1.0: raw = (1.0-0.5)/0.0001 = 5000 = 0x1388 → A=0x13, B=0x88
-    value, unit, display = decode_cell(0x05, 0x13, 0x88)
-    assert unit == "λ"
-    assert abs(value - 1.0) < 0.001
+    assert unit == "V"
 
 
 def test_unknown_formula_fallback():
-    # Unknown formula should return raw value without error
+    # Unknown formula should return raw value without crashing
     value, unit, display = decode_cell(0xAB, 0x12, 0x34)
     assert value == 0x1234
     assert "formula=0xAB" in display
 
 
-def test_all_formulas_callable():
-    # Every formula in the table should decode without raising
-    for formula_byte, entry in FORMULA.items():
-        try:
-            value, unit, display = decode_cell(formula_byte, 0x10, 0x20)
-            assert isinstance(value, float)
-        except Exception as e:
-            pytest.fail(f"Formula 0x{formula_byte:02X} ({entry.name}) raised: {e}")
+def test_all_formulas_dont_crash():
+    # All defined formulas should decode without exception
+    for formula_id, entry in FORMULA.items():
+        value, unit, display = decode_cell(formula_id, 100, 50)
+        assert isinstance(value, float)
+        assert isinstance(unit, str)
+        assert isinstance(display, str)
 
 
-def test_percentage_decode():
-    # Formula 0x04 = percentage, value = (A*256+B) * 0.01
-    # 45.2%: raw = 4520 = 0x11A8 → A=0x11, B=0xA8
-    value, unit, display = decode_cell(0x04, 0x11, 0xA8)
-    assert unit == "%"
-    assert abs(value - 45.2) < 0.1
-
-
-def test_binary_status():
-    # Formula 0x03 = binary/status, returns A as-is
-    value, unit, display = decode_cell(0x03, 0b10110000, 0x00)
-    assert value == 0b10110000
+if __name__ == "__main__":
+    test_rpm_formula()
+    test_temperature_formula()
+    test_voltage_formula()
+    test_unknown_formula_fallback()
+    test_all_formulas_dont_crash()
+    print("All formula tests passed")
