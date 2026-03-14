@@ -228,6 +228,8 @@ class KWPBridgeWindow(QMainWindow):
         self._last_data: dict = {}
         self._current_ecu_id: dict = {}
         self._tcp_server = None
+        self._mock_server = None
+        self._mock_warmup_start = None
 
         self._setup_ui()
         self._connect_signals()
@@ -316,6 +318,12 @@ class KWPBridgeWindow(QMainWindow):
         self.btn_gauges.clicked.connect(self._toggle_gauges)
         btns.addWidget(self.btn_gauges)
 
+        self.btn_mock = QPushButton("⚙ Mock ECU")
+        self.btn_mock.setStyleSheet(self._btn_style("#aa66ff"))
+        self.btn_mock.setToolTip("Start a simulated ECU for development and testing")
+        self.btn_mock.clicked.connect(self._toggle_mock)
+        btns.addWidget(self.btn_mock)
+
         main.addLayout(btns)
 
         # ── Status strip ──────────────────────────────────────────────────────
@@ -325,6 +333,14 @@ class KWPBridgeWindow(QMainWindow):
             f"padding:3px 8px; border-radius:3px;")
         self.status_strip.setWordWrap(True)
         main.addWidget(self.status_strip)
+
+        # ── Mock scenario strip (hidden until mock running) ─────────────────
+        self.scenario_strip = QLabel("")
+        self.scenario_strip.setStyleSheet(
+            f"background:#1a0a2a; color:#aa66ff; font-size:10px; "
+            f"font-family:Consolas; padding:3px 8px; border-radius:3px;")
+        self.scenario_strip.setVisible(False)
+        main.addWidget(self.scenario_strip)
 
         # ── Gauge panel (hidden by default) ───────────────────────────────────
         self.gauge_panel = QWidget()
@@ -427,6 +443,119 @@ class KWPBridgeWindow(QMainWindow):
             self._worker.stop()
             self._worker = None
         self._set_connected_state(False, "Disconnected")
+
+    # ── Mock ECU ──────────────────────────────────────────────────────────────
+
+    def _toggle_mock(self):
+        """Start or stop the mock ECU server."""
+        if self._mock_server and self._mock_server.is_running():
+            self._stop_mock()
+        else:
+            self._start_mock_dialog()
+
+    def _start_mock_dialog(self):
+        """Show ECU picker and start mock server."""
+        from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QRadioButton, \
+                                    QDialogButtonBox, QButtonGroup
+
+        dlg = QDialog(self)
+        dlg.setWindowTitle("Start Mock ECU")
+        dlg.setStyleSheet(f"background:{C_BG}; color:{C_TEXT};")
+        dlg.setFixedWidth(320)
+        lay = QVBoxLayout(dlg)
+        lay.setSpacing(10)
+        lay.setContentsMargins(16, 16, 16, 16)
+
+        lay.addWidget(QLabel(
+            "Select ECU to simulate.\n"
+            "Scenarios loop: Cold Start → Idle → Cruise → WOT → Decel",
+        ))
+
+        grp = QButtonGroup(dlg)
+        rb_7a = QRadioButton("7A 20v  (893906266D)  — MMS05C")
+        rb_7a.setChecked(True)
+        rb_aah = QRadioButton("AAH V6  (4A0906266)   — MMS100")
+        for rb in (rb_7a, rb_aah):
+            rb.setStyleSheet(f"color:{C_TEXT};")
+            grp.addButton(rb)
+            lay.addWidget(rb)
+
+        bb = QDialogButtonBox(
+            QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        bb.setStyleSheet(f"color:{C_TEXT};")
+        bb.accepted.connect(dlg.accept)
+        bb.rejected.connect(dlg.reject)
+        lay.addWidget(bb)
+
+        if dlg.exec_() != QDialog.Accepted:
+            return
+
+        ecu = "7a" if rb_7a.isChecked() else "aah"
+        self._start_mock(ecu)
+
+    def _start_mock(self, ecu: str):
+        """Start the mock server and auto-connect."""
+        try:
+            from ..mock.server import MockServer
+            import time
+
+            self._mock_server = MockServer(
+                ecu=ecu, port=DEFAULT_PORT, poll_hz=3.0)
+            self._mock_server.start()
+            self._mock_warmup_start = time.time()
+
+            self.btn_mock.setText("⚙ Stop Mock")
+            self.btn_mock.setStyleSheet(self._btn_style("#ff6644"))
+            self.scenario_strip.setVisible(True)
+            self._set_status(f"Mock ECU running — {ecu.upper()} on :{DEFAULT_PORT}", "#aa66ff")
+
+            # Auto-connect after a brief settle
+            QTimer.singleShot(300, self._on_connect)
+
+            # Scenario update timer
+            self._scenario_timer = QTimer(self)
+            self._scenario_timer.timeout.connect(self._update_scenario_strip)
+            self._scenario_timer.start(500)
+
+        except Exception as e:
+            self._set_status(f"Mock start failed: {e}", C_RED)
+            self._mock_server = None
+
+    def _stop_mock(self):
+        """Stop mock server and disconnect."""
+        if hasattr(self, '_scenario_timer'):
+            self._scenario_timer.stop()
+        if self._mock_server:
+            self._mock_server.stop()
+            self._mock_server = None
+        self._on_disconnect()
+        self.btn_mock.setText("⚙ Mock ECU")
+        self.btn_mock.setStyleSheet(self._btn_style("#aa66ff"))
+        self.scenario_strip.setVisible(False)
+        self._set_status("Mock ECU stopped", C_DIM)
+
+    def _update_scenario_strip(self):
+        """Update the scenario progress strip while mock is running."""
+        if not self._mock_server or not self._mock_server.is_running():
+            return
+        try:
+            import time
+            from ..mock.ecu_7a import get_scenario_info, SCENARIO_DURATION
+            if self._mock_warmup_start:
+                t = time.time()
+                info = get_scenario_info(t, self._mock_warmup_start)
+                pct = int(info["progress"] * 100)
+                loop_pct = int((info["loop_time"] / info["loop_total"]) * 100)
+                bar_w = 20
+                filled = int(bar_w * info["progress"])
+                bar = "█" * filled + "░" * (bar_w - filled)
+                self.scenario_strip.setText(
+                    f"  ⚙ MOCK  [{bar}] {info['scenario']}  {pct}%  "
+                    f"(loop {loop_pct}%)")
+        except Exception:
+            pass
+
+
 
     def _on_ecu_connected(self, ecu_id_dict: dict):
         pn   = ecu_id_dict.get('part_number', 'Unknown')
@@ -651,6 +780,10 @@ class KWPBridgeWindow(QMainWindow):
     def closeEvent(self, event):
         if self._worker:
             self._worker.stop()
+        if hasattr(self, '_scenario_timer'):
+            self._scenario_timer.stop()
+        if self._mock_server:
+            self._mock_server.stop()
         if hasattr(self, '_tcp_server') and self._tcp_server:
             self._tcp_server.stop()
         event.accept()

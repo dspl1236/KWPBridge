@@ -191,14 +191,38 @@ class TestMockECUData:
             f"Warm coolant out of range: {coolant['value']} °C"
 
     def test_7a_lambda_near_stoich(self):
-        from kwpbridge.mock.ecu_7a import get_group_0
-        # Sample several ticks — mean should be near stoich
-        readings = [get_group_0(t=i * 0.1)for i in range(50)]
+        from kwpbridge.mock.ecu_7a import get_group_0, SCENARIO_DURATION
+        # Sample during warm idle scenario (t=60-120s in the loop)
+        # to get stable near-stoich readings
+        readings = [get_group_0(t=70 + i * 0.5, warmup_start=0.0)
+                    for i in range(30)]
         lambdas = [next(c for c in cells if c["index"] == 8)["value"]
                    for cells in readings]
         mean_lambda = sum(lambdas) / len(lambdas)
         assert 0.9 <= mean_lambda <= 1.1, \
-            f"Mean lambda too far from stoich: {mean_lambda:.3f}"
+            f"Mean lambda at warm idle too far from stoich: {mean_lambda:.3f}"
+
+    def test_7a_lambda_rich_at_wot(self):
+        from kwpbridge.mock.ecu_7a import get_group_0
+        # WOT scenario starts at t=180s — lambda should be rich
+        readings = [get_group_0(t=190 + i * 0.5, warmup_start=0.0)
+                    for i in range(10)]
+        lambdas = [next(c for c in cells if c["index"] == 8)["value"]
+                   for cells in readings]
+        mean_lambda = sum(lambdas) / len(lambdas)
+        assert mean_lambda < 1.0, \
+            f"WOT lambda should be rich (<1.0): {mean_lambda:.3f}"
+
+    def test_7a_rpm_higher_at_cruise(self):
+        from kwpbridge.mock.ecu_7a import get_group_0
+        # Cruise scenario at t=120-180s — RPM ~2500
+        readings = [get_group_0(t=130 + i * 1.0, warmup_start=0.0)
+                    for i in range(10)]
+        rpms = [next(c for c in cells if c["index"] == 3)["value"]
+                for cells in readings]
+        mean_rpm = sum(rpms) / len(rpms)
+        assert mean_rpm > 1500, \
+            f"Cruise RPM should be >1500: {mean_rpm:.0f}"
 
     def test_7a_cell_units(self):
         from kwpbridge.mock.ecu_7a import get_group_0

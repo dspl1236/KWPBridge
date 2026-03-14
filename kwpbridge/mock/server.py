@@ -42,30 +42,31 @@ def _make_welcome(part_number: str, component: str) -> bytes:
 
 
 def _make_state(part_number: str, component: str,
-                cells: list[dict], t: float) -> bytes:
-    return (json.dumps({
-        "type": "state",
-        "data": {
-            "connected":   True,
-            "mock":        True,
-            "ecu_id": {
-                "part_number": part_number,
-                "component":   component,
-                "coding":      "0010",
-                "wsw":         "0000",
-            },
-            "groups": {
-                "0": {
-                    "group":     0,
-                    "timestamp": t,
-                    "cells":     cells,
-                }
-            },
-            "faults":      [],
-            "fault_count": 0,
-            "timestamp":   t,
-        }
-    }) + "\n").encode()
+                cells: list[dict], t: float,
+                scenario_info: dict = None) -> bytes:
+    data = {
+        "connected":   True,
+        "mock":        True,
+        "ecu_id": {
+            "part_number": part_number,
+            "component":   component,
+            "coding":      "0010",
+            "wsw":         "0000",
+        },
+        "groups": {
+            "0": {
+                "group":     0,
+                "timestamp": t,
+                "cells":     cells,
+            }
+        },
+        "faults":      [],
+        "fault_count": 0,
+        "timestamp":   t,
+    }
+    if scenario_info:
+        data["scenario"] = scenario_info
+    return (json.dumps({"type": "state", "data": data}) + "\n").encode()
 
 
 def _make_faults(faults: list) -> bytes:
@@ -122,6 +123,15 @@ class MockServer:
         self._part_number   = ECU_PART_NUMBER
         self._component     = ECU_COMPONENT
         self._fault_codes   = FAULT_CODES
+        self._warmup_start  = None   # set on first broadcast
+        # scenario_info only available on 7A mock
+        self._get_scenario_info = None
+        if self.ecu == "7a":
+            try:
+                from .ecu_7a import get_scenario_info
+                self._get_scenario_info = get_scenario_info
+            except ImportError:
+                pass
 
     # ── Public API ────────────────────────────────────────────────────────────
 
@@ -259,10 +269,15 @@ class MockServer:
         interval = 1.0 / self.poll_hz
         while self._running:
             t = time.time()
+            if self._warmup_start is None:
+                self._warmup_start = t
             if self._clients:
-                cells = self._get_group_0(t)
+                cells = self._get_group_0(t, self._warmup_start)
+                sc_info = None
+                if self._get_scenario_info:
+                    sc_info = self._get_scenario_info(t, self._warmup_start)
                 msg = _make_state(
-                    self._part_number, self._component, cells, t)
+                    self._part_number, self._component, cells, t, sc_info)
                 with self._lock:
                     dead = []
                     for c in self._clients:
