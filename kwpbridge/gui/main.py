@@ -230,6 +230,9 @@ class KWPBridgeWindow(QMainWindow):
         self._tcp_server = None
         self._mock_server = None
         self._mock_warmup_start = None
+        # fault buttons initialised in _setup_ui, referenced here for type hints
+        self.btn_read_faults:  QPushButton | None = None
+        self.btn_clear_faults: QPushButton | None = None
 
         self._setup_ui()
         self._connect_signals()
@@ -282,6 +285,17 @@ class KWPBridgeWindow(QMainWindow):
         self._populate_ports()
         ctrl.addWidget(self.combo_port, 2)
 
+        # Port refresh button
+        btn_refresh = QPushButton("⟳")
+        btn_refresh.setFixedWidth(28)
+        btn_refresh.setToolTip("Refresh port list")
+        btn_refresh.setStyleSheet(
+            f"QPushButton {{ background:{C_PANEL}; color:{C_DIM}; "
+            f"border:1px solid {C_BORDER}; border-radius:3px; font-size:14px; }}"
+            f"QPushButton:hover {{ color:{C_TEXT}; }}")
+        btn_refresh.clicked.connect(self._populate_ports)
+        ctrl.addWidget(btn_refresh)
+
         # Cable selector
         self.combo_cable = QComboBox()
         self.combo_cable.setStyleSheet(self.combo_port.styleSheet())
@@ -325,6 +339,38 @@ class KWPBridgeWindow(QMainWindow):
         btns.addWidget(self.btn_mock)
 
         main.addLayout(btns)
+
+        # ── Fault code row ────────────────────────────────────────────────────
+        fault_row = QHBoxLayout()
+        fault_row.setSpacing(6)
+
+        self.btn_read_faults = QPushButton("Read Faults")
+        self.btn_read_faults.setStyleSheet(self._btn_style(C_AMBER))
+        self.btn_read_faults.setEnabled(False)
+        self.btn_read_faults.clicked.connect(self._on_read_faults)
+        fault_row.addWidget(self.btn_read_faults)
+
+        self.btn_clear_faults = QPushButton("Clear Faults")
+        self.btn_clear_faults.setStyleSheet(self._btn_style(C_RED))
+        self.btn_clear_faults.setEnabled(False)
+        self.btn_clear_faults.clicked.connect(self._on_clear_faults)
+        fault_row.addWidget(self.btn_clear_faults)
+
+        self.lbl_fault_count = QLabel("No faults read")
+        self.lbl_fault_count.setStyleSheet(
+            f"color:{C_DIM}; font-size:10px; font-family:Consolas;")
+        fault_row.addWidget(self.lbl_fault_count, 1)
+
+        main.addLayout(fault_row)
+
+        # ── Fault list (hidden until faults found) ────────────────────────────
+        self.fault_list = QLabel("")
+        self.fault_list.setWordWrap(True)
+        self.fault_list.setStyleSheet(
+            f"background:#1a0a0a; color:{C_AMBER}; font-size:10px; "
+            f"font-family:Consolas; padding:6px 8px; border-radius:3px;")
+        self.fault_list.setVisible(False)
+        main.addWidget(self.fault_list)
 
         # ── Status strip ──────────────────────────────────────────────────────
         self.status_strip = QLabel("  Ready")
@@ -577,6 +623,8 @@ class KWPBridgeWindow(QMainWindow):
 
         self._set_connected_state(True, f"Connected — {pn}")
         self.btn_gauges.setEnabled(True)
+        self.btn_read_faults.setEnabled(True)
+        self.btn_clear_faults.setEnabled(True)
         # Start TCP bridge server so HachiROM/other tools can connect
         if not hasattr(self, '_tcp_server') or not self._tcp_server:
             self._start_tcp_bridge()
@@ -584,7 +632,74 @@ class KWPBridgeWindow(QMainWindow):
     def _on_ecu_disconnected(self, reason: str):
         self._set_connected_state(False, f"Disconnected: {reason}")
         self.btn_gauges.setEnabled(False)
+        self.btn_read_faults.setEnabled(False)
+        self.btn_clear_faults.setEnabled(False)
+        self.lbl_fault_count.setText("No faults read")
+        self.fault_list.setVisible(False)
         self._clear_gauges()
+
+    # ── Fault code handlers ───────────────────────────────────────────────────
+
+    def _on_read_faults(self):
+        """Request fault codes from connected ECU or mock server."""
+        if self._mock_server and self._mock_server.is_running():
+            # Read from mock directly
+            faults = self._mock_server._fault_codes
+            self._display_faults(faults)
+            return
+        if self._worker and hasattr(self._worker, '_kwp') and self._worker._kwp:
+            try:
+                from ..protocol import KWPError
+                faults = self._worker._kwp.read_faults()
+                self._display_faults([f.__dict__ for f in faults])
+            except Exception as e:
+                self._set_status(f"Read faults error: {e}", C_AMBER)
+
+    def _on_clear_faults(self):
+        """Clear stored fault codes."""
+        if self._mock_server and self._mock_server.is_running():
+            self._mock_server.clear_faults()
+            self._display_faults([])
+            self._set_status("Faults cleared (mock)", C_GREEN)
+            return
+        if self._worker and hasattr(self._worker, '_kwp') and self._worker._kwp:
+            try:
+                from ..protocol import KWPError
+                self._worker._kwp.clear_faults()
+                self._display_faults([])
+                self._set_status("Faults cleared", C_GREEN)
+            except Exception as e:
+                self._set_status(f"Clear faults error: {e}", C_AMBER)
+
+    def _display_faults(self, faults: list):
+        """Update fault display area with fault list."""
+        if not faults:
+            self.lbl_fault_count.setText("✓  No faults stored")
+            self.lbl_fault_count.setStyleSheet(
+                f"color:{C_GREEN}; font-size:10px; font-family:Consolas;")
+            self.fault_list.setVisible(False)
+            return
+
+        count = len(faults)
+        self.lbl_fault_count.setText(
+            f"⚠  {count} fault{'s' if count > 1 else ''} stored")
+        self.lbl_fault_count.setStyleSheet(
+            f"color:{C_AMBER}; font-size:10px; font-family:Consolas;")
+
+        lines = []
+        for f in faults:
+            if isinstance(f, dict):
+                code = f.get('code', f.get('code_str', '???'))
+                desc = f.get('description', '')
+                status = f.get('status', f.get('status_str', ''))
+            else:
+                code   = getattr(f, 'code_str', str(f))
+                desc   = getattr(f, 'description', '')
+                status = getattr(f, 'status_str', '')
+            lines.append(f"  {code}  {desc}  [{status}]")
+
+        self.fault_list.setText("\n".join(lines))
+        self.fault_list.setVisible(True)
 
     def _on_data(self, data: dict):
         self._last_data = data
@@ -693,54 +808,69 @@ class KWPBridgeWindow(QMainWindow):
     def _update_gauges(self, data: dict):
         """
         Map measuring block data to gauge widgets.
-        Uses LBL formula when available (overrides KWP formula byte),
-        otherwise uses the decoded cell value from formula.py.
+        Handles both MeasuringBlock objects (real KWP) and dicts (mock/TCP).
+        Uses LBL formula when available for real KWP data.
         """
         for group, block in data.items():
-            for cell in block.cells:
-                # Raw word value from protocol (A*256 + B)
-                raw_word = cell.raw_a * 256 + cell.raw_b
-
-                if self._lbl:
-                    # LBL formula takes priority — parsed from hint text
-                    # (e.g. "Anzeige mal 25 = U/min" → ×25)
-                    decoded, unit, _ = decode_with_lbl(
-                        self._lbl, group, cell.index, float(raw_word))
-                    label = self._lbl.get_label(group, cell.index).lower()
-                else:
-                    decoded = cell.value
-                    unit    = cell.unit
-                    label   = cell.label.lower()
-
-                self._route_to_gauge(label, decoded, raw_word)
+            # Determine cell list — real object or dict
+            if hasattr(block, 'cells'):
+                # Real MeasuringBlock from ConnectionWorker
+                for cell in block.cells:
+                    raw_word = cell.raw_a * 256 + cell.raw_b
+                    if self._lbl:
+                        decoded, unit, _ = decode_with_lbl(
+                            self._lbl, group, cell.index, float(raw_word))
+                        label = self._lbl.get_label(group, cell.index).lower()
+                    else:
+                        decoded = cell.value
+                        unit    = cell.unit
+                        label   = cell.label.lower()
+                    self._route_to_gauge(label, decoded, raw_word)
+            elif isinstance(block, dict):
+                # Dict from mock broadcast — already decoded by ecu_7a.py
+                for cell in block.get('cells', []):
+                    decoded = cell.get('value', 0)
+                    label   = cell.get('label', '').lower()
+                    raw     = cell.get('value', 0)  # already decoded
+                    self._route_to_gauge(label, decoded, raw)
 
     def _route_to_gauge(self, label: str, decoded: float, raw: float):
-        """Route a decoded value to the appropriate gauge by label keyword."""
+        """Route a decoded value to the appropriate gauge by label keyword.
+        Handles both umlaut and ASCII-fallback label variants.
+        """
         kw = label.lower()
-        if any(w in kw for w in ('drehzahl', 'rpm', 'speed', 'motordrehzahl')):
-            if decoded > 100:   # sanity check — not vehicle speed
+        # RPM — umlaut and ASCII variants
+        if any(w in kw for w in ('drehzahl', 'rpm', 'motordrehzahl')):
+            if decoded > 100:
                 self.gauge_rpm.update_value(decoded,
                     C_RED if decoded > 6400 else C_GREEN)
-        elif any(w in kw for w in ('kühlmittel', 'coolant', 'kühl')):
+        # Coolant — umlaut and ASCII variants
+        elif any(w in kw for w in ('kühlmittel', 'kuehlmittel', 'coolant', 'kühl')):
             self.gauge_coolant.update_value(decoded,
                 C_RED if decoded > 105 else C_AMBER if decoded < 70 else C_GREEN)
-        elif any(w in kw for w in ('ansaug', 'intake', 'luft', 'lufttemperatur')):
+        # Intake air
+        elif any(w in kw for w in ('ansaug', 'intake', 'lufttemperatur')):
             self.gauge_intake.update_value(decoded)
-        elif any(w in kw for w in ('last', 'load', 'motorlast')):
-            # Load is raw 1-255, convert to %
+        # Load
+        elif any(w in kw for w in ('motorlast', 'load', 'last')):
             pct = (decoded / 255) * 100 if decoded > 1 else decoded
             self.gauge_load.update_value(pct,
                 C_RED if pct > 90 else C_GREEN)
+        # Lambda — already decoded as λ value from LBL formula or LiveValues
         elif any(w in kw for w in ('lambda', 'lambdaregelung')):
-            # Lambda raw 128=neutral: convert to λ
-            lam = decoded / 128.0 if decoded > 10 else decoded
+            # If decoded is already λ (0.5-2.0 range), use directly
+            # If it looks like raw (50-200), convert
+            lam = decoded if decoded < 5.0 else decoded / 128.0
             self.gauge_lambda.update_value(lam,
                 C_GREEN if 0.95 <= lam <= 1.05 else C_AMBER)
-        elif any(w in kw for w in ('zündwinkel', 'timing', 'ignition', 'advance')):
+        # Ignition timing — umlaut and ASCII
+        elif any(w in kw for w in ('zündwinkel', 'zuendwinkel', 'timing', 'ignition', 'ign')):
             self.gauge_timing.update_value(decoded)
+        # Battery
         elif any(w in kw for w in ('batterie', 'battery', 'voltage', 'spannung')):
             self.gauge_battery.update_value(decoded,
                 C_RED if decoded < 11.5 or decoded > 15 else C_GREEN)
+        # Speed
         elif any(w in kw for w in ('geschwindigkeit', 'vehicle speed', 'km/h')):
             self.gauge_speed.update_value(decoded)
 
@@ -766,14 +896,27 @@ class KWPBridgeWindow(QMainWindow):
             f"padding:3px 8px; border-radius:3px;")
 
     def _refresh_status_strip(self):
-        """Update status strip with latest data summary."""
+        """Update status strip with latest data summary.
+        Handles both MeasuringBlock objects (real KWP) and dicts (mock/TCP).
+        """
         if not self._last_data:
             return
         parts = []
         for group, block in self._last_data.items():
-            for cell in block.cells[:4]:
-                if cell.display and cell.display != "—":
-                    parts.append(f"{cell.label}: {cell.display}")
+            cells = []
+            if hasattr(block, 'cells'):
+                # Real MeasuringBlock object
+                cells = block.cells[:4]
+                for cell in cells:
+                    if getattr(cell, 'display', None) and cell.display != "—":
+                        parts.append(f"{cell.label}: {cell.display}")
+            elif isinstance(block, dict):
+                # Dict from mock/TCP broadcast
+                for cell in block.get('cells', [])[:4]:
+                    d = cell.get('display', '')
+                    l = cell.get('label', '')
+                    if d and l:
+                        parts.append(f"{l}: {d}")
         if parts:
             self._set_status("  ·  ".join(parts[:3]), C_DIM)
 
