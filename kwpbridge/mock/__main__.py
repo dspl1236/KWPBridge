@@ -23,7 +23,7 @@ def main():
         prog="python -m kwpbridge.mock",
         description="KWPBridge mock ECU server for development and testing")
     parser.add_argument("--ecu",  "-e", default="7a",
-                        choices=["7a", "aah"],
+                        choices=["7a", "aah", "digifant", "g60", "g40"],
                         help="ECU profile to simulate (default: 7a)")
     parser.add_argument("--port", "-p", default=DEFAULT_PORT, type=int,
                         help=f"TCP port (default: {DEFAULT_PORT})")
@@ -40,7 +40,13 @@ def main():
     srv = MockServer(ecu=args.ecu, port=args.port, poll_hz=args.hz)
     srv.start()
 
-    ecu_map = {"7a": "893906266D  2.3 20v 7A", "aah": "4A0906266  2.8 V6 AAH"}
+    ecu_map = {
+        "7a":       "893906266D  2.3 20v 7A",
+        "aah":      "4A0906266   2.8 V6 AAH",
+        "digifant": "037906023   Digifant 1 G60/G40",
+        "g60":      "037906023   Digifant 1 G60",
+        "g40":      "037906023   Digifant 1 G40",
+    }
     print(f"\n  KWPBridge Mock Server")
     print(f"  ECU:  {ecu_map[args.ecu]}")
     print(f"  Port: {args.port}")

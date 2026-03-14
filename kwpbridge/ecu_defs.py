@@ -261,3 +261,202 @@ def get_fault_description(ecu_def: ECUDef, code: int) -> str:
     if ecu_def is None:
         return f"Fault {code:05d}"
     return ecu_def.faults.get(code, f"Fault {code:05d} — unknown")
+
+# ── Digifant 1 — G60 / G40 ────────────────────────────────────────────────────
+# Part numbers:
+#   037-906-023      RV engine  Golf/Jetta Digifant 0852/1265  1990-91
+#   037-906-023-R    RV engine  Golf/Jetta Digifant 1265       1991
+#   037-906-023-160  PG engine  (160 HP variant)
+#   037-906-025-ADY  ADY/AGG/AKR 2.0 8v  Corrado/Golf/Jetta/Passat  1991-95
+#   037-906-025-AFT  AFT variant
+#   037-906-022      earlier Digifant variant
+#
+# KWP1281 address: 0x01 (engine, same as all VAG)
+# Baud rate: 10400
+# Group layout: group 1 = primary, 4 cells per group
+#
+# Group 0 on 037-906-023 is raw undocumented data.
+# Group 1 on all variants: RPM, load, coolant, injection time.
+# Digifant 1 has fewer groups than later Motronic — typically groups 0-10.
+#
+# Note: Digifant 1 (G60/G40) predates OBD but uses KWP1281 compatible timing.
+# The "load" value is VAF (vane airflow) signal, not calculated load.
+
+_DIGIFANT_GROUPS: dict[int, dict[int, str]] = {
+    0: {
+        1:  "Undocumented",
+        2:  "Undocumented",
+        3:  "Coolant Temperature",   # lower = hotter (inverse NTC)
+        4:  "Undocumented",
+        5:  "O2S Sensor",            # 164-168=cold/open, 0-5=V+ short, 230-255=gnd short
+        6:  "Undocumented",
+        7:  "Undocumented",
+        8:  "Undocumented",
+        9:  "Undocumented",
+        10: "Undocumented",
+    },
+    1: {
+        1:  "Engine Speed",          # Spec: 750-850 RPM at idle
+        2:  "Engine Load",           # VAF signal
+        3:  "Coolant Temperature",
+        4:  "Injection Time",        # ms
+    },
+    2: {
+        1:  "Engine Speed",
+        2:  "Intake Air Temperature",
+        3:  "Undocumented",
+        4:  "Injection Time",
+    },
+    3: {
+        1:  "Engine Speed",          # Soft governed to 6300 RPM
+        2:  "Engine Temperature",
+        3:  "Undocumented",
+        4:  "Injection Time",
+    },
+    4: {
+        1:  "Engine Speed",
+        2:  "Engine Load",           # VAF signal
+        3:  "Undocumented",
+        4:  "Injection Time",        # Goes to 0ms on decel cut-off
+    },
+    5: {
+        1:  "Engine Speed",
+        2:  "Throttle Valve Angle",  # WOT=90° or more
+        3:  "Undocumented",
+        4:  "Injection Time",
+    },
+    6: {
+        1:  "Engine Speed",
+        2:  "Intake Air Temperature",
+        3:  "Undocumented",
+        4:  "Undocumented",
+    },
+    9: {
+        1:  "Engine Speed",
+        2:  "Possible Lambda Signal", # varies 30-50, no units
+        3:  "Undocumented",
+        4:  "Undocumented",
+    },
+    10: {
+        1:  "Engine Speed",
+        2:  "Possible Lambda Signal", # varies 0-256
+        3:  "Undocumented",
+        4:  "Undocumented",
+    },
+}
+
+# Digifant 1 later variants (037-906-025-ADY, Motronic 2.x 2.0 8v)
+# These have proper labelled groups including lambda adaptation
+_MOTRONIC_2X_GROUPS: dict[int, dict[int, str]] = {
+    0: {
+        1:  "Intake Air Temperature",  # Spec: 70-160 (4.5-72.0°C)
+        2:  "Battery Voltage",         # Spec: 115-161 (12.0-16.5V)
+        3:  "Coolant Temperature",     # Spec: 120-150 (80-110°C)
+        4:  "Engine Load",             # Spec: 25-55 (9.75-19.5%)
+        5:  "Lambda Sensor Voltage",   # Spec: 0-55 (0.0-1.10V)
+        6:  "Lambda Learning Value",   # Spec: 0-22 (0.0-0.75ms)
+        7:  "Operating Condition",
+        8:  "Throttle Valve Angle",    # Spec: 5-14 (2.5-6.5°)
+        9:  "Injection Time",          # Spec: 2-4ms
+        10: "Engine Speed",            # Spec: 23-27 (736-864 RPM)
+    },
+    1: {
+        1:  "Engine Speed",            # Spec: 736-864 RPM
+        2:  "Coolant Temperature",
+        3:  "Lambda Sensor Voltage",
+        4:  "Adjustment Conditions",
+    },
+    2: {
+        1:  "Engine Speed",
+        2:  "Injection Time",          # Spec: 2-4ms
+        3:  "Battery Voltage",
+        4:  "Intake Air Temperature",
+    },
+    3: {
+        1:  "Engine Speed",
+        2:  "Engine Load",             # Spec: 9.75-19.50%
+        3:  "Throttle Valve Angle",
+        4:  "Throttle Valve Duty Cycle",
+    },
+    4: {
+        1:  "Engine Speed",
+        2:  "Engine Load",
+        3:  "Vehicle Speed",
+        4:  "Operating Conditions",
+    },
+    5: {
+        1:  "Engine Speed",
+        2:  "Charcoal Valve Duty Cycle",
+        3:  "Fuel Consumption",
+        4:  "Operating Condition",
+    },
+    6: {
+        1:  "Lambda Control Additive",
+        2:  "Lambda Control Multiplicative",
+        3:  "Throttle Valve Idle Control",
+        4:  "Throttle Valve Idle Control",
+    },
+    7: {
+        1:  "Hall Sender Coordination",
+        2:  "Hall Sender Coordination",
+        3:  "Altitude Correction",
+        4:  "Operating Condition",
+    },
+}
+
+_DIGIFANT_FAULTS: dict[int, str] = {
+    513:  "O2 sensor (G39) — no signal or signal out of range",
+    515:  "Coolant temperature sensor (G62) — open/short circuit",
+    516:  "Intake air temperature sensor (G42) — open/short circuit",
+    517:  "Throttle position sensor (G69) — no signal",
+    519:  "Vehicle speed sensor (G21) — no signal",
+    521:  "Idle speed — actual does not match specified",
+    522:  "Idle speed control valve (N71) — open/short circuit",
+    523:  "Engine speed sensor (G28) — no signal",
+    524:  "Knock sensor (G61) — no signal",
+    527:  "EGR valve — no signal",
+    528:  "Fuel injector — open/short circuit",
+    530:  "Lambda control — control limit reached",
+    540:  "Idle stabilisation — control limit reached",
+    544:  "VAF sensor (G70) — signal out of range",
+    550:  "ISV (N71) — electrical fault",
+    553:  "Charcoal filter solenoid (N80) — open/short circuit",
+}
+
+ECU_DIGIFANT_G60 = ECUDef(
+    part_numbers   = [
+        "037906023",    # 037-906-023    RV engine Golf/Jetta 1990-91
+        "037906023R",   # 037-906-023-R  RV Digifant 1265
+        "037906022",    # 037-906-022    earlier variant
+    ],
+    name           = "Digifant 1 — G60/G40 (037-906-023)",
+    address        = 0x01,
+    baud           = 10400,
+    groups         = _DIGIFANT_GROUPS,
+    faults         = _DIGIFANT_FAULTS,
+    notes          = "Digifant 1 — VW G60/G40 Corrado/Golf/Jetta/Polo 1989-93. "
+                     "Group 0 is largely undocumented raw data. "
+                     "Group 1 is primary: RPM, VAF load, coolant, injection time. "
+                     "No lambda adaptation groups — open loop on most variants.",
+)
+
+ECU_MOTRONIC_2X = ECUDef(
+    part_numbers   = [
+        "037906025ADY",  # 037-906-025-ADY  ADY 2.0 8v 115hp
+        "037906025AFT",  # 037-906-025-AFT  AFT variant
+        "037906018ABA",  # 037-906-018-ABA  ABA 2.0 8v Golf Cabrio
+        "037906018AWG",  # 037-906-018-AWG  AWG variant
+    ],
+    name           = "Motronic 2.x — 2.0 8v (037-906-025)",
+    address        = 0x01,
+    baud           = 10400,
+    groups         = _MOTRONIC_2X_GROUPS,
+    faults         = _DIGIFANT_FAULTS,
+    notes          = "Motronic 2.x 2.0 8v — Corrado/Golf/Jetta/Passat 1991-95. "
+                     "Group 0 has 10 cells including full engine state. "
+                     "Group 6 has lambda adaptation values. "
+                     "Used in DigiTool for G60/G40 ECU editing.",
+)
+
+# Update registry
+ALL_ECU_DEFS.extend([ECU_DIGIFANT_G60, ECU_MOTRONIC_2X])

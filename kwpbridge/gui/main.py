@@ -518,10 +518,11 @@ class KWPBridgeWindow(QMainWindow):
         ))
 
         grp = QButtonGroup(dlg)
-        rb_7a = QRadioButton("7A 20v  (893906266D)  — MMS05C")
+        rb_7a   = QRadioButton("7A 20v  (893906266D)  — MMS05C  [Audi 80/90 2.3 20v]")
         rb_7a.setChecked(True)
-        rb_aah = QRadioButton("AAH V6  (4A0906266)   — MMS100")
-        for rb in (rb_7a, rb_aah):
+        rb_aah  = QRadioButton("AAH V6  (4A0906266)   — MMS100  [Audi 100/S4 2.8 V6]")
+        rb_digi = QRadioButton("Digifant 1  (037906023) — G60/G40  [VW Corrado/Golf/Polo]")
+        for rb in (rb_7a, rb_aah, rb_digi):
             rb.setStyleSheet(f"color:{C_TEXT};")
             grp.addButton(rb)
             lay.addWidget(rb)
@@ -536,7 +537,9 @@ class KWPBridgeWindow(QMainWindow):
         if dlg.exec_() != QDialog.Accepted:
             return
 
-        ecu = "7a" if rb_7a.isChecked() else "aah"
+        if rb_7a.isChecked():    ecu = "7a"
+        elif rb_aah.isChecked(): ecu = "aah"
+        else:                    ecu = "digifant"
         self._start_mock(ecu)
 
     def _start_mock(self, ecu: str):
@@ -586,7 +589,13 @@ class KWPBridgeWindow(QMainWindow):
             return
         try:
             import time
-            from ..mock.ecu_7a import get_scenario_info, SCENARIO_DURATION
+            mod = "ecu_7a" if getattr(self._mock_server, 'ecu', '7a') == "7a" else                   "ecu_digifant" if getattr(self._mock_server, 'ecu', '') in                       ("digifant", "g60", "g40") else None
+            if mod is None:
+                return
+            import importlib
+            _m = importlib.import_module(f"kwpbridge.mock.{mod}")
+            get_scenario_info = _m.get_scenario_info
+            SCENARIO_DURATION = _m.SCENARIO_DURATION
             if self._mock_warmup_start:
                 t = time.time()
                 info = get_scenario_info(t, self._mock_warmup_start)

@@ -116,21 +116,25 @@ class MockServer:
             from .ecu_7a import get_group_0, ECU_PART_NUMBER, ECU_COMPONENT, FAULT_CODES
         elif self.ecu == "aah":
             from .ecu_aah import get_group_0, ECU_PART_NUMBER, ECU_COMPONENT, FAULT_CODES
+        elif self.ecu in ("digifant", "g60", "g40"):
+            from .ecu_digifant import get_group_1 as get_group_0,                                       ECU_PART_NUMBER, ECU_COMPONENT, FAULT_CODES
         else:
-            raise ValueError(f"Unknown mock ECU: {ecu!r}. Use '7a' or 'aah'.")
+            raise ValueError(f"Unknown mock ECU: {ecu!r}. Use '7a', 'aah', or 'digifant'.")
 
         self._get_group_0   = get_group_0
         self._part_number   = ECU_PART_NUMBER
         self._component     = ECU_COMPONENT
         self._fault_codes   = FAULT_CODES
         self._warmup_start  = None   # set on first broadcast
-        # scenario_info only available on 7A mock
+        # scenario_info available on 7A and Digifant mocks
         self._get_scenario_info = None
-        if self.ecu == "7a":
+        if self.ecu in ("7a", "digifant", "g60", "g40"):
             try:
-                from .ecu_7a import get_scenario_info
-                self._get_scenario_info = get_scenario_info
-            except ImportError:
+                mod = "ecu_7a" if self.ecu == "7a" else "ecu_digifant"
+                import importlib
+                m = importlib.import_module(f".{mod}", package=__package__)
+                self._get_scenario_info = m.get_scenario_info
+            except (ImportError, AttributeError):
                 pass
 
     # ── Public API ────────────────────────────────────────────────────────────
