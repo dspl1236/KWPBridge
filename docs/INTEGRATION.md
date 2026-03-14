@@ -223,3 +223,239 @@ flashing tools. When flash support is added to KWPBridge:
 
 That's it — KWPBridge will automatically find the label file and use it
 for any ROM tool that connects.
+
+
+---
+
+## Live Overlay Interface
+
+ROM tools remain fully functional offline. When KWPBridge is running
+and the connected ECU part number matches the loaded ROM, live data
+is available as a **read-only overlay** on map tabs.
+
+### Overlay States
+
+```
+🔴  KWPBridge not running       — ROM tool works normally, no overlay
+🟡  KWPBridge running, mismatch — warn user, no overlay, editing locked
+🟢  KWPBridge running, matched  — full overlay enabled, editing unlocked
+```
+
+### What the overlay shows
+
+**On any 2D map tab (fuel, timing, knock):**
+
+```
+┌──────────────────────────────────────────────────────┐
+│  Primary Fueling                    [🟢 LIVE · 2450 RPM · 43% load] │
+├────────┬──────┬──────┬──────┬──────┬──────┬──────┤
+│        │  750 │ 1000 │ 1500 │ 2000 │ 2500 │ ...  │
+├────────┼──────┼──────┼──────┼──────┼══════╪──────┤  ← RPM cursor
+│  20%   │  ... │  ... │  ... │  ... │ ░░░░ │  ... │  ← active cell
+│  30%   │  ... │  ... │  ... │  ... │ ░░░░ │  ... │    (highlighted)
+│  40%   │  ... │  ... │  ... │  ... │ ████ │  ... │  ← load cursor
+│  50%   │  ... │  ... │  ... │  ... │ ░░░░ │  ... │
+└──────────────────────────────────────────────────────┘
+  λ 0.998 · ign 18.2°  ← live values for current operating point
+```
+
+- **Active cell** — bright border, colour tint based on lambda
+  - Green tint: lambda 0.95–1.05 (at target)
+  - Amber tint: lambda 0.85–0.95 or 1.05–1.15 (off target)
+  - Red tint:   lambda < 0.85 or > 1.15 (significantly off)
+- **RPM cursor** — vertical highlight line on nearest RPM axis column
+- **Load cursor** — horizontal highlight line on nearest load axis row
+- **Status strip** — live RPM, load, lambda, timing for current point
+
+**Overview tab status banner:**
+```
+🟢 KWPBridge · 893906266D · 2450 RPM · 87°C · λ 0.998 · 18.2° ign
+```
+
+**Hardware tab — CO pot live value:**
+```
+CO Pot ADC:  [128] ████████████░░░░░░░░  target: 128  ✓ calibrated
+```
+
+### Implementation
+
+```python
+# Each MapTab subscribes to KWPBridge state
+class MapTab(QWidget):
+    def __init__(self, ...):
+        self._kwp: KWPClient | None = None
+        self._live_rpm:  float | None = None
+        self._live_load: float | None = None
+        self._live_lambda: float | None = None
+
+    def attach_kwp(self, client: KWPClient):
+        """Called by MainWindow when KWPBridge connects + ECU matches."""
+        self._kwp = client
+        self._kwp.on_state(self._on_kwp_state)
+
+    def detach_kwp(self):
+        self._kwp = None
+        self._clear_overlay()
+
+    def _on_kwp_state(self, state: dict):
+        # Extract RPM and load from group 0 (7A) or group 1 (later ECUs)
+        # Update overlay — never touches ROM data
+        rpm  = _extract(state, group=0, cell=3)   # Motordrehzahl
+        load = _extract(state, group=0, cell=2)   # Motorlast
+        lam  = _extract(state, group=0, cell=8)   # Lambdaregelung → λ
+        self._update_overlay(rpm, load, lam)
+
+    def _update_overlay(self, rpm, load, lam):
+        # Find nearest axis indices
+        rpm_idx  = _nearest(self.map_def.rpm_axis,  rpm)
+        load_idx = _nearest(self.map_def.load_axis, load)
+        # Highlight active cell, draw cursor lines
+        # Colour tint based on lambda
+        ...
+```
+
+---
+
+## Future: Assisted Editing (Spitballing)
+
+Ideas for using live data to help with ROM edits. None of this is
+implemented — documenting the concepts while the architecture is fresh.
+
+### 1. Cell trail logging
+
+As the ECU moves through the map during a drive or dyno run, log
+which cells were visited and the lambda/timing at each point.
+After the session, the map tab shows a heat map of coverage —
+cells visited frequently are brighter, unvisited cells are dim.
+
+Useful for: identifying which cells actually need tuning vs which
+are never hit in normal driving.
+
+```python
+# Accumulated during a KWPBridge session
+cell_visits: dict[tuple[int,int], list[float]] = {}
+# (rpm_idx, load_idx) → [lambda readings at that cell]
+```
+
+### 2. Lambda deviation overlay
+
+For each visited cell, compare the live lambda reading to the
+map value. Show the deviation as a colour gradient:
+
+```
+Cell value says λ 1.0 — ECU actually ran λ 0.92 (8% rich)
+→ tint cell amber, show "-8%" annotation
+```
+
+After a full drive cycle, you'd have a deviation map showing
+exactly which cells need enriching or leaning. The user still
+makes the edit manually — the overlay just shows the direction
+and magnitude.
+
+### 3. Suggested corrections
+
+More ambitious: accumulate enough lambda samples at a cell to
+suggest a correction.
+
+```
+Cell [2500 RPM, 40% load]: visited 47 times
+  Mean lambda: 0.918  (target: 1.000)
+  Suggested correction: +9.5% fuel  (+12 raw counts)
+  [Apply suggestion] [Skip] [Log only]
+```
+
+The user reviews and approves each suggestion. The ROM tool
+applies the edit to the in-memory snapshot — never auto-commits
+to the ROM. User still saves and burns manually.
+
+Risks to document clearly:
+- Lambda sensor accuracy — wideband more trustworthy than narrowband O2
+- Transient enrichment can skew samples — need steady-state filtering
+- Load calculation vs actual load — MAF-based ECUs can disagree with MAP
+- Cell interpolation — ECU blends adjacent cells, corrections compound
+
+### 4. Closed-loop assisted tuning (very long term)
+
+The ECU already does closed-loop lambda correction internally
+(the lambda control value in group 0 cell 8). If you can read
+the long-term and short-term trim values, you know exactly how
+much the ECU is already correcting for — and you can fold that
+correction into the base map.
+
+```
+Short-term trim: +6%   (ECU adding fuel right now)
+Long-term trim:  +4%   (ECU has learned to add fuel here)
+→ Base map is 10% lean at this point
+→ Suggested base map correction: +10%
+```
+
+This is essentially what professional ECU calibration software
+does. The difference is that here the ROM is an EPROM that needs
+to be physically burned — so the workflow is:
+  1. Drive → collect data → review suggestions → approve
+  2. Apply corrections to ROM snapshot
+  3. Save → burn new chip → drive again → repeat
+
+Not real-time closed-loop tuning, but assisted iterative tuning
+with a physical chip swap between sessions. Until the Teensy
+emulator is in the loop, at which point a new map could be loaded
+to the SD card without removing the ECU.
+
+### 5. Teensy + KWPBridge combined workflow (future)
+
+When both are running:
+
+```
+KWPBridge reads live data from ECU via K-line
+     ↓
+HachiROM shows overlay + suggests corrections
+     ↓
+User approves correction set
+     ↓
+HachiROM writes updated ROM to Teensy SD card slot
+     ↓
+Teensy loads new ROM on next ignition cycle
+     ↓
+No chip burning required — iterate in minutes not hours
+```
+
+This is the end-game for the whole project stack. The EPROM
+emulator removes the physical chip-swap bottleneck and makes
+iterative tuning practical on a stock ECU without a dyno.
+
+---
+
+## Overlay API (planned, not yet implemented)
+
+```python
+# kwpbridge/overlay.py (future)
+
+class MapOverlay:
+    """
+    Read-only live data overlay for ROM tool map tabs.
+    Consumes KWPBridge state, never modifies ROM data.
+    """
+
+    def attach(self, client: KWPClient, map_def: MapDef,
+               ecu_def: ECUDef): ...
+
+    def detach(self): ...
+
+    # State
+    @property
+    def active_cell(self) -> tuple[int, int] | None: ...
+    @property
+    def live_lambda(self) -> float | None: ...
+    @property
+    def live_timing(self) -> float | None: ...
+
+    # Signals
+    cell_changed    = Signal(int, int)   # (rpm_idx, load_idx)
+    lambda_changed  = Signal(float)
+    overlay_lost    = Signal()           # KWPBridge disconnected
+
+    # Future
+    def start_logging(self): ...
+    def stop_logging(self) -> CellLog: ...
+    def get_suggestions(self, log: CellLog) -> list[CellCorrection]: ...
+```
