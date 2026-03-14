@@ -197,3 +197,35 @@ def test_registry_total_count():
     # At least the files we know are there
     assert "893906266D" in available
     assert len(available) >= 100          # sanity check on collection size
+
+
+# ── Repo integrity checks ─────────────────────────────────────────────────────
+
+REPO_ROOT = Path(__file__).parent.parent
+
+def test_scaling_obd_scl_present():
+    assert (REPO_ROOT / "scaling" / "OBD.SCL").exists(), \
+        "scaling/OBD.SCL missing from repo"
+
+def test_scaling_a01_presets_present():
+    a01_files = list((REPO_ROOT / "scaling").glob("*.a01"))
+    assert len(a01_files) >= 10, \
+        f"Expected ≥10 .a01 scaling presets, found {len(a01_files)}"
+
+def test_labels_directory_populated():
+    lbl_files = list((REPO_ROOT / "labels").glob("*.lbl")) + \
+                list((REPO_ROOT / "labels").glob("*.LBL"))
+    assert len(lbl_files) >= 100, \
+        f"Expected ≥100 label files, found {len(lbl_files)}"
+
+def test_labels_credits_present():
+    assert (REPO_ROOT / "labels" / "CREDITS.md").exists(), \
+        "labels/CREDITS.md missing"
+
+def test_labels_266d_present():
+    assert (REPO_ROOT / "labels" / "893-906-266-D.lbl").exists(), \
+        "labels/893-906-266-D.lbl missing — core 7A label file"
+
+def test_docs_integration_present():
+    assert (REPO_ROOT / "docs" / "INTEGRATION.md").exists(), \
+        "docs/INTEGRATION.md missing"
