@@ -69,9 +69,9 @@ C_TEXT      = "#e0e0e0"
 C_DIM       = "#555555"
 C_BLUE      = "#4488ff"
 
-COMPACT_H   = 110    # compact window height
-GAUGE_H     = 480    # expanded window height
-WINDOW_W    = 520
+COMPACT_H   = 220    # compact window height — fits all controls without scrolling
+GAUGE_H     = 490    # expanded window height — compact + gauge panel
+WINDOW_W    = 540    # slightly wider to breathe
 
 
 # ── Worker signals ────────────────────────────────────────────────────────────
@@ -249,7 +249,7 @@ class KWPBridgeWindow(QMainWindow):
     def _setup_ui(self):
         self.setWindowTitle(f"KWPBridge  v{__version__}")
         self.setFixedWidth(WINDOW_W)
-        self.setMinimumHeight(COMPACT_H)
+        self.setFixedHeight(COMPACT_H)
         self.setStyleSheet(f"background:{C_BG}; color:{C_TEXT};")
 
         central = QWidget()
@@ -419,7 +419,7 @@ class KWPBridgeWindow(QMainWindow):
 
         main.addWidget(self.gauge_panel)
 
-        self.resize(WINDOW_W, COMPACT_H)
+        # Height set via setFixedHeight above — no resize needed
 
     def _btn_style(self, colour: str) -> str:
         return (

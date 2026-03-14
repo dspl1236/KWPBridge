@@ -17,7 +17,7 @@ Detection: client apps connect to localhost:50266 — if the connection
 succeeds, KWPBridge is running. If refused, feature is unavailable.
 """
 
-__version__ = "0.8.0"
+__version__ = "0.8.1"
 __all__ = [
     "KWP1281",
     "KWPServer",
