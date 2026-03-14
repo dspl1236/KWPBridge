@@ -32,7 +32,7 @@ jobs:
         run: |
           pyinstaller kwpbridge.spec
 
-      - name: Verify EXE exists
+      - name: Smoke test EXE exists and is runnable
         run: |
           dir dist\
           if not exist "dist\KWPBridge.exe" exit 1

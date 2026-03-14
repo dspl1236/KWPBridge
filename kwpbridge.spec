@@ -2,13 +2,6 @@
 #
 # KWPBridge PyInstaller spec
 #
-# Bundles:
-#   - kwpbridge package (protocol, server, client, GUI, lbl_parser)
-#   - labels/  (engine/ and modules/ subdirectories — all .lbl files)
-#   - scaling/ (.a01, .a03, .SCL presets)
-#   - PyQt5 (GUI framework)
-#   - pyserial (K-line communication)
-#
 # Build:  pyinstaller kwpbridge.spec
 # Output: dist/KWPBridge.exe
 
@@ -17,8 +10,7 @@ from pathlib import Path
 
 ROOT = Path('.').resolve()
 
-
-# ── Collect all label files (subdirectories included) ────────────────────────
+# ── Collect all label files ──────────────────────────────────────────────────
 label_datas = []
 for subdir in ['', 'engine', 'modules']:
     label_path = ROOT / 'labels' / subdir if subdir else ROOT / 'labels'
@@ -41,7 +33,7 @@ print(f"Bundling {len(scaling_datas)} scaling files")
 
 # ── Analysis ──────────────────────────────────────────────────────────────────
 a = Analysis(
-    ['kwpbridge/__main__.py'],
+    ['kwpbridge_gui.py'],           # top-level script, no relative imports
     pathex=[str(ROOT)],
     binaries=[],
     datas=label_datas + scaling_datas,
@@ -57,6 +49,10 @@ a = Analysis(
         'kwpbridge.constants',
         'kwpbridge.gui',
         'kwpbridge.gui.main',
+        'kwpbridge.mock',
+        'kwpbridge.mock.server',
+        'kwpbridge.mock.ecu_7a',
+        'kwpbridge.mock.ecu_aah',
         'serial',
         'serial.tools',
         'serial.tools.list_ports',
@@ -72,10 +68,8 @@ a = Analysis(
     noarchive=False,
 )
 
-# ── PYZ ───────────────────────────────────────────────────────────────────────
 pyz = PYZ(a.pure)
 
-# ── EXE ───────────────────────────────────────────────────────────────────────
 exe = EXE(
     pyz,
     a.scripts,
@@ -89,12 +83,10 @@ exe = EXE(
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=False,          # no console window — GUI only
+    console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    # icon='kwpbridge/gui/icon.ico',   # uncomment when icon is added
-    version_file=None,
 )
