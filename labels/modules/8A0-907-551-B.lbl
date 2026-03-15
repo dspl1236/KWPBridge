@@ -1,0 +1,5 @@
+; KWPBridge Label File
+; Audi RS2 / ADU engine — Bosch Motronic M2.3.2 (ADU variant)
+; Part Number: 8A0-907-551-B  (ADU RS2 315hp, same block layout as AAN/ABY)
+REDIRECT,4A0-907-551-AA.lbl,B
+; ***EOF***

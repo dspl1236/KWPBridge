@@ -1,0 +1,39 @@
+; VCDS / KWPBridge Label File (extended version)
+; Audi S2 Coupe/Avant 1992-1995 — Bosch Motronic M2.3.2
+; Component: 2.2l R5 MOTR.RHV HS D02 (ABY engine)
+; Part Number: 895-907-551-A
+; Engine code: ABY
+; Original file: Paul Nugent 2002 — groups 1-7 only, no scaling
+; This version: extended with confirmed scaling from PRJ WinlogDriver.cpp
+;---------------------------------------------------
+001,0,ABY Engine Group 1 : General & Ignition
+001,1,Engine Speed,(raw × 40) RPM,Idle: 770-830 RPM
+001,2,Coolant Temp,((raw - 70) × 0.7) °C,Normal: 70-106°C
+001,3,Lambda Factor,(raw / 128) λ,~ 1.0 at cruise
+001,4,Ignition Timing,°BTDC,Idle: 8-12° BTDC
+002,0,ABY Engine Group 2 : General & Injection
+002,1,Engine Speed,(raw × 40) RPM
+002,2,Injector Duration,(raw × 0.52) ms
+002,3,Battery Voltage,(raw × 0.068) V
+002,4,Atmospheric Pressure,kPa
+003,0,ABY Engine Group 3 : Load / Temps / Throttle
+003,1,Engine Speed,(raw × 40) RPM
+003,2,Engine Load,(raw / 25.0)
+003,3,Throttle Angle,(raw × 0.416) %
+003,4,Intake Air Temp,((raw - 70) × 0.7) °C
+004,0,ABY Engine Group 4 : Load / Speed / Throttle Switches
+004,1,Engine Speed,(raw × 40) RPM
+004,2,Engine Load,(raw / 25.0)
+004,3,Vehicle Speed,(raw × 2) km/h
+004,4,Throttle Switches,Idle=00010 binary
+005,0,ABY Engine Group 5 : Idle Air Control (IAC) & AC Detection
+005,1,Engine Speed,(raw × 40) RPM,Idle: 770-830 RPM
+005,2,IAC Zero Point,70-125 normal
+005,3,IAC Duty Cycle,%
+005,4,Load Switches,AC ON = bit 2 set (0100)
+007,0,ABY Engine Group 7 : Idle Air Control (IAC) Valve
+007,1,Operating Range,121-135 normal
+007,2,Curve Zero Point,70-125 normal
+007,3,Curve Control,41-61 normal
+007,4,Load Adaptation,123-137 normal
+; ***EOF***

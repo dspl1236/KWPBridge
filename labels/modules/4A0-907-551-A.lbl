@@ -1,0 +1,5 @@
+; KWPBridge Label File
+; Audi S2 / 200 20vT — Bosch Motronic M2.3.2 (551A variant)
+; Part Number: 4A0-907-551-A  (earlier PN, same firmware as 551AA)
+REDIRECT,4A0-907-551-AA.lbl,A
+; ***EOF***

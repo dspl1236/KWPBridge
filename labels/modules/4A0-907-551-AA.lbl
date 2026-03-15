@@ -1,0 +1,59 @@
+; VCDS / KWPBridge Label File
+; Audi S2 / 200 20vT / UrS4 — Bosch Motronic M2.3.2
+; Part Numbers: 4A0-907-551-AA, 4A0-907-551-A, 895-907-551-A
+; Engine codes: AAN (200hp), ABY (230hp S2 Coupe/Avant)
+; KWP1281 address: 0x01   Baud: 9600
+; Created for KWPBridge
+; Scaling from PRJ WinlogDriver.cpp (vwnut8392/m232)
+;   RPM:    raw mal 40 = RPM
+;   Load:   raw / 25 (unitless)
+;   Batt:   raw mal 0.068 = V
+;   ECT/IAT: approx raw minus 70 = deg C
+;   TPS:    raw mal 0.416 = %
+;   Lambda: raw / 128 = lambda
+;   MAP:    raw / 1.035 = kPa (MPXH6400A sensor)
+;   IPW:    raw mal 0.52 = ms (effective)
+;   N75 DC: raw / 194 = % (not expressible with single pattern)
+;   VSS:    raw mal 2 = km/h
+;---------------------------------------------------
+001,0,M2.3.2 Group 1 : General & Ignition
+001,1,Engine Speed,Anzeige mal 40 = RPM,Idle: 800-850
+001,2,Coolant Temperature,Anzeige minus 70 = °C,Normal 85-95 C
+001,3,Lambda Factor,128 = stoich,less than 128 = rich
+001,4,Ignition Timing,°BTDC
+002,0,M2.3.2 Group 2 : General & Injection
+002,1,Engine Speed,Anzeige mal 40 = RPM
+002,2,Injector Duration,Anzeige mal 0.52 = ms
+002,3,Battery Voltage,Anzeige mal 0.068 = V
+002,4,Atmospheric Pressure,kPa
+003,0,M2.3.2 Group 3 : Load / Temps / Throttle
+003,1,Engine Speed,Anzeige mal 40 = RPM
+003,2,Engine Load,raw 1-255
+003,3,Throttle Angle,Anzeige mal 0.416 = %
+003,4,Intake Air Temp,Anzeige minus 70 = °C
+004,0,M2.3.2 Group 4 : Load / Speed / Throttle Switches
+004,1,Engine Speed,Anzeige mal 40 = RPM
+004,2,Engine Load,raw 1-255
+004,3,Vehicle Speed,Anzeige mal 2 = km/h
+004,4,Throttle Switches,Binary flags
+005,0,M2.3.2 Group 5 : Idle Air Control
+005,1,Engine Speed,Anzeige mal 40 = RPM
+005,2,IAC Valve Zero Point,70-125 normal
+005,3,IAC Duty Cycle,%
+005,4,Load Switches,AC-on = bit 2
+006,0,M2.3.2 Group 6 : Boost / N75 (prjmod firmware)
+006,1,N75 Duty Cycle,%DC
+006,2,N75 Request,%DC
+006,3,MAP Actual,kPa abs (MPXH6400A)
+006,4,MAP Request,kPa abs
+007,0,M2.3.2 Group 7 : Knock Sensors
+007,1,Knock Sensor 1,Anzeige mal 0.5 = units
+007,2,Knock Sensor 2,Anzeige mal 0.5 = units
+007,3,Knock Sensor 3,Anzeige mal 0.5 = units
+007,4,Knock Sensor 4,Anzeige mal 0.5 = units
+008,0,M2.3.2 Group 8 : Injection Details
+008,1,Effective IPW,Anzeige mal 0.52 = ms
+008,2,Injector Dead-time,Anzeige mal 0.010667 = ms
+008,3,Actual IPW,ms
+008,4,Injector Duty Cycle,%
+; ***EOF***

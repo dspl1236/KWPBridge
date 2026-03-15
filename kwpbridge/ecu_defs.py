@@ -460,3 +460,143 @@ ECU_MOTRONIC_2X = ECUDef(
 
 # Update registry
 ALL_ECU_DEFS.extend([ECU_DIGIFANT_G60, ECU_MOTRONIC_2X])
+
+
+# ── Bosch M2.3.2 — AAN/ABY/ADU (4A0-907-551-AA / 551C) ──────────────────────
+# KWP1281 measuring blocks confirmed from:
+#   - PRJ WinlogDriver.cpp field names and decode formulas
+#   - 895-907-551.lbl (Paul Nugent 2002, ABY S2)
+#   - S2Forum m232-org community research
+#   - 8D0-906-266 (Hitachi AAH, different ECU but same block layout convention)
+# Baud: 9600 (Bosch M2.3.x standard)
+# Address: 0x01 (Engine module)
+# 4 data cells per group (KWP1281 standard VAG layout)
+
+_M232_GROUPS: dict[int, dict[int, str]] = {
+    1: {
+        0: "M2.3.2 Group 1 : General & Ignition",
+        1: "Engine Speed",
+        2: "Coolant Temp",
+        3: "Lambda Factor",
+        4: "Ignition Timing",
+    },
+    2: {
+        0: "M2.3.2 Group 2 : General & Injection",
+        1: "Engine Speed",
+        2: "Injector Duration",
+        3: "Battery Voltage",
+        4: "Atmospheric Pressure",
+    },
+    3: {
+        0: "M2.3.2 Group 3 : Load / Temps / Throttle",
+        1: "Engine Speed",
+        2: "Engine Load",
+        3: "Throttle Angle",
+        4: "Intake Air Temp",
+    },
+    4: {
+        0: "M2.3.2 Group 4 : Load / Speed / Throttle Switches",
+        1: "Engine Speed",
+        2: "Engine Load",
+        3: "Vehicle Speed",
+        4: "Throttle Switches",
+    },
+    5: {
+        0: "M2.3.2 Group 5 : Idle Air Control",
+        1: "Engine Speed",
+        2: "IAC Zero Point",
+        3: "IAC Duty Cycle",
+        4: "Load Switches",
+    },
+    6: {
+        0: "M2.3.2 Group 6 : Boost / N75 (prjmod)",
+        1: "N75 Duty Cycle",
+        2: "N75 Request",
+        3: "MAP Actual (kPa)",
+        4: "MAP Request (kPa)",
+    },
+    7: {
+        0: "M2.3.2 Group 7 : Knock Sensors",
+        1: "Knock Sensor 1",
+        2: "Knock Sensor 2",
+        3: "Knock Sensor 3",
+        4: "Knock Sensor 4",
+    },
+    8: {
+        0: "M2.3.2 Group 8 : Injection Details",
+        1: "Effective IPW",
+        2: "Injector Dead-time",
+        3: "Actual IPW",
+        4: "Injector Duty Cycle",
+    },
+}
+
+_M232_FAULTS: dict[int, str] = {
+    # Engine sensors
+    513:  "ECT Sensor G62 — open/short circuit",
+    514:  "ECT Sensor G62 — signal out of range",
+    515:  "IAT Sensor G42 — open/short circuit",
+    516:  "IAT Sensor G42 — signal out of range",
+    522:  "TPS G69 — open/short circuit",
+    523:  "TPS G69 — signal out of range",
+    524:  "Closed throttle switch F60 — open/short",
+    526:  "WOT switch F61 — open/short",
+    531:  "Knock sensor G61 — open/short / no signal",
+    532:  "Knock sensor G66 — open/short / no signal",
+    533:  "Engine speed sensor G28 — no signal",
+    537:  "Lambda sensor G39 — control limit exceeded",
+    543:  "Fuel pump relay J17 — open/short circuit",
+    545:  "Camshaft position sensor G40 — no signal",
+    551:  "Injection valve cyl 1 — open/short",
+    552:  "MAF sensor G70 — signal out of range",
+    553:  "MAF sensor G70 — open/short circuit",
+    557:  "MAP sensor G71 — signal out of range",
+    558:  "MAP sensor G71 — open/short circuit",
+    # Boost
+    565:  "N75 boost pressure solenoid — open/short circuit",
+    575:  "Boost pressure too low — below specified level",
+    576:  "Boost pressure too high — overboost",
+    # Injectors
+    577:  "Injector cylinder 1 N30 — open/short",
+    578:  "Injector cylinder 2 N31 — open/short",
+    579:  "Injector cylinder 3 N32 — open/short",
+    580:  "Injector cylinder 4 N33 — open/short",
+    581:  "Injector cylinder 5 N83 — open/short",
+    # ROM
+    0:    "ECU internal fault — ROM checksum error",
+    65535: "No fault codes stored",
+}
+
+ECU_M232_AAN = ECUDef(
+    part_numbers   = [
+        "4A0907551AA",   # 4A0-907-551-AA  AAN/ABY — most common
+        "4A0907551A",    # 4A0-907-551-A   earlier PN variant
+        "4A0907551",     # 4A0-907-551     base PN fallback
+        "895907551A",    # 895-907-551-A   ABY S2 factory
+        "8A0907551B",    # 8A0-907-551-B   RS2/ADU (redirect)
+    ],
+    name           = "Bosch M2.3.2 — AAN/ABY/ADU 20vT (4A0-907-551-AA)",
+    address        = 0x01,
+    baud           = 9600,
+    groups         = _M232_GROUPS,
+    faults         = _M232_FAULTS,
+    basic_settings = {
+        # Basic setting group number : procedure description
+        # No confirmed basic settings via KWP1281 on stock M2.3.2 except:
+        # Group 0 = display all live data (read only)
+    },
+    notes          = (
+        "Bosch Motronic M2.3.2 — AAN 20vT (200hp), ABY S2 (230hp), ADU RS2 (315hp). "
+        "KWP1281 at 9600 baud, address 0x01. "
+        "4 data cells per group, 2-byte words (big-endian). "
+        "Firmware variants: stock Bosch / 034EFI Rip Chip / prjmod 0x0202. "
+        "Group 6-8 data available on prjmod firmware only. "
+        "Decode scaling: RPM=raw×40, Load=raw/25, ECT/IAT=(raw-70)×0.7°C, "
+        "TPS=raw×0.416%, Lambda=raw/128, IGN=°BTDC raw, "
+        "MAP=raw/1.035 kPa (MPXH6400A), IPW=raw×0.52ms, VSS=raw×2km/h. "
+        "Label file: labels/modules/4A0-907-551-AA.lbl"
+    ),
+)
+
+# Update registry
+ALL_ECU_DEFS.append(ECU_M232_AAN)

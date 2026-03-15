@@ -114,32 +114,52 @@ class LBLFile:
 
 # Patterns found in 7A and other MMS ECU label files
 _FORMULA_PATTERNS = [
-    # "Anzeige mal 25 = U/min."  → ×25, RPM
+    # German: "Anzeige mal 25 = U/min."  → ×25, RPM
     (re.compile(r'mal\s+([\d.]+)\s*=\s*(.+)', re.I),
      lambda m: (float(m.group(1)), m.group(2).strip())),
-    # "Anzeigewert mal 1.33 = °v.OT"
+    # German: "Anzeigewert mal 1.33 = °v.OT"
     (re.compile(r'anzeigewert\s+mal\s+([\d.]+)\s*=\s*(.+)', re.I),
      lambda m: (float(m.group(1)), m.group(2).strip())),
-    # "Anzeige minus 50 = °C"  → -50 offset
+    # German: "Anzeige minus 50 = °C"  → -50 offset
     (re.compile(r'minus\s+([\d.]+)\s*=\s*(.+)', re.I),
      lambda m: (-float(m.group(1)), m.group(2).strip())),
-    # "Anzeige plus 50 = ..."  → +50 offset (rare)
+    # German: "Anzeige plus 50 = ..."  → +50 offset (rare)
     (re.compile(r'plus\s+([\d.]+)\s*=\s*(.+)', re.I),
      lambda m: (float(m.group(1)), m.group(2).strip())),
-    # "x 0.1 = bar"
+    # Generic: "x 0.1 = bar"
     (re.compile(r'x\s+([\d.]+)\s*=\s*(.+)', re.I),
      lambda m: (float(m.group(1)), m.group(2).strip())),
+    # English: "raw × 40 = RPM" (× is Unicode multiply U+00D7, also accept * or x)
+    (re.compile(r'raw\s*[×x\*]\s*([\d.]+)\s*=\s*(.+)', re.I),
+     lambda m: (float(m.group(1)), m.group(2).strip())),
+    # English: "(raw × 40) RPM" — our label note format
+    (re.compile(r'\(raw\s*[×x\*]\s*([\d.]+)\)\s*([\w°/% ]+)', re.I),
+     lambda m: (float(m.group(1)), m.group(2).strip())),
+    # English: "raw - 50 = °C"
+    (re.compile(r'raw\s*-\s*([\d.]+)\s*=\s*(.+)', re.I),
+     lambda m: (-float(m.group(1)), m.group(2).strip())),
+    # English: "raw / 25 = load"  → divide
+    (re.compile(r'raw\s*/\s*([\d.]+)\s*=\s*(.+)', re.I),
+     lambda m: (1.0 / float(m.group(1)), m.group(2).strip())),
 ]
 
-# Unit cleanup map
+# Unit cleanup map — handles both UTF-8 and latin-1 decoded variants of degree symbol
 _UNIT_MAP = {
     'u/min': 'RPM', 'rpm': 'RPM',
-    '°c': '°C', 'grad c': '°C', '°c': '°C',
+    # degree + C in various encodings
+    '°c': '°C', 'grad c': '°C', '\xc2\xb0c': '°C',
+    '\xe2\x80\xa2c': '°C',   # another possible mangling
+    'â°c': '°C',             # UTF-8 ° as latin-1 (Â° stripped to â°)
+    # degree BTDC
     '°v.ot': '° BTDC', '°vor ot': '° BTDC', 'grad vor ot': '° BTDC',
+    'â°v.ot': '° BTDC', 'â°btdc': '° BTDC', '°btdc': '° BTDC',
+    'btdc': '° BTDC',
+    # voltage, time, percent
     'v': 'V', 'volt': 'V',
     'ms': 'ms', 'msec': 'ms',
     '%': '%', 'prozent': '%',
     'bar': 'bar', 'mbar': 'mbar',
+    'kpa': 'kPa', 'kpa abs': 'kPa',
     'km/h': 'km/h', 'mph': 'mph',
     'nm': 'Nm',
     'lambda': 'λ', 'λ': 'λ',
@@ -180,8 +200,11 @@ def _parse_formula_hint(notes: list[str]) -> tuple[Callable | None, str]:
 
 
 def _clean_unit(unit_raw: str) -> str:
-    """Normalise unit string."""
+    """Normalise unit string, handling latin-1 decoded UTF-8 sequences."""
     u = unit_raw.strip().rstrip('.').strip()
+    # Strip latin-1 decoded UTF-8 lead bytes that appear before degree sign:
+    # UTF-8 ° = 0xC2 0xB0; read as latin-1 = 'Â°'; strip the 'Â' prefix
+    u = u.replace('Â', '').replace('\xc2', '').strip()
     return _UNIT_MAP.get(u.lower(), u)
 
 
@@ -252,6 +275,11 @@ def parse_lbl(path: str | Path) -> LBLFile:
         if (parts[0].startswith('C') and
                 len(parts[0]) >= 2 and parts[0][1:].isdigit()):
             _parse_coding_line(lbl, parts, raw_line)
+            continue
+
+        # REDIRECT directive: REDIRECT,target.lbl,suffix1,...
+        if parts[0].upper() == 'REDIRECT' and len(parts) >= 3:
+            _parse_redirect_line(lbl, raw_line)
             continue
 
         # Adaptation line: A,channel,label[,notes...]
@@ -512,16 +540,18 @@ class LBLRegistry:
     def _load_redirect_target(self, filename: str,
                                search_path: Path) -> 'LBLFile | None':
         """Load the target file from a REDIRECT directive."""
-        full = search_path / filename
-        if not full.exists():
-            full = search_path / filename.upper()
-        if not full.exists():
-            full = search_path / filename.lower()
-        if full.exists():
-            try:
-                return parse_lbl(full)
-            except Exception as e:
-                log.warning(f"Failed to parse redirect target {full}: {e}")
+        # Search root and one level of subdirectories (same as get())
+        search_dirs = [search_path]
+        if search_path.exists():
+            search_dirs += [d for d in search_path.iterdir() if d.is_dir()]
+        for sdir in search_dirs:
+            for name in (filename, filename.upper(), filename.lower()):
+                full = sdir / name
+                if full.exists():
+                    try:
+                        return parse_lbl(full)
+                    except Exception as e:
+                        log.warning(f"Failed to parse redirect target {full}: {e}")
         return None
 
     def _make_candidates(self, pn: str) -> list[str]:

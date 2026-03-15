@@ -1,0 +1,68 @@
+; VCDS / KWPBridge Label File
+; Audi 90/80/Coupe 2.3l 20V — Hitachi MMS-05C ECU
+; Component: 2.3 20V MOTRONIC
+; Part Number: 893-906-266-D  (late, 4-connector, post-03/1990)
+; Also covers: 893-906-266-B  (early, 2-connector, pre-03/1990)
+; Engine code: 7A
+; Created for KWPBridge — English with confirmed scaling
+; Source: schorsch9999 (German original) + Hitachi MMS service manual
+;   RPM:  raw mal 25 = RPM
+;   ECT:  raw minus 50 = °C
+;   IGN:  raw mal 1.33 = °BTDC
+;---------------------------------------------------
+000,0,7A Engine Block 0
+000,1,Coolant Temperature,Anzeige minus 50 = °C,Idle: 85-110 C (raw 135-160)
+000,2,Engine Load,1-255 raw,255 = theoretical full load
+000,3,Engine Speed,Anzeige mal 25 = RPM,Idle: 750-850 (raw 30-34)
+000,4,Idle Stab Learned,0-7 or 249-255
+000,5,Idle Stab Auto,0-7 or 249-255,0 for manual gearbox
+000,6,Idle Stab Position,126-130 normal,Midpoint = 128
+000,7,Switch Inputs,Manual idle = 24
+000,8,Lambda Control,Sollwert: 118 bis 138,128 = stoich / lower = rich / higher = lean
+000,9,Distributor Position,254/255/0/1/2 = normal,Centre = 0
+000,10,Ignition Angle,Anzeigewert mal 1.33 = °v.OT,Idle: 8-12 BTDC
+001,0,7A Engine Group 1 : Speed / Coolant / Lambda / Ignition
+001,1,Engine Speed,Anzeige mal 25 = RPM
+001,2,Coolant Temp,Anzeige minus 50 = °C
+001,3,Lambda Control,128 = stoich
+001,4,Ignition Timing,Anzeigewert mal 1.33 = °v.OT
+002,0,7A Engine Group 2 : Speed / Load / Injection / MAF
+002,1,Engine Speed,Anzeige mal 25 = RPM
+002,2,Engine Load,1-255
+002,3,Injection Duration,ms
+002,4,MAF Sensor (G70),V
+003,0,7A Engine Group 3 : Speed / MAF / Throttle / Timing
+003,1,Engine Speed,Anzeige mal 25 = RPM
+003,2,MAF Sensor (G70),V
+003,3,Throttle Valve Angle,degrees
+003,4,Ignition Timing Angle,Anzeigewert mal 1.33 = °v.OT
+004,0,7A Engine Group 4 : Speed / Battery / Temps
+004,1,Engine Speed,Anzeige mal 25 = RPM
+004,2,Battery Voltage,V
+004,3,Coolant Temp,Anzeige minus 50 = °C
+004,4,Intake Air Temp,Anzeige minus 50 = °C
+005,0,7A Engine Group 5 : Speed / Load / VSS / Status
+005,1,Engine Speed,Anzeige mal 25 = RPM
+005,2,Engine Load,1-255
+005,3,Vehicle Speed,km/h
+005,4,Load Status,Binary flags
+006,0,7A Engine Group 6 : Speed / Load / IAT / Altitude
+006,1,Engine Speed,Anzeige mal 25 = RPM
+006,2,Engine Load,1-255
+006,3,Intake Air Temp,Anzeige minus 50 = °C
+006,4,Altitude Correction Factor,raw
+007,0,7A Engine Group 7 : Speed / Load / Coolant / Throttle
+007,1,Engine Speed,Anzeige mal 25 = RPM
+007,2,Engine Load,1-255
+007,3,Coolant Temp,Anzeige minus 50 = °C
+007,4,Throttle Valve Angle,degrees
+008,0,7A Engine Group 8 : CO Pot Basic Setting
+008,1,Engine Speed,Anzeige mal 25 = RPM
+008,2,CO Pot ADC Value,0-255 raw,Target = 128 when calibrated
+008,3,CO Pot Status,0 = uncalibrated / 1 = calibrated
+008,4,CO Pot Trim Value,ROM 0x0777 scalar,128 = zero trim
+C1,00 = Automatic gearbox without EGR
+C2,01 = Automatic gearbox with EGR
+C3,10 = Manual gearbox with EGR
+C4,11 = Manual gearbox without EGR
+; ***EOF***

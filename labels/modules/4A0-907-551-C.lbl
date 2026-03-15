@@ -1,0 +1,18 @@
+; VCDS / KWPBridge Label File
+; Audi RS2 / ADU engine — Bosch Motronic M2.3.2
+; Component: 2.2l R5 MOTR.RHV RS2 (ADU engine)
+; Part Numbers: 4A0-907-551-C, 8A0-907-551-B, 4A0-907-551-B
+; Engine code: ADU (RS2, 315hp)
+; KWP1281 address: 0x01 (Engine)
+; Baud rate: 9600
+; Created for KWPBridge
+; Sources: PRJ WinlogDriver.cpp, S2Forum, 034EFI documentation
+;
+; NOTE: ADU ECU uses same measuring block layout as AAN/ABY (551AA label)
+; with RS2-specific boost targets and injector calibration.
+; If using 034EFI Rip Chip RS2 tune, also see 4A0-907-551-AA label.
+;---------------------------------------------------
+REDIRECT,4A0-907-551-AA.lbl,B,C
+; NOTE: All measuring block and fault code data is identical to AAN/ABY.
+; This file redirects to 4A0-907-551-AA.lbl for the full label set.
+; ***EOF***
