@@ -31,7 +31,6 @@ Usage:
 import logging
 import time
 from dataclasses import dataclass, field
-from typing import Optional, Union
 
 log = logging.getLogger(__name__)
 
@@ -159,13 +158,13 @@ class ProtocolDetector:
         Returns (connection_object, ecu_id) on success, raises on failure.
         """
         if proto == PROTO_KWP1281:
-            from .protocol import KWP1281, KWPError
+            from .protocol import KWP1281
             kwp = KWP1281(port=self.port, cable_type=self.cable_type)
             ecu_id = kwp.connect(self.ecu_address)
             return kwp, ecu_id
 
         elif proto == PROTO_KWP2000:
-            from .kwp2000 import KWP2000, KWP2000Error
+            from .kwp2000 import KWP2000
             kwp = KWP2000(
                 port=self.port,
                 cable_type=self.cable_type,

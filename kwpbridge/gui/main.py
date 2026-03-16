@@ -23,14 +23,14 @@ from pathlib import Path
 try:
     from PyQt5.QtWidgets import (
         QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
-        QLabel, QPushButton, QComboBox, QFrame, QSizePolicy,
-        QStatusBar, QAction, QFileDialog, QMessageBox, QProgressBar,
-        QGridLayout, QGroupBox, QLineEdit, QSpinBox,
+        QLabel, QPushButton, QComboBox, QFrame,
+        QMessageBox, QProgressBar,
+        QGridLayout,
         QDialog, QTableWidget, QTableWidgetItem, QHeaderView,
-        QAbstractItemView, QDialogButtonBox,
+        QAbstractItemView,
     )
     from PyQt5.QtCore import Qt, QTimer, pyqtSignal, QObject
-    from PyQt5.QtGui import QFont, QColor, QPalette
+    from PyQt5.QtGui import QColor, QPalette
 except ImportError:
     print("PyQt5 required: pip install PyQt5")
     sys.exit(1)
@@ -40,8 +40,6 @@ import serial.tools.list_ports
 from ..constants  import DEFAULT_PORT, CABLE_AUTO, CABLE_ROSS_TECH, CABLE_FTDI, CABLE_CH340
 from ..protocol_detect import PROTO_AUTO, PROTO_KWP1281, PROTO_KWP2000
 from ..lbl_parser import LBLRegistry, decode_with_lbl
-from ..ecu_defs   import find_ecu_def
-from ..server     import KWPServer
 from .. import __version__
 
 log = logging.getLogger(__name__)
@@ -114,7 +112,7 @@ class ConnectionWorker(threading.Thread):
                 pass
 
     def run(self):
-        from ..protocol_detect import ProtocolDetector, PROTO_AUTO
+        from ..protocol_detect import ProtocolDetector
 
         def _status(msg):
             self.signals.error.emit(msg)   # reuse error signal for status display
@@ -187,7 +185,7 @@ class GaugeWidget(QWidget):
         self._max = max_val
         self._show_bar = show_bar
         self.setStyleSheet(f"background:{C_PANEL}; border:1px solid {C_BORDER}; "
-                           f"border-radius:4px;")
+                           "border-radius:4px;")
         layout = QVBoxLayout(self)
         layout.setContentsMargins(10, 8, 10, 8)
         layout.setSpacing(2)
@@ -200,7 +198,7 @@ class GaugeWidget(QWidget):
         self.lbl_value.setAlignment(Qt.AlignCenter)
         self.lbl_value.setStyleSheet(
             f"color:{C_TEXT}; font-size:26px; font-weight:bold; "
-            f"font-family:Consolas; border:none;")
+            "font-family:Consolas; border:none;")
 
         self.lbl_unit  = QLabel(unit)
         self.lbl_unit.setAlignment(Qt.AlignCenter)
@@ -227,12 +225,12 @@ class GaugeWidget(QWidget):
             self.lbl_value.setText("—")
             self.lbl_value.setStyleSheet(
                 f"color:{C_DIM}; font-size:26px; font-weight:bold; "
-                f"font-family:Consolas; border:none;")
+                "font-family:Consolas; border:none;")
         else:
             self.lbl_value.setText(f"{value:.1f}".rstrip('0').rstrip('.'))
             self.lbl_value.setStyleSheet(
                 f"color:{colour}; font-size:26px; font-weight:bold; "
-                f"font-family:Consolas; border:none;")
+                "font-family:Consolas; border:none;")
             if self._show_bar and hasattr(self, 'bar'):
                 pct = max(0, min(1000, int(
                     (value - self._min) / max(1, self._max - self._min) * 1000)))
@@ -284,7 +282,7 @@ class FaultDialog(QDialog):
 
         self.setWindowTitle("Fault Codes — KWPBridge")
         self.resize(800, 480)
-        self.setStyleSheet(f"""
+        self.setStyleSheet("""
             QDialog   {{ background:{self._BG};  color:{self._FG}; }}
             QLabel    {{ color:{self._FG}; font-family:Consolas; font-size:11px; }}
             QPushButton {{
@@ -330,7 +328,7 @@ class FaultDialog(QDialog):
         hdr_lay.setSpacing(10)
 
         self._lbl_ecu = QLabel("—")
-        self._lbl_ecu.setStyleSheet(f"color:#4db8ff; font-size:12px; font-weight:bold;")
+        self._lbl_ecu.setStyleSheet("color:#4db8ff; font-size:12px; font-weight:bold;")
         hdr_lay.addWidget(self._lbl_ecu)
 
         self._lbl_count = QLabel("No faults read")
@@ -804,7 +802,7 @@ class KWPBridgeWindow(QMainWindow):
         self.fault_list.setWordWrap(True)
         self.fault_list.setStyleSheet(
             f"background:#1a0a0a; color:{C_AMBER}; font-size:10px; "
-            f"font-family:Consolas; padding:6px 8px; border-radius:3px;")
+            "font-family:Consolas; padding:6px 8px; border-radius:3px;")
         self.fault_list.setVisible(False)
         main.addWidget(self.fault_list)
 
@@ -812,15 +810,15 @@ class KWPBridgeWindow(QMainWindow):
         self.status_strip = QLabel("  Ready")
         self.status_strip.setStyleSheet(
             f"background:{C_PANEL}; color:{C_DIM}; font-size:10px; "
-            f"padding:3px 8px; border-radius:3px;")
+            "padding:3px 8px; border-radius:3px;")
         self.status_strip.setWordWrap(True)
         main.addWidget(self.status_strip)
 
         # ── Mock scenario strip (hidden until mock running) ─────────────────
         self.scenario_strip = QLabel("")
         self.scenario_strip.setStyleSheet(
-            f"background:#1a0a2a; color:#aa66ff; font-size:10px; "
-            f"font-family:Consolas; padding:3px 8px; border-radius:3px;")
+            "background:#1a0a2a; color:#aa66ff; font-size:10px; "
+            "font-family:Consolas; padding:3px 8px; border-radius:3px;")
         self.scenario_strip.setVisible(False)
         main.addWidget(self.scenario_strip)
 
@@ -1218,7 +1216,7 @@ class KWPBridgeWindow(QMainWindow):
 
         # Load label file
         self._lbl = self._lbl_registry.get(pn)
-        lbl_note  = f"  ✓ labels loaded" if self._lbl else "  (no label file)"
+        lbl_note  = "  ✓ labels loaded" if self._lbl else "  (no label file)"
 
         proto_badge = ""
         if protocol == PROTO_KWP2000:
@@ -1388,7 +1386,6 @@ class KWPBridgeWindow(QMainWindow):
     def _start_tcp_bridge(self):
         """Start a minimal TCP bridge server for IPC with other tools."""
         try:
-            from ..server import KWPServer
             import threading, socket, json
 
             class _MiniBridge:
@@ -1477,12 +1474,11 @@ class KWPBridgeWindow(QMainWindow):
                 for cell in block.cells:
                     raw_word = cell.raw_a * 256 + cell.raw_b
                     if self._lbl:
-                        decoded, unit, _ = decode_with_lbl(
+                        decoded, _, _ = decode_with_lbl(
                             self._lbl, group, cell.index, float(raw_word))
                         label = self._lbl.get_label(group, cell.index).lower()
                     else:
                         decoded = cell.value
-                        unit    = cell.unit
                         label   = cell.label.lower()
                     self._route_to_gauge(label, decoded, raw_word)
             elif isinstance(block, dict):
@@ -1552,7 +1548,7 @@ class KWPBridgeWindow(QMainWindow):
         self.status_strip.setText(f"  {message}")
         self.status_strip.setStyleSheet(
             f"background:{C_PANEL}; color:{colour}; font-size:10px; "
-            f"padding:3px 8px; border-radius:3px;")
+            "padding:3px 8px; border-radius:3px;")
 
     def _refresh_status_strip(self):
         """Update status strip with latest data summary.

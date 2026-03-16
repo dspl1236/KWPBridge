@@ -13,7 +13,7 @@ Architecture:
   HachiROM / UrROM / digital dash / logger (any number of clients)
 """
 
-__version__ = "0.9.2"
+__version__ = "0.9.4"
 __all__ = [
     "KWP1281",
     "KWP2000",
@@ -32,15 +32,10 @@ __all__ = [
 ]
 
 from .protocol         import KWP1281
-from .kwp2000          import KWP2000, KWP2000Error, NegativeResponseError
+from .kwp2000          import KWP2000
 from .server           import KWPServer
 from .models           import MeasuringBlock, FaultCode
 from .ecu_defs         import ECU_7A_LATE, ECU_7A_EARLY, ECU_AAH
 from .formula          import FORMULA
-from .lbl_parser       import LBLRegistry, LBLFile, parse_lbl, decode_with_lbl
 from .constants        import DEFAULT_PORT
-from .protocol_detect  import (
-    detect_protocol, ProtocolDetector, DetectResult,
-    PROTO_AUTO, PROTO_KWP1281, PROTO_KWP2000,
-)
-from . import didb
+from .protocol_detect  import detect_protocol

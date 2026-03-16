@@ -27,16 +27,10 @@ import socket
 import threading
 import time
 import logging
-from typing import Any
 
 from .constants  import DEFAULT_PORT, IPC_UPDATE_HZ, ADDR_ENGINE, CABLE_AUTO
 from .models     import BridgeState
-from .protocol   import KWP1281, KWPError
-from .kwp2000    import KWP2000, KWP2000Error
-from .protocol_detect import (
-    ProtocolDetector, DetectResult,
-    PROTO_AUTO, PROTO_KWP1281, PROTO_KWP2000,
-)
+from .protocol_detect import ProtocolDetector, PROTO_AUTO
 from . import __version__
 
 log = logging.getLogger(__name__)

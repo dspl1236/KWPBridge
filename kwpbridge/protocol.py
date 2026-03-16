@@ -22,7 +22,6 @@ References:
 import time
 import threading
 import logging
-from typing import Callable
 
 import serial
 import serial.tools.list_ports
@@ -30,7 +29,7 @@ import serial.tools.list_ports
 from .constants  import (
     KWP_BAUD, INTER_BYTE_DELAY, INTER_BLOCK_DELAY,
     BYTE_TIMEOUT, INIT_TIMEOUT,
-    BLK_ACK, BLK_NACK, BLK_READ_GROUP, BLK_MEAS_VALUE,
+    BLK_ACK, BLK_READ_GROUP, BLK_MEAS_VALUE,
     BLK_READ_DTC, BLK_DTC_RESP, BLK_CLEAR_DTC,
     BLK_BASIC_SET, BLK_BASIC_RESP, BLK_END, BLK_ID,
     CABLE_ROSS_TECH, CABLE_FTDI, CABLE_CH340, CABLE_AUTO,
@@ -264,7 +263,7 @@ class KWP1281:
         Checksum = XOR of all bytes except checksum itself.
         """
         self._counter = (self._counter + 1) & 0xFF
-        length = len(data) + 4  # length + counter + type + data + checksum = len+3... 
+        # length = len(data) + 4  — kept as comment for protocol reference
         # Actually: length byte counts itself + counter + type + data
         # So length = 3 + len(data)
         # Then checksum byte added after

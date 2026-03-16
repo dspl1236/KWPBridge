@@ -47,12 +47,12 @@ def main():
         "g60":      "037906023   Digifant 1 G60",
         "g40":      "037906023   Digifant 1 G40",
     }
-    print(f"\n  KWPBridge Mock Server")
+    print("\n  KWPBridge Mock Server")
     print(f"  ECU:  {ecu_map[args.ecu]}")
     print(f"  Port: {args.port}")
     print(f"  Rate: {args.hz} Hz")
-    print(f"\n  Connect HachiROM or any KWPBridge client.")
-    print(f"  Press Ctrl+C to stop.\n")
+    print("\n  Connect HachiROM or any KWPBridge client.")
+    print("  Press Ctrl+C to stop.\n")
 
     try:
         while True:

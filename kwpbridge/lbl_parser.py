@@ -28,7 +28,6 @@ curated subset; see labels/CREDITS.md for attribution.
 """
 
 import re
-import os
 import logging
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -469,7 +468,7 @@ class LBLRegistry:
                             result = redirected or lbl
                             self._cache[pn] = result
                             log.info(f"Loaded: {full.name}"
-                                     + (f" → redirect" if redirected else ""))
+                                     + (" → redirect" if redirected else ""))
                             return result
                         except Exception as e:
                             log.warning(f"Failed to parse {full}: {e}")

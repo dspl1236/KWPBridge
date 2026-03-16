@@ -24,10 +24,9 @@ import socket
 import threading
 import time
 import logging
-from typing import Callable, Any
+from typing import Callable
 
 from .constants import DEFAULT_PORT
-from . import __version__
 
 log = logging.getLogger(__name__)
 
