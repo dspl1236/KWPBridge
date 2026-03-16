@@ -131,8 +131,11 @@ class MockServer:
                                       ECU_PART_NUMBER, ECU_COMPONENT, FAULT_CODES
         elif self.ecu in ("m232", "aan", "aby", "adu", "m2.3.2"):
             from .ecu_m232 import get_group_0, ECU_PART_NUMBER, ECU_COMPONENT, FAULT_CODES
+        elif self.ecu in ("me7", "awp", "aum", "auq", "bam", "me7.5"):
+            from .ecu_me7 import get_group_0, ECU_PART_NUMBER, ECU_COMPONENT, FAULT_CODES
         else:
-            raise ValueError(f"Unknown mock ECU: {ecu!r}. Use '7a', 'aah', 'digifant', or 'm232'.")
+            raise ValueError(
+                f"Unknown mock ECU: {ecu!r}. Use '7a', 'aah', 'digifant', 'm232', or 'me7'.")
 
         self._get_group_0   = get_group_0
         self._part_number   = ECU_PART_NUMBER
@@ -150,10 +153,13 @@ class MockServer:
                 pass
         # scenario_info available on 7A, Digifant, and M2.3.2 mocks
         self._get_scenario_info = None
-        if self.ecu in ("7a", "digifant", "g60", "g40", "m232", "aan", "aby", "adu", "m2.3.2"):
+        if self.ecu in ("7a", "digifant", "g60", "g40", "m232", "aan", "aby", "adu", "m2.3.2",
+                        "me7", "awp", "aum", "auq", "bam", "me7.5"):
             try:
                 mod_map = {"7a": "ecu_7a", "digifant": "ecu_digifant",
-                           "g60": "ecu_digifant", "g40": "ecu_digifant"}
+                           "g60": "ecu_digifant", "g40": "ecu_digifant",
+                           "me7": "ecu_me7", "awp": "ecu_me7", "aum": "ecu_me7",
+                           "auq": "ecu_me7", "bam": "ecu_me7", "me7.5": "ecu_me7"}
                 mod_name = mod_map.get(self.ecu, "ecu_m232")
                 import importlib
                 m = importlib.import_module(f".{mod_name}", package=__package__)

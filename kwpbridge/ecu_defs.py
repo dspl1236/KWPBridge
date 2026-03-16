@@ -600,3 +600,164 @@ ECU_M232_AAN = ECUDef(
 
 # Update registry
 ALL_ECU_DEFS.append(ECU_M232_AAN)
+
+
+# ── Bosch ME7.5 — AWP/AUM/AUQ/BAM 1.8T (06A-906-032 family) ─────────────────
+# Measuring blocks confirmed from 06A-906-032-AWP.lbl (Ross-Tech)
+# KWP2000 / ISO 14230 protocol, 10400 baud, address 0x01
+# ECU: Bosch ME7.5, same PCB family as AEB/AGU/AMB/BAM/AWP
+
+_ME7_AWP_GROUPS: dict[int, dict[int, str]] = {
+    1:  {1:"Engine Speed", 2:"Coolant Temperature", 3:"Lambda Controller",
+         4:"Basic Setting Requirements"},
+    2:  {1:"Engine Speed", 2:"Engine Load", 3:"Injection Timing", 4:"Intake Air Mass"},
+    3:  {1:"Engine Speed", 2:"Intake Air Mass", 3:"Throttle Sensor 1", 4:"Ignition Timing Angle"},
+    4:  {1:"Engine Speed", 2:"Voltage Supply", 3:"Coolant Temperature", 4:"Intake Air Temperature"},
+    5:  {1:"Engine Speed", 2:"Engine Load", 3:"Vehicle Speed", 4:"Load Status"},
+    10: {1:"Engine Speed", 2:"Engine Load", 3:"Throttle Sensor 1", 4:"Ignition Timing Angle"},
+    14: {1:"Engine Speed", 2:"Engine Load", 3:"Misfire Counter", 4:"Misfire Recognition"},
+    15: {1:"Cylinder 1 Misfire", 2:"Cylinder 2 Misfire", 3:"Cylinder 3 Misfire",
+         4:"Malfunction Recognition"},
+    16: {1:"Cylinder 4 Misfire", 4:"Malfunction Recognition"},
+    22: {1:"Engine Speed", 2:"Engine Load", 3:"Cyl 1 Knock Retard", 4:"Cyl 2 Knock Retard"},
+    23: {1:"Engine Speed", 2:"Engine Load", 3:"Cyl 3 Knock Retard", 4:"Cyl 4 Knock Retard"},
+    28: {1:"Engine Speed", 2:"Engine Load", 3:"Coolant Temperature", 4:"Knock Sensor Test"},
+    30: {1:"O2 Status Bank1 Sensor1", 2:"O2 Status Bank1 Sensor2"},
+    32: {1:"Lambda Idle Adaptation", 2:"Lambda Partial Adaptation"},
+    33: {1:"Lambda Controller", 2:"O2 Sensor 1 Upstream Voltage"},
+    34: {1:"Engine Speed", 2:"Catalyst Temperature", 3:"Period Duration", 4:"Lambda Aging"},
+    36: {1:"O2 Sensor 2 Downstream Voltage", 2:"Lambda Availability"},
+    41: {1:"Engine Speed", 2:"Engine Load", 3:"Injector Bank 1", 4:"Injector Bank 2"},
+    43: {1:"Engine Speed", 2:"Engine Load", 3:"Injector Cylinder 1", 4:"Injector Cylinder 2"},
+    46: {1:"Engine Speed", 2:"Engine Load", 3:"Injector Cylinder 3", 4:"Injector Cylinder 4"},
+    50: {1:"Engine Speed", 2:"ST Fuel Trim Bank1", 3:"LT Fuel Trim Bank1"},
+    54: {1:"Engine Speed", 2:"Load", 3:"Upstream O2 Voltage", 4:"Downstream O2 Voltage"},
+    55: {1:"Engine Speed", 2:"Load", 3:"Catalyst Efficiency"},
+    56: {1:"Engine Speed", 2:"Coolant Temp", 3:"Catalyst Temperature"},
+    60: {1:"Throttle Sensor 1", 2:"Throttle Sensor 2", 3:"Learn Step Counter",
+         4:"Throttle Adaptation Result"},
+    61: {1:"Engine Speed", 2:"Voltage Supply", 3:"Throttle Actuator", 4:"Operating Condition"},
+    62: {1:"Throttle Sensor 1", 2:"Throttle Sensor 2", 3:"Throttle Position (G79)",
+         4:"Accelerator Pedal Sensor 2"},
+    63: {1:"Throttle Position (G79)"},
+    66: {1:"Engine Speed", 2:"Engine Load", 3:"EVAP Purge Valve", 4:"Fuel Pressure"},
+    70: {1:"Engine Speed", 2:"Engine Load", 3:"Catalyst Temp B1", 4:"Catalyst Temp B2"},
+    71: {1:"Engine Speed", 2:"Engine Load", 3:"Exhaust Temp", 4:"Catalyst Efficiency"},
+    77: {1:"Engine Speed", 2:"Engine Load", 3:"EGR Valve Position", 4:"EGR Duty Cycle"},
+    89: {1:"Engine Speed", 2:"Coolant Temp", 3:"Engine Load", 4:"Barometric Pressure"},
+    91: {1:"Engine Speed", 2:"Engine Load", 3:"N75 Duty Cycle", 4:"Boost Pressure Actual"},
+    94: {1:"Engine Speed", 2:"Engine Load", 3:"Ignition Timing Actual",
+         4:"Knock Retard Total"},
+    99: {1:"Readiness Code"},
+}
+
+_ME7_AWP_FAULTS: dict[int, str] = {
+    # Lambda / O2
+    16486: "O2 Sensor B1S1 — Signal too low (lean)",
+    16487: "O2 Sensor B1S1 — Signal too high (rich)",
+    16496: "O2 Sensor B1S2 — Response too slow",
+    16514: "O2 Sensor B1S1 — Heater circuit fault",
+    16518: "O2 Sensor B1S2 — Heater circuit fault",
+    16555: "Lambda regulation — control limit reached",
+    16556: "Lambda adaptation — out of range",
+    # MAF / Throttle
+    16485: "MAF Sensor G70 — Signal out of range",
+    16504: "Throttle Position Sensor G69 — Range/performance",
+    16705: "Throttle Drive Angle Sensor 1 G187 — Range/performance",
+    16706: "Throttle Drive Angle Sensor 2 G188 — Range/performance",
+    17535: "Throttle Valve Adaptation — Not completed",
+    17536: "Throttle Valve Adaptation — Error",
+    # Fuel system
+    16684: "Fuel trim — System too lean (Bank 1)",
+    16685: "Fuel trim — System too rich (Bank 1)",
+    17520: "Fuel pressure regulation — Limit reached",
+    # Boost / N75
+    17965: "Boost pressure — Too low",
+    17966: "Boost pressure — Too high",
+    17544: "N75 Boost Pressure Solenoid — Electrical fault",
+    # Knock
+    16716: "Knock Sensor 1 G61 — Signal out of range",
+    16717: "Knock Sensor 2 G66 — Signal out of range",
+    # Coolant / temp
+    16603: "ECT Sensor G62 — Signal out of range",
+    16604: "IAT Sensor G42 — Signal out of range",
+    # Injectors
+    17523: "Injector Cylinder 1 N30 — Open/short",
+    17524: "Injector Cylinder 2 N31 — Open/short",
+    17525: "Injector Cylinder 3 N32 — Open/short",
+    17526: "Injector Cylinder 4 N33 — Open/short",
+    # CPS / speed
+    16725: "Engine Speed Sensor G28 — No signal",
+    16766: "Camshaft Position Sensor G40 — Signal out of range",
+    # Misfire
+    17740: "Random/Multiple Cylinder Misfire detected",
+    17741: "Cylinder 1 Misfire detected",
+    17742: "Cylinder 2 Misfire detected",
+    17743: "Cylinder 3 Misfire detected",
+    17744: "Cylinder 4 Misfire detected",
+    # Catalyst
+    16804: "Catalyst efficiency below threshold (Bank 1)",
+    # Evap
+    16839: "EVAP system — Large leak detected",
+    16840: "EVAP system — Small leak detected",
+    # Immobiliser
+    17053: "Immobiliser — No communication",
+    # Generic
+    0:     "No fault codes stored",
+}
+
+ECU_ME7_AWP = ECUDef(
+    part_numbers   = [
+        # AWP 1.8T 180hp (Golf/Jetta/TT MK4, A4 B5/B6)
+        "06A906032BH",
+        "06A906032BN",
+        "06A906032BD",
+        "06A906032BG",
+        "06A906032BF",
+        "06A906032BE",
+        "06A906032BB",
+        "06A906032AY",
+        "06A906032AX",
+        "06A906032AS",
+        # AUM 1.8T 150hp (Golf/Jetta MK4)
+        "06A906032GD",
+        "06A906032GC",
+        # AUQ 1.8T 180hp (Golf/Jetta MK4 GTI/GLI)
+        "06A906032KL",
+        "06A906032KN",
+        # AWW 1.8T 150hp
+        "06A906032HS",
+        # BAM 1.8T 225hp (TT 225)
+        "06A906032GF",
+        "06A906032GG",
+        # AMB 1.8T (Passat)
+        "06A906032EB",
+        # General fallback for any 06A906032 variant
+        "06A906032",
+    ],
+    name           = "Bosch ME7.5 — 1.8T AWP/AUM/AUQ/BAM (06A-906-032)",
+    address        = 0x01,
+    baud           = 10400,
+    groups         = _ME7_AWP_GROUPS,
+    faults         = _ME7_AWP_FAULTS,
+    basic_settings = {
+        60:  "Throttle body adaptation (EPC) — engine warm, ignition on",
+        62:  "EPC adaptation — requires basic setting 60 first",
+        34:  "Lambda sensor aging check — requires cat temp >350°C",
+    },
+    notes          = (
+        "Bosch ME7.5 — 1.8T turbocharged 4-cylinder. "
+        "KWP2000 / ISO 14230 protocol (NOT KWP1281). "
+        "Requires startDiagnosticSession (0x10 0x89) before reading. "
+        "Keep-alive testerPresent (0x3E) required every 1.5s. "
+        "Reading: 0x21 [group_number] → cells of [formula][A][B]. "
+        "Common variants: AWP=180hp, AUM=150hp, AUQ=180hp, BAM=225hp. "
+        "Part numbers: 06A-906-032-BH/BN/BD/GD/KL/GF (most common). "
+        "MK2 Jetta swap uses same ECU — just different wiring harness. "
+        "ECU bench setup: pin 19=K-line, pins 1+2=ground, pin 3+4=12V. "
+        "Label file: labels/engine/06A-906-032-AWP.lbl"
+    ),
+)
+
+# Update registry
+ALL_ECU_DEFS.append(ECU_ME7_AWP)

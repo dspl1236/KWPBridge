@@ -31,6 +31,7 @@ __all__ = [
 ]
 
 from .protocol   import KWP1281
+from .kwp2000    import KWP2000, KWP2000Error, NegativeResponseError
 from .server     import KWPServer
 from .models     import MeasuringBlock, FaultCode
 from .ecu_defs   import ECU_7A_LATE, ECU_7A_EARLY, ECU_AAH
