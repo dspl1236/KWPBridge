@@ -428,3 +428,88 @@ class TestME7MockECU:
         assert rpm1 is not None and rpm2 is not None
         # Over 0.6s with sin oscillation, values almost certainly differ
         assert abs(rpm1 - rpm2) >= 0 or True  # both are valid floats
+
+
+class TestMock27TBiturbo:
+    """
+    2.7T AGB S4 B5 mock ECU — verifies the dual-bank measuring block layout.
+    The 2.7T uniquely has groups 034 (lambda B2) and 051 (LTFT B2) not
+    present on single-bank 1.8T or 7A ECUs.
+    """
+
+    @pytest.fixture
+    def s4_server(self):
+        from kwpbridge.mock.server import MockServer
+        srv = MockServer(ecu="27t", port=50297)
+        srv.start()
+        yield srv
+        srv.stop()
+
+    @pytest.fixture
+    def s4_client(self, s4_server):
+        client = KWPClient(port=50297)
+        client.connect()
+        for _ in range(40):
+            if client.state is not None:
+                break
+            time.sleep(0.1)
+        yield client
+        client.disconnect()
+
+    def test_27t_part_number(self, s4_client):
+        state = s4_client.state
+        assert state is not None
+        pn = state["ecu_id"]["part_number"]
+        assert "8D0907551" in pn
+
+    def test_27t_all_groups_broadcast(self, s4_client):
+        """2.7T broadcasts 16 groups including dual-bank 034 and 051."""
+        groups = s4_client.state.get("groups", {})
+        expected = {1, 2, 3, 4, 5, 10, 22, 23, 32, 33, 34, 50, 51, 60, 91, 94}
+        broadcast = {int(k) for k in groups if k != "0"}
+        assert expected.issubset(broadcast), \
+            f"Missing groups: {expected - broadcast}"
+
+    def test_27t_dual_bank_lambda_b2(self, s4_client):
+        """Group 034 (lambda B2) is unique to the 2.7T biturbo."""
+        lc_b2 = s4_client.get_value(group=34, cell=1)
+        assert lc_b2 is not None
+        assert -30 <= lc_b2 <= 30, f"Unrealistic lambda ctrl B2: {lc_b2}%"
+
+    def test_27t_b2_o2_upstream(self, s4_client):
+        o2_b2 = s4_client.get_value(group=34, cell=2)
+        assert o2_b2 is not None
+        assert 0.0 <= o2_b2 <= 1.2, f"Unrealistic O2 B2: {o2_b2}V"
+
+    def test_27t_group51_fuel_trim_b2(self, s4_client):
+        """Group 051 (LTFT Bank 2) — 2.7T specific."""
+        stft_b2 = s4_client.get_value(group=51, cell=2)
+        ltft_b2 = s4_client.get_value(group=51, cell=3)
+        assert stft_b2 is not None and ltft_b2 is not None
+        assert -30 <= stft_b2 <= 30
+        assert -30 <= ltft_b2 <= 30
+
+    def test_27t_boost_group91(self, s4_client):
+        boost = s4_client.get_value(group=91, cell=4)
+        assert boost is not None
+        assert 800 <= boost <= 1800, f"Unrealistic boost: {boost}mbar"
+
+    def test_27t_rpm_in_range(self, s4_client):
+        rpm = s4_client.get_value(group=1, cell=1)
+        assert rpm is not None
+        assert 600 <= rpm <= 7000
+
+    def test_27t_s4_alias(self):
+        """'s4' and 'agb' are accepted aliases for '27t'."""
+        from kwpbridge.mock.server import MockServer
+        for alias in ("s4", "agb"):
+            srv = MockServer(ecu=alias, port=50298)
+            srv.start()
+            time.sleep(0.1)
+            srv.stop()
+
+    def test_27t_vs_18t_different_parts(self, s4_client):
+        """2.7T part number should NOT start with 06A906032."""
+        pn = s4_client.state["ecu_id"]["part_number"]
+        assert not pn.startswith("06A906032"), \
+            f"2.7T mock should use 8D0907551M not {pn}"

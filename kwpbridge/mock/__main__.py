@@ -24,7 +24,8 @@ def main():
         description="KWPBridge mock ECU server for development and testing")
     parser.add_argument("--ecu",  "-e", default="7a",
                         choices=["7a", "aah", "digifant", "g60", "g40",
-                                 "me7", "awp", "aum", "auq", "bam"],
+                                 "me7", "awp", "aum", "auq", "bam",
+                                 "27t", "s4", "agb", "are", "bes"],
                         help="ECU profile to simulate (default: 7a)")
     parser.add_argument("--port", "-p", default=DEFAULT_PORT, type=int,
                         help=f"TCP port (default: {DEFAULT_PORT})")
@@ -52,6 +53,11 @@ def main():
         "aum":      "06A906032BN ME7.5 AUM 1.8T 150hp (AWP mock)",
         "auq":      "06A906032BN ME7.5 AUQ 1.8T 180hp (AWP mock)",
         "bam":      "06A906032BN ME7.5 BAM 1.8T 190hp (AWP mock)",
+        "27t":      "8D0907551M  ME7.1 AGB 2.7T 250hp S4 B5",
+        "s4":       "8D0907551M  ME7.1 AGB 2.7T 250hp S4 B5",
+        "agb":      "8D0907551M  ME7.1 AGB 2.7T 250hp S4 B5",
+        "are":      "8D0907551M  ME7.1 ARE 2.7T 265hp (AGB mock)",
+        "bes":      "8D0907551M  ME7.1 BES 2.7T 250hp (AGB mock)",
     }
     print("\n  KWPBridge Mock Server")
     print(f"  ECU:  {ecu_map[args.ecu]}")

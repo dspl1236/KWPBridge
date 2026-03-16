@@ -133,6 +133,8 @@ class MockServer:
             from .ecu_m232 import get_group_0, ECU_PART_NUMBER, ECU_COMPONENT, FAULT_CODES
         elif self.ecu in ("me7", "awp", "aum", "auq", "bam", "me7.5"):
             from .ecu_me7 import get_group_0, ECU_PART_NUMBER, ECU_COMPONENT, FAULT_CODES
+        elif self.ecu in ("27t", "s4", "agb", "are", "bes", "me7.1"):
+            from .ecu_27t import get_group_0, ECU_PART_NUMBER, ECU_COMPONENT, FAULT_CODES
         else:
             raise ValueError(
                 f"Unknown mock ECU: {ecu!r}. Use '7a', 'aah', 'digifant', 'm232', or 'me7'.")
@@ -160,10 +162,20 @@ class MockServer:
                                           32, 33, 50, 60, 91, 94]
             except ImportError:
                 pass
+        elif self.ecu in ("27t", "s4", "agb", "are", "bes", "me7.1"):
+            try:
+                from .ecu_27t import get_group as _get_group
+                self._get_all_groups   = _get_group
+                # 2.7T has dual-bank groups 034 and 051 in addition to ME7.5 groups
+                self._broadcast_groups = [1, 2, 3, 4, 5, 10, 22, 23,
+                                          32, 33, 34, 50, 51, 60, 91, 94]
+            except ImportError:
+                pass
         # scenario_info available on 7A, Digifant, and M2.3.2 mocks
         self._get_scenario_info = None
         if self.ecu in ("7a", "digifant", "g60", "g40", "m232", "aan", "aby", "adu", "m2.3.2",
-                        "me7", "awp", "aum", "auq", "bam", "me7.5"):
+                        "me7", "awp", "aum", "auq", "bam", "me7.5",
+                        "27t", "s4", "agb", "are", "bes", "me7.1"):
             try:
                 mod_map = {"7a": "ecu_7a", "digifant": "ecu_digifant",
                            "g60": "ecu_digifant", "g40": "ecu_digifant",
