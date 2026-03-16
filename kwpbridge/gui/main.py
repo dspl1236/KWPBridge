@@ -26,6 +26,8 @@ try:
         QLabel, QPushButton, QComboBox, QFrame, QSizePolicy,
         QStatusBar, QAction, QFileDialog, QMessageBox, QProgressBar,
         QGridLayout, QGroupBox, QLineEdit, QSpinBox,
+        QDialog, QTableWidget, QTableWidgetItem, QHeaderView,
+        QAbstractItemView, QDialogButtonBox,
     )
     from PyQt5.QtCore import Qt, QTimer, pyqtSignal, QObject
     from PyQt5.QtGui import QFont, QColor, QPalette
@@ -237,6 +239,369 @@ class GaugeWidget(QWidget):
                 self.bar.setValue(pct)
 
 
+
+# ── Fault code dialog ─────────────────────────────────────────────────────────
+
+class FaultDialog(QDialog):
+    """
+    Dedicated fault code viewer / clear window.
+
+    Shows all stored fault codes in a sortable table with:
+      - VAG code (decimal and 4-digit hex)
+      - P-code cross-reference (OBD-II / SAE)
+      - Description — ECU-specific first, then DIDB fallback
+      - Status bytes decoded (stored / intermittent / current)
+
+    Re-read and Clear buttons inside the dialog operate on the live
+    ECU connection without closing the window.
+    """
+
+    # Colour palette matching main window
+    _BG    = "#0d0d0f"
+    _BG2   = "#141417"
+    _BG3   = "#1c1c20"
+    _BORD  = "#2a2a30"
+    _FG    = "#e2e2e8"
+    _DIM   = "#6b6b78"
+    _AMBER = "#ffaa00"
+    _GREEN = "#3ddc84"
+    _RED   = "#ff5252"
+
+    # KWP1281 status bit descriptions
+    _STATUS_BITS = {
+        0x01: "current",
+        0x02: "intermittent",
+        0x04: "stored",
+        0x08: "freeze frame",
+        0x10: "test failed",
+    }
+
+    def __init__(self, parent=None, ecu_def=None):
+        super().__init__(parent)
+        self._ecu_def  = ecu_def
+        self._faults   = []
+        self._worker   = None    # set by caller after construction
+
+        self.setWindowTitle("Fault Codes — KWPBridge")
+        self.resize(800, 480)
+        self.setStyleSheet(f"""
+            QDialog   {{ background:{self._BG};  color:{self._FG}; }}
+            QLabel    {{ color:{self._FG}; font-family:Consolas; font-size:11px; }}
+            QPushButton {{
+                background:{self._BG3}; color:{self._FG};
+                border:1px solid {self._BORD}; border-radius:3px;
+                padding:5px 14px; font-family:Consolas; font-size:12px;
+            }}
+            QPushButton:hover {{ border-color:#4db8ff; color:#4db8ff; }}
+            QPushButton:disabled {{ color:{self._DIM}; border-color:{self._BORD}; }}
+            QTableWidget {{
+                background:{self._BG2}; color:{self._FG};
+                gridline-color:{self._BORD}; border:1px solid {self._BORD};
+                font-family:Consolas; font-size:11px;
+                selection-background-color:#1a1e2a; selection-color:{self._FG};
+            }}
+            QHeaderView::section {{
+                background:{self._BG3}; color:{self._DIM};
+                border:none; border-bottom:1px solid {self._BORD};
+                padding:5px 8px; font-size:10px; letter-spacing:1px;
+                text-transform:uppercase;
+            }}
+            QScrollBar:vertical {{
+                background:{self._BG}; width:6px;
+            }}
+            QScrollBar::handle:vertical {{
+                background:{self._BORD}; border-radius:3px;
+            }}
+        """)
+
+        self._build_ui()
+
+    def _build_ui(self):
+        root = QVBoxLayout(self)
+        root.setContentsMargins(0, 0, 0, 0)
+        root.setSpacing(0)
+
+        # ── Header bar ────────────────────────────────────────────────────────
+        hdr = QFrame()
+        hdr.setFixedHeight(44)
+        hdr.setStyleSheet(f"background:{self._BG2}; border-bottom:1px solid {self._BORD};")
+        hdr_lay = QHBoxLayout(hdr)
+        hdr_lay.setContentsMargins(14, 0, 14, 0)
+        hdr_lay.setSpacing(10)
+
+        self._lbl_ecu = QLabel("—")
+        self._lbl_ecu.setStyleSheet(f"color:#4db8ff; font-size:12px; font-weight:bold;")
+        hdr_lay.addWidget(self._lbl_ecu)
+
+        self._lbl_count = QLabel("No faults read")
+        self._lbl_count.setStyleSheet(f"color:{self._DIM}; font-size:11px;")
+        hdr_lay.addWidget(self._lbl_count)
+
+        hdr_lay.addStretch()
+
+        self._btn_read = QPushButton("⟳  Read Faults")
+        self._btn_read.clicked.connect(self._do_read)
+        hdr_lay.addWidget(self._btn_read)
+
+        self._btn_clear = QPushButton("✕  Clear Faults")
+        self._btn_clear.setStyleSheet(
+            f"QPushButton {{ background:{self._BG3}; color:{self._RED}; "
+            f"border:1px solid {self._RED}; border-radius:3px; padding:5px 14px; "
+            f"font-family:Consolas; font-size:12px; }}"
+            f"QPushButton:hover {{ background:{self._RED}; color:#fff; }}"
+            f"QPushButton:disabled {{ color:{self._DIM}; border-color:{self._BORD}; }}"
+        )
+        self._btn_clear.clicked.connect(self._do_clear)
+        self._btn_clear.setEnabled(False)
+        hdr_lay.addWidget(self._btn_clear)
+
+        root.addWidget(hdr)
+
+        # ── Fault table ───────────────────────────────────────────────────────
+        self._table = QTableWidget(0, 6)
+        self._table.setHorizontalHeaderLabels([
+            "VAG Code", "Hex", "P-Code", "Description", "Status", "Raw"])
+        self._table.horizontalHeader().setStretchLastSection(False)
+        self._table.horizontalHeader().setSectionResizeMode(3, QHeaderView.Stretch)
+        self._table.horizontalHeader().setSortIndicatorShown(True)
+        self._table.horizontalHeader().sectionClicked.connect(
+            lambda col: self._table.sortByColumn(col, Qt.AscendingOrder))
+        self._table.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self._table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self._table.setAlternatingRowColors(True)
+        self._table.setStyleSheet(self._table.styleSheet() +
+            "alternate-background-color: #141418;")
+        self._table.verticalHeader().setVisible(False)
+
+        # Column widths
+        for col, w in [(0, 90), (1, 60), (2, 72), (4, 140), (5, 55)]:
+            self._table.setColumnWidth(col, w)
+
+        root.addWidget(self._table, 1)
+
+        # ── Status bar ────────────────────────────────────────────────────────
+        sb = QFrame()
+        sb.setFixedHeight(28)
+        sb.setStyleSheet(f"background:{self._BG3}; border-top:1px solid {self._BORD};")
+        sb_lay = QHBoxLayout(sb)
+        sb_lay.setContentsMargins(12, 0, 12, 0)
+        self._lbl_status = QLabel("Ready")
+        self._lbl_status.setStyleSheet(f"color:{self._DIM}; font-size:10px;")
+        sb_lay.addWidget(self._lbl_status)
+        sb_lay.addStretch()
+        lbl_hint = QLabel("Click column header to sort  ·  double-click row for details")
+        lbl_hint.setStyleSheet(f"color:{self._DIM}; font-size:10px;")
+        sb_lay.addWidget(lbl_hint)
+        root.addWidget(sb)
+
+        self._table.cellDoubleClicked.connect(self._on_row_dbl)
+
+    # ── Public API ─────────────────────────────────────────────────────────────
+
+    def set_ecu(self, part_number: str, component: str = ""):
+        """Call when ECU connects — updates header and loads ECU def."""
+        label = f"{part_number}"
+        if component:
+            label += f"  —  {component}"
+        self._lbl_ecu.setText(label)
+
+        # Reload ECU def for description lookup
+        try:
+            from ..ecu_defs import find_ecu_def
+            self._ecu_def = find_ecu_def(part_number)
+        except Exception:
+            pass
+
+    def set_worker(self, worker):
+        """Give the dialog a reference to the ConnectionWorker."""
+        self._worker = worker
+
+    def load_faults(self, faults: list):
+        """
+        Populate the table from a list of fault dicts or FaultCode objects.
+        Called by the parent after a read_faults() call.
+        """
+        self._faults = faults
+        self._table.setRowCount(0)
+
+        if not faults:
+            self._lbl_count.setText("✓  No faults stored")
+            self._lbl_count.setStyleSheet(f"color:{self._GREEN}; font-size:11px;")
+            self._btn_clear.setEnabled(False)
+            self._set_status("No faults stored")
+            return
+
+        count = len(faults)
+        self._lbl_count.setText(
+            f"⚠  {count} fault{'s' if count > 1 else ''} stored")
+        self._lbl_count.setStyleSheet(f"color:{self._AMBER}; font-size:11px;")
+        self._btn_clear.setEnabled(True)
+
+        for fault in faults:
+            # Normalise to dict
+            if isinstance(fault, dict):
+                code   = fault.get('code', 0)
+                desc   = fault.get('description', '')
+                status = fault.get('status', '')
+            else:
+                code   = getattr(fault, 'code', 0)
+                desc   = getattr(fault, 'description', '')
+                status = getattr(fault, 'status', getattr(fault, 'status_str', ''))
+
+            # DIDB / ECU def description lookup
+            desc = self._resolve_description(code, desc)
+
+            # P-code cross-reference from DIDB
+            pcode = self._resolve_pcode(code)
+
+            # Status decode
+            status_str = self._decode_status(status)
+
+            row = self._table.rowCount()
+            self._table.insertRow(row)
+
+            items = [
+                (0, str(code),           Qt.AlignRight  | Qt.AlignVCenter),
+                (1, f"{code:04X}",        Qt.AlignCenter | Qt.AlignVCenter),
+                (2, pcode,                Qt.AlignCenter | Qt.AlignVCenter),
+                (3, desc,                 Qt.AlignLeft   | Qt.AlignVCenter),
+                (4, status_str,           Qt.AlignLeft   | Qt.AlignVCenter),
+                (5, str(status),          Qt.AlignCenter | Qt.AlignVCenter),
+            ]
+            for col, text, align in items:
+                item = QTableWidgetItem(text)
+                item.setTextAlignment(align)
+                if col == 0:
+                    item.setForeground(QColor(self._AMBER))
+                elif col == 2 and pcode:
+                    item.setForeground(QColor("#4db8ff"))
+                elif col == 5:
+                    item.setForeground(QColor(self._DIM))
+                self._table.setItem(row, col, item)
+
+        self._table.resizeRowsToContents()
+        self._set_status(
+            f"Read {count} fault code{'s' if count > 1 else ''}  — "
+            f"descriptions via DIDB {'✓' if self._ecu_def else '(no ECU def)'}")
+
+    def clear_display(self):
+        """Reset to empty state (after successful clear)."""
+        self._table.setRowCount(0)
+        self._lbl_count.setText("✓  Faults cleared")
+        self._lbl_count.setStyleSheet(f"color:{self._GREEN}; font-size:11px;")
+        self._btn_clear.setEnabled(False)
+        self._faults = []
+        self._set_status("Fault codes cleared successfully")
+
+    # ── Internal ────────────────────────────────────────────────────────────────
+
+    def _resolve_description(self, code: int, fallback: str) -> str:
+        """ECU def → DIDB → raw fallback."""
+        if self._ecu_def:
+            specific = self._ecu_def.faults.get(code)
+            if specific:
+                return specific
+        try:
+            from ..didb import dtc_description
+            didb = dtc_description(code)
+            if didb:
+                return didb
+        except Exception:
+            pass
+        return fallback or f"Fault {code:05d}"
+
+    def _resolve_pcode(self, vag_code: int) -> str:
+        """Try to get an OBD-II P-code for a VAG decimal code via DIDB."""
+        # VAG codes 16384+ map to OBD: P-code = (vag - 16384) | 0x0000
+        # Standard: 16384=P0000, 16706=P0322, 17740=P1300 etc.
+        if 16384 <= vag_code <= 32767:
+            obd = vag_code - 16384
+            category = 'P' if obd < 0x4000 else 'C' if obd < 0x8000 else 'B'
+            return f"{category}{obd & 0x3FFF:04X}"
+        return ""
+
+    def _decode_status(self, status) -> str:
+        """Decode KWP1281 status byte(s) into human-readable flags."""
+        if not status:
+            return ""
+        # Try to interpret as integer
+        try:
+            if isinstance(status, str):
+                # Could be "0x04", "04", "stored" etc.
+                if status.startswith("0x") or status.startswith("0X"):
+                    val = int(status, 16)
+                elif status.isdigit():
+                    val = int(status)
+                else:
+                    return status  # already text
+            else:
+                val = int(status)
+
+            flags = [desc for bit, desc in self._STATUS_BITS.items() if val & bit]
+            return " · ".join(flags) if flags else f"0x{val:02X}"
+        except (ValueError, TypeError):
+            return str(status)
+
+    def _set_status(self, msg: str):
+        self._lbl_status.setText(msg)
+
+    def _do_read(self):
+        """Re-read fault codes from the live ECU."""
+        self._set_status("Reading faults…")
+        self._btn_read.setEnabled(False)
+        try:
+            if self._worker and hasattr(self._worker, '_kwp') and self._worker._kwp:
+                faults = self._worker._kwp.read_faults()
+                self.load_faults([f.__dict__ if hasattr(f, '__dict__') else f
+                                  for f in faults])
+            else:
+                self._set_status("Not connected — cannot read faults")
+        except Exception as e:
+            self._set_status(f"Read error: {e}")
+        finally:
+            self._btn_read.setEnabled(True)
+
+    def _do_clear(self):
+        """Clear fault codes after confirmation."""
+        reply = QMessageBox.question(
+            self, "Clear Fault Codes",
+            "Clear all stored fault codes from the ECU?\n\n"
+            "This cannot be undone.",
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.No,
+        )
+        if reply != QMessageBox.Yes:
+            return
+        self._set_status("Clearing faults…")
+        try:
+            if self._worker and hasattr(self._worker, '_kwp') and self._worker._kwp:
+                ok = self._worker._kwp.clear_faults()
+                if ok:
+                    self.clear_display()
+                else:
+                    self._set_status("Clear command sent — re-read to verify")
+            else:
+                self._set_status("Not connected — cannot clear faults")
+        except Exception as e:
+            self._set_status(f"Clear error: {e}")
+
+    def _on_row_dbl(self, row: int, col: int):
+        """Show full detail for a fault row in a message box."""
+        if row >= len(self._faults):
+            return
+        items = []
+        headers = ["VAG Code", "Hex", "P-Code", "Description", "Status", "Raw"]
+        for c, h in enumerate(headers):
+            item = self._table.item(row, c)
+            if item:
+                items.append(f"  {h:<15} {item.text()}")
+        QMessageBox.information(
+            self, "Fault Code Detail",
+            "\n".join(items),
+        )
+
+
+
 # ── Main window ───────────────────────────────────────────────────────────────
 class KWPBridgeWindow(QMainWindow):
 
@@ -261,9 +626,11 @@ class KWPBridgeWindow(QMainWindow):
         self._tcp_server = None
         self._mock_server = None
         self._mock_warmup_start = None
+        self._fault_dlg: FaultDialog | None = None   # lazy-created on first open
         # fault buttons initialised in _setup_ui, referenced here for type hints
-        self.btn_read_faults:  QPushButton | None = None
-        self.btn_clear_faults: QPushButton | None = None
+        self.btn_read_faults:   QPushButton | None = None
+        self.btn_clear_faults:  QPushButton | None = None
+        self.btn_fault_window:  QPushButton | None = None
 
         self._setup_ui()
         self._connect_signals()
@@ -416,6 +783,15 @@ class KWPBridgeWindow(QMainWindow):
         self.btn_clear_faults.clicked.connect(self._on_clear_faults)
         fault_row.addWidget(self.btn_clear_faults)
 
+        self.btn_fault_window = QPushButton("⊞ Fault Window")
+        self.btn_fault_window.setStyleSheet(self._btn_style("#7755cc"))
+        self.btn_fault_window.setToolTip(
+            "Open fault code viewer — sortable table with DIDB descriptions, "
+            "P-code cross-reference, and status decoding")
+        self.btn_fault_window.setEnabled(False)
+        self.btn_fault_window.clicked.connect(self._open_fault_window)
+        fault_row.addWidget(self.btn_fault_window)
+
         self.lbl_fault_count = QLabel("No faults read")
         self.lbl_fault_count.setStyleSheet(
             f"color:{C_DIM}; font-size:10px; font-family:Consolas;")
@@ -423,7 +799,7 @@ class KWPBridgeWindow(QMainWindow):
 
         main.addLayout(fault_row)
 
-        # ── Fault list (hidden until faults found) ────────────────────────────
+        # ── Fault summary (inline — brief, collapsed when clean) ──────────────
         self.fault_list = QLabel("")
         self.fault_list.setWordWrap(True)
         self.fault_list.setStyleSheet(
@@ -517,11 +893,13 @@ class KWPBridgeWindow(QMainWindow):
             return True, "Ross-Tech"
         return False, ""
 
+
     def _populate_ports(self):
         """Populate the port combo from available serial ports."""
         prev_port = self.combo_port.currentData()
         self.combo_port.blockSignals(True)
         self.combo_port.clear()
+
         ports = list(serial.tools.list_ports.comports())
         if not ports:
             self.combo_port.addItem("No ports found", "")
@@ -529,11 +907,11 @@ class KWPBridgeWindow(QMainWindow):
             self._refresh_cable_dot()
             return
 
-        rt_index = -1
+        rt_idx = None
         for i, p in enumerate(ports):
-            is_rt, rt_name = self._is_ross_tech(p)
+            is_rt, model = self._is_ross_tech(p)
             if is_rt:
-                hint = f" ★ Ross-Tech {rt_name}"
+                hint = f" ★ Ross-Tech {model}"
             elif (p.vid or 0) == 0x0403:
                 hint = " FTDI"
             elif (p.vid or 0) == 0x1A86:
@@ -541,8 +919,8 @@ class KWPBridgeWindow(QMainWindow):
             else:
                 hint = ""
             self.combo_port.addItem(f"{p.device}{hint}", p.device)
-            if is_rt and rt_index == -1:
-                rt_index = i
+            if is_rt and rt_idx is None:
+                rt_idx = i
 
         # Restore previous selection or auto-select Ross-Tech
         if prev_port:
@@ -550,11 +928,12 @@ class KWPBridgeWindow(QMainWindow):
                 if self.combo_port.itemData(i) == prev_port:
                     self.combo_port.setCurrentIndex(i)
                     break
-        elif rt_index >= 0:
-            self.combo_port.setCurrentIndex(rt_index)
-            rt_idx = self.combo_cable.findData(CABLE_ROSS_TECH)
-            if rt_idx >= 0:
-                self.combo_cable.setCurrentIndex(rt_idx)
+        elif rt_idx is not None:
+            self.combo_port.setCurrentIndex(rt_idx)
+            # Auto-set cable combo to Ross-Tech
+            idx = self.combo_cable.findData(CABLE_ROSS_TECH)
+            if idx >= 0:
+                self.combo_cable.setCurrentIndex(idx)
 
         self.combo_port.blockSignals(False)
         self._refresh_cable_dot()
@@ -563,30 +942,26 @@ class KWPBridgeWindow(QMainWindow):
         """
         Update the cable status dot based on the currently selected port.
 
-        ● green  — Ross-Tech cable detected on selected port
+        ● green  — Ross-Tech cable on selected port
         ● amber  — FTDI or CH340 KKL on selected port
         ● grey   — unrecognised / no cable
         """
         selected_port = self.combo_port.currentData() or ""
-        ports = list(serial.tools.list_ports.comports())
+        colour  = C_DIM
+        tooltip = "No recognised cable on selected port"
 
-        colour   = C_DIM
-        tooltip  = "No recognised cable on selected port"
-
-        for p in ports:
+        for p in serial.tools.list_ports.comports():
             if p.device != selected_port:
                 continue
+            is_rt, model = self._is_ross_tech(p)
             vid = p.vid or 0
             pid = p.pid or 0
-            is_rt, rt_name = self._is_ross_tech(p)
-
             if is_rt:
                 colour  = C_GREEN
                 tooltip = (
-                    f"✓  Ross-Tech {rt_name} detected\n"
-                    f"   Port: {p.device}\n"
-                    f"   VID: {vid:04X}  PID: {pid:04X}\n"
-                    f"   {p.description or ''}"
+                    f"Ross-Tech {model} on {p.device}\n"
+                    f"VID: {vid:04X}  PID: {pid:04X}\n"
+                    "Genuine cable — fast init handled in firmware."
                 )
             elif vid == 0x0403:
                 colour  = C_AMBER
@@ -860,8 +1235,6 @@ class KWPBridgeWindow(QMainWindow):
             self._groups = list(self._lbl.groups()) or [0]
             self._worker.groups = self._groups
         elif protocol == PROTO_KWP2000:
-            # ME7 sensible default groups when no label file loaded
-            # 1=basic, 2=MAF/load, 3=timing/throttle, 4=temps, 91=boost
             self._groups = [1, 2, 3, 4, 91]
             self._worker.groups = self._groups
 
@@ -869,6 +1242,13 @@ class KWPBridgeWindow(QMainWindow):
         self.btn_gauges.setEnabled(True)
         self.btn_read_faults.setEnabled(True)
         self.btn_clear_faults.setEnabled(True)
+        self.btn_fault_window.setEnabled(True)
+
+        # Prime the fault dialog with the new ECU
+        if self._fault_dlg:
+            self._fault_dlg.set_ecu(pn, comp)
+            self._fault_dlg.set_worker(self._worker)
+
         if not hasattr(self, '_tcp_server') or not self._tcp_server:
             self._start_tcp_bridge()
 
@@ -877,11 +1257,32 @@ class KWPBridgeWindow(QMainWindow):
         self.btn_gauges.setEnabled(False)
         self.btn_read_faults.setEnabled(False)
         self.btn_clear_faults.setEnabled(False)
+        self.btn_fault_window.setEnabled(False)
         self.lbl_fault_count.setText("No faults read")
         self.fault_list.setVisible(False)
         self._clear_gauges()
 
     # ── Fault code handlers ───────────────────────────────────────────────────
+
+    def _open_fault_window(self):
+        """Open (or raise) the FaultDialog window."""
+        if self._fault_dlg is None:
+            ecu_id = self._current_ecu_id
+            pn   = ecu_id.get('part_number', '')
+            comp = ecu_id.get('component', '')
+            from ..ecu_defs import find_ecu_def
+            ecu_def = find_ecu_def(pn) if pn else None
+            self._fault_dlg = FaultDialog(parent=None, ecu_def=ecu_def)
+            if pn:
+                self._fault_dlg.set_ecu(pn, comp)
+            self._fault_dlg.set_worker(self._worker)
+
+        self._fault_dlg.show()
+        self._fault_dlg.raise_()
+        self._fault_dlg.activateWindow()
+        # Auto-read on first open if connected
+        if self._worker and hasattr(self._worker, '_kwp') and self._worker._kwp:
+            self._fault_dlg._do_read()
 
     def _on_read_faults(self):
         """Request fault codes from connected ECU or mock server."""
@@ -892,30 +1293,36 @@ class KWPBridgeWindow(QMainWindow):
             return
         if self._worker and hasattr(self._worker, '_kwp') and self._worker._kwp:
             try:
-                from ..protocol import KWPError
                 faults = self._worker._kwp.read_faults()
-                self._display_faults([f.__dict__ for f in faults])
+                fault_dicts = [f.__dict__ if hasattr(f, '__dict__') else f for f in faults]
+                self._display_faults(fault_dicts)
+                # Forward to fault dialog if open
+                if self._fault_dlg:
+                    self._fault_dlg.load_faults(fault_dicts)
             except Exception as e:
                 self._set_status(f"Read faults error: {e}", C_AMBER)
 
     def _on_clear_faults(self):
-        """Clear stored fault codes."""
+        """Clear stored fault codes (with confirmation if faults exist)."""
         if self._mock_server and self._mock_server.is_running():
             self._mock_server.clear_faults()
             self._display_faults([])
+            if self._fault_dlg:
+                self._fault_dlg.clear_display()
             self._set_status("Faults cleared (mock)", C_GREEN)
             return
         if self._worker and hasattr(self._worker, '_kwp') and self._worker._kwp:
             try:
-                from ..protocol import KWPError
                 self._worker._kwp.clear_faults()
                 self._display_faults([])
+                if self._fault_dlg:
+                    self._fault_dlg.clear_display()
                 self._set_status("Faults cleared", C_GREEN)
             except Exception as e:
                 self._set_status(f"Clear faults error: {e}", C_AMBER)
 
     def _display_faults(self, faults: list):
-        """Update fault display area with fault list."""
+        """Update the inline fault summary strip."""
         if not faults:
             self.lbl_fault_count.setText("✓  No faults stored")
             self.lbl_fault_count.setStyleSheet(
@@ -925,21 +1332,30 @@ class KWPBridgeWindow(QMainWindow):
 
         count = len(faults)
         self.lbl_fault_count.setText(
-            f"⚠  {count} fault{'s' if count > 1 else ''} stored")
+            f"⚠  {count} fault{'s' if count > 1 else ''} — click ⊞ Fault Window")
         self.lbl_fault_count.setStyleSheet(
             f"color:{C_AMBER}; font-size:10px; font-family:Consolas;")
 
+        # Brief inline summary — first 3 codes only
         lines = []
-        for f in faults:
+        for f in faults[:3]:
             if isinstance(f, dict):
-                code = f.get('code', f.get('code_str', '???'))
+                code = f.get('code', '?')
                 desc = f.get('description', '')
-                status = f.get('status', f.get('status_str', ''))
             else:
-                code   = getattr(f, 'code_str', str(f))
-                desc   = getattr(f, 'description', '')
-                status = getattr(f, 'status_str', '')
-            lines.append(f"  {code}  {desc}  [{status}]")
+                code = getattr(f, 'code', str(f))
+                desc = getattr(f, 'description', '')
+            # DIDB lookup for inline display too
+            try:
+                from ..didb import dtc_description
+                didb = dtc_description(int(code)) if str(code).isdigit() else ''
+                if didb and not desc:
+                    desc = didb
+            except Exception:
+                pass
+            lines.append(f"  VAG{int(code):05d}  {desc[:50]}")
+        if len(faults) > 3:
+            lines.append(f"  … and {len(faults)-3} more — open Fault Window")
 
         self.fault_list.setText("\n".join(lines))
         self.fault_list.setVisible(True)
