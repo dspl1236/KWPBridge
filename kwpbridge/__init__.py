@@ -43,3 +43,4 @@ from .protocol_detect  import (
     detect_protocol, ProtocolDetector, DetectResult,
     PROTO_AUTO, PROTO_KWP1281, PROTO_KWP2000,
 )
+from . import didb

@@ -257,10 +257,27 @@ def get_cell_label(ecu_def: ECUDef, group: int, cell: int) -> str:
 
 
 def get_fault_description(ecu_def: ECUDef, code: int) -> str:
-    """Get the description for a fault code, or a generic fallback."""
-    if ecu_def is None:
-        return f"Fault {code:05d}"
-    return ecu_def.faults.get(code, f"Fault {code:05d} — unknown")
+    """
+    Get the English description for a fault code.
+
+    Lookup order:
+      1. ECUDef.faults — ECU-specific descriptions (most precise)
+      2. DIDB dtc_descriptions.json — VAG official descriptions (4,817 codes)
+      3. Generic fallback with code number
+    """
+    if ecu_def is not None:
+        specific = ecu_def.faults.get(code)
+        if specific:
+            return specific
+    # DIDB fallback — covers codes 0-4818 with official VAG descriptions
+    try:
+        from .didb import dtc_description
+        didb = dtc_description(code)
+        if didb:
+            return didb
+    except Exception:
+        pass
+    return f"Fault {code:05d} — unknown"
 
 # ── Digifant 1 — G60 / G40 ────────────────────────────────────────────────────
 # Part numbers:
