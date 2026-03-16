@@ -495,48 +495,75 @@ class KWPBridgeWindow(QMainWindow):
         0xC33B: "HEX-USB+CAN",
         0xC33C: "HEX-NET",
         0xC33D: "HEX-V2",
+        0xC34B: "Micro-CAN",
+        0xC338: "K+CAN",
         0xFF00: "Ross-Tech",
     }
+    # Description string fallback — catches cable before COM port driver loads
+    # ("Ross-Tech Direct USB Interface" appears in Device Manager description)
+    _RT_DESC_KEYWORDS = ("ross-tech", "ross tech", "hex+kkl", "hex+can", "hex-v2")
+
+    def _is_ross_tech(self, p) -> tuple[bool, str]:
+        """Return (is_rt, model_name) for a serial port entry."""
+        vid = p.vid or 0
+        pid = p.pid or 0
+        desc = (p.description or "").lower()
+        mfr  = (getattr(p, 'manufacturer', '') or "").lower()
+
+        if vid == 0x0403 and pid in self._RT_PIDS:
+            return True, self._RT_PIDS[pid]
+        # Description string fallback
+        if any(kw in desc or kw in mfr for kw in self._RT_DESC_KEYWORDS):
+            return True, "Ross-Tech"
+        return False, ""
 
     def _populate_ports(self):
         """Populate the port combo from available serial ports."""
+        prev_port = self.combo_port.currentData()
+        self.combo_port.blockSignals(True)
         self.combo_port.clear()
         ports = list(serial.tools.list_ports.comports())
         if not ports:
             self.combo_port.addItem("No ports found", "")
+            self.combo_port.blockSignals(False)
             self._refresh_cable_dot()
             return
 
-        for p in ports:
-            vid = p.vid or 0
-            pid = p.pid or 0
-            if vid == 0x0403 and pid in self._RT_PIDS:
-                hint = f" ★ Ross-Tech {self._RT_PIDS[pid]}"
-            elif vid == 0x0403:
+        rt_index = -1
+        for i, p in enumerate(ports):
+            is_rt, rt_name = self._is_ross_tech(p)
+            if is_rt:
+                hint = f" ★ Ross-Tech {rt_name}"
+            elif (p.vid or 0) == 0x0403:
                 hint = " FTDI"
-            elif vid == 0x1A86:
+            elif (p.vid or 0) == 0x1A86:
                 hint = " CH340"
             else:
                 hint = ""
             self.combo_port.addItem(f"{p.device}{hint}", p.device)
+            if is_rt and rt_index == -1:
+                rt_index = i
 
-        # Auto-select the first Ross-Tech port if present
-        for i in range(self.combo_port.count()):
-            if "Ross-Tech" in (self.combo_port.itemText(i) or ""):
-                self.combo_port.setCurrentIndex(i)
-                # Also set cable combo to Ross-Tech
-                rt_idx = self.combo_cable.findData(CABLE_ROSS_TECH)
-                if rt_idx >= 0:
-                    self.combo_cable.setCurrentIndex(rt_idx)
-                break
+        # Restore previous selection or auto-select Ross-Tech
+        if prev_port:
+            for i in range(self.combo_port.count()):
+                if self.combo_port.itemData(i) == prev_port:
+                    self.combo_port.setCurrentIndex(i)
+                    break
+        elif rt_index >= 0:
+            self.combo_port.setCurrentIndex(rt_index)
+            rt_idx = self.combo_cable.findData(CABLE_ROSS_TECH)
+            if rt_idx >= 0:
+                self.combo_cable.setCurrentIndex(rt_idx)
 
+        self.combo_port.blockSignals(False)
         self._refresh_cable_dot()
 
     def _refresh_cable_dot(self):
         """
         Update the cable status dot based on the currently selected port.
 
-        ● green  — Ross-Tech cable on selected port
+        ● green  — Ross-Tech cable detected on selected port
         ● amber  — FTDI or CH340 KKL on selected port
         ● grey   — unrecognised / no cable
         """
@@ -545,25 +572,42 @@ class KWPBridgeWindow(QMainWindow):
 
         colour   = C_DIM
         tooltip  = "No recognised cable on selected port"
-        cable_name = ""
 
         for p in ports:
             if p.device != selected_port:
                 continue
             vid = p.vid or 0
             pid = p.pid or 0
-            if vid == 0x0403 and pid in self._RT_PIDS:
-                colour     = C_GREEN
-                cable_name = self._RT_PIDS[pid]
-                tooltip    = f"Ross-Tech {cable_name} detected  (VID=0403 PID={pid:04X})"
+            is_rt, rt_name = self._is_ross_tech(p)
+
+            if is_rt:
+                colour  = C_GREEN
+                tooltip = (
+                    f"✓  Ross-Tech {rt_name} detected\n"
+                    f"   Port: {p.device}\n"
+                    f"   VID: {vid:04X}  PID: {pid:04X}\n"
+                    f"   {p.description or ''}"
+                )
             elif vid == 0x0403:
-                colour     = C_AMBER
-                cable_name = "FTDI KKL"
-                tooltip    = f"FTDI KKL cable detected  (VID=0403 PID={pid:04X})"
+                colour  = C_AMBER
+                tooltip = (
+                    f"FTDI KKL cable on {p.device}\n"
+                    f"VID: {vid:04X}  PID: {pid:04X}\n"
+                    "Dumb cable — software 5-baud init will be used."
+                )
             elif vid == 0x1A86:
-                colour     = C_AMBER
-                cable_name = "CH340 KKL"
-                tooltip    = f"CH340 KKL cable detected  (VID=1A86 PID={pid:04X})"
+                colour  = C_AMBER
+                tooltip = (
+                    f"CH340 KKL cable on {p.device}\n"
+                    f"VID: {vid:04X}  PID: {pid:04X}\n"
+                    "Dumb cable — may be unreliable with 5-baud init."
+                )
+            else:
+                tooltip = (
+                    f"Unrecognised device on {p.device}\n"
+                    f"VID: {vid:04X}  PID: {pid:04X}\n"
+                    f"{p.description or ''}"
+                )
             break
 
         self.cable_dot.setStyleSheet(f"color:{colour}; font-size:14px;")
@@ -581,6 +625,24 @@ class KWPBridgeWindow(QMainWindow):
         self._timer = QTimer()
         self._timer.timeout.connect(self._refresh_status_strip)
         self._timer.start(500)
+
+        # USB hotplug polling — re-scan ports every 2s so cable dot updates
+        # automatically when the Ross-Tech cable is plugged or unplugged.
+        self._usb_timer = QTimer()
+        self._usb_timer.timeout.connect(self._poll_usb)
+        self._usb_timer.start(2000)
+        self._last_port_set: set[str] = set()
+
+    def _poll_usb(self):
+        """Detect cable plug/unplug and refresh port list silently."""
+        try:
+            import serial.tools.list_ports
+            current = {p.device for p in serial.tools.list_ports.comports()}
+            if current != self._last_port_set:
+                self._last_port_set = current
+                self._populate_ports()
+        except Exception:
+            pass
 
     # ── Slots ─────────────────────────────────────────────────────────────────
 
