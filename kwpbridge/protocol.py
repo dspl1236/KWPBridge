@@ -530,7 +530,7 @@ class KWP1281:
                     log.debug(f"Cable VID={vid:#06x} PID={pid:#06x}")
 
                     # Ross-Tech genuine cables
-                    if vid == 0x0403 and pid in (0xC33A, 0xC33B, 0xC33C):
+                    if vid == 0x0403 and pid in (0xC33A, 0xC33B, 0xC33C, 0xC33D, 0xFF00):
                         return CABLE_ROSS_TECH
                     # Ross-Tech HEX-USB (older)
                     if vid == 0x0403 and pid == 0xFF00:

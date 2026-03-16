@@ -34,7 +34,7 @@ def list_ports():
             vid_pid = f"{p.vid:04X}:{p.pid:04X}" if p.vid else "----:----"
             hint = ""
             if p.vid == 0x0403:
-                if p.pid in (0xC33A, 0xC33B, 0xC33C, 0xFF00):
+                if p.pid in (0xC33A, 0xC33B, 0xC33C, 0xC33D, 0xFF00):
                     hint = " <- Ross-Tech"
                 else:
                     hint = " <- FTDI (dumb KKL)"
@@ -210,7 +210,7 @@ def list_ports():
             vid_pid = f"{p.vid:04X}:{p.pid:04X}" if p.vid else "----:----"
             hint = ""
             if p.vid == 0x0403:
-                if p.pid in (0xC33A, 0xC33B, 0xC33C, 0xFF00):
+                if p.pid in (0xC33A, 0xC33B, 0xC33C, 0xC33D, 0xFF00):
                     hint = " <- Ross-Tech"
                 else:
                     hint = " <- FTDI (dumb KKL)"

@@ -299,11 +299,18 @@ class KWPBridgeWindow(QMainWindow):
         ctrl = QHBoxLayout()
         ctrl.setSpacing(6)
 
-        # Status dot
+        # ECU connection status dot
         self.dot = QLabel("●")
         self.dot.setStyleSheet(f"color:{C_RED}; font-size:14px;")
         self.dot.setFixedWidth(18)
         ctrl.addWidget(self.dot)
+
+        # Cable detected dot — shows whether a recognised cable is plugged in
+        self.cable_dot = QLabel("●")
+        self.cable_dot.setStyleSheet(f"color:{C_DIM}; font-size:14px;")
+        self.cable_dot.setFixedWidth(18)
+        self.cable_dot.setToolTip("Cable status — green = Ross-Tech detected")
+        ctrl.addWidget(self.cable_dot)
 
         # Port selector
         self.combo_port = QComboBox()
@@ -315,6 +322,8 @@ class KWPBridgeWindow(QMainWindow):
             f"QComboBox QAbstractItemView {{ background:{C_PANEL}; color:{C_TEXT}; }}")
         self._populate_ports()
         ctrl.addWidget(self.combo_port, 2)
+        # Update cable dot when port selection changes
+        self.combo_port.currentIndexChanged.connect(self._refresh_cable_dot)
 
         # Port refresh button
         btn_refresh = QPushButton("⟳")
@@ -480,19 +489,29 @@ class KWPBridgeWindow(QMainWindow):
             f"QPushButton:hover {{ background:{colour}22; }}"
             f"QPushButton:disabled {{ color:{C_DIM}; border-color:{C_BORDER}; }}")
 
+    # All known Ross-Tech cable PIDs (VID always 0x0403 = FTDI)
+    _RT_PIDS = {
+        0xC33A: "HEX+KKL",
+        0xC33B: "HEX-USB+CAN",
+        0xC33C: "HEX-NET",
+        0xC33D: "HEX-V2",
+        0xFF00: "Ross-Tech",
+    }
+
     def _populate_ports(self):
         """Populate the port combo from available serial ports."""
         self.combo_port.clear()
         ports = list(serial.tools.list_ports.comports())
         if not ports:
             self.combo_port.addItem("No ports found", "")
+            self._refresh_cable_dot()
             return
+
         for p in ports:
-            # Label shows port + cable hint
             vid = p.vid or 0
             pid = p.pid or 0
-            if vid == 0x0403 and pid in (0xC33A, 0xC33B, 0xC33C, 0xFF00):
-                hint = " ★ Ross-Tech"
+            if vid == 0x0403 and pid in self._RT_PIDS:
+                hint = f" ★ Ross-Tech {self._RT_PIDS[pid]}"
             elif vid == 0x0403:
                 hint = " FTDI"
             elif vid == 0x1A86:
@@ -500,6 +519,55 @@ class KWPBridgeWindow(QMainWindow):
             else:
                 hint = ""
             self.combo_port.addItem(f"{p.device}{hint}", p.device)
+
+        # Auto-select the first Ross-Tech port if present
+        for i in range(self.combo_port.count()):
+            if "Ross-Tech" in (self.combo_port.itemText(i) or ""):
+                self.combo_port.setCurrentIndex(i)
+                # Also set cable combo to Ross-Tech
+                rt_idx = self.combo_cable.findData(CABLE_ROSS_TECH)
+                if rt_idx >= 0:
+                    self.combo_cable.setCurrentIndex(rt_idx)
+                break
+
+        self._refresh_cable_dot()
+
+    def _refresh_cable_dot(self):
+        """
+        Update the cable status dot based on the currently selected port.
+
+        ● green  — Ross-Tech cable on selected port
+        ● amber  — FTDI or CH340 KKL on selected port
+        ● grey   — unrecognised / no cable
+        """
+        selected_port = self.combo_port.currentData() or ""
+        ports = list(serial.tools.list_ports.comports())
+
+        colour   = C_DIM
+        tooltip  = "No recognised cable on selected port"
+        cable_name = ""
+
+        for p in ports:
+            if p.device != selected_port:
+                continue
+            vid = p.vid or 0
+            pid = p.pid or 0
+            if vid == 0x0403 and pid in self._RT_PIDS:
+                colour     = C_GREEN
+                cable_name = self._RT_PIDS[pid]
+                tooltip    = f"Ross-Tech {cable_name} detected  (VID=0403 PID={pid:04X})"
+            elif vid == 0x0403:
+                colour     = C_AMBER
+                cable_name = "FTDI KKL"
+                tooltip    = f"FTDI KKL cable detected  (VID=0403 PID={pid:04X})"
+            elif vid == 0x1A86:
+                colour     = C_AMBER
+                cable_name = "CH340 KKL"
+                tooltip    = f"CH340 KKL cable detected  (VID=1A86 PID={pid:04X})"
+            break
+
+        self.cable_dot.setStyleSheet(f"color:{colour}; font-size:14px;")
+        self.cable_dot.setToolTip(tooltip)
 
     # ── Signal wiring ─────────────────────────────────────────────────────────
 
