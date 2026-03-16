@@ -32,6 +32,11 @@ from typing import Any
 from .constants  import DEFAULT_PORT, IPC_UPDATE_HZ, ADDR_ENGINE, CABLE_AUTO
 from .models     import BridgeState
 from .protocol   import KWP1281, KWPError
+from .kwp2000    import KWP2000, KWP2000Error
+from .protocol_detect import (
+    ProtocolDetector, DetectResult,
+    PROTO_AUTO, PROTO_KWP1281, PROTO_KWP2000,
+)
 from . import __version__
 
 log = logging.getLogger(__name__)
@@ -39,41 +44,50 @@ log = logging.getLogger(__name__)
 
 class KWPServer:
     """
-    KWPBridge server — manages the KWP1281 connection and IPC clients.
+    KWPBridge server — manages the ECU connection and IPC clients.
+
+    Supports KWP1281 (pre-2002 VAG) and KWP2000/ISO14230 (ME7.x+).
+    When protocol="auto" (default), tries KWP1281 then KWP2000 automatically.
 
     Usage:
         server = KWPServer(
             serial_port="COM3",
             groups=[1, 2, 3, 4],
             cable_type=CABLE_ROSS_TECH,
+            protocol="auto",        # or "kwp1281" / "kwp2000"
         )
-        server.start()   # blocks until Ctrl+C or server.stop()
+        server.start()
     """
 
     def __init__(
         self,
-        serial_port:  str,
-        groups:       list[int]  = None,
-        ecu_address:  int        = ADDR_ENGINE,
-        cable_type:   str        = CABLE_AUTO,
-        tcp_port:     int        = DEFAULT_PORT,
-        poll_interval: float     = 1.0 / IPC_UPDATE_HZ,
+        serial_port:    str,
+        groups:         list[int]  = None,
+        ecu_address:    int        = ADDR_ENGINE,
+        cable_type:     str        = CABLE_AUTO,
+        tcp_port:       int        = DEFAULT_PORT,
+        poll_interval:  float      = 1.0 / IPC_UPDATE_HZ,
+        protocol:       str        = PROTO_AUTO,
+        detect_attempts: int       = 2,
     ):
-        self.serial_port   = serial_port
-        self.groups        = groups or [1, 2, 3, 4]
-        self.ecu_address   = ecu_address
-        self.cable_type    = cable_type
-        self.tcp_port      = tcp_port
-        self.poll_interval = poll_interval
+        self.serial_port    = serial_port
+        self.groups         = groups or [1, 2, 3, 4]
+        self.ecu_address    = ecu_address
+        self.cable_type     = cable_type
+        self.tcp_port       = tcp_port
+        self.poll_interval  = poll_interval
+        self.protocol       = protocol          # PROTO_AUTO / kwp1281 / kwp2000
+        self.detect_attempts = detect_attempts  # retries per protocol in auto mode
 
-        self._kwp:        KWP1281 | None  = None
-        self._state       = BridgeState()
-        self._clients:    list[socket.socket] = []
-        self._client_lock = threading.Lock()
-        self._running     = False
-        self._poll_thread: threading.Thread | None = None
-        self._tcp_thread:  threading.Thread | None = None
-        self._tcp_server:  socket.socket | None   = None
+        self._kwp          = None   # KWP1281 or KWP2000, set after detection
+        self._active_proto = ""     # detected protocol string
+        self._state        = BridgeState()
+        self._clients:     list[socket.socket] = []
+        self._client_lock  = threading.Lock()
+        self._running      = False
+        self._poll_thread:  threading.Thread | None = None
+        self._tcp_thread:   threading.Thread | None = None
+        self._tcp_server:   socket.socket | None   = None
 
     # ── Public API ────────────────────────────────────────────────────────────
 
@@ -122,39 +136,71 @@ class KWPServer:
         self.groups = groups
         log.info(f"Poll groups updated: {groups}")
 
+    def _on_detect_status(self, msg: str):
+        """Receive status updates from ProtocolDetector and forward to clients."""
+        self._state.detect_status = msg
+        self._broadcast_state()
+
     # ── KWP polling ───────────────────────────────────────────────────────────
 
     def _poll_loop(self):
-        """Background thread — maintains KWP connection and polls groups."""
+        """Background thread — maintains ECU connection and polls groups."""
         reconnect_delay = 5.0
 
         while self._running:
-            # ── Connect ───────────────────────────────────────────────────────
+            # ── Connect / reconnect ───────────────────────────────────────────
             if not (self._kwp and self._kwp.connected):
+                self._state.connected = False
+                self._state.protocol  = ""
+                self._broadcast_state()
+
                 try:
-                    self._kwp = KWP1281(
-                        port=self.serial_port,
-                        cable_type=self.cable_type,
+                    detector = ProtocolDetector(
+                        port           = self.serial_port,
+                        cable_type     = self.cable_type,
+                        force_protocol = self.protocol,
+                        ecu_address    = self.ecu_address,
+                        max_attempts   = self.detect_attempts,
+                        on_status      = self._on_detect_status,
                     )
-                    ecu_id = self._kwp.connect(self.ecu_address)
-                    self._state.connected   = True
-                    self._state.ecu_id      = ecu_id
-                    self._state.ecu_address = self.ecu_address
-                    self._state.error       = ""
-                    self._state.cable_type  = self._kwp.cable_type
-                    self._state.port        = self.serial_port
-                    log.info(f"ECU connected: {ecu_id.part_number}")
-                    self._broadcast_state()
-                except KWPError as e:
+                    result = detector.run()
+
+                    if result.success:
+                        self._kwp          = result.connection
+                        self._active_proto = result.protocol
+                        self._state.connected   = True
+                        self._state.ecu_id      = result.ecu_id
+                        self._state.ecu_address = self.ecu_address
+                        self._state.error       = ""
+                        self._state.cable_type  = self.cable_type
+                        self._state.port        = self.serial_port
+                        self._state.protocol    = result.protocol
+                        log.info(
+                            f"ECU connected via {result.protocol}: "
+                            f"{result.ecu_id.part_number}"
+                        )
+                        self._broadcast_state()
+                    else:
+                        self._state.error = result.summary()
+                        log.warning(
+                            f"Protocol detection failed — "
+                            f"{result.summary()} — retry in {reconnect_delay}s"
+                        )
+                        self._broadcast_state()
+                        time.sleep(reconnect_delay)
+                        continue
+
+                except Exception as e:
                     self._state.connected = False
                     self._state.error = str(e)
-                    log.warning(f"Connection failed: {e} — retry in {reconnect_delay}s")
+                    log.warning(f"Connection error: {e} — retry in {reconnect_delay}s")
                     self._broadcast_state()
                     time.sleep(reconnect_delay)
                     continue
 
             # ── Poll groups ───────────────────────────────────────────────────
             try:
+                # Both KWP1281 and KWP2000 expose the same read_group() API
                 for group in self.groups:
                     if not self._running:
                         break
@@ -165,9 +211,10 @@ class KWPServer:
                 self._broadcast_state()
                 time.sleep(self.poll_interval)
 
-            except KWPError as e:
-                log.warning(f"Poll error: {e}")
+            except Exception as e:
+                log.warning(f"Poll error ({self._active_proto}): {e}")
                 self._state.connected = False
+                self._state.protocol  = ""
                 self._state.error = str(e)
                 self._broadcast_state()
                 time.sleep(reconnect_delay)

@@ -36,7 +36,7 @@ except ImportError:
 import serial.tools.list_ports
 
 from ..constants  import DEFAULT_PORT, CABLE_AUTO, CABLE_ROSS_TECH, CABLE_FTDI, CABLE_CH340
-from ..protocol   import KWP1281, KWPError
+from ..protocol_detect import PROTO_AUTO, PROTO_KWP1281, PROTO_KWP2000
 from ..lbl_parser import LBLRegistry, decode_with_lbl
 from ..ecu_defs   import find_ecu_def
 from ..server     import KWPServer
@@ -84,16 +84,24 @@ class WorkerSignals(QObject):
 
 # ── Connection worker ─────────────────────────────────────────────────────────
 class ConnectionWorker(threading.Thread):
-    """Background thread managing KWP1281 connection and polling."""
+    """
+    Background thread managing ECU connection and polling.
 
-    def __init__(self, port, cable, groups, signals: WorkerSignals):
+    Uses ProtocolDetector so it auto-negotiates KWP1281 vs KWP2000,
+    or respects a forced protocol if set.
+    """
+
+    def __init__(self, port, cable, groups, signals: WorkerSignals,
+                 protocol="auto", detect_attempts=2):
         super().__init__(daemon=True, name="kwp-worker")
-        self.port    = port
-        self.cable   = cable
-        self.groups  = groups
-        self.signals = signals
+        self.port            = port
+        self.cable           = cable
+        self.groups          = groups
+        self.signals         = signals
+        self.protocol        = protocol
+        self.detect_attempts = detect_attempts
         self._stop   = threading.Event()
-        self._kwp: KWP1281 | None = None
+        self._kwp    = None   # KWP1281 or KWP2000
 
     def stop(self):
         self._stop.set()
@@ -104,17 +112,42 @@ class ConnectionWorker(threading.Thread):
                 pass
 
     def run(self):
+        from ..protocol_detect import ProtocolDetector, PROTO_AUTO
+
+        def _status(msg):
+            self.signals.error.emit(msg)   # reuse error signal for status display
+
         retry = 0
         max_retry = 3
 
         while not self._stop.is_set() and retry < max_retry:
             try:
-                self._kwp = KWP1281(port=self.port, cable_type=self.cable)
-                ecu_id = self._kwp.connect()
-                self.signals.connected.emit(ecu_id.__dict__)
+                # Protocol detection — emits status messages to GUI
+                detector = ProtocolDetector(
+                    port=self.port, cable_type=self.cable,
+                    force_protocol=self.protocol,
+                    max_attempts=self.detect_attempts,
+                    on_status=_status,
+                )
+                result = detector.run()
+
+                if not result.success:
+                    retry += 1
+                    msg = f"Detection failed ({retry}/{max_retry}): {result.summary()}"
+                    self.signals.error.emit(msg)
+                    if retry < max_retry and not self._stop.is_set():
+                        time.sleep(3)
+                    else:
+                        self.signals.disconnected.emit(result.summary())
+                    continue
+
+                self._kwp = result.connection
+                ecu_dict  = result.ecu_id.__dict__.copy()
+                ecu_dict["protocol"] = result.protocol
+                self.signals.connected.emit(ecu_dict)
                 retry = 0
 
-                # Poll loop
+                # Poll loop — same API for both KWP1281 and KWP2000
                 while not self._stop.is_set():
                     data = {}
                     for g in self.groups:
@@ -123,23 +156,21 @@ class ConnectionWorker(threading.Thread):
                         try:
                             block = self._kwp.read_group(g)
                             data[g] = block
-                        except KWPError as e:
+                        except Exception as e:
                             log.warning(f"Group {g} read error: {e}")
                     if data:
                         self.signals.data_ready.emit(data)
                     time.sleep(0.3)
 
-            except KWPError as e:
+            except Exception as e:
                 retry += 1
-                if retry < max_retry:
-                    msg = f"Connection failed ({retry}/{max_retry}): {e} — retrying..."
-                    self.signals.error.emit(msg)
+                if retry < max_retry and not self._stop.is_set():
+                    self.signals.error.emit(
+                        f"Error ({retry}/{max_retry}): {e} — retrying…")
                     time.sleep(2)
                 else:
                     self.signals.disconnected.emit(str(e))
-            except Exception as e:
-                self.signals.disconnected.emit(str(e))
-                break
+                    break
 
 
 # ── Gauge widget ──────────────────────────────────────────────────────────────
@@ -309,6 +340,26 @@ class KWPBridgeWindow(QMainWindow):
             self.combo_cable.addItem(label, key)
         ctrl.addWidget(self.combo_cable)
 
+        # Protocol selector
+        self.combo_protocol = QComboBox()
+        self.combo_protocol.setStyleSheet(self.combo_port.styleSheet())
+        self.combo_protocol.setFixedWidth(140)
+        self.combo_protocol.setToolTip(
+            "Protocol selection:\n"
+            "• Auto — tries KWP1281 first, then KWP2000\n"
+            "  (pre-2002: 7A, AAH, M2.3.2, Digifant)\n"
+            "  (post-2001: ME7.x, MED7.x, 1.8T / 2.0 FSI)\n"
+            "• KWP1281 — force slow 5-baud init\n"
+            "• KWP2000 — force ISO14230 fast init"
+        )
+        for key, label in [
+            (PROTO_AUTO,    "Auto Protocol"),
+            (PROTO_KWP1281, "KWP1281  (pre-02)"),
+            (PROTO_KWP2000, "KWP2000  (ME7+)"),
+        ]:
+            self.combo_protocol.addItem(label, key)
+        ctrl.addWidget(self.combo_protocol)
+
         main.addLayout(ctrl)
 
         # ── Button row ────────────────────────────────────────────────────────
@@ -466,8 +517,9 @@ class KWPBridgeWindow(QMainWindow):
     # ── Slots ─────────────────────────────────────────────────────────────────
 
     def _on_connect(self):
-        port  = self.combo_port.currentData() or self.combo_port.currentText()
-        cable = self.combo_cable.currentData()
+        port     = self.combo_port.currentData() or self.combo_port.currentText()
+        cable    = self.combo_cable.currentData()
+        protocol = self.combo_protocol.currentData()
 
         if not port:
             self._set_status("No port selected", C_AMBER)
@@ -476,12 +528,21 @@ class KWPBridgeWindow(QMainWindow):
         self.btn_connect.setEnabled(False)
         self.btn_disconnect.setEnabled(True)
         self.dot.setStyleSheet(f"color:{C_AMBER}; font-size:14px;")
-        self._set_status(f"Connecting to {port}…", C_AMBER)
+
+        proto_label = {
+            PROTO_AUTO:    "auto",
+            PROTO_KWP1281: "KWP1281",
+            PROTO_KWP2000: "KWP2000",
+        }.get(protocol, protocol)
+        self._set_status(f"Connecting to {port}  [{proto_label}]…", C_AMBER)
 
         self._worker = ConnectionWorker(
             port=port, cable=cable,
             groups=self._groups,
-            signals=self._signals)
+            signals=self._signals,
+            protocol=protocol,
+            detect_attempts=2,
+        )
         self._worker.start()
 
     def _on_disconnect(self):
@@ -507,25 +568,52 @@ class KWPBridgeWindow(QMainWindow):
         dlg = QDialog(self)
         dlg.setWindowTitle("Start Mock ECU")
         dlg.setStyleSheet(f"background:{C_BG}; color:{C_TEXT};")
-        dlg.setFixedWidth(320)
+        dlg.setFixedWidth(400)
         lay = QVBoxLayout(dlg)
-        lay.setSpacing(10)
+        lay.setSpacing(8)
         lay.setContentsMargins(16, 16, 16, 16)
 
         lay.addWidget(QLabel(
             "Select ECU to simulate.\n"
-            "Scenarios loop: Cold Start → Idle → Cruise → WOT → Decel",
+            "Scenarios loop: Cold Start → Idle → Cruise → WOT/Boost → Decel",
         ))
 
+        # KWP1281 group
+        lbl_kwp1281 = QLabel("KWP1281  —  pre-2002")
+        lbl_kwp1281.setStyleSheet(f"color:{C_DIM}; font-size:10px; letter-spacing:1px;")
+        lay.addWidget(lbl_kwp1281)
+
         grp = QButtonGroup(dlg)
-        rb_7a   = QRadioButton("7A 20v  (893906266D)  — MMS05C  [Audi 80/90 2.3 20v]")
-        rb_7a.setChecked(True)
-        rb_aah  = QRadioButton("AAH V6  (4A0906266)   — MMS100  [Audi 100/S4 2.8 V6]")
-        rb_digi = QRadioButton("Digifant 1  (037906023) — G60/G40  [VW Corrado/Golf/Polo]")
-        for rb in (rb_7a, rb_aah, rb_digi):
+        ecus = [
+            ("7a",      "7A 20v  (893906266D)  MMS05C   — Audi 80/90 2.3 20v",        True),
+            ("aah",     "AAH V6  (4A0906266)   MMS100   — Audi 100/A6 2.8 12v",       False),
+            ("digifant","Digifant  (037906023)  G60/G40  — VW Corrado/Golf/Polo",      False),
+            ("m232",    "M2.3.2  (4A0907551AA) prjmod   — Audi S2/200/UrS4 AAN 20vT", False),
+        ]
+        radio_map = {}
+        for key, label, checked in ecus:
+            rb = QRadioButton(label)
+            rb.setChecked(checked)
             rb.setStyleSheet(f"color:{C_TEXT};")
             grp.addButton(rb)
             lay.addWidget(rb)
+            radio_map[rb] = key
+
+        # KWP2000 group
+        lbl_kwp2000 = QLabel("KWP2000  —  ME7.x  (post-2001)")
+        lbl_kwp2000.setStyleSheet(f"color:{C_DIM}; font-size:10px; letter-spacing:1px; margin-top:6px;")
+        lay.addWidget(lbl_kwp2000)
+
+        me7_ecus = [
+            ("me7", "ME7.5  (06A906032BN)  AWP 1.8T  — Audi TT / Golf 4 / Jetta 4", False),
+        ]
+        for key, label, checked in me7_ecus:
+            rb = QRadioButton(label)
+            rb.setChecked(checked)
+            rb.setStyleSheet(f"color:{C_TEXT};")
+            grp.addButton(rb)
+            lay.addWidget(rb)
+            radio_map[rb] = key
 
         bb = QDialogButtonBox(
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
@@ -537,10 +625,9 @@ class KWPBridgeWindow(QMainWindow):
         if dlg.exec_() != QDialog.Accepted:
             return
 
-        if rb_7a.isChecked():    ecu = "7a"
-        elif rb_aah.isChecked(): ecu = "aah"
-        else:                    ecu = "digifant"
-        self._start_mock(ecu)
+        selected_ecu = next(
+            (v for rb, v in radio_map.items() if rb.isChecked()), "7a")
+        self._start_mock(selected_ecu)
 
     def _start_mock(self, ecu: str):
         """Start the mock server and auto-connect."""
@@ -552,11 +639,21 @@ class KWPBridgeWindow(QMainWindow):
                 ecu=ecu, port=DEFAULT_PORT, poll_hz=3.0)
             self._mock_server.start()
             self._mock_warmup_start = time.time()
+            self._mock_ecu = ecu
 
             self.btn_mock.setText("⚙ Stop Mock")
             self.btn_mock.setStyleSheet(self._btn_style("#ff6644"))
             self.scenario_strip.setVisible(True)
             self._set_status(f"Mock ECU running — {ecu.upper()} on :{DEFAULT_PORT}", "#aa66ff")
+
+            # Auto-select appropriate protocol in combo
+            if ecu in ("me7", "awp", "aum", "auq", "bam", "me7.5"):
+                proto = PROTO_KWP2000
+            else:
+                proto = PROTO_KWP1281
+            idx = self.combo_protocol.findData(proto)
+            if idx >= 0:
+                self.combo_protocol.setCurrentIndex(idx)
 
             # Auto-connect after a brief settle
             QTimer.singleShot(300, self._on_connect)
@@ -570,32 +667,28 @@ class KWPBridgeWindow(QMainWindow):
             self._set_status(f"Mock start failed: {e}", C_RED)
             self._mock_server = None
 
-    def _stop_mock(self):
-        """Stop mock server and disconnect."""
-        if hasattr(self, '_scenario_timer'):
-            self._scenario_timer.stop()
-        if self._mock_server:
-            self._mock_server.stop()
-            self._mock_server = None
-        self._on_disconnect()
-        self.btn_mock.setText("⚙ Mock ECU")
-        self.btn_mock.setStyleSheet(self._btn_style("#aa66ff"))
-        self.scenario_strip.setVisible(False)
-        self._set_status("Mock ECU stopped", C_DIM)
-
     def _update_scenario_strip(self):
         """Update the scenario progress strip while mock is running."""
         if not self._mock_server or not self._mock_server.is_running():
             return
         try:
-            import time
-            mod = "ecu_7a" if getattr(self._mock_server, 'ecu', '7a') == "7a" else                   "ecu_digifant" if getattr(self._mock_server, 'ecu', '') in                       ("digifant", "g60", "g40") else None
-            if mod is None:
+            import time, importlib
+            ecu = getattr(self, '_mock_ecu', '7a')
+            mod_map = {
+                "7a": "ecu_7a", "aah": "ecu_aah",
+                "digifant": "ecu_digifant", "g60": "ecu_digifant",
+                "m232": "ecu_m232", "aan": "ecu_m232", "aby": "ecu_m232",
+                "adu": "ecu_m232",
+                "me7": "ecu_me7", "awp": "ecu_me7", "aum": "ecu_me7",
+                "auq": "ecu_me7", "bam": "ecu_me7",
+            }
+            mod_name = mod_map.get(ecu)
+            if not mod_name:
                 return
-            import importlib
-            _m = importlib.import_module(f"kwpbridge.mock.{mod}")
-            get_scenario_info = _m.get_scenario_info
-            SCENARIO_DURATION = _m.SCENARIO_DURATION
+            _m = importlib.import_module(f"kwpbridge.mock.{mod_name}")
+            get_scenario_info = getattr(_m, 'get_scenario_info', None)
+            if not get_scenario_info:
+                return
             if self._mock_warmup_start:
                 t = time.time()
                 info = get_scenario_info(t, self._mock_warmup_start)
@@ -613,15 +706,22 @@ class KWPBridgeWindow(QMainWindow):
 
 
     def _on_ecu_connected(self, ecu_id_dict: dict):
-        pn   = ecu_id_dict.get('part_number', 'Unknown')
-        comp = ecu_id_dict.get('component', '')
-        self._current_ecu_id = ecu_id_dict   # stored for TCP broadcast
+        pn       = ecu_id_dict.get('part_number', 'Unknown')
+        comp     = ecu_id_dict.get('component', '')
+        protocol = ecu_id_dict.get('protocol', '')
+        self._current_ecu_id = ecu_id_dict
 
         # Load label file
         self._lbl = self._lbl_registry.get(pn)
         lbl_note  = f"  ✓ labels loaded" if self._lbl else "  (no label file)"
 
-        self.banner.setText(f"{pn}  —  {comp}{lbl_note}")
+        proto_badge = ""
+        if protocol == PROTO_KWP2000:
+            proto_badge = "  [KWP2000]"
+        elif protocol == PROTO_KWP1281:
+            proto_badge = "  [KWP1281]"
+
+        self.banner.setText(f"{pn}  —  {comp}{proto_badge}{lbl_note}")
         self.banner.setStyleSheet(
             f"color:{C_GREEN}; font-size:12px; font-family:Consolas;")
 
@@ -629,12 +729,16 @@ class KWPBridgeWindow(QMainWindow):
         if self._lbl:
             self._groups = list(self._lbl.groups()) or [0]
             self._worker.groups = self._groups
+        elif protocol == PROTO_KWP2000:
+            # ME7 sensible default groups when no label file loaded
+            # 1=basic, 2=MAF/load, 3=timing/throttle, 4=temps, 91=boost
+            self._groups = [1, 2, 3, 4, 91]
+            self._worker.groups = self._groups
 
-        self._set_connected_state(True, f"Connected — {pn}")
+        self._set_connected_state(True, f"Connected  {proto_badge.strip()}  — {pn}")
         self.btn_gauges.setEnabled(True)
         self.btn_read_faults.setEnabled(True)
         self.btn_clear_faults.setEnabled(True)
-        # Start TCP bridge server so HachiROM/other tools can connect
         if not hasattr(self, '_tcp_server') or not self._tcp_server:
             self._start_tcp_bridge()
 

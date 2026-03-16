@@ -117,18 +117,22 @@ class BridgeState:
     cable_type:      str                           = ""
     port:            str                           = ""
     error:           str                           = ""
+    protocol:        str                           = ""   # "kwp1281" / "kwp2000" / ""
+    detect_status:   str                           = ""   # live detection progress message
     timestamp:       float                         = field(default_factory=time.time)
 
     def as_dict(self) -> dict:
         return {
-            "connected":   self.connected,
-            "ecu_address": self.ecu_address,
-            "ecu_id":      self.ecu_id.as_dict() if self.ecu_id else None,
-            "groups":      {k: v.as_dict() for k, v in self.groups.items()},
-            "faults":      [f.as_dict() for f in self.faults],
-            "fault_count": self.fault_count,
-            "cable_type":  self.cable_type,
-            "port":        self.port,
-            "error":       self.error,
-            "timestamp":   self.timestamp,
+            "connected":      self.connected,
+            "ecu_address":    self.ecu_address,
+            "ecu_id":         self.ecu_id.as_dict() if self.ecu_id else None,
+            "groups":         {k: v.as_dict() for k, v in self.groups.items()},
+            "faults":         [f.as_dict() for f in self.faults],
+            "fault_count":    self.fault_count,
+            "cable_type":     self.cable_type,
+            "port":           self.port,
+            "error":          self.error,
+            "protocol":       self.protocol,
+            "detect_status":  self.detect_status,
+            "timestamp":      self.timestamp,
         }

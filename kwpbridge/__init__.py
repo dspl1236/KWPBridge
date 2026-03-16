@@ -1,25 +1,22 @@
 """
-KWPBridge — KWP1281 / K-Line diagnostic bridge for VAG vehicles.
+KWPBridge — KWP1281 / KWP2000 diagnostic bridge for VAG vehicles.
 
-Connects to a vehicle ECU via a KKL or Ross-Tech cable, reads measuring
-blocks, faults, and basic settings, then broadcasts live data over a
-local TCP socket so other tools (HachiROM, digital dash, loggers) can
-consume it without owning the serial port themselves.
+Supports KWP1281 (pre-2002: 7A, AAH, M2.3.2, Digifant) and
+KWP2000/ISO14230 (ME7.x, MED7.x, post-2001 VAG). Protocol is
+auto-detected by default — tries KWP1281 then KWP2000.
 
 Architecture:
   KWPBridge process  ←→  serial (K-line)  ←→  ECU
        ↓
   TCP server :50266
        ↓
-  HachiROM / digital dash / logger (any number of clients)
-
-Detection: client apps connect to localhost:50266 — if the connection
-succeeds, KWPBridge is running. If refused, feature is unavailable.
+  HachiROM / UrROM / digital dash / logger (any number of clients)
 """
 
-__version__ = "0.8.1"
+__version__ = "0.9.2"
 __all__ = [
     "KWP1281",
+    "KWP2000",
     "KWPServer",
     "MeasuringBlock",
     "FaultCode",
@@ -28,13 +25,21 @@ __all__ = [
     "ECU_AAH",
     "DEFAULT_PORT",
     "FORMULA",
+    "detect_protocol",
+    "PROTO_AUTO",
+    "PROTO_KWP1281",
+    "PROTO_KWP2000",
 ]
 
-from .protocol   import KWP1281
-from .kwp2000    import KWP2000, KWP2000Error, NegativeResponseError
-from .server     import KWPServer
-from .models     import MeasuringBlock, FaultCode
-from .ecu_defs   import ECU_7A_LATE, ECU_7A_EARLY, ECU_AAH
-from .formula    import FORMULA
-from .lbl_parser import LBLRegistry, LBLFile, parse_lbl, decode_with_lbl
-from .constants  import DEFAULT_PORT
+from .protocol         import KWP1281
+from .kwp2000          import KWP2000, KWP2000Error, NegativeResponseError
+from .server           import KWPServer
+from .models           import MeasuringBlock, FaultCode
+from .ecu_defs         import ECU_7A_LATE, ECU_7A_EARLY, ECU_AAH
+from .formula          import FORMULA
+from .lbl_parser       import LBLRegistry, LBLFile, parse_lbl, decode_with_lbl
+from .constants        import DEFAULT_PORT
+from .protocol_detect  import (
+    detect_protocol, ProtocolDetector, DetectResult,
+    PROTO_AUTO, PROTO_KWP1281, PROTO_KWP2000,
+)
