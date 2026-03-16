@@ -7,30 +7,21 @@
 
 ---
 
-K-Line diagnostic bridge for VAG vehicles. Connects to an ECU via a KKL or Ross-Tech cable, auto-detects the protocol (KWP1281 for pre-2002, KWP2000 for ME7.x and later), reads live measuring blocks and fault codes, and broadcasts everything over a local TCP socket so companion tools can consume it without owning the serial port.
+K-line diagnostic bridge for VAG vehicles. Connects to an ECU via a KKL or
+Ross-Tech cable, reads live measuring blocks and fault codes, and broadcasts
+everything over a local TCP socket so any number of tools can consume it
+simultaneously — ROM editors, dashboards, data loggers — without each needing
+their own serial port connection.
 
-Part of a broader VAG ECU toolchain alongside [HachiROM](https://github.com/dspl1236/HachiROM), [UrROM](https://github.com/dspl1236/UrROM), and [audi90-teensy-ecu](https://github.com/dspl1236/audi90-teensy-ecu).
+Supports two protocols:
 
----
+- **KWP1281** — pre-2002 VAG: Hitachi MMS (7A 20v, AAH V6), Digifant
+  (G60/G40), Motronic 2.x (2.0 8v), Bosch M2.3.2 (AAN/ABY/ADU 20vT)
+- **KWP2000 / ISO 14230** — Bosch ME7.x, MED7.x, and most post-2001 VAG ECUs
 
-## Protocol support
-
-| Protocol | Init | Baud | ECU families |
-|----------|------|------|-------------|
-| **KWP1281** | 5-baud slow init | 10400 | Hitachi MMS-04B/05C (7A, AAH), Bosch Motronic 2.x, M2.3.2 (AAN/ABY/ADU), Digifant 1 — pre-2002 |
-| **KWP2000** / ISO 14230 | Fast init | 10400 | Bosch ME7.x, MED7.x, Siemens Simos — post-2001 |
-
-**Auto-detection** (default `--protocol auto`) tries KWP1281 first, then KWP2000 — the same order VCDS uses. Each protocol gets two attempts; a 2-second K-line settle gap separates the two. Status messages stream to the GUI and CLI in real time:
-
-```
-Trying kwp1281...  attempt 1/2...
-  ✗ kwp1281 attempt 1: 5-baud init timeout — no response from ECU
-Waiting 2s before trying kwp2000...
-Trying kwp2000...  attempt 1/2...
-  ✓ kwp2000  06A906032BN  1.8l T  ME7.5
-```
-
-You can also force a specific protocol with `--protocol kwp1281` or `--protocol kwp2000`.
+Protocol is **auto-detected by default** — KWPBridge tries KWP1281 first,
+then KWP2000, in the same order VCDS uses. Override with `--protocol` when
+you already know the ECU.
 
 ---
 
@@ -38,23 +29,69 @@ You can also force a specific protocol with `--protocol kwp1281` or `--protocol 
 
 ```
 Vehicle ECU
-  │ K-line (12V)
-KKL / Ross-Tech cable (USB → virtual COM)
-  │ 10400 baud
-KWPBridge process        python -m kwpbridge --port COM3
-  │ TCP 127.0.0.1:50266  (newline-delimited JSON)
+  │  K-line (12 V single-wire)
+KKL / Ross-Tech cable  (USB → virtual COM port)
   │
-  ├── KWPBridge GUI  (gauges, fault codes, label-file decoded values)
-  ├── HachiROM       (live overlay on 7A / AAH fuel & timing maps)
-  ├── UrROM          (live overlay on M2.3.2 / ME7 fuel & boost maps)
-  └── Any tool       kwpbridge.client.is_running() / KWPClient()
+KWPBridge  ──  python -m kwpbridge --port COM3
+  │  TCP 127.0.0.1:50266  (newline-delimited JSON)
+  │
+  ├── HachiROM          live map overlay — Hitachi MMS (7A, AAH)
+  ├── UrROM             live map overlay — Bosch M2.3.2 (AAN/ABY/ADU)
+  ├── KWPBridge GUI     gauges, fault codes, basic settings
+  └── Any tool          kwpbridge.client.KWPClient
 ```
 
-KWPBridge owns the serial port exclusively. Companion apps just connect to the TCP socket — they never touch the port themselves and can start or stop independently.
+Client tools call `kwpbridge.client.is_running()` on startup. If `True`,
+live features activate automatically. If `False`, they stay hidden. KWPBridge
+owns the serial port; all clients just subscribe over TCP.
 
 ---
 
-## Quick start
+## Supported ECUs
+
+### KWP1281 — pre-2002 VAG
+
+| ECU | Platform | Engine | Vehicle |
+|-----|----------|--------|---------|
+| 893-906-266-D | Hitachi MMS05C | 7A 2.3 20v | Audi 80/90/Coupe (late, 4-plug, post 03/90) |
+| 893-906-266-B | Hitachi MMS-04B | 7A 2.3 20v | Audi 80/90/Coupe (early, 2-plug, pre 03/90) |
+| 4A0-906-266 | Hitachi MMS100 | AAH 2.8 V6 12v | Audi 100/A6/UrS4 |
+| 8A0-906-266-A | Hitachi MMS-200 | AAH/ACK V6 | Audi A6/Coupe |
+| 037-906-023 | Digifant 1 | PL/RV/G60/G40 | VW Corrado/Golf/Polo |
+| 037-906-025-ADY/AFT | Motronic 2.x | 2.0 8v | VW Golf/Jetta/Passat |
+| 4A0-907-551-AA/A | Bosch M2.3.2 | AAN 20vT 200hp | Audi 200 20vT / UrS4 |
+| 895-907-551-A | Bosch M2.3.2 | ABY 20vT 230hp | Audi S2 Coupe/Avant |
+| 4A0-907-551-C | Bosch M2.3.2 | ADU 20vT 315hp | Audi RS2 Avant |
+
+### KWP2000 / ISO 14230 — post-2001 VAG
+
+| ECU | Platform | Engine | Vehicle |
+|-----|----------|--------|---------|
+| 06A-906-032-BN/BH/BD/BG/BF/BE/BB | Bosch ME7.5 | AWP 1.8T 180hp | Audi TT 225 / Golf 4 GTI / Jetta GLI |
+| 06A-906-032-AY/AX/AS | Bosch ME7.5 | AUM 1.8T 150hp | Audi A3 / Golf 4 |
+| 06A-906-032-GD/GC/KL/KN | Bosch ME7.5 | AUQ 1.8T 180hp | Audi A3 / Seat Leon / Skoda |
+| 06A-906-032-HS/GF/GG/EB | Bosch ME7.5 | BAM 1.8T 180hp | Audi TT / VW Golf 4 |
+| 06A-906-032 | Bosch ME7.5 | AWP/AUM/AUQ/BAM | Root PN — accepts all variants |
+
+Additional ME7 part numbers are resolved via root PN fallback. Total: 19 known part numbers.
+
+---
+
+## Supported Cables
+
+| Cable | `--cable` flag | Notes |
+|-------|---------------|-------|
+| Ross-Tech HEX+KKL (genuine) | `ross_tech` | **Recommended.** Init handled in cable firmware. Works with both protocols. |
+| FTDI-based KKL | `ftdi` | Software init via baud-rate trick. Reliable for KWP1281. |
+| CH340-based KKL | `ch340` | Software init via serial break signal. May be unreliable. |
+| Any | `auto` | **Default.** Detects cable type from USB VID/PID on connection. |
+
+FTDI VID `0x0403` PIDs `0xC33A/C33B/C33C/FF00` are identified as Ross-Tech.
+VID `0x1A86` (Nuvoton) is identified as CH340.
+
+---
+
+## Quick Start
 
 ```bash
 pip install kwpbridge
@@ -62,280 +99,385 @@ pip install kwpbridge
 # List available serial ports with cable type hints
 python -m kwpbridge --list-ports
 
-# Identify the ECU and print group 1 (auto-detects protocol)
+# Scan: connect, print ECU ID + group 1 + faults, then exit
 python -m kwpbridge --port COM3 --scan
 
-# Force KWP2000 scan (ME7 bench setup)
-python -m kwpbridge --port COM3 --protocol kwp2000 --cable ross_tech --scan
-
-# Run the bridge (auto protocol, broadcasts on localhost:50266)
+# Run the bridge (broadcasts on localhost:50266)
 python -m kwpbridge --port COM3
 
-# ME7.5 AWP — KWP2000, groups 1+2+3+91 (RPM/load/MAF + boost)
-python -m kwpbridge --port COM3 --protocol kwp2000 --groups 1 2 3 91 --poll-hz 10
+# ME7 / KWP2000 with Ross-Tech cable
+python -m kwpbridge --port COM3 --cable ross_tech --protocol kwp2000
 
-# KWP1281 with explicit cable type and groups
-python -m kwpbridge --port COM3 --protocol kwp1281 --cable ross_tech --groups 1 2 3 4 8
+# ME7 — boost + knock monitoring
+python -m kwpbridge --port COM3 --protocol kwp2000 --groups 1 2 3 4 91 22 23
+
+# M2.3.2 AAN — all useful groups
+python -m kwpbridge --port COM3 --protocol kwp1281 --groups 1 2 3 4 5 6
+
+# Pre-2002 car, explicit protocol (skip auto-detection)
+python -m kwpbridge --port COM3 --protocol kwp1281 --groups 1 2 3 4 8
 ```
 
-### CLI flags
+### Protocol flags
 
-| Flag | Default | Description |
-|------|---------|-------------|
-| `--port` | *(required)* | Serial port — `COM3`, `/dev/ttyUSB0`, etc. |
-| `--protocol` | `auto` | `auto` / `kwp1281` / `kwp2000` |
-| `--cable` | `auto` | `auto` / `ross_tech` / `ftdi` / `ch340` |
-| `--groups` | `1 2 3 4` | Measuring block groups to poll |
-| `--poll-hz` | `10` | Target polling rate |
-| `--detect-attempts` | `2` | Retries per protocol in auto mode |
-| `--ecu-address` | `0x01` | K-line address (engine = 0x01) |
-| `--tcp-port` | `50266` | IPC port for client tools |
-| `--scan` | — | Connect, print ID + group 1, exit |
-| `--list-ports` | — | List serial ports with cable hints, exit |
+| Flag | Behaviour |
+|------|-----------| 
+| `--protocol auto` | Try KWP1281 first, then KWP2000. **Default.** |
+| `--protocol kwp1281` | Force KWP1281 (5-baud slow init). Pre-2002 VAG. |
+| `--protocol kwp2000` | Force KWP2000 (ISO14230 fast init). ME7+ / post-2001 VAG. |
+
+`--detect-attempts N` sets how many times each protocol is tried before
+moving on (default: 2). Use on flaky cables or long wiring.
 
 ---
 
-## Supported ECUs
+## Measuring Block Groups
 
-### KWP1281  (pre-2002)
-
-| Part number | ECU | Engine | Vehicle |
-|-------------|-----|--------|---------|
-| `893 906 266 D` | Hitachi MMS-05C | 7A 2.3 20v (late, 4-plug) | Audi 80/90 1988–1994 |
-| `893 906 266 B` | Hitachi MMS-04B | 7A 2.3 20v (early, 2-plug) | Audi 80/90 1988–1990 |
-| `4A0 906 266` | Hitachi MMS100 | AAH 2.8 V6 12v | Audi 100/A6/S4 1992–1997 |
-| `8A0 906 266 A` | Hitachi MMS-200 | AAH/ACK V6 | Audi 100/A6 1994–1997 |
-| `4A0 907 551 AA` | Bosch M2.3.2 | AAN 2.2 20vT (200hp) | Audi S2 Coupé/Avant, 200 Turbo, UrS4 |
-| `4A0 907 551 A` | Bosch M2.3.2 | AAN (earlier PN) | as above |
-| `895 907 551 A` | Bosch M2.3.2 | ABY 2.2 20vT (230hp) | Audi S2 Coupé/Avant 1992–1995 |
-| `8A0 907 551 B` | Bosch M2.3.2 | ADU 2.2 20vT RS2 (315hp) | Audi RS2 Avant 1994–1995 |
-| `037 906 023` | Digifant 1 | RV/PL G60/G40 | VW Corrado G60, Golf/Jetta 1990–1992 |
-| `037 906 025 ADY` | Motronic 2.x | ADY 2.0 8v | VW Golf/Jetta/Cabrio 1993–1995 |
-
-### KWP2000  (post-2001)
-
-| Part numbers | ECU | Engine | Vehicle |
-|--------------|-----|--------|---------|
-| `06A 906 032 BN/BH/BD/BG/BF/...` (19 variants) | Bosch ME7.5 | AWP/AUM/AUQ/BAM 1.8T | Audi TT 8N, A4 B6, Golf 4, Jetta 4, Beetle 1.8T |
-
-Any ECU that speaks KWP1281 or KWP2000 at address 0x01 will connect — the above have label files and named fault codes built in.
-
----
-
-## Measuring blocks — key groups
-
-### KWP1281 ECUs (7A, AAH, M2.3.2)
-
-**7A 20v  — group 0 (single 10-cell block):**
-
-| Cell | Parameter | Decode | Idle spec |
-|------|-----------|--------|-----------|
-| 1 | Coolant Temperature | raw − 50 = °C | 85–110 °C |
-| 2 | Engine Load | raw (1–255) | 20–30 |
-| 3 | Engine Speed | raw × 25 = RPM | 750–850 |
-| 4–5 | Idle stabilisation (learned/auto) | 0–7 or 249–255 | 0–3 |
-| 6 | Idle stab position | 128 = neutral | 126–130 |
-| 7 | Switch inputs | manual = 24 | — |
-| 8 | Lambda control | 128 = stoich | 118–138 |
-| 9 | Distributor position | 0 = centre | 254/255/0/1/2 |
-| 10 | Ignition angle | raw × 1.33 = °BTDC | 8–12° |
-
-**Group 8 — CO pot basic setting:** Cell 4 should read `128` (0x80) when calibrated. Matches ROM scalar `0x0777`.
-
-**M2.3.2 (AAN/ABY/ADU) — 8 groups, 4 cells each:**
+### 7A 20v / AAH V6 (KWP1281)
 
 | Group | Cell 1 | Cell 2 | Cell 3 | Cell 4 |
 |-------|--------|--------|--------|--------|
-| 1 | RPM (×40) | Coolant °C (−70) | Lambda (/128) | Ignition °BTDC |
-| 2 | RPM | IPW ms (×0.52) | Battery V (×0.068) | Atmospheric kPa |
-| 3 | RPM | Load (raw) | TPS % (×0.416) | IAT °C (−70) |
-| 4 | RPM | Load | VSS km/h (×2) | Throttle switches |
-| 5 | RPM | IAC zero point | IAC duty cycle | Load switches |
-| 6 | N75 DC % | N75 req % | MAP kPa actual | MAP kPa req |
-| 7 | Knock cyl 1–4 (×0.5 units each) | | | |
-| 8 | IPW effective ms | Dead-time ms | Actual IPW ms | IDC % |
+| 0 | Coolant Temp | Engine Load | Engine Speed | Idle Stab |
+| 1 | Engine Speed | Coolant Temp | Lambda Control | CO Pot ADC |
+| 2 | Engine Speed | Engine Load | Injection Timing | MAF (G70) |
+| 3 | Engine Speed | MAF (G70) | Throttle Angle | Ignition Timing |
+| 4 | Engine Speed | Battery Voltage | Coolant Temp | Intake Air Temp |
+| 5 | Engine Speed | Engine Load | Vehicle Speed | Load Status |
+| 6 | Engine Speed | Engine Load | Intake Air Temp | Altitude Factor |
+| 8 | Engine Speed | CO Pot ADC | CO Pot Status | CO Pot Trim |
 
-*Groups 6–8 available on prjmod / 034EFI firmware only.*
+**Group 0** is the Hitachi single-measurement block (10 cells). Groups 1–8
+follow standard VAG 4-cell layout.
 
-### KWP2000 ECUs (ME7.5)
+**Group 8 / CO pot basic setting:** Cell 4 should read `128` (0x80) when the
+CO pot is correctly calibrated. This value is written to ROM scalar `0x0777`.
+Run VCDS basic setting on group 8 to calibrate.
 
-Key groups for the AWP 1.8T:
+### Bosch M2.3.2 — AAN/ABY/ADU 20vT (KWP1281)
 
-| Group | Content |
-|-------|---------|
-| 1 | RPM, coolant °C, lambda controller %, basic setting flags |
-| 2 | RPM, engine load %, injection timing ms, MAF g/s |
-| 3 | RPM, MAF g/s, throttle angle %, ignition timing °BTDC |
-| 4 | RPM, battery V, coolant °C, IAT °C |
-| 5 | RPM, load %, VSS km/h, load status |
-| 22/23 | RPM, load, knock retard cyl 1–2 / cyl 3–4 (°) |
-| 32 | Lambda idle adaptation %, partial throttle adaptation % |
-| 33 | Lambda controller %, upstream O2 sensor V |
-| 50 | RPM, short-term fuel trim %, long-term fuel trim % |
-| 60 | Throttle sensor 1 %, sensor 2 %, adaptation status |
-| 91 | RPM, load %, N75 duty cycle %, boost pressure mbar |
-| 94 | RPM, load %, ignition actual °BTDC, knock retard total ° |
+| Group | Cell 1 | Cell 2 | Cell 3 | Cell 4 |
+|-------|--------|--------|--------|--------|
+| 1 | Engine Speed | Coolant Temp | Lambda Factor | Ignition Timing |
+| 2 | Engine Speed | Injector Duration (ms) | Battery Voltage | Atm. Pressure |
+| 3 | Engine Speed | Engine Load | Throttle Angle | Intake Air Temp |
+| 4 | Engine Speed | Engine Load | Vehicle Speed | Throttle Switches |
+| 5 | Engine Speed | IAC Zero Point | IAC Duty Cycle | Load Switches |
+| 6 | N75 Duty Cycle | N75 Request | MAP Actual (kPa) | MAP Request |
+| 7 | Knock Sensor 1 | Knock Sensor 2 | Knock Sensor 3 | Knock Sensor 4 |
+| 8 | Effective IPW | Injector Dead-time | Actual IPW | Injector Duty Cycle |
+
+**Groups 6–8** require prjmod or 034EFI firmware. Stock Bosch chips do not
+expose boost pressure, knock sensors, or full injection detail. Use `--groups 1 2 3 4 5 6` with a tuned chip.
+
+Scaling (from PRJ WinlogDriver.cpp source): RPM = raw × 40, ECT/IAT = (raw − 70) × 0.7 °C,
+Lambda = raw / 128, MAP = raw / 1.035 kPa (MPXH6400A sensor), IPW = raw × 0.52 ms.
+
+### Bosch ME7.5 — AWP/AUM/AUQ/BAM 1.8T (KWP2000)
+
+| Group | Cell 1 | Cell 2 | Cell 3 | Cell 4 |
+|-------|--------|--------|--------|--------|
+| 1 | Engine Speed | Coolant Temp | Lambda Controller % | Basic Setting Flags |
+| 2 | Engine Speed | Engine Load % | Injection Timing ms | MAF g/s |
+| 3 | Engine Speed | MAF g/s | Throttle Sensor 1 % | Ignition Timing ° |
+| 4 | Engine Speed | Battery V | Coolant Temp | Intake Air Temp |
+| 5 | Engine Speed | Engine Load % | Vehicle Speed | Load Status |
+| 10 | Engine Speed | Engine Load % | Throttle Sensor 1 % | Ignition Timing ° |
+| 14 | Engine Speed | Engine Load % | Misfire Counter | Misfire Recognition |
+| 15 | Cyl 1 Misfire | Cyl 2 Misfire | Cyl 3 Misfire | Malfunction Recog. |
+| 16 | Cyl 4 Misfire | Malfunction Recog. | — | — |
+| 22 | Engine Speed | Engine Load % | Cyl 1 KR ° | Cyl 2 KR ° |
+| 23 | Engine Speed | Engine Load % | Cyl 3 KR ° | Cyl 4 KR ° |
+| 28 | Engine Speed | Engine Load % | Coolant Temp | Knock Sensor Test |
+| 30 | O2 Status B1S1 | O2 Status B1S2 | — | — |
+| 32 | Lambda Idle Adapt % | Lambda Part Adapt % | — | — |
+| 33 | Lambda Controller % | O2 Upstream V | — | — |
+| 34 | Engine Speed | Catalyst Temp | Period Duration | Lambda Aging |
+| 36 | O2 S2 Downstream V | Lambda Availability | — | — |
+| 41 | Engine Speed | Engine Load % | Injector Bank 1 | Injector Bank 2 |
+| 43 | Engine Speed | Engine Load % | Injector Cyl 1 | Injector Cyl 2 |
+| 46 | Engine Speed | Engine Load % | Injector Cyl 3 | Injector Cyl 4 |
+| 50 | Engine Speed | ST Fuel Trim % | LT Fuel Trim % | — |
+| 54 | Engine Speed | Load % | O2 Upstream V | O2 Downstream V |
+| 55 | Engine Speed | Load % | Catalyst Efficiency | — |
+| 56 | Engine Speed | Coolant Temp | Catalyst Temp | — |
+| 60 | Throttle Sensor 1 % | Throttle Sensor 2 % | Learn Step | Result |
+| 61 | Engine Speed | Voltage Supply | Throttle Actuator | Op. Condition |
+| 62 | Throttle S1 | Throttle S2 | Throttle Pos (G79) | Accel Pedal S2 |
+| 66 | Engine Speed | Engine Load % | EVAP Purge Valve | Fuel Pressure |
+| 70 | Engine Speed | Engine Load % | Catalyst Temp B1 | Catalyst Temp B2 |
+| 77 | Engine Speed | Engine Load % | EGR Valve Position | EGR Duty Cycle |
+| 89 | Engine Speed | Coolant Temp | Engine Load % | Barometric Pressure |
+| 91 | Engine Speed | Engine Load % | N75 Duty Cycle % | Boost Pressure mbar |
+| 94 | Engine Speed | Engine Load % | Ignition Actual ° | Knock Retard Total ° |
+| 99 | Readiness Code | — | — | — |
+
+**Recommended group sets:**
+
+| Use case | Groups |
+|----------|--------|
+| Daily monitoring | `1 2 3 4 91` |
+| Tune / knock watch | `1 2 3 4 91 22 23 94` |
+| Lambda / fuel trim | `1 32 33 50 54` |
+| Throttle / EPC | `3 60 61 62` |
+| Full diagnostic | `1 2 3 4 5 10 22 23 28 32 33 50 60 91 94` |
+
+**Basic Setting Flags (Group 1 Cell 4):** Each bit enables/disables a
+readiness condition. All 8 bits set = `0b11111111` = 255 = all conditions
+met. Bit 0 = coolant < 80°C, Bit 1 = RPM < 2000, Bit 2 = throttle closed,
+Bit 3 = lambda regulation correct, Bit 4 = idle state, Bit 5 = A/C off,
+Bit 6 = catalyst > 350°C, Bit 7 = no faults.
 
 ---
 
-## Cables
+## Protocol Auto-Detection
 
-| Cable | `--cable` | Init method | Notes |
-|-------|-----------|-------------|-------|
-| Ross-Tech HEX+KKL (genuine) | `ross_tech` | Handled in firmware | **Recommended.** Most reliable, works with KWP1281 and KWP2000. |
-| FTDI-based KKL (generic USB) | `ftdi` | Software break (setBreak) | Usually reliable. |
-| CH340-based KKL (cheap clone) | `ch340` | Software break | May be unreliable at K-line timing. |
-| Auto-detect from VID/PID | `auto` *(default)* | Per above | Ross-Tech VID 0x0403 PID 0xC33A/B/C auto-selected. |
+With `--protocol auto` (the default), KWPBridge negotiates in the same
+order as VCDS — oldest protocol first:
 
-For a bench setup with direct OBD connection, Ross-Tech HEX+KKL with `--cable ross_tech` is the safest choice. For dumb KKL cables the `setBreak(True/False)` approach works on most FTDI chips.
+```
+Trying kwp1281...
+  kwp1281  attempt 1/2...
+  ✗ kwp1281 attempt 1: 5-baud init timeout
+  kwp1281  attempt 2/2...
+  ✗ kwp1281 attempt 2: 5-baud init timeout
+Waiting 2s before trying kwp2000...
+Trying kwp2000...
+  kwp2000  attempt 1/2...
+✓ kwp2000  06A906032BN  1.8l T  ME7.5
+```
+
+Status messages stream to the GUI status bar in real time. KWP1281 failure
+typically takes 5–8 s on a bench setup before falling through to KWP2000.
+Use `--protocol kwp2000` to skip this when the ECU is known.
+
+```python
+from kwpbridge import detect_protocol
+
+result = detect_protocol(port="COM3", cable_type="ross_tech")
+if result.success:
+    print(f"Protocol: {result.protocol}")       # 'kwp1281' or 'kwp2000'
+    print(f"ECU:      {result.ecu_id.part_number}")
+    # result.connection is live — ready for read_group() calls immediately
+    block = result.connection.read_group(1)
+else:
+    print(f"No ECU: {result.summary()}")
+```
 
 ---
 
-## IPC protocol
+## IPC Protocol (TCP)
 
-`127.0.0.1:50266` — TCP, newline-delimited JSON.
+KWPBridge listens on `127.0.0.1:50266`. All messages are newline-delimited JSON.
 
-### Server → client
+### Server → Client
 
 ```json
-{"type": "connected", "version": "0.9.2", "port": 50266}
+{"type": "connected", "version": "0.9.2"}
 
 {"type": "state", "data": {
   "connected": true,
-  "protocol": "kwp2000",
-  "ecu_id": {"part_number": "06A906032BN", "component": "1.8l T  ME7.5"},
+  "protocol":  "kwp2000",
+  "detect_status": "✓ kwp2000  06A906032BN  1.8l T  ME7.5",
+  "ecu_id": {
+    "part_number": "06A906032BN",
+    "component":   "1.8l T  ME7.5"
+  },
   "groups": {
-    "1": {"group": 1, "timestamp": 1741234567.1, "cells": [
-      {"index": 1, "label": "Engine Speed",  "value": 3500.0,  "unit": "RPM",    "display": "3500 RPM"},
-      {"index": 2, "label": "Coolant Temp",  "value": 92.0,    "unit": "°C",     "display": "92.0 °C"},
-      {"index": 3, "label": "Lambda Factor", "value": 1.0,     "unit": "λ",      "display": "1.000 λ"},
-      {"index": 4, "label": "Ignition Angle","value": 22.0,    "unit": "° BTDC", "display": "22.0 °BTDC"}
-    ]},
-    "91": {"group": 91, "cells": [
-      {"index": 4, "label": "Boost Pressure Act", "value": 1620.0, "unit": "mbar", "display": "1620 mbar"}
-    ]}
+    "1": {
+      "group": 1,
+      "cells": [
+        {"index": 1, "label": "Engine Speed",       "value": 820.0,  "unit": "RPM"},
+        {"index": 2, "label": "Coolant Temp",        "value": 90.0,   "unit": "°C"},
+        {"index": 3, "label": "Lambda Controller",   "value": 1.2,    "unit": "%"},
+        {"index": 4, "label": "Basic Setting Flags", "value": 127.0,  "unit": ""}
+      ]
+    },
+    "91": {
+      "group": 91,
+      "cells": [
+        {"index": 1, "label": "Engine Speed",    "value": 3500.0, "unit": "RPM"},
+        {"index": 2, "label": "Engine Load",     "value": 42.3,   "unit": "%"},
+        {"index": 3, "label": "N75 Duty Cycle",  "value": 22.0,   "unit": "%"},
+        {"index": 4, "label": "Boost Pressure",  "value": 1120.0, "unit": "mbar"}
+      ]
+    }
   },
   "faults": [],
   "fault_count": 0,
-  "error": "",
-  "detect_status": ""
+  "cable_type": "ross_tech",
+  "port": "COM3",
+  "error": ""
 }}
 ```
 
-### Client → server
+### Client → Server (commands)
 
 ```json
 {"cmd": "read_faults"}
 {"cmd": "clear_faults"}
+{"cmd": "basic_setting", "group": 8}
 {"cmd": "set_groups", "groups": [1, 2, 3, 91]}
 {"cmd": "get_state"}
-{"cmd": "basic_setting", "group": 8}
 ```
 
 ---
 
-## Client library
+## Cell Value Encoding (Formula Bytes)
+
+Every measuring block cell is encoded as `[formula_byte][A][B]` where
+`value = fn(A, B)`. KWP1281 and KWP2000 use the same formula table.
+
+| Byte | Name | Decode | Unit |
+|------|------|--------|------|
+| `0x08` | Engine Speed | (A×256+B) × 0.25 | RPM |
+| `0x04` | Load / Duty Cycle | (A×256+B) × 0.01 | % |
+| `0x10` | Percentage | (A×256+B) × 0.01 | % |
+| `0x12` | Temperature | (A×256+B) × 0.1 − 273.15 | °C |
+| `0x14` | Temperature (simple) | A − 48 | °C |
+| `0x07` | Voltage | (A×256+B) × 0.001 | V |
+| `0x11` | Voltage (0.001 V) | (A×256+B) × 0.001 | V |
+| `0x02` | MAF | (A×256+B) × 0.01 | g/s |
+| `0x06` | MAF (alt) | (A×256+B) × 0.01 | kg/h |
+| `0x09` | Ignition / Timing | (A×256+B) × 0.1 − 100 | ° BTDC |
+| `0x0A` | Timing (alt) | (A×256+B) × 0.1 − 100 | ° |
+| `0x05` | Lambda | (A×256+B) × 0.0001 + 0.5 | λ |
+| `0x27` | Lambda (alt) | (A×256+B) × 0.0001 + 0.5 | λ |
+| `0x0B` | Pressure (kPa) | (A×256+B) × 0.01 | kPa |
+| `0x0C` | Pressure (mbar) | (A×256+B) × 0.01 | mbar |
+| `0x0D` | Injection Time | (A×256+B) × 0.001 | ms |
+| `0x0E` | Time | (A×256+B) × 0.001 | ms |
+| `0x0F` | Vehicle Speed | (A×256+B) × 0.01 | km/h |
+| `0x13` | Throttle Position | (A×256+B) × 0.01 | % |
+| `0x03` | Binary / Status | A = status flags | — |
+| `0x01` | Raw (counts) | A×256+B | — |
+| `0xFF` | Raw (alt) | A×256+B | — |
+
+```python
+from kwpbridge.formula import decode_cell
+
+value, unit, display = decode_cell(0x08, 0x0D, 0x00)
+# → (832.0, 'RPM', '832 RPM')
+
+value, unit, display = decode_cell(0x12, 0x0E, 0x3F)
+# → (91.6, '°C', '91.6 °C')
+
+value, unit, display = decode_cell(0x05, 0x1A, 0x00)
+# → (1.0, 'λ', '1.000 λ')
+```
+
+---
+
+## Client Library
 
 ```python
 from kwpbridge.client import KWPClient, is_running
 
-# Check if KWPBridge is running
+# Check whether KWPBridge is running before enabling live features
 if not is_running():
-    print("Start: python -m kwpbridge --port COM3")
+    print("Start KWPBridge: python -m kwpbridge --port COM3")
 
-# Subscribe to live data
+# Subscribe to state updates
 client = KWPClient()
 client.on_state(lambda s: print(
     f"RPM: {s['groups']['1']['cells'][0]['value']:.0f}  "
+    f"Boost: {s['groups']['91']['cells'][3]['value']:.0f} mbar  "
     f"Protocol: {s.get('protocol', '?')}"
 ))
 client.connect()
-```
 
-For GUI integration see `urrom/kwp.py` (UrROM) and `hachirom/kwp.py` (HachiROM) — both implement `KWPMonitor` (Qt QObject with signals) and `LiveValues` with per-ECU decode logic and map overlay support.
+# Read faults
+client.on_state(None)
+faults = client.read_faults()
+for f in faults:
+    print(f"  {f['code']}: {f['description']}")
+```
 
 ---
 
-## Protocol detection API
+## Mock ECU Server
+
+KWPBridge includes realistic ECU simulators for all supported platforms.
+No cable or vehicle needed. Scenarios loop automatically, covering cold
+start through WOT and back.
 
 ```python
-from kwpbridge import detect_protocol, PROTO_AUTO, PROTO_KWP1281, PROTO_KWP2000
+from kwpbridge.mock import mock_server
 
-# Auto-detect — tries KWP1281 then KWP2000
-result = detect_protocol(port="COM3", cable_type="ross_tech")
-if result.success:
-    print(f"Protocol: {result.protocol}")        # "kwp1281" or "kwp2000"
-    print(f"ECU: {result.ecu_id.part_number}")   # "06A906032BN"
-    block = result.connection.read_group(1)      # already connected, poll immediately
-
-# Force a specific protocol
-result = detect_protocol(
-    port="COM3",
-    force_protocol=PROTO_KWP2000,
-    cable_type="ross_tech",
-    max_attempts=3,
-    on_status=print,                             # stream status to stdout
-)
+with mock_server(ecu="7a")       as srv: ...  # 7A 20v — MMS05C     [KWP1281]
+with mock_server(ecu="aah")      as srv: ...  # AAH V6 — MMS100     [KWP1281]
+with mock_server(ecu="digifant") as srv: ...  # Digifant G60/G40    [KWP1281]
+with mock_server(ecu="m232")     as srv: ...  # AAN M2.3.2 prjmod   [KWP1281]
+with mock_server(ecu="me7")      as srv: ...  # AWP ME7.5 1.8T      [KWP2000]
 ```
+
+All formula bytes are correctly encoded (`[formula][A][B]`) so
+`formula.decode_cell()` produces physically realistic values throughout
+the scenario loop.
+
+**ME7 mock scenarios (245 s loop):**
+
+| Scenario | Duration | RPM | Load | Boost | Lambda | Knock |
+|----------|----------|-----|------|-------|--------|-------|
+| Cold Start | 60 s | 1100 | 18 % | 970 mbar | 0.93 | — |
+| Warm Idle | 60 s | 820 | 15 % | 960 mbar | 1.00 | — |
+| Cruise | 60 s | 3500 | 40 % | 1100 mbar | 1.00 | — |
+| Boost Pull | 35 s | → 6200 | 170 % | 1650 mbar | 0.88 | cyl 1–4 active |
+| Decel | 30 s | → 2000 | 5 % | 950 mbar | 1.50 | — |
+
+**M2.3.2 mock scenarios (255 s loop):**
+
+| Scenario | Duration | RPM | Load | MAP | Lambda |
+|----------|----------|-----|------|-----|--------|
+| Cold Start | 60 s | 650 | 30 | 95 kPa | 0.92 |
+| Warm Idle | 60 s | 820 | 22 | 95 kPa | 1.00 |
+| Cruise | 60 s | 3000 | 100 | 115 kPa | 1.00 |
+| Boost Run | 45 s | → 6000 | 230 | 255 kPa | 0.87 |
+| Decel | 30 s | → 2500 | 8 | 75 kPa | 1.40 |
+
+In the GUI, click **⚙ Mock ECU** and choose from the picker. The Protocol
+combo auto-sets to KWP2000 when ME7 is selected.
 
 ---
 
-## Mock ECUs (development / testing)
+## Bench Setup (OBD → ECU)
 
-All mock ECUs simulate realistic 5-scenario loops (Cold Start → Warm Idle → Cruise → WOT/Boost → Decel) and produce correctly-encoded protocol bytes.
+For bench testing with a standalone ECU:
 
-| Mock | Part number | Engine | Protocol | Duration |
-|------|-------------|--------|----------|----------|
-| `7a` | 893906266D | 7A 2.3 20v | KWP1281 | 240 s |
-| `aah` | 4A0906266 | AAH 2.8 V6 | KWP1281 | — |
-| `digifant` | 037906023 | G60/G40 | KWP1281 | 240 s |
-| `m232` | 4A0907551AA | AAN 2.2 20vT | KWP1281 | 255 s |
-| `me7` | 06A906032BN | AWP 1.8T | KWP2000 | 245 s |
+1. Apply 12 V to ECU power pins and chassis ground.
+2. Connect OBD-II K-line (pin 7) through the KKL cable.
+3. For ME7: ensure pin 16 (battery +) and pin 4/5 (ground) are connected
+   on the OBD connector.
+4. Run `python -m kwpbridge --port COM3 --scan` to identify the ECU.
+5. Use `--protocol kwp2000 --cable ross_tech` for ME7 bench work to
+   skip the KWP1281 detection delay.
 
-```bash
-# Start mock and GUI side-by-side (development)
-python -m kwpbridge.mock --ecu me7 &
-python -m kwpbridge.gui
-
-# Or use MockServer in tests
-from kwpbridge.mock import MockServer
-with MockServer(ecu="me7") as srv:
-    # srv broadcasts on localhost:50266 at 3 Hz
-    pass
-
-# Direct data — no TCP needed
-from kwpbridge.mock.ecu_me7 import get_group, get_scenario_info
-cells = get_group(91, t=195.0)    # boost group mid-pull
-# → N75=41%, boost=1336 mbar
-```
-
-The ME7 mock produces real KWP2000 formula-encoded bytes `[formula][A][B]` — correct for protocol testing. The GUI mock dialog auto-sets `--protocol kwp2000` when ME7 is selected.
+The ME7.5 AWP ECU accepts KWP2000 connections without the engine running.
+Groups 1, 2, 4, 60, 61 are readable in key-on/engine-off. Groups 22, 23,
+91, 94 require the engine running.
 
 ---
 
-## Label files
+## Label Files
 
-1,171 label files (87 engine, 1,084 modules) covering the full VAG KWP1281/KWP2000 model range. The parser handles Ross-Tech `.lbl` format including REDIRECT directives, scaling formulas (`Anzeige mal 25 = RPM`, `minus 50 = °C`, `mal 0.52 = ms`), and spec ranges.
+KWPBridge bundles **1,174 VCDS-format `.lbl` files** covering the full VAG
+catalogue. The correct label file loads automatically on connection by
+matching the ECU part number.
 
-Files relevant to supported ECUs:
+Key bundled files for supported ECUs:
 
-| File | ECU | Content |
-|------|-----|---------|
-| `engine/893-906-266-D.lbl` | 7A Late | Group 0, coding (German original) |
-| `engine/893-906-266-D-EN.lbl` | 7A | Groups 0–8 with English scaling formulas |
-| `modules/4A0-907-551-AA.lbl` | M2.3.2 AAN/ABY | Groups 1–8, 40 cells, PRJ-sourced scaling |
-| `modules/4A0-907-551-C.lbl` | M2.3.2 ADU/RS2 | REDIRECT → 551-AA |
-| `modules/895-907-551.lbl` | M2.3.2 ABY S2 | Groups 1–7 (Paul Nugent 2002) |
-| `engine/06A-906-032-AWP.lbl` | ME7.5 AWP | Full group set, basic settings, coding |
+| File | ECU | Coverage |
+|------|-----|----------|
+| `labels/engine/893-906-266-D-EN.lbl` | 7A late | Groups 0–8, CO pot, coding |
+| `labels/engine/893-906-266-D.lbl` | 7A late | Groups 0 (original German) |
+| `labels/modules/4A0-907-551-AA.lbl` | M2.3.2 AAN/ABY | Groups 1–8, 29 fault codes |
+| `labels/modules/4A0-907-551-C.lbl` | M2.3.2 ADU/RS2 | Redirects to 551-AA |
+| `labels/modules/8A0-907-551-B.lbl` | M2.3.2 RS2 alt PN | Redirects to 551-AA |
+| `labels/engine/06A-906-032-AWP.lbl` | ME7.5 AWP | Full group set, basic setting, coding |
+| `labels/engine/06A-906-032-BAM.lbl` | ME7.5 BAM | BAM 1.8T variant |
+| `labels/engine/06A-906-032-AUM.lbl` | ME7.5 AUM | AUM 1.8T 150hp |
 
-```python
-from kwpbridge.lbl_parser import LBLRegistry
-
-reg = LBLRegistry()
-lbl = reg.get("06A906032BN")          # auto-searches engine/ and modules/
-print(lbl.summary())                  # "06A906032BN  49 groups  196 cells  0 coding values"
-print(lbl.get_label(91, 4))          # "Boost Pressure Act"
-```
+Add custom label files with `--labels-path /path/to/labels/`. The registry
+searches subdirectories and follows `REDIRECT` directives.
 
 ---
 
@@ -345,39 +487,47 @@ print(lbl.get_label(91, 4))          # "Boost Pressure Act"
 git clone https://github.com/dspl1236/KWPBridge
 cd KWPBridge
 pip install -e ".[dev]"
-
-# Run all 106 tests
-pytest tests/
-
-# Run a specific suite
-pytest tests/test_protocol_detect.py -v
-pytest tests/test_mock_m232.py -v
-
-# Start mock ECU (choose: 7a / aah / digifant / m232 / me7)
-python -m kwpbridge.mock --ecu me7
+pytest tests/          # 106 tests
 ```
 
-### Test coverage
+Run the GUI without a cable:
 
-| Suite | Tests | Covers |
-|-------|-------|--------|
-| `test_protocol.py` | core | KWP1281 framing, checksums, block decode |
-| `test_formula.py` | core | All formula byte decode/encode pairs |
-| `test_lbl_parser.py` | core | Label file parsing, REDIRECT, formula hints |
-| `test_mock_m232.py` | 15 | M2.3.2 mock — all 8 groups, scenarios, server aliases |
-| `test_protocol_detect.py` | 14 | Auto-detection, fallthrough, retries, status callback |
-| other | ~77 | Full suite |
+```bash
+python -m kwpbridge.gui    # ⚙ Mock ECU to simulate any platform
+```
+
+Run a mock server from the command line:
+
+```bash
+python -m kwpbridge.mock --ecu me7       # ME7 AWP 1.8T
+python -m kwpbridge.mock --ecu m232      # AAN M2.3.2
+python -m kwpbridge.mock --ecu 7a        # 7A 20v
+```
+
+### Module structure
+
+| Module | Purpose |
+|--------|---------|
+| `protocol.py` | KWP1281 serial implementation (5-baud init, block framing) |
+| `kwp2000.py` | KWP2000/ISO14230 serial implementation (fast init, frame construction) |
+| `protocol_detect.py` | Auto-detection — tries KWP1281 then KWP2000 |
+| `server.py` | TCP bridge server — broadcasts state to all clients |
+| `client.py` | TCP client — subscribe to live data |
+| `formula.py` | Cell value decode table (24 formula bytes) |
+| `ecu_defs.py` | ECU definitions — group layouts, fault code descriptions |
+| `lbl_parser.py` | VCDS `.lbl` file parser with formula extraction |
+| `mock/` | Realistic ECU simulators (5 platforms) |
+| `gui/` | PyQt5 desktop GUI |
 
 ---
 
-## Related projects
+## Related Projects
 
-| Project | Description |
-|---------|-------------|
-| [HachiROM](https://github.com/dspl1236/HachiROM) | ROM editor for Hitachi MMS ECUs (7A, AAH) with live overlay |
-| [UrROM](https://github.com/dspl1236/UrROM) | ROM editor for Bosch M2.3 / M2.3.2 (AAN/ABY/ADU/RS2) with live overlay |
-| [audi90-teensy-ecu](https://github.com/dspl1236/audi90-teensy-ecu) | Teensy 4.1 EPROM emulator / map switcher for 7A ECU |
+- [HachiROM](https://github.com/dspl1236/HachiROM) — ROM editor for Hitachi MMS ECUs (7A 20v, AAH V6 12v). Live overlay via KWPBridge.
+- [UrROM](https://github.com/dspl1236/UrROM) — ROM editor for Bosch M2.3.2 (AAN/ABY/ADU 20vT). Live overlay via KWPBridge.
+- [DigiTool](https://github.com/dspl1236/DigiTool) — ROM editor for Digifant G60/G40.
+- [audi90-teensy-ecu](https://github.com/dspl1236/audi90-teensy-ecu) — Teensy 4.1 EPROM emulator / map switcher for Bosch M2.3.2.
 
 ---
 
-Built with [Claude](https://anthropic.com) (Anthropic).
+Built with [Claude](https://anthropic.com) (Anthropic) as development partner.
