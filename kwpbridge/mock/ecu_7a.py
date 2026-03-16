@@ -11,7 +11,10 @@ automatically, exercising the full range of the map overlay:
   DECEL       210-240s foot off, RPM drops, lean overrun
   (loops back to WARM_IDLE)
 
-Group 0 layout (from 893-906-266-D.lbl):
+Block 0 layout (MMS-05C single block, from 893-906-266-D.lbl):
+  The MMS-05C responds to one KWP1281 measuring block (block 0).
+  10 raw byte cells — no sub-groups, no KWP2000 multi-group support.
+  HachiROM reads this block only for its live overlay.
   cell 1  = Kuehlmitteltemperatur  (coolant, raw - 50 = C)
   cell 2  = Motorlast              (engine load, 1-255)
   cell 3  = Motordrehzahl          (RPM, raw x 25)
@@ -30,7 +33,7 @@ from dataclasses import dataclass
 
 # ECU identity
 ECU_PART_NUMBER = "893906266D"
-ECU_COMPONENT   = "2.3 20V MOTRONIC"
+ECU_COMPONENT   = "2.3 20V  MMS05C  "
 ECU_EXTRA       = ["MMS05C", "7A"]
 FAULT_CODES     = []
 WARMUP_DURATION = 180.0

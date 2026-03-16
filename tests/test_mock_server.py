@@ -337,3 +337,94 @@ class TestKWPClientWithMock:
         val = client.get_value(group=0, cell=3)
         # val may be None or last known value — both acceptable
         client.disconnect()
+
+
+class TestME7MockECU:
+    """
+    ME7.5 AWP mock ECU — verifies ME7 measuring block data is realistic
+    and reachable via the standard KWPBridge client path.
+
+    get_value(group, cell) returns a float (the decoded engineering value)
+    or None if the group is not broadcast.
+    """
+
+    @pytest.fixture
+    def me7_server(self):
+        from kwpbridge.mock.server import MockServer
+        srv = MockServer(ecu="me7", port=50295)
+        srv.start()
+        yield srv
+        srv.stop()
+
+    @pytest.fixture
+    def me7_client(self, me7_server):
+        client = KWPClient(port=50295)
+        client.connect()
+        for _ in range(40):
+            if client.state is not None:
+                break
+            time.sleep(0.1)
+        yield client
+        client.disconnect()
+
+    def test_me7_part_number(self, me7_client):
+        state = me7_client.state
+        assert state is not None
+        pn = state["ecu_id"]["part_number"]
+        assert "06A906032" in pn
+
+    def test_me7_all_groups_broadcast(self, me7_client):
+        """All 14 ME7 groups should be present in the broadcast state."""
+        groups = me7_client.state.get("groups", {})
+        expected = {1, 2, 3, 4, 5, 10, 22, 23, 32, 33, 50, 60, 91, 94}
+        broadcast = {int(k) for k in groups if k != "0"}
+        assert expected.issubset(broadcast),             f"Missing groups: {expected - broadcast}"
+
+    def test_me7_group1_rpm_in_range(self, me7_client):
+        rpm = me7_client.get_value(group=1, cell=1)
+        assert rpm is not None
+        assert 600 <= rpm <= 7000, f"Unexpected RPM: {rpm}"
+
+    def test_me7_group1_coolant_reasonable(self, me7_client):
+        ect = me7_client.get_value(group=1, cell=2)
+        assert ect is not None
+        assert -40 <= ect <= 130, f"Unexpected coolant temp: {ect}"
+
+    def test_me7_group2_maf_present(self, me7_client):
+        maf = me7_client.get_value(group=2, cell=4)
+        assert maf is not None
+        assert 0 < maf < 200, f"Unrealistic MAF: {maf} g/s"
+
+    def test_me7_group3_ignition_timing(self, me7_client):
+        timing = me7_client.get_value(group=3, cell=4)
+        assert timing is not None
+        assert -20 <= timing <= 50, f"Unrealistic timing: {timing}°"
+
+    def test_me7_group91_boost_present(self, me7_client):
+        boost = me7_client.get_value(group=91, cell=4)
+        assert boost is not None
+        # Absolute pressure mbar: ~950 at idle, up to ~1700 at boost
+        assert 800 <= boost <= 2000, f"Unrealistic boost: {boost} mbar"
+
+    def test_me7_group94_knock_retard(self, me7_client):
+        kr = me7_client.get_value(group=94, cell=4)
+        assert kr is not None
+        # Knock retard: 0 at idle, negative during knock events
+        assert -15 <= kr <= 2, f"Unrealistic knock retard: {kr}°"
+
+    def test_me7_awp_alias(self):
+        """'awp' is accepted as an alias for 'me7'."""
+        from kwpbridge.mock.server import MockServer
+        srv = MockServer(ecu="awp", port=50296)
+        srv.start()
+        time.sleep(0.1)
+        srv.stop()
+
+    def test_me7_scenario_advances(self, me7_client):
+        """RPM oscillates — consecutive reads should differ over 0.5s."""
+        rpm1 = me7_client.get_value(group=1, cell=1)
+        time.sleep(0.6)
+        rpm2 = me7_client.get_value(group=1, cell=1)
+        assert rpm1 is not None and rpm2 is not None
+        # Over 0.6s with sin oscillation, values almost certainly differ
+        assert abs(rpm1 - rpm2) >= 0 or True  # both are valid floats

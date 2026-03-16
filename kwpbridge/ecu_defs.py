@@ -26,9 +26,14 @@ class ECUDef:
 
 
 # ── 7A 20v — 893906266D (late) and 893906266B (early) ────────────────────────
-# Measuring blocks verified from VCDS sessions on Motronic 2.x / KWP1281
-# 4 cells per group, standard VAG measuring block layout
-# Groups 1-8 confirmed on 7A; higher groups may not all respond
+# ECU: Hitachi MMS-05C (266D late) / MMS-04B (266B early)
+# Protocol: KWP1281 at 10400 baud, address 0x01
+# Native block: block 0 only — 10 raw bytes, no sub-groups
+#   (confirmed from 893-906-266-D.lbl and HachiROM live sessions)
+# The groups below (1-32) are the VAG-standard multi-group layout used by
+# VCDS on compatible Motronic units. Whether the MMS-05C responds to groups
+# 1+ is UNCONFIRMED on real hardware. HachiROM reads block 0 only.
+# These group defs are used by the fault/label UI, not for live data reading.
 
 _7A_GROUPS: dict[int, dict[int, str]] = {
     1: {

@@ -143,12 +143,21 @@ class MockServer:
         self._fault_codes   = FAULT_CODES
         self._warmup_start  = None   # set on first broadcast
 
-        # Multi-group broadcast — m232 broadcasts groups 1-8
-        self._get_all_groups = None
+        # Multi-group broadcast — m232 broadcasts groups 1-8, me7 broadcasts 14 groups
+        self._get_all_groups   = None
+        self._broadcast_groups = list(range(1, 9))   # default (m232)
         if self.ecu in ("m232", "aan", "aby", "adu", "m2.3.2"):
             try:
                 from .ecu_m232 import get_group as _get_group
                 self._get_all_groups = _get_group
+            except ImportError:
+                pass
+        elif self.ecu in ("me7", "awp", "aum", "auq", "bam", "me7.5"):
+            try:
+                from .ecu_me7 import get_group as _get_group
+                self._get_all_groups   = _get_group
+                self._broadcast_groups = [1, 2, 3, 4, 5, 10, 22, 23,
+                                          32, 33, 50, 60, 91, 94]
             except ImportError:
                 pass
         # scenario_info available on 7A, Digifant, and M2.3.2 mocks
@@ -314,7 +323,7 @@ class MockServer:
                 extra = None
                 if self._get_all_groups:
                     extra = {}
-                    for grp in range(1, 9):
+                    for grp in self._broadcast_groups:
                         try:
                             extra[grp] = self._get_all_groups(grp, t, self._warmup_start)
                         except Exception:
