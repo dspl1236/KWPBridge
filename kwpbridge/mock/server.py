@@ -43,7 +43,23 @@ def _make_welcome(part_number: str, component: str) -> bytes:
 
 def _make_state(part_number: str, component: str,
                 cells: list[dict], t: float,
-                scenario_info: dict = None) -> bytes:
+                scenario_info: dict = None,
+                extra_groups: dict = None) -> bytes:
+    """Build a state message. extra_groups = {group_num: [cell_list]}."""
+    groups_data = {
+        "0": {
+            "group":     0,
+            "timestamp": t,
+            "cells":     cells,
+        }
+    }
+    if extra_groups:
+        for grp_num, grp_cells in extra_groups.items():
+            groups_data[str(grp_num)] = {
+                "group":     grp_num,
+                "timestamp": t,
+                "cells":     grp_cells,
+            }
     data = {
         "connected":   True,
         "mock":        True,
@@ -53,13 +69,7 @@ def _make_state(part_number: str, component: str,
             "coding":      "0010",
             "wsw":         "0000",
         },
-        "groups": {
-            "0": {
-                "group":     0,
-                "timestamp": t,
-                "cells":     cells,
-            }
-        },
+        "groups":      groups_data,
         "faults":      [],
         "fault_count": 0,
         "timestamp":   t,
@@ -117,22 +127,36 @@ class MockServer:
         elif self.ecu == "aah":
             from .ecu_aah import get_group_0, ECU_PART_NUMBER, ECU_COMPONENT, FAULT_CODES
         elif self.ecu in ("digifant", "g60", "g40"):
-            from .ecu_digifant import get_group_1 as get_group_0,                                       ECU_PART_NUMBER, ECU_COMPONENT, FAULT_CODES
+            from .ecu_digifant import get_group_1 as get_group_0, \
+                                      ECU_PART_NUMBER, ECU_COMPONENT, FAULT_CODES
+        elif self.ecu in ("m232", "aan", "aby", "adu", "m2.3.2"):
+            from .ecu_m232 import get_group_0, ECU_PART_NUMBER, ECU_COMPONENT, FAULT_CODES
         else:
-            raise ValueError(f"Unknown mock ECU: {ecu!r}. Use '7a', 'aah', or 'digifant'.")
+            raise ValueError(f"Unknown mock ECU: {ecu!r}. Use '7a', 'aah', 'digifant', or 'm232'.")
 
         self._get_group_0   = get_group_0
         self._part_number   = ECU_PART_NUMBER
         self._component     = ECU_COMPONENT
         self._fault_codes   = FAULT_CODES
         self._warmup_start  = None   # set on first broadcast
-        # scenario_info available on 7A and Digifant mocks
-        self._get_scenario_info = None
-        if self.ecu in ("7a", "digifant", "g60", "g40"):
+
+        # Multi-group broadcast — m232 broadcasts groups 1-8
+        self._get_all_groups = None
+        if self.ecu in ("m232", "aan", "aby", "adu", "m2.3.2"):
             try:
-                mod = "ecu_7a" if self.ecu == "7a" else "ecu_digifant"
+                from .ecu_m232 import get_group as _get_group
+                self._get_all_groups = _get_group
+            except ImportError:
+                pass
+        # scenario_info available on 7A, Digifant, and M2.3.2 mocks
+        self._get_scenario_info = None
+        if self.ecu in ("7a", "digifant", "g60", "g40", "m232", "aan", "aby", "adu", "m2.3.2"):
+            try:
+                mod_map = {"7a": "ecu_7a", "digifant": "ecu_digifant",
+                           "g60": "ecu_digifant", "g40": "ecu_digifant"}
+                mod_name = mod_map.get(self.ecu, "ecu_m232")
                 import importlib
-                m = importlib.import_module(f".{mod}", package=__package__)
+                m = importlib.import_module(f".{mod_name}", package=__package__)
                 self._get_scenario_info = m.get_scenario_info
             except (ImportError, AttributeError):
                 pass
@@ -280,8 +304,17 @@ class MockServer:
                 sc_info = None
                 if self._get_scenario_info:
                     sc_info = self._get_scenario_info(t, self._warmup_start)
+                # For M2.3.2: broadcast all 8 groups so LiveValues can decode load/MAP
+                extra = None
+                if self._get_all_groups:
+                    extra = {}
+                    for grp in range(1, 9):
+                        try:
+                            extra[grp] = self._get_all_groups(grp, t, self._warmup_start)
+                        except Exception:
+                            pass
                 msg = _make_state(
-                    self._part_number, self._component, cells, t, sc_info)
+                    self._part_number, self._component, cells, t, sc_info, extra)
                 with self._lock:
                     dead = []
                     for c in self._clients:
