@@ -1158,8 +1158,8 @@ class KWPBridgeWindow(QMainWindow):
             if idx >= 0:
                 self.combo_protocol.setCurrentIndex(idx)
 
-            # Auto-connect after a brief settle
-            QTimer.singleShot(300, self._on_connect)
+            # Auto-connect via TCP to the mock server — NOT serial
+            QTimer.singleShot(300, self._on_connect_mock)
 
             # Scenario update timer
             self._scenario_timer = QTimer(self)
@@ -1169,6 +1169,76 @@ class KWPBridgeWindow(QMainWindow):
         except Exception as e:
             self._set_status(f"Mock start failed: {e}", C_RED)
             self._mock_server = None
+
+    def _on_connect_mock(self):
+        """
+        Connect to the mock server via TCP — no serial port involved.
+
+        The mock server speaks the same JSON protocol as the real KWPBridge
+        TCP bridge, so we subscribe to it directly rather than going through
+        the serial ConnectionWorker.
+        """
+        try:
+            from ..client import KWPClient
+        except ImportError:
+            self._set_status("KWPClient not available for mock TCP connection", C_AMBER)
+            return
+
+        self._set_status("Connecting to mock server (TCP)…", C_AMBER)
+        self.btn_connect.setEnabled(False)
+        self.btn_disconnect.setEnabled(True)
+        self.dot.setStyleSheet(f"color:{C_AMBER}; font-size:14px;")
+
+        import threading, time
+
+        def _tcp_worker():
+            client = KWPClient(port=DEFAULT_PORT)
+            connected = threading.Event()
+
+            def _on_conn():
+                connected.set()
+                pn   = self._mock_server._part_number if self._mock_server else ""
+                comp = self._mock_server._component   if self._mock_server else ""
+                ecu_dict = {
+                    "part_number": pn,
+                    "component":   comp,
+                    "protocol":    "mock",
+                    "mock":        True,
+                }
+                self._signals.connected.emit(ecu_dict)
+
+            def _on_state(state: dict):
+                # Convert mock state groups into the dict format _on_data expects
+                groups_raw = state.get("groups", {})
+                data = {}
+                for k, v in groups_raw.items():
+                    try:
+                        data[int(k)] = v
+                    except (ValueError, TypeError):
+                        data[k] = v
+                if data:
+                    self._signals.data_ready.emit(data)
+
+            def _on_disc():
+                self._signals.disconnected.emit("Mock server stopped")
+
+            client.on_connect(_on_conn)
+            client.on_state(_on_state)
+            client.on_disconnect(_on_disc)
+
+            try:
+                client.connect(auto_reconnect=False)
+                # Keep thread alive while mock is running
+                while self._mock_server and self._mock_server.is_running():
+                    time.sleep(0.5)
+                client.disconnect()
+            except Exception as e:
+                self._signals.disconnected.emit(str(e))
+
+        t = threading.Thread(target=_tcp_worker, daemon=True, name="mock-tcp-client")
+        t.start()
+        # Store so disconnect button can stop mock
+        self._worker = None   # no serial worker — mock server is source of truth
 
     def _update_scenario_strip(self):
         """Update the scenario progress strip while mock is running."""
