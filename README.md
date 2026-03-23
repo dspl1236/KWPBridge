@@ -3,6 +3,17 @@
 [![CI](https://github.com/dspl1236/KWPBridge/actions/workflows/ci.yml/badge.svg)](https://github.com/dspl1236/KWPBridge/actions/workflows/ci.yml)
 [![Download](https://img.shields.io/github/v/release/dspl1236/KWPBridge?label=Download&logo=windows)](https://github.com/dspl1236/KWPBridge/releases/latest/download/KWPBridge.exe)
 
+> **⚠ Work in Progress — Use at Your Own Risk**
+>
+> This tool is under active development. Features may be incomplete, map
+> addresses may be unverified, and patches may not have been tested on all
+> hardware variants. **Always read and back up your original ROM before making
+> any changes.** Read it twice, compare the files, keep both copies safe.
+>
+> If you find a bug, incorrect address, or have a ROM dump to contribute,
+> please [open an issue](https://github.com/dspl1236/KWPBridge/issues).
+
+
 **[⬇ Download KWPBridge.exe (Windows)](https://github.com/dspl1236/KWPBridge/releases/latest/download/KWPBridge.exe)**
 
 ---
