@@ -2,16 +2,17 @@
 KWP1281 protocol implementation.
 
 Handles the serial communication layer:
-  - Connection / slow init (or skip for Ross-Tech cable)
+  - Connection / slow init (5-baud address byte)
   - Block send / receive with checksums
   - High-level commands: read group, read faults, clear faults, basic setting
 
 Cable notes:
-  - Ross-Tech genuine cable:  handles 5-baud init in hardware.
-    Open COM port at 10400 baud and send directly.
-  - FTDI / CH340 dumb cables: require bit-banging the 5-baud init.
+  - FTDI-based KKL cables (recommended): require software 5-baud init.
     We use a timing trick: set baud=5, write address byte, restore baud.
-    This works on FTDI chips. CH340 may need a different approach.
+  - CH340-based KKL cables: same approach, may fall back to break method.
+  - Legacy Ross-Tech KKL-USB (discontinued): cable firmware handles 5-baud
+    init. Open COM port at 10400 baud and send address byte directly.
+  - Ross-Tech HEX-V2 (current): NOT compatible — no COM port, proprietary USB.
 
 References:
   - KWP1281 community docs: https://github.com/mnaberez/vwradio
@@ -51,7 +52,7 @@ class KWP1281:
     KWP1281 protocol handler.
 
     Usage:
-        kwp = KWP1281(port="COM3", cable_type=CABLE_ROSS_TECH)
+        kwp = KWP1281(port="COM3", cable_type=CABLE_FTDI)
         kwp.connect(address=ADDR_ENGINE)
         block = kwp.read_group(1)
         faults = kwp.read_faults()
@@ -120,9 +121,14 @@ class KWP1281:
 
     def _connect_ross_tech(self, address: int):
         """
-        Open serial port for Ross-Tech cable.
-        The cable handles 5-baud init internally — we just open and wait
-        for the sync byte (0x55) then the two keyword bytes.
+        Open serial port for legacy Ross-Tech KKL-USB cable (discontinued).
+
+        These older cables had FTDI chips with Ross-Tech firmware that handled
+        5-baud init internally — we just send the address byte at 10400 baud
+        and the cable firmware converts it to 5-baud on the K-line.
+
+        NOTE: Current Ross-Tech HEX-V2 cables do NOT create COM ports and
+        are NOT compatible with this code path. Use a generic FTDI KKL cable.
         """
         self._ser = serial.Serial(
             port=self.port, baudrate=self.baud,
@@ -516,9 +522,12 @@ class KWP1281:
         """
         Detect cable type from USB VID/PID.
 
-        Ross-Tech HEX+KKL: VID=0x0403, PID=0xC33A (or similar)
-        FTDI generic:       VID=0x0403
-        CH340:              VID=0x1A86, PID=0x7523
+        Legacy Ross-Tech KKL-USB: VID=0x0403, PID=0xC33A (or similar)
+        FTDI generic KKL:         VID=0x0403, PID=0x6001 (standard)
+        CH340 KKL:                VID=0x1A86, PID=0x7523
+
+        Note: current Ross-Tech HEX-V2 cables do NOT create COM ports
+        and will never appear in this scan.
         """
         try:
             ports = serial.tools.list_ports.comports()
@@ -528,13 +537,10 @@ class KWP1281:
                     pid = p.pid or 0
                     log.debug(f"Cable VID={vid:#06x} PID={pid:#06x}")
 
-                    # Ross-Tech genuine cables
+                    # Legacy Ross-Tech KKL-USB cables (discontinued)
                     if vid == 0x0403 and pid in (0xC33A, 0xC33B, 0xC33C, 0xC33D, 0xFF00):
                         return CABLE_ROSS_TECH
-                    # Ross-Tech HEX-USB (older)
-                    if vid == 0x0403 and pid == 0xFF00:
-                        return CABLE_ROSS_TECH
-                    # Generic FTDI
+                    # Generic FTDI KKL (recommended cable)
                     if vid == 0x0403:
                         return CABLE_FTDI
                     # CH340

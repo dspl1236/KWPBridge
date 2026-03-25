@@ -10,7 +10,7 @@ Gauges mode:   Expands to show RPM gauge, coolant temp, intake temp,
 
 Usage:
     python -m kwpbridge.gui --port COM3
-    python -m kwpbridge.gui --port COM3 --cable ross_tech
+    python -m kwpbridge.gui --port COM3 --cable ftdi
 """
 
 import sys
@@ -674,7 +674,7 @@ class KWPBridgeWindow(QMainWindow):
         self.cable_dot = QLabel("●")
         self.cable_dot.setStyleSheet(f"color:{C_DIM}; font-size:14px;")
         self.cable_dot.setFixedWidth(18)
-        self.cable_dot.setToolTip("Cable status — green = Ross-Tech detected")
+        self.cable_dot.setToolTip("Cable status — green = KKL cable detected on selected port")
         ctrl.addWidget(self.cable_dot)
 
         # Port selector
@@ -707,7 +707,7 @@ class KWPBridgeWindow(QMainWindow):
         self.combo_cable.setFixedWidth(130)
         for key, label in [
             (CABLE_AUTO,       "Auto-detect"),
-            (CABLE_ROSS_TECH,  "Ross-Tech"),
+            (CABLE_ROSS_TECH,  "Smart KKL (legacy)"),
             (CABLE_FTDI,       "FTDI KKL"),
             (CABLE_CH340,      "CH340 KKL"),
         ]:

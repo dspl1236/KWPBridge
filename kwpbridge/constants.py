@@ -39,7 +39,7 @@ INIT_TIMEOUT      = 2.0     # timeout during slow init
 IPC_UPDATE_HZ = 10          # target broadcast rate (actual may be lower)
 
 # Cable types
-CABLE_ROSS_TECH  = "ross_tech"   # genuine Ross-Tech HEX+KKL — handles 5-baud init
+CABLE_ROSS_TECH  = "ross_tech"   # legacy Ross-Tech KKL-USB (discontinued) — had firmware 5-baud init
 CABLE_FTDI       = "ftdi"        # FTDI-based dumb KKL cable
 CABLE_CH340      = "ch340"       # CH340-based dumb KKL cable
 CABLE_AUTO       = "auto"        # detect from USB VID/PID

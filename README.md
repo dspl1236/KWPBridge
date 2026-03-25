@@ -18,11 +18,11 @@
 
 ---
 
-K-line diagnostic bridge for VAG vehicles. Connects to an ECU via a KKL or
-Ross-Tech cable, reads live measuring blocks and fault codes, and broadcasts
-everything over a local TCP socket so any number of tools can consume it
-simultaneously — ROM editors, dashboards, data loggers — without each needing
-their own serial port connection.
+K-line diagnostic bridge for VAG vehicles. Connects to an ECU via a generic
+KKL 409.1 USB cable (FTDI-based, creates a COM port), reads live measuring
+blocks and fault codes, and broadcasts everything over a local TCP socket so
+any number of tools can consume it simultaneously — ROM editors, dashboards,
+data loggers — without each needing their own serial port connection.
 
 Supports two protocols:
 
@@ -41,7 +41,7 @@ you already know the ECU.
 ```
 Vehicle ECU
   │  K-line (12 V single-wire)
-KKL / Ross-Tech cable  (USB → virtual COM port)
+KKL 409.1 cable  (USB → virtual COM port)
   │
 KWPBridge  ──  python -m kwpbridge --port COM3
   │  TCP 127.0.0.1:50266  (newline-delimited JSON)
@@ -90,15 +90,25 @@ Additional ME7 part numbers are resolved via root PN fallback. Total: 19 known p
 
 ## Supported Cables
 
+**You need a cable that creates a virtual COM port.** Ross-Tech HEX-V2
+cables do NOT work — they use a proprietary USB protocol that only VCDS
+can talk to. Use a generic FTDI-based KKL cable instead (~$15 on Amazon).
+
 | Cable | `--cable` flag | Notes |
 |-------|---------------|-------|
-| Ross-Tech HEX+KKL (genuine) | `ross_tech` | **Recommended.** Init handled in cable firmware. Works with both protocols. |
-| FTDI-based KKL | `ftdi` | Software init via baud-rate trick. Reliable for KWP1281. |
-| CH340-based KKL | `ch340` | Software init via serial break signal. May be unreliable. |
+| FTDI-based KKL (generic 409.1) | `ftdi` | **Recommended.** Real FTDI FT232RL chip. Creates COM port. ~$15. |
+| CH340-based KKL | `ch340` | Budget option. Creates COM port. May be unreliable on some systems. |
+| Ross-Tech KKL-USB (old, discontinued) | `ross_tech` | Legacy. Older FTDI-based Ross-Tech cables that created COM ports. Cable firmware handles 5-baud init. |
 | Any | `auto` | **Default.** Detects cable type from USB VID/PID on connection. |
 
-FTDI VID `0x0403` PIDs `0xC33A/C33B/C33C/FF00` are identified as Ross-Tech.
-VID `0x1A86` (Nuvoton) is identified as CH340.
+**NOT compatible:**
+- Ross-Tech HEX-V2 (current product) — proprietary USB, no COM port
+- Ross-Tech HEX-USB+CAN — proprietary USB, no COM port
+- Any cable that doesn't appear in Device Manager as a COM port
+
+FTDI VID `0x0403` with generic PID `0x6001` = standard KKL cable.
+FTDI VID `0x0403` PIDs `0xC33A/C33B/C33C/FF00` = old Ross-Tech KKL-USB.
+VID `0x1A86` (Nuvoton) = CH340.
 
 ---
 
@@ -116,8 +126,8 @@ python -m kwpbridge --port COM3 --scan
 # Run the bridge (broadcasts on localhost:50266)
 python -m kwpbridge --port COM3
 
-# ME7 / KWP2000 with Ross-Tech cable
-python -m kwpbridge --port COM3 --cable ross_tech --protocol kwp2000
+# ME7 / KWP2000 (if using legacy Ross-Tech KKL-USB cable)
+python -m kwpbridge --port COM3 --protocol kwp2000
 
 # ME7 — boost + knock monitoring
 python -m kwpbridge --port COM3 --protocol kwp2000 --groups 1 2 3 4 91 22 23
@@ -459,7 +469,7 @@ For bench testing with a standalone ECU:
 3. For ME7: ensure pin 16 (battery +) and pin 4/5 (ground) are connected
    on the OBD connector.
 4. Run `python -m kwpbridge --port COM3 --scan` to identify the ECU.
-5. Use `--protocol kwp2000 --cable ross_tech` for ME7 bench work to
+5. Use `--protocol kwp2000` for ME7 bench work to
    skip the KWP1281 detection delay.
 
 The ME7.5 AWP ECU accepts KWP2000 connections without the engine running.
