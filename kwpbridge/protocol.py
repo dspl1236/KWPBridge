@@ -330,12 +330,16 @@ class KWP1281:
 
     def _read_byte_timeout(self, timeout: float) -> int:
         """Read a single byte, raise KWPError on timeout."""
-        deadline = time.time() + timeout
-        while time.time() < deadline:
+        # Temporarily set serial timeout to match our deadline for responsive reads
+        old_timeout = self._ser.timeout
+        self._ser.timeout = timeout
+        try:
             b = self._ser.read(1)
             if b:
                 return b[0]
-        raise KWPError(f"Timeout waiting for byte ({timeout:.1f}s)")
+            raise KWPError(f"Timeout waiting for byte ({timeout:.1f}s)")
+        finally:
+            self._ser.timeout = old_timeout
 
     # ── Identification ────────────────────────────────────────────────────────
 

@@ -338,11 +338,11 @@ class KWPServer:
 
     def _broadcast_state(self):
         """Broadcast current state to all connected clients."""
-        if not self._clients:
-            return
         msg = json.dumps({"type": "state", "data": self._state.as_dict()}) + "\n"
         encoded = msg.encode("utf-8")
         with self._client_lock:
+            if not self._clients:
+                return
             dead = []
             for conn in self._clients:
                 try:

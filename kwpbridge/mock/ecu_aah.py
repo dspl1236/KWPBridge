@@ -37,8 +37,8 @@ def _tick(cell: int, t: float, warmup_start: float = 0.0) -> int:
         if 0 <= elapsed < WARMUP_DURATION:
             progress = elapsed / WARMUP_DURATION
             return 110 + int((base - 110) * progress) + osc
-        return base + osc
-    return base + osc
+        return max(0, min(255, base + osc))
+    return max(0, min(255, base + osc))
 
 
 def get_group_0(t: float = None, warmup_start: float = None) -> list[dict]:

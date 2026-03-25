@@ -112,34 +112,36 @@ class LBLFile:
 # ---------------------------------------------------------------------------
 
 # Patterns found in 7A and other MMS ECU label files
+# Each pattern is (regex, extractor, is_offset_pattern)
+# is_offset_pattern=True means the extracted value is an additive offset, not a multiplier
 _FORMULA_PATTERNS = [
     # German: "Anzeige mal 25 = U/min."  → ×25, RPM
     (re.compile(r'mal\s+([\d.]+)\s*=\s*(.+)', re.I),
-     lambda m: (float(m.group(1)), m.group(2).strip())),
+     lambda m: (float(m.group(1)), m.group(2).strip()), False),
     # German: "Anzeigewert mal 1.33 = °v.OT"
     (re.compile(r'anzeigewert\s+mal\s+([\d.]+)\s*=\s*(.+)', re.I),
-     lambda m: (float(m.group(1)), m.group(2).strip())),
+     lambda m: (float(m.group(1)), m.group(2).strip()), False),
     # German: "Anzeige minus 50 = °C"  → -50 offset
     (re.compile(r'minus\s+([\d.]+)\s*=\s*(.+)', re.I),
-     lambda m: (-float(m.group(1)), m.group(2).strip())),
+     lambda m: (-float(m.group(1)), m.group(2).strip()), True),
     # German: "Anzeige plus 50 = ..."  → +50 offset (rare)
     (re.compile(r'plus\s+([\d.]+)\s*=\s*(.+)', re.I),
-     lambda m: (float(m.group(1)), m.group(2).strip())),
+     lambda m: (float(m.group(1)), m.group(2).strip()), True),
     # Generic: "x 0.1 = bar"
     (re.compile(r'x\s+([\d.]+)\s*=\s*(.+)', re.I),
-     lambda m: (float(m.group(1)), m.group(2).strip())),
+     lambda m: (float(m.group(1)), m.group(2).strip()), False),
     # English: "raw × 40 = RPM" (× is Unicode multiply U+00D7, also accept * or x)
     (re.compile(r'raw\s*[×x\*]\s*([\d.]+)\s*=\s*(.+)', re.I),
-     lambda m: (float(m.group(1)), m.group(2).strip())),
+     lambda m: (float(m.group(1)), m.group(2).strip()), False),
     # English: "(raw × 40) RPM" — our label note format
     (re.compile(r'\(raw\s*[×x\*]\s*([\d.]+)\)\s*([\w°/% ]+)', re.I),
-     lambda m: (float(m.group(1)), m.group(2).strip())),
+     lambda m: (float(m.group(1)), m.group(2).strip()), False),
     # English: "raw - 50 = °C"
     (re.compile(r'raw\s*-\s*([\d.]+)\s*=\s*(.+)', re.I),
-     lambda m: (-float(m.group(1)), m.group(2).strip())),
+     lambda m: (-float(m.group(1)), m.group(2).strip()), True),
     # English: "raw / 25 = load"  → divide
     (re.compile(r'raw\s*/\s*([\d.]+)\s*=\s*(.+)', re.I),
-     lambda m: (1.0 / float(m.group(1)), m.group(2).strip())),
+     lambda m: (1.0 / float(m.group(1)), m.group(2).strip()), False),
 ]
 
 # Unit cleanup map — handles both UTF-8 and latin-1 decoded variants of degree symbol
@@ -175,15 +177,15 @@ def _parse_formula_hint(notes: list[str]) -> tuple[Callable | None, str]:
     formula_fn: callable(raw_value) -> decoded_value
     """
     for note in notes:
-        for pattern, extractor in _FORMULA_PATTERNS:
+        for pattern, extractor, is_offset in _FORMULA_PATTERNS:
             m = pattern.search(note)
             if m:
                 try:
                     factor_or_offset, unit_raw = extractor(m)
                     unit = _clean_unit(unit_raw)
 
-                    # Determine if it's multiply or offset
-                    if 'minus' in note.lower() or 'plus' in note.lower():
+                    # Use the pattern's is_offset flag to determine operation
+                    if is_offset:
                         # Offset formula: value = raw + offset
                         offset = factor_or_offset
                         fn = lambda raw, off=offset: raw + off
@@ -239,7 +241,8 @@ def parse_lbl(path: str | Path) -> LBLFile:
 
     # Try multiple encodings — community files are often latin-1 or cp1252
     content = None
-    for enc in ('latin-1', 'cp1252', 'utf-8-sig', 'utf-8'):
+    # Try UTF-8 first; latin-1 is last resort (it never raises UnicodeDecodeError)
+    for enc in ('utf-8-sig', 'utf-8', 'cp1252', 'latin-1'):
         try:
             content = path.read_text(encoding=enc)
             break

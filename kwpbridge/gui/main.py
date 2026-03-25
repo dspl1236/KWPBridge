@@ -282,7 +282,7 @@ class FaultDialog(QDialog):
 
         self.setWindowTitle("Fault Codes — KWPBridge")
         self.resize(800, 480)
-        self.setStyleSheet("""
+        self.setStyleSheet(f"""
             QDialog   {{ background:{self._BG};  color:{self._FG}; }}
             QLabel    {{ color:{self._FG}; font-family:Consolas; font-size:11px; }}
             QPushButton {{
@@ -1062,6 +1062,24 @@ class KWPBridgeWindow(QMainWindow):
             self._stop_mock()
         else:
             self._start_mock_dialog()
+
+    def _stop_mock(self):
+        """Stop the mock ECU server and reset UI."""
+        if self._mock_server:
+            try:
+                self._mock_server.stop()
+            except Exception:
+                pass
+            self._mock_server = None
+        if hasattr(self, '_scenario_timer') and self._scenario_timer:
+            self._scenario_timer.stop()
+            self._scenario_timer = None
+        self._mock_ecu = None
+        self.btn_mock.setText("⚙ Mock ECU")
+        self.btn_mock.setStyleSheet(self._btn_style(C_DIM))
+        self.scenario_strip.setVisible(False)
+        self._on_disconnect()
+        self._set_status("Mock ECU stopped", C_DIM)
 
     def _start_mock_dialog(self):
         """Show ECU picker and start mock server."""

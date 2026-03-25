@@ -35,7 +35,7 @@ def _maf(a, b):          return (a * 256 + b) * 0.01           # g/s
 def _degrees(a, b):      return (a * 256 + b) * 0.1 - 100      # ignition advance
 def _raw(a, b):          return a * 256 + b
 def _binary(a, b):       return a                               # status bits in a
-def _temperature(a, b):  return a - 48                         # simple offset
+def _temperature(a, b):  return a * 0.8 - 48                    # KWP1281 formula 0x14
 def _speed(a, b):        return (a * 256 + b) * 0.01           # km/h
 def _throttle(a, b):     return (a * 256 + b) * 0.01           # %
 def _injection(a, b):    return (a * 256 + b) * 0.001          # ms injection time

@@ -38,14 +38,15 @@ def is_running(port: int = DEFAULT_PORT, timeout: float = 0.2) -> bool:
     Fast non-blocking check — returns True/False in < timeout seconds.
     Use this in app startup to decide whether to enable KWP features.
     """
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.settimeout(timeout)
         result = s.connect_ex(("127.0.0.1", port))
-        s.close()
         return result == 0
     except Exception:
         return False
+    finally:
+        s.close()
 
 
 def get_state(port: int = DEFAULT_PORT, timeout: float = 1.0) -> dict | None:
@@ -66,7 +67,8 @@ def get_state(port: int = DEFAULT_PORT, timeout: float = 1.0) -> dict | None:
             if not chunk:
                 break
             buf += chunk
-            for line in buf.split("\n"):
+            while "\n" in buf:
+                line, buf = buf.split("\n", 1)
                 line = line.strip()
                 if not line:
                     continue

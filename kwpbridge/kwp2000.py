@@ -218,8 +218,8 @@ class KWP2000:
             cells.append(MeasuringCell(
                 index   = cell_idx,
                 formula = formula,
-                a       = a,
-                b       = b,
+                raw_a   = a,
+                raw_b   = b,
                 value   = value,
                 unit    = unit,
                 display = display,
@@ -260,7 +260,7 @@ class KWP2000:
                        if self._ecu_def else f"DTC {code:04X}")
             faults.append(FaultCode(
                 code=code, description=desc,
-                status=f"0x{status:02X}",
+                status=status,
             ))
 
         return faults
@@ -344,7 +344,7 @@ class KWP2000:
             part_number=pn_clean,
             component=component,
             coding="",
-            wsw="",
+            wsc="",
         )
 
     # ── Frame construction and I/O ────────────────────────────────────────────
@@ -361,8 +361,10 @@ class KWP2000:
           checksum = sum of all bytes mod 256
         """
         payload = [service_id] + (data or [])
-        frame   = [KWP2000_FMT_PHYSICAL, KWP2000_TESTER_ADDR,
-                   KWP2000_ECU_ADDR, len(payload)] + payload
+        # ISO 14230: [fmt][target][source][len][payload...]
+        # Tester→ECU: target=ECU(0x01), source=Tester(0xF1)
+        frame   = [KWP2000_FMT_PHYSICAL, KWP2000_ECU_ADDR,
+                   KWP2000_TESTER_ADDR, len(payload)] + payload
         checksum = sum(frame) & 0xFF
         return bytes(frame + [checksum])
 
@@ -411,7 +413,7 @@ class KWP2000:
         expected_cs = (sum(header) + sum(payload)) & 0xFF
 
         if checksum != expected_cs:
-            log.warning(
+            raise KWP2000Error(
                 f"Checksum mismatch: got 0x{checksum:02X}, "
                 f"expected 0x{expected_cs:02X}")
 
