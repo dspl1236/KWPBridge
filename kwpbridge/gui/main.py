@@ -15,6 +15,7 @@ Usage:
 
 import sys
 import time
+import queue
 import threading
 import logging
 import argparse
@@ -76,10 +77,12 @@ WINDOW_W    = 540    # slightly wider to breathe
 
 # ── Worker signals ────────────────────────────────────────────────────────────
 class WorkerSignals(QObject):
-    connected    = pyqtSignal(dict)    # ecu_id dict
-    disconnected = pyqtSignal(str)     # reason string
-    data_ready   = pyqtSignal(dict)    # {group: MeasuringBlock}
-    error        = pyqtSignal(str)
+    connected      = pyqtSignal(dict)    # ecu_id dict
+    disconnected   = pyqtSignal(str)     # reason string
+    data_ready     = pyqtSignal(dict)    # {group: MeasuringBlock}
+    error          = pyqtSignal(str)
+    faults_ready   = pyqtSignal(list)    # list of fault dicts
+    faults_cleared = pyqtSignal(bool)    # success flag
 
 
 # ── Connection worker ─────────────────────────────────────────────────────────
@@ -89,6 +92,9 @@ class ConnectionWorker(threading.Thread):
 
     Uses ProtocolDetector so it auto-negotiates KWP1281 vs KWP2000,
     or respects a forced protocol if set.
+
+    Fault read/clear operations are routed through a command queue
+    so all serial access happens on this thread — never on the GUI thread.
     """
 
     def __init__(self, port, cable, groups, signals: WorkerSignals,
@@ -102,6 +108,15 @@ class ConnectionWorker(threading.Thread):
         self.detect_attempts = detect_attempts
         self._stop   = threading.Event()
         self._kwp    = None   # KWP1281 or KWP2000
+        self._cmd_queue = queue.SimpleQueue()  # thread-safe command queue
+
+    def request_read_faults(self):
+        """Enqueue a fault read request (called from GUI thread)."""
+        self._cmd_queue.put(("read_faults",))
+
+    def request_clear_faults(self):
+        """Enqueue a fault clear request (called from GUI thread)."""
+        self._cmd_queue.put(("clear_faults",))
 
     def stop(self):
         self._stop.set()
@@ -160,6 +175,10 @@ class ConnectionWorker(threading.Thread):
                             log.warning(f"Group {g} read error: {e}")
                     if data:
                         self.signals.data_ready.emit(data)
+
+                    # Drain command queue — execute fault ops on this thread
+                    self._drain_commands()
+
                     time.sleep(0.3)
 
             except Exception as e:
@@ -171,6 +190,31 @@ class ConnectionWorker(threading.Thread):
                 else:
                     self.signals.disconnected.emit(str(e))
                     break
+
+    def _drain_commands(self):
+        """Process queued fault read/clear commands on the worker thread."""
+        while not self._cmd_queue.empty():
+            try:
+                cmd = self._cmd_queue.get_nowait()
+            except queue.Empty:
+                break
+            if not self._kwp:
+                self.signals.error.emit("Not connected — cannot execute command")
+                continue
+            if cmd[0] == "read_faults":
+                try:
+                    faults = self._kwp.read_faults()
+                    fault_dicts = [f.__dict__ if hasattr(f, '__dict__') else f
+                                   for f in faults]
+                    self.signals.faults_ready.emit(fault_dicts)
+                except Exception as e:
+                    self.signals.error.emit(f"Read faults error: {e}")
+            elif cmd[0] == "clear_faults":
+                try:
+                    ok = self._kwp.clear_faults()
+                    self.signals.faults_cleared.emit(bool(ok))
+                except Exception as e:
+                    self.signals.error.emit(f"Clear faults error: {e}")
 
 
 # ── Gauge widget ──────────────────────────────────────────────────────────────
@@ -411,8 +455,36 @@ class FaultDialog(QDialog):
             pass
 
     def set_worker(self, worker):
-        """Give the dialog a reference to the ConnectionWorker."""
+        """Give the dialog a reference to the ConnectionWorker and wire signals."""
+        # Disconnect old signals
+        if self._worker:
+            try:
+                self._worker.signals.faults_ready.disconnect(self._on_faults_ready)
+            except TypeError:
+                pass
+            try:
+                self._worker.signals.faults_cleared.disconnect(self._on_faults_cleared)
+            except TypeError:
+                pass
         self._worker = worker
+        # Connect new signals
+        if worker:
+            worker.signals.faults_ready.connect(self._on_faults_ready)
+            worker.signals.faults_cleared.connect(self._on_faults_cleared)
+
+    def _on_faults_ready(self, fault_dicts: list):
+        """Slot: worker finished reading faults — update display."""
+        self._btn_read.setEnabled(True)
+        self.load_faults(fault_dicts)
+
+    def _on_faults_cleared(self, ok: bool):
+        """Slot: worker finished clearing faults — update display."""
+        self._btn_clear.setEnabled(True)
+        if ok:
+            self.clear_display()
+            self._set_status("Faults cleared")
+        else:
+            self._set_status("Clear command sent — re-read to verify")
 
     def load_faults(self, faults: list):
         """
@@ -544,23 +616,17 @@ class FaultDialog(QDialog):
         self._lbl_status.setText(msg)
 
     def _do_read(self):
-        """Re-read fault codes from the live ECU."""
+        """Request fault code read — routed through worker thread."""
         self._set_status("Reading faults…")
         self._btn_read.setEnabled(False)
-        try:
-            if self._worker and hasattr(self._worker, '_kwp') and self._worker._kwp:
-                faults = self._worker._kwp.read_faults()
-                self.load_faults([f.__dict__ if hasattr(f, '__dict__') else f
-                                  for f in faults])
-            else:
-                self._set_status("Not connected — cannot read faults")
-        except Exception as e:
-            self._set_status(f"Read error: {e}")
-        finally:
+        if self._worker:
+            self._worker.request_read_faults()
+        else:
+            self._set_status("Not connected — cannot read faults")
             self._btn_read.setEnabled(True)
 
     def _do_clear(self):
-        """Clear fault codes after confirmation."""
+        """Clear fault codes after confirmation — routed through worker thread."""
         reply = QMessageBox.question(
             self, "Clear Fault Codes",
             "Clear all stored fault codes from the ECU?\n\n"
@@ -571,17 +637,12 @@ class FaultDialog(QDialog):
         if reply != QMessageBox.Yes:
             return
         self._set_status("Clearing faults…")
-        try:
-            if self._worker and hasattr(self._worker, '_kwp') and self._worker._kwp:
-                ok = self._worker._kwp.clear_faults()
-                if ok:
-                    self.clear_display()
-                else:
-                    self._set_status("Clear command sent — re-read to verify")
-            else:
-                self._set_status("Not connected — cannot clear faults")
-        except Exception as e:
-            self._set_status(f"Clear error: {e}")
+        self._btn_clear.setEnabled(False)
+        if self._worker:
+            self._worker.request_clear_faults()
+        else:
+            self._set_status("Not connected — cannot clear faults")
+            self._btn_clear.setEnabled(True)
 
     def _on_row_dbl(self, row: int, col: int):
         """Show full detail for a fault row in a message box."""
@@ -1209,14 +1270,18 @@ class KWPBridgeWindow(QMainWindow):
 
         import threading, time
 
+        # Capture reference before spawning thread — avoids TOCTOU race
+        # if main thread sets self._mock_server = None during _stop_mock()
+        mock_ref = self._mock_server
+
         def _tcp_worker():
             client = KWPClient(port=DEFAULT_PORT)
             connected = threading.Event()
 
             def _on_conn():
                 connected.set()
-                pn   = self._mock_server._part_number if self._mock_server else ""
-                comp = self._mock_server._component   if self._mock_server else ""
+                pn   = mock_ref._part_number
+                comp = mock_ref._component
                 ecu_dict = {
                     "part_number": pn,
                     "component":   comp,
@@ -1247,7 +1312,7 @@ class KWPBridgeWindow(QMainWindow):
             try:
                 client.connect(auto_reconnect=False)
                 # Keep thread alive while mock is running
-                while self._mock_server and self._mock_server.is_running():
+                while mock_ref.is_running():
                     time.sleep(0.5)
                 client.disconnect()
             except Exception as e:
@@ -1330,6 +1395,11 @@ class KWPBridgeWindow(QMainWindow):
         self.btn_clear_faults.setEnabled(True)
         self.btn_fault_window.setEnabled(True)
 
+        # Connect fault signals from worker
+        if self._worker:
+            self._worker.signals.faults_ready.connect(self._on_faults_result)
+            self._worker.signals.faults_cleared.connect(self._on_faults_cleared_result)
+
         # Prime the fault dialog with the new ECU
         if self._fault_dlg:
             self._fault_dlg.set_ecu(pn, comp)
@@ -1366,27 +1436,18 @@ class KWPBridgeWindow(QMainWindow):
         self._fault_dlg.show()
         self._fault_dlg.raise_()
         self._fault_dlg.activateWindow()
-        # Auto-read on first open if connected
-        if self._worker and hasattr(self._worker, '_kwp') and self._worker._kwp:
+        # Auto-read on first open if connected (non-blocking via queue)
+        if self._worker:
             self._fault_dlg._do_read()
 
     def _on_read_faults(self):
         """Request fault codes from connected ECU or mock server."""
         if self._mock_server and self._mock_server.is_running():
-            # Read from mock directly
-            faults = self._mock_server._fault_codes
+            faults = self._mock_server.get_faults()
             self._display_faults(faults)
             return
-        if self._worker and hasattr(self._worker, '_kwp') and self._worker._kwp:
-            try:
-                faults = self._worker._kwp.read_faults()
-                fault_dicts = [f.__dict__ if hasattr(f, '__dict__') else f for f in faults]
-                self._display_faults(fault_dicts)
-                # Forward to fault dialog if open
-                if self._fault_dlg:
-                    self._fault_dlg.load_faults(fault_dicts)
-            except Exception as e:
-                self._set_status(f"Read faults error: {e}", C_AMBER)
+        if self._worker:
+            self._worker.request_read_faults()
 
     def _on_clear_faults(self):
         """Clear stored fault codes (with confirmation if faults exist)."""
@@ -1397,15 +1458,24 @@ class KWPBridgeWindow(QMainWindow):
                 self._fault_dlg.clear_display()
             self._set_status("Faults cleared (mock)", C_GREEN)
             return
-        if self._worker and hasattr(self._worker, '_kwp') and self._worker._kwp:
-            try:
-                self._worker._kwp.clear_faults()
-                self._display_faults([])
-                if self._fault_dlg:
-                    self._fault_dlg.clear_display()
-                self._set_status("Faults cleared", C_GREEN)
-            except Exception as e:
-                self._set_status(f"Clear faults error: {e}", C_AMBER)
+        if self._worker:
+            self._worker.request_clear_faults()
+
+    def _on_faults_result(self, fault_dicts: list):
+        """Slot: worker read faults — update inline strip and dialog."""
+        self._display_faults(fault_dicts)
+        if self._fault_dlg:
+            self._fault_dlg.load_faults(fault_dicts)
+
+    def _on_faults_cleared_result(self, ok: bool):
+        """Slot: worker cleared faults — update display."""
+        if ok:
+            self._display_faults([])
+            if self._fault_dlg:
+                self._fault_dlg.clear_display()
+            self._set_status("Faults cleared", C_GREEN)
+        else:
+            self._set_status("Clear sent — re-read to verify", C_AMBER)
 
     def _display_faults(self, faults: list):
         """Update the inline fault summary strip."""

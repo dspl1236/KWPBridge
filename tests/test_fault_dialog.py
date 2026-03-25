@@ -66,6 +66,8 @@ class _FD:
     _table      = MagicMock()
     _lbl_status = MagicMock()
 
+    _btn_read   = MagicMock()
+
     # Pull the logic methods in directly as unbound functions
     _resolve_description = FaultDialog._resolve_description
     _resolve_pcode       = FaultDialog._resolve_pcode
@@ -75,6 +77,8 @@ class _FD:
     set_worker           = FaultDialog.set_worker
     clear_display        = FaultDialog.clear_display
     _set_status          = FaultDialog._set_status
+    _on_faults_ready     = FaultDialog._on_faults_ready
+    _on_faults_cleared   = FaultDialog._on_faults_cleared
 
 
 def make_dlg():
@@ -82,6 +86,7 @@ def make_dlg():
     d._lbl_ecu   = MagicMock()
     d._lbl_count = MagicMock()
     d._btn_clear = MagicMock()
+    d._btn_read  = MagicMock()
     d._table     = MagicMock()
     d._lbl_status = MagicMock()
     d._faults    = []

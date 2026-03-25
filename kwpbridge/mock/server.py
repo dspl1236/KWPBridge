@@ -241,12 +241,19 @@ class MockServer:
 
     def inject_fault(self, code: int, description: str):
         """Add a fault code to simulate a fault condition."""
-        self._fault_codes.append({
-            "code": code, "description": description, "status": "stored"
-        })
+        with self._lock:
+            self._fault_codes.append({
+                "code": code, "description": description, "status": "stored"
+            })
 
     def clear_faults(self):
-        self._fault_codes.clear()
+        with self._lock:
+            self._fault_codes.clear()
+
+    def get_faults(self) -> list:
+        """Thread-safe accessor — returns a copy of the fault list."""
+        with self._lock:
+            return list(self._fault_codes)
 
     # ── Internal ──────────────────────────────────────────────────────────────
 
@@ -303,9 +310,12 @@ class MockServer:
         log.debug(f"MockServer: command {verb!r}")
 
         if verb == "read_faults":
-            conn.sendall(_make_faults(self._fault_codes))
+            with self._lock:
+                faults_copy = list(self._fault_codes)
+            conn.sendall(_make_faults(faults_copy))
         elif verb == "clear_faults":
-            self._fault_codes.clear()
+            with self._lock:
+                self._fault_codes.clear()
             conn.sendall(_make_faults([]))
         elif verb == "get_state":
             t = time.time()
