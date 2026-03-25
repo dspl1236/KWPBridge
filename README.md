@@ -542,6 +542,20 @@ python -m kwpbridge.mock --ecu 7a        # 7A 20v
 
 ---
 
+## Known Limitations
+
+| Area | Issue | Status |
+|------|-------|--------|
+| **Ignition formula 0x09** | Two-byte formula `(a*256+b)*0.1-100` may not match all ECUs — verify against real data | Needs verification |
+| **Lambda formula 0x27** | Non-standard factor 0.00006104 — verify against ME7 ECU data | Needs verification |
+| **KWP1281 block counter** | Counter not validated on receive — desync goes undetected | TODO |
+| **KWP1281 echo bytes** | Echo bytes from Ross-Tech cables not consumed — may corrupt reads | TODO |
+| **GUI fault read/clear** | Fault operations run on main thread — blocks UI and races with worker | TODO |
+| **Missing formula bytes** | 0x15 (battery V), 0x16 (current), 0x19 (air mass), 0x1A (knock), 0x21 (%) not implemented | TODO |
+| **No GUI tests** | GaugeWidget, KWPBridgeWindow, ConnectionWorker have no headless tests | TODO |
+
+---
+
 ## Related Projects
 
 - [HachiROM](https://github.com/dspl1236/HachiROM) — ROM editor for Hitachi MMS ECUs (7A 20v, AAH V6 12v). Live overlay via KWPBridge.
