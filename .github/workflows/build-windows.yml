@@ -43,7 +43,7 @@ jobs:
         with:
           name: KWPBridge-windows-${{ github.sha }}
           path: dist\KWPBridge.exe
-          retention-days: 30
+          retention-days: 7
 
   release:
     needs: build-exe
