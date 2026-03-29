@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          pip install pyserial pyqt5 pyinstaller pytest pytest-timeout
+
+      - name: Run tests
+        run: pytest tests/ -q --timeout=10
+
+      - name: Build EXE
+        run: pyinstaller kwpbridge.spec
+
+      - name: Verify EXE
+        run: if not exist dist\KWPBridge.exe (echo MISSING && exit /b 1)
+        shell: cmd
+
+      - name: Create release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release delete latest --yes 2>/dev/null || true
+          git push origin :refs/tags/latest 2>/dev/null || true
+          gh release create latest \
+            --title "KWPBridge — Latest Build" \
+            --notes "KWP1281 diagnostic bridge for VAG vehicles. Download and run." \
+            dist/KWPBridge.exe

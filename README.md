@@ -1,6 +1,6 @@
 # KWPBridge
 
-[![CI](https://github.com/dspl1236/KWPBridge/actions/workflows/ci.yml/badge.svg)](https://github.com/dspl1236/KWPBridge/actions/workflows/ci.yml)
+[![CI](https://github.com/dspl1236/KWPBridge/actions/workflows/build.yml/badge.svg)](https://github.com/dspl1236/KWPBridge/actions/workflows/build.yml)
 [![Download](https://img.shields.io/github/v/release/dspl1236/KWPBridge?label=Download&logo=windows)](https://github.com/dspl1236/KWPBridge/releases/latest/download/KWPBridge.exe)
 
 > **⚠ Work in Progress — Use at Your Own Risk**
