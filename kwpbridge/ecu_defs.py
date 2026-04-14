@@ -783,3 +783,231 @@ ECU_ME7_AWP = ECUDef(
 
 # Update registry
 ALL_ECU_DEFS.append(ECU_ME7_AWP)
+
+
+# ── Bosch MED9.1 — VR6 3.6L FSI (03H-906-032 family) ────────────────────────
+# Measuring blocks confirmed from 06F-906-056-BLR.lbl (BLR 2.0 FSI shares same
+# block layout as MED9.1 VR6) and 1K090711S_Definition__1_.xdf
+#
+# Transport: KWP2000 over TP2.0 (VAG CAN transport protocol)
+#   — NOT ISO 14230 K-line. Requires CAN interface, not KKL cable.
+#   — ECU CAN physical address: 0x01
+#   — TP2.0 channel setup on CAN, then KWP2000 service requests inside
+#
+# Security access (confirmed from EliasTuning/MED9RamReader):
+#   Level 1 READ  (service 0x27 0x01/0x02):  key = (seed + 0x11170) & 0xFFFFFFFF
+#   Level 1 WRITE (service 0x27 0x01, SA2):  5-round rotate-left XOR 0x5FBD5DBD
+#
+# Flash pipeline: LZSS compress → XOR key "RobertCode" → KWP2000 download
+#
+# Note: Current KWPBridge supports K-line only. MED9.1 requires a future
+# TP2.0/CAN transport layer. SA key functions are documented here for when
+# CAN support is added. See kwpbridge/security.py in MED9Tool for implementations.
+
+_MED91_GROUPS: dict[int, dict[int, str]] = {
+    1:  {1: "Engine Speed",          2: "Coolant Temperature",
+         3: "Lambda Control B1",     4: "Lambda Control B2"},
+    2:  {1: "Engine Speed",          2: "Engine Load",
+         3: "Injection Pulse Width", 4: "Intake Manifold Pressure"},
+    3:  {1: "Engine Speed",          2: "Intake Manifold Pressure",
+         3: "Throttle Valve Angle",  4: "Ignition Timing Angle"},
+    4:  {1: "Engine Speed",          2: "Battery Voltage",
+         3: "Coolant Temperature",   4: "Intake Air Temperature"},
+    5:  {1: "Engine Speed",          2: "Engine Load",
+         3: "Vehicle Speed",         4: "Load Status"},
+    6:  {1: "Engine Speed",          2: "Engine Load",
+         3: "Intake Air Temperature", 4: "Altitude Correction"},
+    7:  {1: "Engine Speed",          2: "Engine Load",
+         3: "Coolant Temperature",   4: "Operating Mode"},
+    10: {1: "Engine Speed",          2: "Engine Load",
+         3: "Throttle Valve Angle",  4: "Ignition Timing Angle"},
+    11: {1: "Engine Speed",          2: "Coolant Temperature",
+         3: "Intake Air Temperature", 4: "Ignition Advance"},
+    14: {1: "Engine Speed",          2: "Engine Load",
+         3: "Misfire Counter",       4: "Misfire Recognition"},
+    15: {1: "Misfire Cyl 1",         2: "Misfire Cyl 2",
+         3: "Misfire Cyl 3",         4: "Misfire Recognition"},
+    16: {1: "Misfire Cyl 4",         2: "Misfire Cyl 5",
+         3: "Misfire Cyl 6",         4: "Misfire Recognition"},
+    20: {1: "Knock Retard Cyl 1",    2: "Knock Retard Cyl 2",
+         3: "Knock Retard Cyl 3",    4: "Knock Retard Cyl 4"},
+    21: {1: "Knock Retard Cyl 5",    2: "Knock Retard Cyl 6"},
+    22: {1: "Engine Speed",          2: "Engine Load",
+         3: "Knock Retard Cyl 1",    4: "Knock Retard Cyl 2"},
+    23: {1: "Engine Speed",          2: "Engine Load",
+         3: "Knock Retard Cyl 3",    4: "Knock Retard Cyl 4"},
+    24: {1: "Engine Speed",          2: "Engine Load",
+         3: "Knock Retard Cyl 5",    4: "Knock Retard Cyl 6"},
+    30: {1: "O2 Sensor B1S1 Status", 2: "O2 Sensor B1S2 Status",
+         3: "O2 Sensor B2S1 Status", 4: "O2 Sensor B2S2 Status"},
+    31: {1: "O2 Voltage B1S1",       2: "O2 Voltage B1S2"},
+    32: {1: "Lambda Idle Adapt B1",  2: "Lambda Partial Adapt B1",
+         3: "Lambda Idle Adapt B2",  4: "Lambda Partial Adapt B2"},
+    33: {1: "Lambda Controller B1",  2: "O2 Sensor B1S1 Voltage",
+         3: "Lambda Controller B2",  4: "O2 Sensor B2S1 Voltage"},
+    34: {1: "Engine Speed",          2: "Cat Temperature B1",
+         3: "Lambda Period Duration", 4: "Lambda Aging B1"},
+    36: {1: "O2 Sensor B1S2 Voltage", 2: "Lambda Availability B1",
+         3: "O2 Sensor B2S2 Voltage", 4: "Lambda Availability B2"},
+    38: {1: "Engine Load",           2: "Sensor Voltage",
+         3: "Cam Adjustment",        4: "Cam Adjustment Result"},
+    41: {1: "Engine Speed",          2: "Engine Load",
+         3: "Injector Bank 1",       4: "Injector Bank 2"},
+    43: {1: "Engine Speed",          2: "Engine Load",
+         3: "Injector Cyl 1",        4: "Injector Cyl 2"},
+    46: {1: "Engine Speed",          2: "Engine Load",
+         3: "Injector Cyl 3",        4: "Injector Cyl 4"},
+    47: {1: "Engine Speed",          2: "Engine Load",
+         3: "Injector Cyl 5",        4: "Injector Cyl 6"},
+    50: {1: "Engine Speed",          2: "ST Fuel Trim B1",
+         3: "LT Fuel Trim B1",       4: "LT Fuel Trim B2"},
+    54: {1: "Engine Speed",          2: "Engine Load",
+         3: "O2 Voltage B1S1",       4: "O2 Voltage B1S2"},
+    60: {1: "Throttle Valve Sensor 1", 2: "Throttle Valve Sensor 2",
+         3: "Throttle Learn Step",   4: "Throttle Adaptation Status"},
+    61: {1: "Engine Speed",          2: "Battery Voltage",
+         3: "Throttle Valve Angle",  4: "Operating Condition"},
+    62: {1: "Throttle Sensor 1",     2: "Throttle Sensor 2",
+         3: "Accel Pedal Position 1", 4: "Accel Pedal Position 2"},
+    70: {1: "Engine Speed",          2: "Engine Load",
+         3: "Cat Temp B1",           4: "Cat Temp B2"},
+    77: {1: "Engine Speed",          2: "Engine Load",
+         3: "EGR Valve Position",    4: "EGR Duty Cycle"},
+    89: {1: "Engine Speed",          2: "Coolant Temperature",
+         3: "Engine Load",           4: "Barometric Pressure"},
+    90: {1: "Engine Speed",          2: "Cam Adjust B1 Intake",
+         3: "Cam Adjust B1 Exhaust", 4: "Cam Adjust B2 Intake"},
+    91: {1: "Engine Speed",          2: "Cam Adjust B2 Exhaust",
+         3: "Cam Adjust Status",     4: "Cam Phase"},
+    99: {1: "Engine Speed",          2: "Coolant Temperature",
+         3: "Lambda Control B1",     4: "Lambda Control B2"},
+    # MED9.1 TFSI-specific: high-pressure fuel system
+    100: {1: "Readiness Code",       2: "Coolant Temperature",
+          3: "Time Since Start",     4: "OBD Status"},
+    101: {1: "Engine Speed",         2: "Engine Load",
+          3: "Injection Pulse Width", 4: "Rail Pressure Actual"},
+    102: {1: "Engine Speed",         2: "Coolant Temperature",
+          3: "Intake Air Temp",      4: "Injection Timing"},
+    103: {1: "HPFP Current",         2: "Fuel Rail Pressure",
+          3: "LPFP Adaptation",      4: "Fuel Pump Adapt Status"},
+    106: {1: "Fuel Rail Pressure",   2: "Low Pressure Pump",
+          4: "Fuel Pump Duty Cycle"},
+    114: {1: "Engine Speed",         2: "Engine Load",
+          3: "Boost Pressure Actual", 4: "Boost Pressure Setpoint"},
+}
+
+_MED91_FAULTS: dict[int, str] = {
+    # Lambda / O2 sensors (6-cylinder — two banks)
+    16486: "O2 Sensor B1S1 — Signal too low",
+    16487: "O2 Sensor B1S1 — Signal too high",
+    16490: "O2 Sensor B2S1 — Signal too low",
+    16491: "O2 Sensor B2S1 — Signal too high",
+    16496: "O2 Sensor B1S2 — Response too slow",
+    16500: "O2 Sensor B2S2 — Response too slow",
+    16514: "O2 Sensor B1S1 — Heater circuit",
+    16515: "O2 Sensor B1S2 — Heater circuit",
+    16518: "O2 Sensor B2S1 — Heater circuit",
+    16519: "O2 Sensor B2S2 — Heater circuit",
+    16555: "Lambda regulation B1 — Control limit reached",
+    16556: "Lambda regulation B1 — Adaptation out of range",
+    16557: "Lambda regulation B2 — Control limit reached",
+    16558: "Lambda regulation B2 — Adaptation out of range",
+    # Throttle / load
+    16485: "MAF Sensor — Signal out of range",
+    16504: "Throttle Sensor G69 — Range/performance",
+    17535: "Throttle Valve Adaptation — Not completed",
+    17536: "Throttle Valve Adaptation — Error",
+    # Fuel system (HPFP/LPFP — MED9.1 GDI specific)
+    16684: "Fuel trim B1 — System too lean",
+    16685: "Fuel trim B1 — System too rich",
+    16686: "Fuel trim B2 — System too lean",
+    16687: "Fuel trim B2 — System too rich",
+    17520: "Fuel pressure regulation — Limit reached",
+    18136: "Fuel pressure — Too low (high pressure)",
+    18137: "Fuel pressure — Too high (high pressure)",
+    18138: "HPFP — Volume control valve fault",
+    # Knock sensors
+    16716: "Knock Sensor 1 G61 — Signal out of range",
+    16717: "Knock Sensor 2 G66 — Signal out of range",
+    16718: "Knock Sensor 3 — Signal out of range",
+    16719: "Knock Sensor 4 — Signal out of range",
+    # Temperature sensors
+    16603: "ECT Sensor G62 — Signal out of range",
+    16604: "IAT Sensor G42 — Signal out of range",
+    16618: "Oil Temperature Sensor G8 — Signal out of range",
+    # Injectors (6 cylinders)
+    17523: "Injector Cyl 1 N30 — Open/short",
+    17524: "Injector Cyl 2 N31 — Open/short",
+    17525: "Injector Cyl 3 N32 — Open/short",
+    17526: "Injector Cyl 4 N33 — Open/short",
+    17527: "Injector Cyl 5 N83 — Open/short",
+    17528: "Injector Cyl 6 N84 — Open/short",
+    # Camshaft
+    16725: "Engine Speed Sensor G28 — No signal",
+    16766: "Camshaft Sensor B1 G40 — Signal out of range",
+    16770: "Camshaft Sensor B2 G163 — Signal out of range",
+    17094: "Camshaft Adjustment B1 — Control limit reached",
+    17095: "Camshaft Adjustment B2 — Control limit reached",
+    # Misfire
+    17740: "Random/Multiple Cylinder Misfire",
+    17741: "Cylinder 1 Misfire",
+    17742: "Cylinder 2 Misfire",
+    17743: "Cylinder 3 Misfire",
+    17744: "Cylinder 4 Misfire",
+    17745: "Cylinder 5 Misfire",
+    17746: "Cylinder 6 Misfire",
+    # Catalyst
+    16804: "Catalyst efficiency below threshold B1",
+    16805: "Catalyst efficiency below threshold B2",
+    # Evap / emissions
+    16839: "EVAP system — Large leak",
+    16840: "EVAP system — Small leak",
+    # Immobiliser (Bosch Immo4 via CAN)
+    17053: "Immobiliser — No CAN communication with instrument cluster",
+    17054: "Immobiliser — Wrong transponder code",
+    17055: "Immobiliser — Anti-start active",
+    # Generic
+    0:     "No fault codes stored",
+}
+
+ECU_MED91_VR6 = ECUDef(
+    part_numbers   = [
+        # Cayenne / Touareg / Q7 — 3.6L VR6 M55.01
+        "03H906032BE", "03H906032BG", "03H906032CA", "03H906032DA",
+        "03H906032EK", "03H906032L",  "03H906032DQ",
+        # Golf R32 MK5 / Audi TT 3.2 — BUB 3.2L VR6
+        "03H906026",
+        # Golf V 2.0 TFSI / A3 2.0 TFSI — EA113 (same ECU hardware)
+        "1K0907115S", "1K0907115C", "1K0907115F", "1K0907115L",
+        "1K8907115F", "1K8907115L",
+        # General MED9.1 fallback
+        "03H906032", "1K0907115",
+    ],
+    name           = "Bosch MED9.1 — VR6/TFSI (03H906032 / 1K0907115)",
+    address        = 0x01,
+    baud           = 0,          # N/A — CAN bus transport, not K-line baud rate
+    groups         = _MED91_GROUPS,
+    faults         = _MED91_FAULTS,
+    basic_settings = {
+        60:  "Throttle body adaptation — engine warm, ignition on, foot off pedal",
+        34:  "Lambda sensor aging check — requires cat temp >350°C",
+    },
+    notes          = (
+        "Bosch MED9.1 — PowerPC MPC5554, 2MB flash, big-endian. "
+        "Transport: KWP2000 over TP2.0 (VAG CAN), NOT K-line. "
+        "CAN physical address: 0x01 (engine ECU). "
+        "Requires CAN interface (e.g. PCAN, SocketCAN) — KKL cable NOT compatible. "
+        "Security access READ: key = (seed + 0x00011170) & 0xFFFFFFFF. "
+        "Security access WRITE (SA2): 5-round rotate-left XOR 0x5FBD5DBD. "
+        "Flash XOR key: 'RobertCode' (LZSS compressed, then XOR'd). "
+        "EEPROM immo byte: 0x59 in EEPROM dump (block_reserved1 +25). "
+        "Measuring blocks: KWP2000 readDataByLocalIdentifier (0x21) + group num. "
+        "VR6 variants: 03H906032xx = Cayenne/Touareg/Q7/Golf R32. "
+        "TFSI variants: 1K0907115xx = Golf V 2.0 TFSI / A3 2.0 TFSI. "
+        "Label file: labels/engine/06F-906-056-BLR.lbl (closest available). "
+        "NOTE: TP2.0 CAN transport not yet implemented in KWPBridge. "
+        "Use EliasTuning/MED9RamReader for live CAN access."
+    ),
+)
+
+ALL_ECU_DEFS.append(ECU_MED91_VR6)

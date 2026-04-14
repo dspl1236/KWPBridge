@@ -13,7 +13,7 @@ Architecture:
   HachiROM / UrROM / digital dash / logger (any number of clients)
 """
 
-__version__ = "0.9.8"
+__version__ = "0.9.9"
 __all__ = [
     "KWP1281",
     "KWP2000",
