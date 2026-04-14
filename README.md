@@ -24,7 +24,7 @@ blocks and fault codes, and broadcasts everything over a local TCP socket so
 any number of tools can consume it simultaneously — ROM editors, dashboards,
 data loggers — without each needing their own serial port connection.
 
-Supports two protocols:
+Supports two protocols over K-line:
 
 - **KWP1281** — pre-2002 VAG: Hitachi MMS (7A 20v, AAH V6), Digifant
   (G60/G40), Motronic 2.x (2.0 8v), Bosch M2.3.2 (AAN/ABY/ADU 20vT)
@@ -33,6 +33,15 @@ Supports two protocols:
 Protocol is **auto-detected by default** — KWPBridge tries KWP1281 first,
 then KWP2000, in the same order VCDS uses. Override with `--protocol` when
 you already know the ECU.
+
+> **MED9.1 (03H906032 / 1K0907115) — documented, transport not yet
+> implemented.** The Bosch MED9.1 ECU uses KWP2000 messages over **TP2.0
+> CAN**, not over K-line. KKL cables are not compatible. MED9.1 ECU
+> definitions (measuring blocks, fault codes, security access) are present
+> in this release for when the CAN transport layer lands. Live connection
+> to MED9.1 ECUs requires a CAN interface (SocketCAN / PCAN) and a future
+> KWPBridge update. Use [EliasTuning/MED9RamReader](https://github.com/EliasTuning/MED9RamReader)
+> in the meantime.
 
 ---
 
@@ -60,7 +69,7 @@ owns the serial port; all clients just subscribe over TCP.
 
 ## Supported ECUs
 
-### KWP1281 — pre-2002 VAG
+### KWP1281 — pre-2002 VAG (K-line, KKL cable)
 
 | ECU | Platform | Engine | Vehicle |
 |-----|----------|--------|---------|
@@ -74,17 +83,35 @@ owns the serial port; all clients just subscribe over TCP.
 | 895-907-551-A | Bosch M2.3.2 | ABY 20vT 230hp | Audi S2 Coupe/Avant |
 | 4A0-907-551-C | Bosch M2.3.2 | ADU 20vT 315hp | Audi RS2 Avant |
 
-### KWP2000 / ISO 14230 — post-2001 VAG
+### KWP2000 / ISO 14230 — post-2001 VAG (K-line, KKL cable)
 
 | ECU | Platform | Engine | Vehicle |
 |-----|----------|--------|---------|
 | 06A-906-032-BN/BH/BD/BG/BF/BE/BB | Bosch ME7.5 | AWP 1.8T 180hp | Audi TT 225 / Golf 4 GTI / Jetta GLI |
 | 06A-906-032-AY/AX/AS | Bosch ME7.5 | AUM 1.8T 150hp | Audi A3 / Golf 4 |
 | 06A-906-032-GD/GC/KL/KN | Bosch ME7.5 | AUQ 1.8T 180hp | Audi A3 / Seat Leon / Skoda |
-| 06A-906-032-HS/GF/GG/EB | Bosch ME7.5 | BAM 1.8T 180hp | Audi TT / VW Golf 4 |
+| 06A-906-032-HS/GF/GG/EB | Bosch ME7.5 | BAM/AWW 1.8T | Audi TT / VW Golf 4 |
 | 06A-906-032 | Bosch ME7.5 | AWP/AUM/AUQ/BAM | Root PN — accepts all variants |
 
 Additional ME7 part numbers are resolved via root PN fallback. Total: 19 known part numbers.
+
+### KWP2000 over TP2.0 CAN — documented, transport not yet implemented
+
+> These ECUs are **defined** in KWPBridge (measuring blocks, fault codes,
+> security access keys) but require a CAN transport layer that is not yet
+> built. KKL cables are not compatible. Listed here for future reference.
+
+| ECU | Platform | Engine | Vehicle |
+|-----|----------|--------|---------|
+| 03H-906-032-BE/BG/CA/DA/EK/L/DQ | Bosch MED9.1 | VR6 3.6L FSI | Porsche Cayenne / VW Touareg / Q7 |
+| 03H-906-026 | Bosch MED9.1 | BUB 3.2L VR6 | VW Golf R32 MK5 / Audi TT 3.2 |
+| 1K0-907-115-S/C/F/L | Bosch MED9.1 | EA113 2.0 TFSI | VW Golf V 2.0 TFSI / Audi A3 |
+| 1K8-907-115-F/L | Bosch MED9.1 | EA113 2.0 TFSI | VW Golf VI 2.0 TFSI |
+
+MED9.1 live access: CAN address 0x01, TP2.0 transport, KWP2000 service layer.
+Security access READ: `key = (seed + 0x11170) & 0xFFFFFFFF`.
+Security access WRITE (SA2): 5-round rotate-left XOR `0x5FBD5DBD`.
+For offline ROM editing, see [MED9Tool](https://github.com/dspl1236/MED9Tool).
 
 ---
 
@@ -93,6 +120,9 @@ Additional ME7 part numbers are resolved via root PN fallback. Total: 19 known p
 **You need a cable that creates a virtual COM port.** Ross-Tech HEX-V2
 cables do NOT work — they use a proprietary USB protocol that only VCDS
 can talk to. Use a generic FTDI-based KKL cable instead (~$15 on Amazon).
+
+**MED9.1 ECUs require a CAN interface, not a KKL cable.** See the
+TP2.0/CAN section above.
 
 | Cable | `--cable` flag | Notes |
 |-------|---------------|-------|
@@ -142,7 +172,7 @@ python -m kwpbridge --port COM3 --protocol kwp1281 --groups 1 2 3 4 8
 ### Protocol flags
 
 | Flag | Behaviour |
-|------|-----------| 
+|------|-----------|
 | `--protocol auto` | Try KWP1281 first, then KWP2000. **Default.** |
 | `--protocol kwp1281` | Force KWP1281 (5-baud slow init). Pre-2002 VAG. |
 | `--protocol kwp2000` | Force KWP2000 (ISO14230 fast init). ME7+ / post-2001 VAG. |
@@ -248,6 +278,18 @@ met. Bit 0 = coolant < 80°C, Bit 1 = RPM < 2000, Bit 2 = throttle closed,
 Bit 3 = lambda regulation correct, Bit 4 = idle state, Bit 5 = A/C off,
 Bit 6 = catalyst > 350°C, Bit 7 = no faults.
 
+### Bosch MED9.1 — VR6/TFSI (KWP2000 over TP2.0 CAN) — definitions only
+
+> **Live CAN connection not yet implemented.** The following measuring
+> block definitions are embedded in `ecu_defs.py` and will be available
+> for display once the TP2.0 transport layer is added.
+
+45 measuring groups defined (1–114), covering: engine speed/load/lambda
+dual-bank, 6-cylinder knock retard, dual camshaft adjustment, HPFP/LPFP
+rail pressure, boost pressure setpoint/actual. 59 fault codes including
+6-cylinder injectors/misfires, dual-bank O2/catalyst, HPFP, and Bosch
+Immo4 CAN DTCs.
+
 ---
 
 ## Protocol Auto-Detection
@@ -293,7 +335,7 @@ KWPBridge listens on `127.0.0.1:50266`. All messages are newline-delimited JSON.
 ### Server → Client
 
 ```json
-{"type": "connected", "version": "0.9.2"}
+{"type": "connected", "version": "0.9.9"}
 
 {"type": "state", "data": {
   "connected": true,
@@ -496,6 +538,7 @@ Key bundled files for supported ECUs:
 | `labels/engine/06A-906-032-AWP.lbl` | ME7.5 AWP | Full group set, basic setting, coding |
 | `labels/engine/06A-906-032-BAM.lbl` | ME7.5 BAM | BAM 1.8T variant |
 | `labels/engine/06A-906-032-AUM.lbl` | ME7.5 AUM | AUM 1.8T 150hp |
+| `labels/engine/06F-906-056-BLR.lbl` | MED9.1 BLR (closest) | Groups 1–114, used for MED9.1 display |
 
 Add custom label files with `--labels-path /path/to/labels/`. The registry
 searches subdirectories and follows `REDIRECT` directives.
@@ -508,7 +551,7 @@ searches subdirectories and follows `REDIRECT` directives.
 git clone https://github.com/dspl1236/KWPBridge
 cd KWPBridge
 pip install -e ".[dev]"
-pytest tests/          # 106 tests
+pytest tests/          # 153 tests
 ```
 
 Run the GUI without a cable:
@@ -546,6 +589,7 @@ python -m kwpbridge.mock --ecu 7a        # 7A 20v
 
 | Area | Issue | Status |
 |------|-------|--------|
+| **MED9.1 live connection** | KWP2000 over TP2.0 CAN not yet implemented — requires CAN interface, not KKL cable | Planned |
 | **Ignition formula 0x09** | Two-byte formula `(a*256+b)*0.1-100` may not match all ECUs — verify against real data | Needs verification |
 | **Lambda formula 0x27** | Non-standard factor 0.00006104 — verify against ME7 ECU data | Needs verification |
 | **KWP1281 block counter** | Counter not validated on receive — desync goes undetected | TODO |
@@ -558,9 +602,11 @@ python -m kwpbridge.mock --ecu 7a        # 7A 20v
 
 ## Related Projects
 
+- [MED9Tool](https://github.com/dspl1236/MED9Tool) — ROM editor for Bosch MED9.1 (03H906032 / 1K0907115). Immo-off, speed remove, emissions, presets, signature-based address finder.
 - [HachiROM](https://github.com/dspl1236/HachiROM) — ROM editor for Hitachi MMS ECUs (7A 20v, AAH V6 12v). Live overlay via KWPBridge.
 - [UrROM](https://github.com/dspl1236/UrROM) — ROM editor for Bosch M2.3.2 (AAN/ABY/ADU 20vT). Live overlay via KWPBridge.
 - [DigiTool](https://github.com/dspl1236/DigiTool) — ROM editor for Digifant G60/G40.
+- [TriCoreTool](https://github.com/dspl1236/TriCoreTool) — ROM editor for Bosch MED17/EDC17 (TriCore platform, modern VAG).
 - [audi90-teensy-ecu](https://github.com/dspl1236/audi90-teensy-ecu) — Teensy 4.1 EPROM emulator / map switcher for Bosch M2.3.2.
 
 ---

@@ -23,6 +23,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip setuptools wheel
           pip install pyserial pyqt5 pyinstaller pytest pytest-timeout
+          pip install -e .
 
       - name: Run tests
         run: pytest tests/ -q --timeout=10
